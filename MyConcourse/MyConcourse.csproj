@@ -49,23 +49,32 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.7.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.7.2\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.8.1\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.7.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.7.2\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.8.1\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.7.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.7.2\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.8.1\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AI.Web, Version=2.7.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.7.2\lib\net45\Microsoft.AI.Web.dll</HintPath>
+    <Reference Include="Microsoft.AI.Web, Version=2.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.8.1\lib\net45\Microsoft.AI.Web.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AI.WindowsServer, Version=2.7.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.7.2\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.8.1\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.ApplicationInsights, Version=2.7.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ApplicationInsights.2.7.2\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.8.1\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Client, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Client.2.4.0\lib\net45\Microsoft.AspNet.SignalR.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.4.0\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.4.0\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.TelemetryCorrelation, Version=1.0.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.4\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
@@ -239,6 +248,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DiscussionBoardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -295,7 +305,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Ang6\src\app\app.component.css" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\Angular\favicon.ico" />
     <Content Include="Content\Angular\index.html" />
@@ -738,6 +747,7 @@
     <Content Include="Content\Tabler\plugins\prismjs\plugin.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <None Include="FrontendClient\Ang6\src\app\Components\LoginComponent\login.component.html" />
     <Content Include="Global.asax" />
     <Content Include="Models\ConcourseDBEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -791,40 +801,6 @@
     <Content Include="Content\Tabler\fonts\feather\feather-webfont.woff" />
     <Content Include="Content\Tabler\fonts\feather\feather-webfont.ttf" />
     <Content Include="Content\Tabler\fonts\feather\feather-webfont.eot" />
-    <None Include="Ang6\src\app\app.component.html" />
-    <None Include="Ang6\src\app\app.component.spec.ts" />
-    <None Include="Ang6\src\app\app.component.ts" />
-    <None Include="Ang6\src\app\app.module.ts" />
-    <None Include="Ang6\src\app\Components\DashboardComponent\dashboard.component.html" />
-    <None Include="Ang6\src\app\Components\DashboardComponent\dashboard.component.js.map" />
-    <None Include="Ang6\src\app\Components\DashboardComponent\dashboard.component.ts" />
-    <None Include="Ang6\src\app\Components\GeneralComponents\FooterComponent\footer.component.html" />
-    <None Include="Ang6\src\app\Components\GeneralComponents\FooterComponent\footer.component.ts" />
-    <None Include="Ang6\src\app\Components\GeneralComponents\NavbarComponent\navbar.component.html" />
-    <None Include="Ang6\src\app\Components\GeneralComponents\NavbarComponent\navbar.component.ts" />
-    <None Include="Ang6\src\app\Components\GeneralComponents\NavbarHomeComponent\navbarhome.component.html" />
-    <None Include="Ang6\src\app\Components\GeneralComponents\NavbarHomeComponent\navbarhome.component.ts" />
-    <None Include="Ang6\src\app\Components\GeneralComponents\SubNavbarComponent\subnavbar.component.html" />
-    <None Include="Ang6\src\app\Components\GeneralComponents\SubNavbarComponent\subnavbar.component.ts" />
-    <None Include="Ang6\src\app\Components\HomeComponent\home.component.html" />
-    <None Include="Ang6\src\app\Components\HomeComponent\home.component.ts" />
-    <None Include="Ang6\src\app\Components\index.ts" />
-    <None Include="Ang6\src\app\Components\LoginComponent\login.component.html" />
-    <None Include="Ang6\src\app\Components\LoginComponent\login.component.ts" />
-    <None Include="Ang6\src\app\Components\RegisterComponent\register.component.html" />
-    <None Include="Ang6\src\app\Components\RegisterComponent\register.component.ts" />
-    <None Include="Ang6\src\app\Models\authuser.model.ts" />
-    <None Include="Ang6\src\app\Routes\app.routing.js.map" />
-    <None Include="Ang6\src\app\Routes\app.routing.ts" />
-    <None Include="Ang6\src\app\Services\index.js.map" />
-    <None Include="Ang6\src\app\Services\index.ts" />
-    <None Include="Ang6\src\app\Services\UserService\user.service.js.map" />
-    <None Include="Ang6\src\app\Services\UserService\user.service.ts" />
-    <Content Include="Content\Angular\main.js.map" />
-    <Content Include="Content\Angular\polyfills.js.map" />
-    <Content Include="Content\Angular\runtime.js.map" />
-    <Content Include="Content\Angular\styles.js.map" />
-    <Content Include="Content\Angular\vendor.js.map" />
     <EntityDeploy Include="Models\ConcourseDBEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ConcourseDBEntities.Designer.cs</LastGenOutput>
@@ -832,6 +808,11 @@
     <Content Include="Models\ConcourseDBEntities.edmx.diagram">
       <DependentUpon>ConcourseDBEntities.edmx</DependentUpon>
     </Content>
+    <Content Include="Content\Angular\main.js.map" />
+    <Content Include="Content\Angular\polyfills.js.map" />
+    <Content Include="Content\Angular\runtime.js.map" />
+    <Content Include="Content\Angular\styles.js.map" />
+    <Content Include="Content\Angular\vendor.js.map" />
     <None Include="Properties\PublishProfiles\myconcourse - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -839,6 +820,8 @@
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.signalR-2.4.0.js" />
+    <Content Include="Scripts\jquery.signalR-2.4.0.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -897,10 +880,6 @@
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Ang6\src\app\Guards\Auth\auth.guard.ts" />
-    <None Include="Ang6\src\app\Guards\index.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

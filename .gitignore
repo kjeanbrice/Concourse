@@ -1,4 +1,5 @@
-.vs
-packages
-./Ang5
-./Ang6/node_modules
+.vs/
+/packages/
+/MyConcourse/Ang5/
+/MyConcourse/Ang6/node_modules/
+/MyConcourse/obj/

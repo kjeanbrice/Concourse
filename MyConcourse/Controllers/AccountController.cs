@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
@@ -326,7 +327,29 @@ namespace MyConcourse.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+               // string errors = "";
+                
+                ICollection<string> key_results = ModelState.Keys;
+                if(key_results.Count == 0)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                var modelErrors = new List<string>();
+                foreach (var modelState in ModelState.Values)
+                {
+                    foreach (var modelError in modelState.Errors)
+                    {
+                        modelErrors.Add(modelError.ErrorMessage);
+                    }
+                }
+
+                StringBuilder errors = new StringBuilder();
+                for(int i = 0; i<modelErrors.Count; i++)
+                {
+                    errors.AppendLine(modelErrors[i]);
+                }
+                return BadRequest(errors.ToString());
             }
 
             var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
@@ -335,7 +358,16 @@ namespace MyConcourse.Controllers
 
             if (!result.Succeeded)
             {
-                return GetErrorResult(result);
+                IEnumerable<string> error_list = result.Errors;
+                IEnumerator<string> error_list_enum = error_list.GetEnumerator();
+                StringBuilder errors = new StringBuilder();
+                while (error_list_enum.MoveNext())
+                {
+                    errors.Append(error_list_enum.Current);
+                }
+
+
+                return BadRequest(errors.ToString());
             }
 
             return Ok();

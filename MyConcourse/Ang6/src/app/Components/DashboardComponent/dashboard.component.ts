@@ -5,6 +5,7 @@ import { NavbarComponent, SubNavbarComponent } from '../index';
   selector: 'dashboard',
   templateUrl: './dashboard.component.html'
 })
+
 export class DashboardComponent {
 
 }

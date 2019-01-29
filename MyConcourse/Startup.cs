@@ -13,6 +13,8 @@ namespace MyConcourse
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
+           
+            
         }
     }
 }

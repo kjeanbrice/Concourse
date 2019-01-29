@@ -21,5 +21,7 @@ namespace MyConcourse.Models
         public Nullable<int> IsDeleted { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
+
+        public DiscussionBoard() { }
     }
 }

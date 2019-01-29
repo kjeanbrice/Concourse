@@ -1,0 +1,46 @@
+<div class="page">
+  <div class="page-single">
+    <div class="container">
+      <div class="row">
+        <div class="col col-login mx-auto">
+          <div class="text-center mb-6">
+            <img src="./demo/brand/tabler.svg" class="h-6" alt="">
+          </div>
+          <form class="card" action="javascript:void(0);" method="post">
+            <div class="card-body p-6">
+              <div class="card-title">Create new account</div>
+              <div class="form-group">
+                <label class="form-label">Email address</label>
+                <input id = "input-email" type="email" class="form-control" placeholder="Enter email" (input) = "onUpdate($event)" (keyup) = "onUpdate($event)" >
+                <div id="lbl-error-email" class="invalid-feedback">{{error_email}}</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Password</label>
+                <input id="input-password" type="password" class="form-control" placeholder="Password" (input) = "onUpdate($event)" (keyup) = "onUpdate($event)">
+                <div id="lbl-error-password" class="invalid-feedback">{{error_password}}</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Confirm Password</label>
+                <input id="input-confirm-password"type="password" class="form-control" placeholder="Password" (input) = "onUpdate($event)" (keyup) = "onUpdate($event)">
+                <div id="lbl-error-confirm-password" class="invalid-feedback">{{error_confirm_password}}</div>
+              </div>
+              <div class="form-group">
+                <label class="custom-control custom-checkbox">
+                  <input id = "input-agree" (change) = "onUpdate($event)" type="checkbox" class="custom-control-input" />
+                  <span class="custom-control-label">Agree the <a href="terms.html">terms and policy</a></span>
+                  <div id="lbl-error-policy" class="invalid-feedback">{{error_terms_policy}}</div>
+                </label>
+              </div>
+              <div class="form-footer">
+                <button id="btn-register" type="submit" class="btn btn-primary btn-block">Create new account</button>
+              </div>
+            </div>
+          </form>
+          <div class="text-center text-muted">
+            Already have account? <a routerLink="/login">Sign in</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
