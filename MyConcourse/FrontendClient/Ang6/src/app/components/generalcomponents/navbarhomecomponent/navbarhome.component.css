@@ -1,0 +1,43 @@
+.header{
+    background:none !important;
+    border-bottom: none !important;
+}
+
+body{
+    background-color: white !important;
+}
+nav {
+    text-align: right;
+}
+
+nav a {
+    text-decoration: none;
+    color: #495057;
+    font-size: 19px;
+    font-weight: 700;
+}
+
+nav a:first-child {
+    float: left;
+}
+
+.avatar{
+    background-color: #2B9DFF !important;
+}
+
+nav a img{
+    vertical-align: middle;
+}
+
+nav a span{
+    background-color: #2B9DFF;
+    padding: 5px 15px;
+    border-radius: 1000px;
+    font-weight: 100;
+    color: white;
+    margin-left: 7;
+}
+
+.nav-padding{
+    padding: 0 5% 0 5%;
+}

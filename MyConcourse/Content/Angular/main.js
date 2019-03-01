@@ -195,6 +195,17 @@ var DashboardComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/components/generalComponents/navbarhomecomponent/navbarhome.component.css":
+/*!*******************************************************************************************!*\
+  !*** ./src/app/components/generalComponents/navbarhomecomponent/navbarhome.component.css ***!
+  \*******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".header{\r\n    background:none !important;\r\n    border-bottom: none !important;\r\n}\r\n\r\nbody{\r\n    background-color: white !important;\r\n}\r\n\r\nnav {\r\n    text-align: right;\r\n}\r\n\r\nnav a {\r\n    text-decoration: none;\r\n    color: #495057;\r\n    font-size: 19px;\r\n    font-weight: 700;\r\n}\r\n\r\nnav a:first-child {\r\n    float: left;\r\n}\r\n\r\n.avatar{\r\n    background-color: #2B9DFF !important;\r\n}\r\n\r\nnav a img{\r\n    vertical-align: middle;\r\n}\r\n\r\nnav a span{\r\n    background-color: #2B9DFF;\r\n    padding: 5px 15px;\r\n    border-radius: 1000px;\r\n    font-weight: 100;\r\n    color: white;\r\n    margin-left: 7;\r\n}\r\n\r\n.nav-padding{\r\n    padding: 0 5% 0 5%;\r\n}"
+
+/***/ }),
+
 /***/ "./src/app/components/generalComponents/navbarhomecomponent/navbarhome.component.html":
 /*!********************************************************************************************!*\
   !*** ./src/app/components/generalComponents/navbarhomecomponent/navbarhome.component.html ***!
@@ -202,7 +213,7 @@ var DashboardComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"header py-4\">\r\n  <div class=\"container\">\r\n    <div class=\"d-flex\">\r\n      <a class=\"header-brand\" href=\"/\">\r\n        <img src=\"https://tabler.github.io/tabler/demo/brand/tabler.svg\" class=\"header-brand-img\" alt=\"tabler logo\">\r\n      </a>\r\n      <div class=\"d-flex order-lg-2 ml-auto\">\r\n        <div class=\"nav-item d-md-flex\">\r\n          <a routerLink=\"/login\" class=\"btn btn-sm btn-outline-primary\">Login</a>\r\n        </div>\r\n       \r\n      </div>\r\n      <a href=\"#\" class=\"header-toggler d-lg-none ml-3 ml-lg-0\" data-toggle=\"collapse\" data-target=\"#headerMenuCollapse\">\r\n        <span class=\"header-toggler-icon\"></span>\r\n      </a>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"header py-4\">\r\n    <div class=\"container-fluid nav-padding\">\r\n      <div class=\"d-flex\">\r\n        <a class=\"header-brand\" href=\"/\">\r\n          <nav>\r\n              <a href=\"#\">Concourse <span>Free</span></a>      \r\n          </nav>\r\n        </a>\r\n        <div class=\"d-flex order-lg-2 ml-auto\">\r\n          \r\n          <div class=\"dropdown\">\r\n            <a href=\"#\" class=\"nav-link pr-0 leading-none\" data-toggle=\"dropdown\">\r\n              <span class=\"avatar\" style=\"background-image: url(/content/angular/assets/images/nav_icon.png)\"></span>\r\n              \r\n            </a>\r\n            <div class=\"dropdown-menu dropdown-menu-right dropdown-menu-arrow\">\r\n                <a class=\"dropdown-item\"  routerLink=\"/login\" href=\"#\">\r\n                  <i class=\"dropdown-icon fe fe-log-out\"></i> Login\r\n                </a>\r\n              \r\n              <a class=\"dropdown-item\" href=\"#\">\r\n                <i class=\"dropdown-icon fe fe-help-circle\"></i> Need help?\r\n              </a>     \r\n            </div>\r\n          </div>\r\n        </div>\r\n       \r\n      </div>\r\n    </div>\r\n  </div>\r\n  \r\n"
 
 /***/ }),
 
@@ -230,7 +241,8 @@ var NavbarHomeComponent = /** @class */ (function () {
     NavbarHomeComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-navbar-home',
-            template: __webpack_require__(/*! ./navbarhome.component.html */ "./src/app/components/generalComponents/navbarhomecomponent/navbarhome.component.html")
+            template: __webpack_require__(/*! ./navbarhome.component.html */ "./src/app/components/generalComponents/navbarhomecomponent/navbarhome.component.html"),
+            styles: [__webpack_require__(/*! ./navbarhome.component.css */ "./src/app/components/generalComponents/navbarhomecomponent/navbarhome.component.css")]
         })
     ], NavbarHomeComponent);
     return NavbarHomeComponent;
@@ -375,6 +387,17 @@ var SubNavbarComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/components/homecomponent/home.component.css":
+/*!*************************************************************!*\
+  !*** ./src/app/components/homecomponent/home.component.css ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/*------global-----*/\r\n\r\n\r\n*{\r\n    margin:0;\r\n    padding:0;\r\n    border: 0;\r\n    outline: 0;\r\n    font-size: 100%;\r\n    vertical-align: baseline;\r\n}\r\n\r\n\r\nbody{\r\n    width: 100%;\r\n    background-color: white !important;\r\n}\r\n\r\n\r\n.nav-bar-attr{\r\n    position:absolute;\r\n    width:100%\r\n}\r\n\r\n\r\n.content-area-attr{\r\n    z-index: -1;\r\n}\r\n\r\n\r\nh1{\r\n    font-size:49px;\r\n    font-weight: 100;\r\n    color:#2B9DFF\r\n}\r\n\r\n\r\nh3{\r\n    font-size: 22px;\r\n\r\n}\r\n\r\n\r\np{\r\n    font-size: 16px;\r\n}\r\n\r\n\r\n.btnOutline{\r\n    display:block;\r\n    text-decoration: none;\r\n    color: #2B9DFF;\r\n    border: 2px solid #2B9DFF;\r\n    border-radius: 6px;\r\n    width: 175px;\r\n    height: 53px;\r\n    line-height: 53px;\r\n    text-align: center;\r\n    margin-top: 30px;\r\n    transition:all 0.3s ease;\r\n    \r\n}\r\n\r\n\r\n.btnOutline:hover, .btnFilled:hover\r\n{\r\n    border-radius:48%;\r\n}\r\n\r\n\r\n.btnOutline:hover{\r\n    color:white;\r\n    background-color:#2B9DFF;\r\n}\r\n\r\n\r\n.btnFilled:hover{\r\n    color: #2B9DFF;\r\n    background: none;\r\n}\r\n\r\n\r\n.btnFilled{\r\n    display:block;\r\n    text-decoration: none;\r\n    color: white;\r\n    background-color:#2B9DFF;\r\n    border: 2px solid #2B9DFF;\r\n    border-radius: 6px;\r\n    width: 175px;\r\n    height: 53px;\r\n    line-height: 53px;\r\n    text-align: center;\r\n    margin-top: 30px;\r\n    transition:all 0.3s ease;\r\n}\r\n\r\n\r\n/*------nav-----*/\r\n\r\n\r\nnav {\r\n    padding: 50px 0 0 0;\r\n    text-align: right;\r\n}\r\n\r\n\r\nnav a {\r\n    text-decoration: none;\r\n    color: #202427;\r\n    font-size: 20px;\r\n    font-weight: 700;\r\n}\r\n\r\n\r\nnav a:first-child {\r\n    float: left;\r\n}\r\n\r\n\r\nnav a img{\r\n    vertical-align: middle;\r\n}\r\n\r\n\r\nnav a span{\r\n    background-color: #2B9DFF;\r\n    padding: 5px 15px;\r\n    border-radius: 1000px;\r\n    font-weight: 100;\r\n    color: white;\r\n    margin-left: 7;\r\n}\r\n\r\n\r\n.clear-left{\r\n    clear: left\r\n}\r\n\r\n\r\n/*------header-----*/\r\n\r\n\r\nheader{\r\n    height: 1000px;\r\n    min-height: 1000px;\r\n    padding: 0 5%;\r\n    background-image: url(/content/angular/assets/images/background_header.png);\r\n    background-repeat: no-repeat;\r\n    background-size: contain;\r\n    background-position: top right;\r\n    \r\n}\r\n\r\n\r\nheader h1{\r\n    width: 40%;\r\n    margin: 4em 0 0 0;\r\n    font-weight: 600;\r\n\r\n}\r\n\r\n\r\n/*------about-----*/\r\n\r\n\r\n.team{\r\n    margin-top: 10%;\r\n    text-align: center;\r\n    margin: 10em 0 3em 0;\r\n    padding: 0 10%;\r\n    background-image: url(/content/angular/assets/images/background_calltoaction.png);\r\n    background-repeat: no-repeat;\r\n    background-position: center;\r\n}\r\n\r\n\r\n.team h1{\r\n    font-weight: 600;\r\n    width: 75%;\r\n    margin: 0 auto 50px auto;\r\n}\r\n\r\n\r\n.members {\r\n    display: flex;\r\n    justify-content: center;\r\n}\r\n\r\n\r\n.person{\r\n    margin: 0 10% 0 10%;\r\n}\r\n\r\n\r\n.content-top-margin {\r\n    margin: 30px 0 0 0;\r\n}\r\n\r\n\r\n/*-----product info ----- */\r\n\r\n\r\n.about{\r\n    margin-top: 10%;\r\n    padding: 0 10%;\r\n    background-image: url(/content/angular/assets/images/background_about2.png);\r\n    background-repeat: no-repeat;\r\n    background-position: left center;\r\n    background-size: 80%;\r\n    height: 900px;\r\n    min-height:900px;\r\n}\r\n\r\n\r\n.about h1{\r\n    margin-bottom: 30px;\r\n    padding-top: 300px;\r\n    margin-left: 50%;\r\n    font-weight: 600;\r\n}\r\n\r\n\r\n/*-----calltoaction----*/\r\n\r\n\r\n.calltoaction{\r\n    text-align:center;\r\n    padding: 20em 5% 20em 5%;\r\n    background-image: url(/content/angular/assets/images/background_calltoaction.png);\r\n    background-repeat: no-repeat;\r\n    background-size: 40%;\r\n    background-position: center;\r\n}\r\n\r\n\r\n.calltoaction h1, .calltoaction a{\r\n    display: inline-block;\r\n    margin: 0 60px;\r\n    vertical-align: middle;\r\n}\r\n\r\n\r\n.calltoaction h1{\r\n    font-weight: 400;\r\n}\r\n\r\n\r\n/*------footer------*/\r\n\r\n\r\nfooter{\r\n    padding: 0 5%;\r\n    margin-bottom: 40px;\r\n    color: #2B9DFF;\r\n}\r\n\r\n\r\nfooter p, .footerpages{\r\n    display: inline-block;\r\n}\r\n\r\n\r\n.footerpages{\r\n    float: right;\r\n}\r\n\r\n\r\n.footerpages a{\r\n    text-decoration: none;\r\n    font-weight: 200;\r\n    color: #2B9DFF;\r\n    margin-left: 30px;\r\n}\r\n\r\n\r\n/*-----responsive-----*/"
+
+/***/ }),
+
 /***/ "./src/app/components/homecomponent/home.component.html":
 /*!**************************************************************!*\
   !*** ./src/app/components/homecomponent/home.component.html ***!
@@ -382,7 +405,7 @@ var SubNavbarComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"page\">\r\n  <div class=\"page-main\">\r\n    <app-navbar-home></app-navbar-home>\r\n  </div>\r\n  <div class=\"my-3 my-md-5\">\r\n  </div>\r\n</div>\r\n\r\n"
+module.exports = "<div class=\"page\">  \r\n    <div class=\"page-main\">\r\n        <div class=\"nav-bar-attr\">\r\n            <app-navbar-home></app-navbar-home>\r\n        </div>\r\n    </div>\r\n\r\n  <div >\r\n    <header>\r\n        <nav>\r\n            \r\n            \r\n        </nav>\r\n        <h1>The incredibly easy, completely free Q&A platform. \r\n            Save time and help students learn using the power of community</h1>\r\n        <a routerLink=\"/register\" href=\"#\"class=\"btnOutline\">Sign Up</a>\r\n    </header>\r\n\r\n\r\n    <div class=\"team\">\r\n        <h1> Concourse works with you. This powerful technology powers your classroom and lectures.\r\n        </h1>\r\n\r\n        <div class=\"members\">\r\n            <div class=\"person\">\r\n                <img src=\"/content/angular/assets/images/background_chat.png\"/>\r\n                <h3 class = \"content-top-margin\">Discussions</h3>\r\n                <p>Chat like communication during and after lectures</p>\r\n            </div>\r\n            <div class=\"person\">\r\n                    <img src=\"/content/angular/assets/images/background_learn.png\"/>\r\n                    <h3 class=\"content-top-margin\">Host Course Materials</h3>\r\n                    <p> Improve and measure learning</p>\r\n            </div>      \r\n        </div>\r\n    </div>\r\n\r\n\r\n\r\n\r\n\r\n    <div class=\"about\">\r\n        <h1>The most inituitive way to mangage your lecture's Q&A and it's free! </h1>\r\n        <div class=\"icons\">\r\n            \r\n        </div>\r\n\r\n    </div>\r\n    <div class=\"calltoaction\">\r\n        <h1> Sign Up Now</h1>\r\n        <a routerLink=\"/register\" href=\"#\" class=\"btnFilled\">Get Started</a>\r\n    </div>\r\n    \r\n    <footer>\r\n        <p>&copy; 2019 Concourse</p>\r\n        <div class=\"footerpages\">\r\n            <a href=\"#\">Home</a>\r\n            <a href=\"#\">Resources</a>\r\n            <a href=\"#\">Terms</a>\r\n            <a href=\"#\">Privacy</a>\r\n        </div>\r\n    </footer>\r\n    \r\n    </div>\r\n</div>\r\n\r\n"
 
 /***/ }),
 
@@ -410,7 +433,8 @@ var HomeComponent = /** @class */ (function () {
     HomeComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-home',
-            template: __webpack_require__(/*! ./home.component.html */ "./src/app/components/homecomponent/home.component.html")
+            template: __webpack_require__(/*! ./home.component.html */ "./src/app/components/homecomponent/home.component.html"),
+            styles: [__webpack_require__(/*! ./home.component.css */ "./src/app/components/homecomponent/home.component.css")]
         })
     ], HomeComponent);
     return HomeComponent;
@@ -1323,6 +1347,9 @@ var UserService = /** @class */ (function () {
             }
         }));
         return auth_check;
+    };
+    UserService.prototype.register = function (_email, _password, _confirmpassword) {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])(null);
     };
     UserService.prototype.login = function (_username, _password) {
         var _this = this;

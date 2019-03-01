@@ -1,0 +1,250 @@
+/*------global-----*/
+
+
+*{
+    margin:0;
+    padding:0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+}
+
+
+
+body{
+    width: 100%;
+    background-color: white !important;
+}
+
+.nav-bar-attr{
+    position:absolute;
+    width:100%
+}
+
+.content-area-attr{
+    z-index: -1;
+}
+
+h1{
+    font-size:49px;
+    font-weight: 100;
+    color:#2B9DFF
+}
+
+h3{
+    font-size: 22px;
+
+}
+
+p{
+    font-size: 16px;
+}
+
+.btnOutline{
+    display:block;
+    text-decoration: none;
+    color: #2B9DFF;
+    border: 2px solid #2B9DFF;
+    border-radius: 6px;
+    width: 175px;
+    height: 53px;
+    line-height: 53px;
+    text-align: center;
+    margin-top: 30px;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition:all 0.3s ease;
+    
+}
+
+
+.btnOutline:hover, .btnFilled:hover
+{
+    border-radius:48%;
+}
+
+.btnOutline:hover{
+    color:white;
+    background-color:#2B9DFF;
+}
+
+.btnFilled:hover{
+    color: #2B9DFF;
+    background: none;
+}
+
+.btnFilled{
+    display:block;
+    text-decoration: none;
+    color: white;
+    background-color:#2B9DFF;
+    border: 2px solid #2B9DFF;
+    border-radius: 6px;
+    width: 175px;
+    height: 53px;
+    line-height: 53px;
+    text-align: center;
+    margin-top: 30px;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition:all 0.3s ease;
+}
+
+/*------nav-----*/
+nav {
+    padding: 50px 0 0 0;
+    text-align: right;
+}
+
+nav a {
+    text-decoration: none;
+    color: #202427;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+nav a:first-child {
+    float: left;
+}
+
+nav a img{
+    vertical-align: middle;
+}
+
+nav a span{
+    background-color: #2B9DFF;
+    padding: 5px 15px;
+    border-radius: 1000px;
+    font-weight: 100;
+    color: white;
+    margin-left: 7;
+}
+
+.clear-left{
+    clear: left
+}
+
+
+
+
+
+/*------header-----*/
+header{
+    height: 1000px;
+    min-height: 1000px;
+    padding: 0 5%;
+    background-image: url(/content/angular/assets/images/background_header.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: top right;
+    
+}
+
+header h1{
+    width: 40%;
+    margin: 4em 0 0 0;
+    font-weight: 600;
+
+}
+
+
+/*------about-----*/
+.team{
+    margin-top: 10%;
+    text-align: center;
+    margin: 10em 0 3em 0;
+    padding: 0 10%;
+    background-image: url(/content/angular/assets/images/background_calltoaction.png);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.team h1{
+    font-weight: 600;
+    width: 75%;
+    margin: 0 auto 50px auto;
+}
+
+.members {
+    display: flex;
+    justify-content: center;
+}
+
+.person{
+    margin: 0 10% 0 10%;
+}
+
+.content-top-margin {
+    margin: 30px 0 0 0;
+}
+
+/*-----product info ----- */
+.about{
+    margin-top: 10%;
+    padding: 0 10%;
+    background-image: url(/content/angular/assets/images/background_about2.png);
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 80%;
+    height: 900px;
+    min-height:900px;
+}
+
+.about h1{
+    margin-bottom: 30px;
+    padding-top: 300px;
+    margin-left: 50%;
+    font-weight: 600;
+}
+
+
+/*-----calltoaction----*/
+.calltoaction{
+    text-align:center;
+    padding: 20em 5% 20em 5%;
+    background-image: url(/content/angular/assets/images/background_calltoaction.png);
+    background-repeat: no-repeat;
+    background-size: 40%;
+    background-position: center;
+}
+
+.calltoaction h1, .calltoaction a{
+    display: inline-block;
+    margin: 0 60px;
+    vertical-align: middle;
+}
+
+.calltoaction h1{
+    font-weight: 400;
+}
+
+
+
+/*------footer------*/
+footer{
+    padding: 0 5%;
+    margin-bottom: 40px;
+    color: #2B9DFF;
+}
+
+footer p, .footerpages{
+    display: inline-block;
+}
+
+.footerpages{
+    float: right;
+}
+
+
+.footerpages a{
+    text-decoration: none;
+    font-weight: 200;
+    color: #2B9DFF;
+    margin-left: 30px;
+}
+
+
+/*-----responsive-----*/
