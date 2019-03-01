@@ -157,7 +157,7 @@ var AppModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n\r\n<div class=\"page\">\r\n  <div class=\"page-main\">\r\n    <!--Navigation bar-->\r\n    <app-navbar></app-navbar>\r\n    <!--Options area-->\r\n    <app-subnavbar></app-subnavbar>\r\n\r\n\r\n    <div class=\"my-3 my-mid-5\">\r\n      <div class=\"container\">\r\n        <div class=\"row\">\r\n          <div class=\"col-md-6 col-xl-4\">\r\n            <div class=\"card\">\r\n              <div class=\"card-status bg-blue\"></div>\r\n              <div class=\"card-header\">\r\n                <h3 class=\"card-title\">This is a standard card</h3>\r\n                <div class=\"card-options\">\r\n                  <a href=\"#\" class=\"card-options-collapse\" data-toggle=\"card-collapse\"><i class=\"fe fe-chevron-up\"></i></a>\r\n                </div>\r\n              </div>\r\n              <div class=\"card-body\">\r\n                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam deleniti fugit incidunt, iste, itaque minima neque pariatur perferendis sed suscipit velit vitae voluptatem. A consequuntur, deserunt eaque error nulla temporibus!\r\n              </div>\r\n              <div class=\"card-footer\">\r\n                <div class=\"container\">\r\n                  <div class=\"row\">\r\n                    <div class=\"col-mid-1 col-xl-1 offset-11\">\r\n                      <div class=\"item-action dropdown\">\r\n                        <a href=\"javascript:void(0)\" data-toggle=\"dropdown\" class=\"icon\"><i class=\"fe fe-more-horizontal\"></i></a>\r\n                        <div class=\"dropdown-menu dropdown-menu-right\">\r\n                          <a href=\"javascript:void(0)\" class=\"dropdown-item\"><i class=\"dropdown-icon fe fe-arrow-right-circle\"></i> Enter </a>\r\n                          <a href=\"javascript:void(0)\" class=\"dropdown-item\"><i class=\"dropdown-icon fe fe-edit-2\"></i> Edit  </a>\r\n                          <div class=\"dropdown-divider\"></div>\r\n                          <a href=\"javascript:void(0)\" class=\"dropdown-item\"><i class=\"dropdown-icon fe fe-trash-2\"></i> Delete</a>\r\n                        </div>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <app-footer-nav></app-footer-nav>\r\n</div>\r\n"
+module.exports = "\r\n\r\n<div class=\"page\">\r\n  <div class=\"page-main\">\r\n    <!--Navigation bar-->\r\n    <app-navbar></app-navbar>\r\n    <!--Options area-->\r\n    <app-subnavbar></app-subnavbar>\r\n\r\n\r\n    <div class=\"my-3 my-mid-5\">\r\n      <div class=\"container\">\r\n        <div class=\"row\">\r\n          <div class=\"col-md-6 col-xl-4\">\r\n            <div class=\"card\">\r\n              <div class=\"card-status bg-blue\"></div>\r\n              <div class=\"card-header\">\r\n                <h3 class=\"card-title\">This is a standard card</h3>\r\n                <div class=\"card-options\">\r\n                  <a href=\"javascript:void(0);\" class=\"card-options-collapse\" data-toggle=\"card-collapse\"><i class=\"fe fe-chevron-up\"></i></a>\r\n                </div>\r\n              </div>\r\n              <div class=\"card-body\">\r\n                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam deleniti fugit incidunt, iste, itaque minima neque pariatur perferendis sed suscipit velit vitae voluptatem. A consequuntur, deserunt eaque error nulla temporibus!\r\n              </div>\r\n              <div class=\"card-footer\">\r\n                <div class=\"container\">\r\n                  <div class=\"row\">\r\n                    <div class=\"col-mid-1 col-xl-1 offset-11\">\r\n                      <div class=\"item-action dropdown\">\r\n                        <a href=\"javascript:void(0)\" data-toggle=\"dropdown\" class=\"icon\"><i class=\"fe fe-more-horizontal\"></i></a>\r\n                        <div class=\"dropdown-menu dropdown-menu-right\">\r\n                          <a  routerLink=\"/home\" class=\"dropdown-item\"><i class=\"dropdown-icon fe fe-arrow-right-circle\"></i> Enter </a>\r\n                          <a href=\"javascript:void(0)\" class=\"dropdown-item\"><i class=\"dropdown-icon fe fe-edit-2\"></i> Edit  </a>\r\n                          <div class=\"dropdown-divider\"></div>\r\n                          <a href=\"javascript:void(0)\" class=\"dropdown-item\"><i class=\"dropdown-icon fe fe-trash-2\"></i> Delete</a>\r\n                        </div>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <app-footer-nav></app-footer-nav>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -182,6 +182,18 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var DashboardComponent = /** @class */ (function () {
     function DashboardComponent() {
     }
+    DashboardComponent.prototype.ngOnInit = function () {
+        this.loadScript('content/angular/assets/js/modifiedcore.js');
+    };
+    DashboardComponent.prototype.loadScript = function (url) {
+        var body = document.body;
+        var script = document.createElement('script');
+        script.innerHTML = '';
+        script.src = url;
+        script.async = false;
+        script.defer = true;
+        body.appendChild(script);
+    };
     DashboardComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-dashboard',
@@ -737,7 +749,7 @@ var LoginComponent = /** @class */ (function () {
                         res = _a.sent();
                         console.log('IsAuthenticated: ' + res);
                         if (res === true) {
-                            this.router.navigate(['/dashboard']);
+                            this.router.navigateByUrl('/dashboard');
                         }
                         return [2 /*return*/];
                 }

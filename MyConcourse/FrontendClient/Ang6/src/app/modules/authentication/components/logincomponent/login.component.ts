@@ -96,7 +96,7 @@ export class LoginComponent implements OnInit {
     const res = await (this.user_service.isAuth().toPromise());
     console.log('IsAuthenticated: ' + res);
     if (res === true) {
-      this.router.navigate(['/dashboard']);
+      this.router.navigateByUrl('/dashboard');
     }
   }
 
