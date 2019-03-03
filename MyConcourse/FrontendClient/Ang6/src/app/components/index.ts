@@ -1,5 +1,5 @@
 import { NavbarComponent } from './generalcomponents/navbarcomponent/navbar.component';
-import { NavbarHomeComponent } from './generalComponents/navbarhomecomponent/navbarhome.component';
+import { NavbarHomeComponent } from './generalcomponents/navbarhomecomponent/navbarhome.component';
 import { HomeComponent } from './homecomponent/home.component';
 import { DashboardComponent } from './dashboardcomponent/dashboard.component';
 import { SubNavbarComponent } from './generalcomponents/subnavbarcomponent/subnavbar.component';

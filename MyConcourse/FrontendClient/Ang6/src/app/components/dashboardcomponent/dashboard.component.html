@@ -1,50 +1,198 @@
-
-
 <div class="page">
   <div class="page-main">
     <!--Navigation bar-->
     <app-navbar></app-navbar>
-    <!--Options area-->
-    <app-subnavbar></app-subnavbar>
+    <!--Nav Options Area-->
+    <div class="header collapse d-lg-flex p-0" id="headerMenuCollapse">
+      <div class="container">
+        <div class="row align-items-center">
+
+          <div class="col-lg">
+            <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
+              <li class="nav-item">
+                <a href="#" class="nav-link"><i class="fe fe-home"></i> Home</a>
+              </li>
+              <li class="nav-item">
+                <a href="javascript:void(0);" class="nav-link" data-toggle="modal" data-target="#create-group-modal"><i class="fe fe-box"></i> Create Group</a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link"><i class="fe fe-check-square"></i> Join Group</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 ml-auto">
+            <form class="input-icon my-3 my-lg-0">
+              <input type="search" class="form-control header-search" placeholder="Search&hellip;" tabindex="1">
+              <div class="input-icon-addon">
+                <i class="fe fe-search"></i>
+              </div>
+            </form>
+          </div>
 
 
+        </div>
+      </div>
+    </div>
+    <!--Nav Options Area End-->
+
+    <!-- Group Area -->
     <div class="my-3 my-mid-5">
       <div class="container">
         <div class="row">
-          <div class="col-md-6 col-xl-4">
-            <div class="card">
-              <div class="card-status bg-blue"></div>
+          <div class="col-12">
+            <form class="card" action="javascript:void(0);" method="post">
               <div class="card-header">
-                <h3 class="card-title">This is a standard card</h3>
-                <div class="card-options">
-                  <a href="javascript:void(0);" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+                <h3 class="card-title"> My Groups</h3>
+                <div class="card-options card-options-settings">
+                  <div class="custom-controls-stacked">
+                    <label class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" class="custom-control-input" name="example-inline-radios" value="option1"
+                        checked="">
+                      <span class="custom-control-label">All</span>
+                    </label>
+                    <label class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" class="custom-control-input" name="example-inline-radios" value="option2">
+                      <span class="custom-control-label">Groups you created</span>
+                    </label>
+                    <label class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" class="custom-control-input" name="example-inline-radios" value="option3">
+                      <span class="custom-control-label">Groups you joined</span>
+                    </label>
+                  </div>
                 </div>
               </div>
+
+              <!--Individual Group Card-->
               <div class="card-body">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam deleniti fugit incidunt, iste, itaque minima neque pariatur perferendis sed suscipit velit vitae voluptatem. A consequuntur, deserunt eaque error nulla temporibus!
-              </div>
-              <div class="card-footer">
-                <div class="container">
+                <div class="group-content">
                   <div class="row">
-                    <div class="col-mid-1 col-xl-1 offset-11">
-                      <div class="item-action dropdown">
-                        <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-horizontal"></i></a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                          <a  routerLink="/home" class="dropdown-item"><i class="dropdown-icon fe fe-arrow-right-circle"></i> Enter </a>
-                          <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Edit  </a>
-                          <div class="dropdown-divider"></div>
-                          <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-trash-2"></i> Delete</a>
+                    <div class="col-md-6 col-xl-4">
+                      <div class="card">
+                        <div class="card-status bg-red"></div>
+                        <div class="card-header">
+                          <h3 class="card-title">This is a standard card</h3>
+                          <div class="card-options">
+                            <span class="tag tag-red">Owner</span>
+                            <a href="javascript:void(0);" class="card-options-collapse" data-toggle="card-collapse"><i
+                                class="fe fe-chevron-up"></i></a>
+                          </div>
+                        </div>
+                        <div class="card-body">
+                          <div class="card-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam
+                            deleniti fugit incidunt,
+                            iste, itaque minima neque pariatur perferendis sed suscipit velit vitae voluptatem. A
+                            consequuntur, deserunt eaque error nulla temporibus!</div>
+                          <div>
+                            <span class="tag tag-rounded tag-red">Created By: Richard Nelson</span>
+                          </div>
+                        </div>
+                        <div class="card-footer">
+                          <div class="container">
+                            <div class="row">
+                              <div class="col-md-1 col-lg-1 col-xl-1 offset-11">
+                                <div class="item-action dropdown">
+                                  <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i
+                                      class="fe fe-more-horizontal"></i></a>
+                                  <div class="dropdown-menu dropdown-menu-right">
+                                    <a routerLink="/home" class="dropdown-item"><i
+                                        class="dropdown-icon fe fe-arrow-right-circle"></i>Enter</a>
+                                    <a href="javascript:void(0)" class="dropdown-item"><i
+                                        class="dropdown-icon fe fe-edit-2"></i>Edit </a>
+                                    <a data-toggle="modal" data-target="#exampleModal" href="javascript:void(0)"
+                                      class="dropdown-item"><i class="dropdown-icon fe fe-book-open"></i> Details</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="javascript:void(0)" class="dropdown-item"><i
+                                        class="dropdown-icon fe fe-trash-2"></i> Delete</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
+
                 </div>
               </div>
-            </div>
+              <!--Individual Group Card End-->
+
+            </form>
+            <!-- Form End-->
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+    <!-- Group Area End-->
+
+    <!-- Modal Area-->
+    <!-- Modal -->
+    <div class="modal fade" id="create-group-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="col-12 modal-title modal-title-settings" id="exampleModalLongTitle">Group Creation</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="javascript:void(0);" action="post">
+                <div class="container-fluid">
+                  <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label class="form-label">Group Name
+                          <span class="form-required">*</span>
+                          <span class="form-label-small">0/20</span>
+                        </label>
+                        <input class="form-control" type="input" name="group-name" placeholder="Enter a group name.."/>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="col-lg-12 col-md-12 col-sm-12">
+                          <div class="form-group">
+                              <label class="form-label">Description
+                                <span class="form-label-small">10/200</span>
+                              </label>
+
+                              <textarea class="form-control" name="group-description" style="resize: none;" rows = "6" placeholder="Enter a short description for about group" ></textarea>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      <div class="form-group">
+                      <label class="form-label">Group Code
+                        <span class="form-required">*</span>
+                        <span class="form-label-small">0/15</span>
+                      </label>
+                      <input class="form-control" type="input"  name="group-name" placeholder="Enter a group code"/>
+                      <div class="invalid-feedback" style="display:inline !important;">
+                        <p>Note: Users will use this code to join your group along with the Group ID, which is generated after the group has been successfully created.</p>
+                         <p>If you forget your Group ID and/or Group code, click on the "Details" option for the group.</p>
+                      </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Create Group</button>
           </div>
         </div>
       </div>
     </div>
+    <!-- Modal Area End-->
+
   </div>
   <app-footer-nav></app-footer-nav>
 </div>

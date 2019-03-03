@@ -150,6 +150,17 @@ var AppModule = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/components/dashboardcomponent/dashboard.component.css":
+/*!***********************************************************************!*\
+  !*** ./src/app/components/dashboardcomponent/dashboard.component.css ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\r\n\r\n.card-options-settings{\r\n    color:#495057 !important;\r\n}\r\n\r\n.card-content{\r\n    min-height: 50px;\r\n    padding-bottom: 20px;\r\n}\r\n\r\n.modal-title-settings{\r\n    text-align: center;\r\n    font-size: 18px;\r\n}"
+
+/***/ }),
+
 /***/ "./src/app/components/dashboardcomponent/dashboard.component.html":
 /*!************************************************************************!*\
   !*** ./src/app/components/dashboardcomponent/dashboard.component.html ***!
@@ -157,7 +168,7 @@ var AppModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n\r\n<div class=\"page\">\r\n  <div class=\"page-main\">\r\n    <!--Navigation bar-->\r\n    <app-navbar></app-navbar>\r\n    <!--Options area-->\r\n    <app-subnavbar></app-subnavbar>\r\n\r\n\r\n    <div class=\"my-3 my-mid-5\">\r\n      <div class=\"container\">\r\n        <div class=\"row\">\r\n          <div class=\"col-md-6 col-xl-4\">\r\n            <div class=\"card\">\r\n              <div class=\"card-status bg-blue\"></div>\r\n              <div class=\"card-header\">\r\n                <h3 class=\"card-title\">This is a standard card</h3>\r\n                <div class=\"card-options\">\r\n                  <a href=\"javascript:void(0);\" class=\"card-options-collapse\" data-toggle=\"card-collapse\"><i class=\"fe fe-chevron-up\"></i></a>\r\n                </div>\r\n              </div>\r\n              <div class=\"card-body\">\r\n                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam deleniti fugit incidunt, iste, itaque minima neque pariatur perferendis sed suscipit velit vitae voluptatem. A consequuntur, deserunt eaque error nulla temporibus!\r\n              </div>\r\n              <div class=\"card-footer\">\r\n                <div class=\"container\">\r\n                  <div class=\"row\">\r\n                    <div class=\"col-mid-1 col-xl-1 offset-11\">\r\n                      <div class=\"item-action dropdown\">\r\n                        <a href=\"javascript:void(0)\" data-toggle=\"dropdown\" class=\"icon\"><i class=\"fe fe-more-horizontal\"></i></a>\r\n                        <div class=\"dropdown-menu dropdown-menu-right\">\r\n                          <a  routerLink=\"/home\" class=\"dropdown-item\"><i class=\"dropdown-icon fe fe-arrow-right-circle\"></i> Enter </a>\r\n                          <a href=\"javascript:void(0)\" class=\"dropdown-item\"><i class=\"dropdown-icon fe fe-edit-2\"></i> Edit  </a>\r\n                          <div class=\"dropdown-divider\"></div>\r\n                          <a href=\"javascript:void(0)\" class=\"dropdown-item\"><i class=\"dropdown-icon fe fe-trash-2\"></i> Delete</a>\r\n                        </div>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <app-footer-nav></app-footer-nav>\r\n</div>\r\n"
+module.exports = "<div class=\"page\">\r\n  <div class=\"page-main\">\r\n    <!--Navigation bar-->\r\n    <app-navbar></app-navbar>\r\n    <!--Nav Options Area-->\r\n    <div class=\"header collapse d-lg-flex p-0\" id=\"headerMenuCollapse\">\r\n      <div class=\"container\">\r\n        <div class=\"row align-items-center\">\r\n\r\n          <div class=\"col-lg\">\r\n            <ul class=\"nav nav-tabs border-0 flex-column flex-lg-row\">\r\n              <li class=\"nav-item\">\r\n                <a href=\"#\" class=\"nav-link\"><i class=\"fe fe-home\"></i> Home</a>\r\n              </li>\r\n              <li class=\"nav-item\">\r\n                <a href=\"javascript:void(0);\" class=\"nav-link\" data-toggle=\"modal\" data-target=\"#create-group-modal\"><i class=\"fe fe-box\"></i> Create Group</a>\r\n              </li>\r\n              <li class=\"nav-item\">\r\n                <a href=\"#\" class=\"nav-link\"><i class=\"fe fe-check-square\"></i> Join Group</a>\r\n              </li>\r\n            </ul>\r\n          </div>\r\n\r\n          <div class=\"col-lg-3 ml-auto\">\r\n            <form class=\"input-icon my-3 my-lg-0\">\r\n              <input type=\"search\" class=\"form-control header-search\" placeholder=\"Search&hellip;\" tabindex=\"1\">\r\n              <div class=\"input-icon-addon\">\r\n                <i class=\"fe fe-search\"></i>\r\n              </div>\r\n            </form>\r\n          </div>\r\n\r\n\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <!--Nav Options Area End-->\r\n\r\n    <!-- Group Area -->\r\n    <div class=\"my-3 my-mid-5\">\r\n      <div class=\"container\">\r\n        <div class=\"row\">\r\n          <div class=\"col-12\">\r\n            <form class=\"card\" action=\"javascript:void(0);\" method=\"post\">\r\n              <div class=\"card-header\">\r\n                <h3 class=\"card-title\"> My Groups</h3>\r\n                <div class=\"card-options card-options-settings\">\r\n                  <div class=\"custom-controls-stacked\">\r\n                    <label class=\"custom-control custom-radio custom-control-inline\">\r\n                      <input type=\"radio\" class=\"custom-control-input\" name=\"example-inline-radios\" value=\"option1\"\r\n                        checked=\"\">\r\n                      <span class=\"custom-control-label\">All</span>\r\n                    </label>\r\n                    <label class=\"custom-control custom-radio custom-control-inline\">\r\n                      <input type=\"radio\" class=\"custom-control-input\" name=\"example-inline-radios\" value=\"option2\">\r\n                      <span class=\"custom-control-label\">Groups you created</span>\r\n                    </label>\r\n                    <label class=\"custom-control custom-radio custom-control-inline\">\r\n                      <input type=\"radio\" class=\"custom-control-input\" name=\"example-inline-radios\" value=\"option3\">\r\n                      <span class=\"custom-control-label\">Groups you joined</span>\r\n                    </label>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n\r\n              <!--Individual Group Card-->\r\n              <div class=\"card-body\">\r\n                <div class=\"group-content\">\r\n                  <div class=\"row\">\r\n                    <div class=\"col-md-6 col-xl-4\">\r\n                      <div class=\"card\">\r\n                        <div class=\"card-status bg-red\"></div>\r\n                        <div class=\"card-header\">\r\n                          <h3 class=\"card-title\">This is a standard card</h3>\r\n                          <div class=\"card-options\">\r\n                            <span class=\"tag tag-red\">Owner</span>\r\n                            <a href=\"javascript:void(0);\" class=\"card-options-collapse\" data-toggle=\"card-collapse\"><i\r\n                                class=\"fe fe-chevron-up\"></i></a>\r\n                          </div>\r\n                        </div>\r\n                        <div class=\"card-body\">\r\n                          <div class=\"card-content\">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam\r\n                            deleniti fugit incidunt,\r\n                            iste, itaque minima neque pariatur perferendis sed suscipit velit vitae voluptatem. A\r\n                            consequuntur, deserunt eaque error nulla temporibus!</div>\r\n                          <div>\r\n                            <span class=\"tag tag-rounded tag-red\">Created By: Richard Nelson</span>\r\n                          </div>\r\n                        </div>\r\n                        <div class=\"card-footer\">\r\n                          <div class=\"container\">\r\n                            <div class=\"row\">\r\n                              <div class=\"col-md-1 col-lg-1 col-xl-1 offset-11\">\r\n                                <div class=\"item-action dropdown\">\r\n                                  <a href=\"javascript:void(0)\" data-toggle=\"dropdown\" class=\"icon\"><i\r\n                                      class=\"fe fe-more-horizontal\"></i></a>\r\n                                  <div class=\"dropdown-menu dropdown-menu-right\">\r\n                                    <a routerLink=\"/home\" class=\"dropdown-item\"><i\r\n                                        class=\"dropdown-icon fe fe-arrow-right-circle\"></i>Enter</a>\r\n                                    <a href=\"javascript:void(0)\" class=\"dropdown-item\"><i\r\n                                        class=\"dropdown-icon fe fe-edit-2\"></i>Edit </a>\r\n                                    <a data-toggle=\"modal\" data-target=\"#exampleModal\" href=\"javascript:void(0)\"\r\n                                      class=\"dropdown-item\"><i class=\"dropdown-icon fe fe-book-open\"></i> Details</a>\r\n                                    <div class=\"dropdown-divider\"></div>\r\n                                    <a href=\"javascript:void(0)\" class=\"dropdown-item\"><i\r\n                                        class=\"dropdown-icon fe fe-trash-2\"></i> Delete</a>\r\n                                  </div>\r\n                                </div>\r\n                              </div>\r\n                            </div>\r\n                          </div>\r\n                        </div>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n\r\n                </div>\r\n              </div>\r\n              <!--Individual Group Card End-->\r\n\r\n            </form>\r\n            <!-- Form End-->\r\n          </div>\r\n        </div>\r\n      </div>\r\n\r\n\r\n    </div>\r\n    <!-- Group Area End-->\r\n\r\n    <!-- Modal Area-->\r\n    <!-- Modal -->\r\n    <div class=\"modal fade\" id=\"create-group-modal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLongTitle\"\r\n      aria-hidden=\"true\">\r\n      <div class=\"modal-dialog\" role=\"document\">\r\n        <div class=\"modal-content\">\r\n          <div class=\"modal-header\">\r\n            <h5 class=\"col-12 modal-title modal-title-settings\" id=\"exampleModalLongTitle\">Group Creation</h5>\r\n            <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"></button>\r\n          </div>\r\n          <div class=\"modal-body\">\r\n            <form action=\"javascript:void(0);\" action=\"post\">\r\n                <div class=\"container-fluid\">\r\n                  <div class=\"row\">\r\n                    <div class=\"col-lg-12 col-md-12 col-sm-12\">\r\n                      <div class=\"form-group\">\r\n                        <label class=\"form-label\">Group Name\r\n                          <span class=\"form-required\">*</span>\r\n                          <span class=\"form-label-small\">0/20</span>\r\n                        </label>\r\n                        <input class=\"form-control\" type=\"input\" name=\"group-name\" placeholder=\"Enter a group name..\"/>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n\r\n                  <div class=\"row\">\r\n                      <div class=\"col-lg-12 col-md-12 col-sm-12\">\r\n                          <div class=\"form-group\">\r\n                              <label class=\"form-label\">Description\r\n                                <span class=\"form-label-small\">10/200</span>\r\n                              </label>\r\n\r\n                              <textarea class=\"form-control\" name=\"group-description\" style=\"resize: none;\" rows = \"6\" placeholder=\"Enter a short description for about group\" ></textarea>\r\n                          </div>\r\n                      </div>\r\n                  </div>\r\n\r\n                  <div class=\"row\">\r\n                    <div class=\"col-lg-12 col-md-12 col-sm-12\">\r\n                      <div class=\"form-group\">\r\n                      <label class=\"form-label\">Group Code\r\n                        <span class=\"form-required\">*</span>\r\n                        <span class=\"form-label-small\">0/15</span>\r\n                      </label>\r\n                      <input class=\"form-control\" type=\"input\"  name=\"group-name\" placeholder=\"Enter a group code\"/>\r\n                      <div class=\"invalid-feedback\" style=\"display:inline !important;\">\r\n                        <p>Note: Users will use this code to join your group along with the Group ID, which is generated after the group has been successfully created.</p>\r\n                         <p>If you forget your Group ID and/or Group code, click on the \"Details\" option for the group.</p>\r\n                      </div>\r\n                      </div>\r\n\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n            </form>\r\n          </div>\r\n          <div class=\"modal-footer\">\r\n            <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\r\n            <button type=\"button\" class=\"btn btn-primary\">Create Group</button>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <!-- Modal Area End-->\r\n\r\n  </div>\r\n  <app-footer-nav></app-footer-nav>\r\n</div>"
 
 /***/ }),
 
@@ -183,6 +194,7 @@ var DashboardComponent = /** @class */ (function () {
     function DashboardComponent() {
     }
     DashboardComponent.prototype.ngOnInit = function () {
+        // this.loadScript('content/angular/assets/js/jquery-3.2.1.min.js');
         this.loadScript('content/angular/assets/js/modifiedcore.js');
     };
     DashboardComponent.prototype.loadScript = function (url) {
@@ -197,67 +209,11 @@ var DashboardComponent = /** @class */ (function () {
     DashboardComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-dashboard',
-            template: __webpack_require__(/*! ./dashboard.component.html */ "./src/app/components/dashboardcomponent/dashboard.component.html")
+            template: __webpack_require__(/*! ./dashboard.component.html */ "./src/app/components/dashboardcomponent/dashboard.component.html"),
+            styles: [__webpack_require__(/*! ./dashboard.component.css */ "./src/app/components/dashboardcomponent/dashboard.component.css")]
         })
     ], DashboardComponent);
     return DashboardComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/components/generalComponents/navbarhomecomponent/navbarhome.component.css":
-/*!*******************************************************************************************!*\
-  !*** ./src/app/components/generalComponents/navbarhomecomponent/navbarhome.component.css ***!
-  \*******************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ".header{\r\n    background:none !important;\r\n    border-bottom: none !important;\r\n}\r\n\r\nbody{\r\n    background-color: white !important;\r\n}\r\n\r\nnav {\r\n    text-align: right;\r\n}\r\n\r\nnav a {\r\n    text-decoration: none;\r\n    color: #495057;\r\n    font-size: 19px;\r\n    font-weight: 700;\r\n}\r\n\r\nnav a:first-child {\r\n    float: left;\r\n}\r\n\r\n.avatar{\r\n    background-color: #2B9DFF !important;\r\n}\r\n\r\nnav a img{\r\n    vertical-align: middle;\r\n}\r\n\r\nnav a span{\r\n    background-color: #2B9DFF;\r\n    padding: 5px 15px;\r\n    border-radius: 1000px;\r\n    font-weight: 100;\r\n    color: white;\r\n    margin-left: 7;\r\n}\r\n\r\n.nav-padding{\r\n    padding: 0 5% 0 5%;\r\n}"
-
-/***/ }),
-
-/***/ "./src/app/components/generalComponents/navbarhomecomponent/navbarhome.component.html":
-/*!********************************************************************************************!*\
-  !*** ./src/app/components/generalComponents/navbarhomecomponent/navbarhome.component.html ***!
-  \********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"header py-4\">\r\n    <div class=\"container-fluid nav-padding\">\r\n      <div class=\"d-flex\">\r\n        <a class=\"header-brand\" href=\"/\">\r\n          <nav>\r\n              <a href=\"#\">Concourse <span>Free</span></a>      \r\n          </nav>\r\n        </a>\r\n        <div class=\"d-flex order-lg-2 ml-auto\">\r\n          \r\n          <div class=\"dropdown\">\r\n            <a href=\"#\" class=\"nav-link pr-0 leading-none\" data-toggle=\"dropdown\">\r\n              <span class=\"avatar\" style=\"background-image: url(/content/angular/assets/images/nav_icon.png)\"></span>\r\n              \r\n            </a>\r\n            <div class=\"dropdown-menu dropdown-menu-right dropdown-menu-arrow\">\r\n                <a class=\"dropdown-item\"  routerLink=\"/login\" href=\"#\">\r\n                  <i class=\"dropdown-icon fe fe-log-out\"></i> Login\r\n                </a>\r\n              \r\n              <a class=\"dropdown-item\" href=\"#\">\r\n                <i class=\"dropdown-icon fe fe-help-circle\"></i> Need help?\r\n              </a>     \r\n            </div>\r\n          </div>\r\n        </div>\r\n       \r\n      </div>\r\n    </div>\r\n  </div>\r\n  \r\n"
-
-/***/ }),
-
-/***/ "./src/app/components/generalComponents/navbarhomecomponent/navbarhome.component.ts":
-/*!******************************************************************************************!*\
-  !*** ./src/app/components/generalComponents/navbarhomecomponent/navbarhome.component.ts ***!
-  \******************************************************************************************/
-/*! exports provided: NavbarHomeComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NavbarHomeComponent", function() { return NavbarHomeComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-var NavbarHomeComponent = /** @class */ (function () {
-    function NavbarHomeComponent() {
-    }
-    NavbarHomeComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-navbar-home',
-            template: __webpack_require__(/*! ./navbarhome.component.html */ "./src/app/components/generalComponents/navbarhomecomponent/navbarhome.component.html"),
-            styles: [__webpack_require__(/*! ./navbarhome.component.css */ "./src/app/components/generalComponents/navbarhomecomponent/navbarhome.component.css")]
-        })
-    ], NavbarHomeComponent);
-    return NavbarHomeComponent;
 }());
 
 
@@ -354,6 +310,63 @@ var NavbarComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/components/generalcomponents/navbarhomecomponent/navbarhome.component.css":
+/*!*******************************************************************************************!*\
+  !*** ./src/app/components/generalcomponents/navbarhomecomponent/navbarhome.component.css ***!
+  \*******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".header{\r\n    background:none !important;\r\n    border-bottom: none !important;\r\n}\r\n\r\nbody{\r\n    background-color: white !important;\r\n}\r\n\r\nnav {\r\n    text-align: right;\r\n}\r\n\r\nnav a {\r\n    text-decoration: none;\r\n    color: #495057;\r\n    font-size: 19px;\r\n    font-weight: 700;\r\n}\r\n\r\nnav a:first-child {\r\n    float: left;\r\n}\r\n\r\n.avatar{\r\n    background-color: #2B9DFF !important;\r\n}\r\n\r\nnav a img{\r\n    vertical-align: middle;\r\n}\r\n\r\nnav a span{\r\n    background-color: #2B9DFF;\r\n    padding: 5px 15px;\r\n    border-radius: 1000px;\r\n    font-weight: 100;\r\n    color: white;\r\n    margin-left: 7;\r\n}\r\n\r\n.nav-padding{\r\n    padding: 0 5% 0 5%;\r\n}"
+
+/***/ }),
+
+/***/ "./src/app/components/generalcomponents/navbarhomecomponent/navbarhome.component.html":
+/*!********************************************************************************************!*\
+  !*** ./src/app/components/generalcomponents/navbarhomecomponent/navbarhome.component.html ***!
+  \********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"header py-4\">\r\n    <div class=\"container-fluid nav-padding\">\r\n      <div class=\"d-flex\">\r\n        <a class=\"header-brand\" href=\"/\">\r\n          <nav>\r\n              <a href=\"#\">Concourse <span>Free</span></a>      \r\n          </nav>\r\n        </a>\r\n        <div class=\"d-flex order-lg-2 ml-auto\">\r\n          \r\n          <div class=\"dropdown\">\r\n            <a href=\"#\" class=\"nav-link pr-0 leading-none\" data-toggle=\"dropdown\">\r\n              <span class=\"avatar\" style=\"background-image: url(/content/angular/assets/images/nav_icon.png)\"></span>\r\n              \r\n            </a>\r\n            <div class=\"dropdown-menu dropdown-menu-right dropdown-menu-arrow\">\r\n                <a class=\"dropdown-item\"  routerLink=\"/login\" href=\"#\">\r\n                  <i class=\"dropdown-icon fe fe-log-out\"></i> Login\r\n                </a>\r\n              \r\n              <a class=\"dropdown-item\" href=\"#\">\r\n                <i class=\"dropdown-icon fe fe-help-circle\"></i> Need help?\r\n              </a>     \r\n            </div>\r\n          </div>\r\n        </div>\r\n       \r\n      </div>\r\n    </div>\r\n  </div>\r\n  \r\n"
+
+/***/ }),
+
+/***/ "./src/app/components/generalcomponents/navbarhomecomponent/navbarhome.component.ts":
+/*!******************************************************************************************!*\
+  !*** ./src/app/components/generalcomponents/navbarhomecomponent/navbarhome.component.ts ***!
+  \******************************************************************************************/
+/*! exports provided: NavbarHomeComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NavbarHomeComponent", function() { return NavbarHomeComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var NavbarHomeComponent = /** @class */ (function () {
+    function NavbarHomeComponent() {
+    }
+    NavbarHomeComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-navbar-home',
+            template: __webpack_require__(/*! ./navbarhome.component.html */ "./src/app/components/generalcomponents/navbarhomecomponent/navbarhome.component.html"),
+            styles: [__webpack_require__(/*! ./navbarhome.component.css */ "./src/app/components/generalcomponents/navbarhomecomponent/navbarhome.component.css")]
+        })
+    ], NavbarHomeComponent);
+    return NavbarHomeComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/components/generalcomponents/subnavbarcomponent/subnavbar.component.html":
 /*!******************************************************************************************!*\
   !*** ./src/app/components/generalcomponents/subnavbarcomponent/subnavbar.component.html ***!
@@ -417,7 +430,7 @@ module.exports = "/*------global-----*/\r\n\r\n\r\n*{\r\n    margin:0;\r\n    pa
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"page\">  \r\n    <div class=\"page-main\">\r\n        <div class=\"nav-bar-attr\">\r\n            <app-navbar-home></app-navbar-home>\r\n        </div>\r\n    </div>\r\n\r\n  <div >\r\n    <header>\r\n        <nav>\r\n            \r\n            \r\n        </nav>\r\n        <h1>The incredibly easy, completely free Q&A platform. \r\n            Save time and help students learn using the power of community</h1>\r\n        <a routerLink=\"/register\" href=\"#\"class=\"btnOutline\">Sign Up</a>\r\n    </header>\r\n\r\n\r\n    <div class=\"team\">\r\n        <h1> Concourse works with you. This powerful technology powers your classroom and lectures.\r\n        </h1>\r\n\r\n        <div class=\"members\">\r\n            <div class=\"person\">\r\n                <img src=\"/content/angular/assets/images/background_chat.png\"/>\r\n                <h3 class = \"content-top-margin\">Discussions</h3>\r\n                <p>Chat like communication during and after lectures</p>\r\n            </div>\r\n            <div class=\"person\">\r\n                    <img src=\"/content/angular/assets/images/background_learn.png\"/>\r\n                    <h3 class=\"content-top-margin\">Host Course Materials</h3>\r\n                    <p> Improve and measure learning</p>\r\n            </div>      \r\n        </div>\r\n    </div>\r\n\r\n\r\n\r\n\r\n\r\n    <div class=\"about\">\r\n        <h1>The most inituitive way to mangage your lecture's Q&A and it's free! </h1>\r\n        <div class=\"icons\">\r\n            \r\n        </div>\r\n\r\n    </div>\r\n    <div class=\"calltoaction\">\r\n        <h1> Sign Up Now</h1>\r\n        <a routerLink=\"/register\" href=\"#\" class=\"btnFilled\">Get Started</a>\r\n    </div>\r\n    \r\n    <footer>\r\n        <p>&copy; 2019 Concourse</p>\r\n        <div class=\"footerpages\">\r\n            <a href=\"#\">Home</a>\r\n            <a href=\"#\">Resources</a>\r\n            <a href=\"#\">Terms</a>\r\n            <a href=\"#\">Privacy</a>\r\n        </div>\r\n    </footer>\r\n    \r\n    </div>\r\n</div>\r\n\r\n"
+module.exports = "<div class=\"page\">  \r\n    <div class=\"page-main\">\r\n        <div class=\"nav-bar-attr\">\r\n            <app-navbar-home></app-navbar-home>\r\n        </div>\r\n    </div>\r\n\r\n  <div >\r\n    <header>\r\n        <nav>\r\n            \r\n            \r\n        </nav>\r\n        <h1>The incredibly easy, completely free Q&A platform. \r\n            Save time and help students learn using the power of community</h1>\r\n        <a routerLink=\"/register\" href=\"#\"class=\"btnOutline\">Sign Up</a>\r\n    </header>\r\n\r\n\r\n    <div class=\"team\">\r\n        <h1> Concourse works with you. This powerful technology powers your classroom and lectures.\r\n        </h1>\r\n\r\n        <div class=\"members\">\r\n            <div class=\"person\">\r\n                <img src=\"/content/angular/assets/images/background_chat.png\"/>\r\n                <h3 class = \"content-top-margin\">Discussions</h3>\r\n                <p>Chat like communication during and after lectures</p>\r\n            </div>\r\n            <div class=\"person\">\r\n                    <img src=\"/content/angular/assets/images/background_learn.png\"/>\r\n                    <h3 class=\"content-top-margin\">Host Course Materials</h3>\r\n                    <p> Improve and measure learning through coding excercises</p>\r\n            </div>      \r\n        </div>\r\n    </div>\r\n\r\n\r\n    <div class=\"about\">\r\n        <h1>The most inituitive way to mangage your lecture's Q&A and it's free! </h1>\r\n        <div class=\"icons\">\r\n            \r\n        </div>\r\n\r\n    </div>\r\n    <div class=\"calltoaction\">\r\n        <h1> Sign Up Now</h1>\r\n        <a routerLink=\"/register\" href=\"#\" class=\"btnFilled\">Get Started</a>\r\n    </div>\r\n    \r\n    <footer>\r\n        <p>&copy; 2019 Concourse</p>\r\n        <div class=\"footerpages\">\r\n            <a href=\"#\">Home</a>\r\n            <a href=\"#\">Resources</a>\r\n            <a href=\"#\">Terms</a>\r\n            <a href=\"#\">Privacy</a>\r\n        </div>\r\n    </footer>\r\n    \r\n    </div>\r\n</div>\r\n\r\n"
 
 /***/ }),
 
@@ -468,8 +481,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _generalcomponents_navbarcomponent_navbar_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./generalcomponents/navbarcomponent/navbar.component */ "./src/app/components/generalcomponents/navbarcomponent/navbar.component.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NavbarComponent", function() { return _generalcomponents_navbarcomponent_navbar_component__WEBPACK_IMPORTED_MODULE_0__["NavbarComponent"]; });
 
-/* harmony import */ var _generalComponents_navbarhomecomponent_navbarhome_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./generalComponents/navbarhomecomponent/navbarhome.component */ "./src/app/components/generalComponents/navbarhomecomponent/navbarhome.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NavbarHomeComponent", function() { return _generalComponents_navbarhomecomponent_navbarhome_component__WEBPACK_IMPORTED_MODULE_1__["NavbarHomeComponent"]; });
+/* harmony import */ var _generalcomponents_navbarhomecomponent_navbarhome_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./generalcomponents/navbarhomecomponent/navbarhome.component */ "./src/app/components/generalcomponents/navbarhomecomponent/navbarhome.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NavbarHomeComponent", function() { return _generalcomponents_navbarhomecomponent_navbarhome_component__WEBPACK_IMPORTED_MODULE_1__["NavbarHomeComponent"]; });
 
 /* harmony import */ var _homecomponent_home_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./homecomponent/home.component */ "./src/app/components/homecomponent/home.component.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "HomeComponent", function() { return _homecomponent_home_component__WEBPACK_IMPORTED_MODULE_2__["HomeComponent"]; });
