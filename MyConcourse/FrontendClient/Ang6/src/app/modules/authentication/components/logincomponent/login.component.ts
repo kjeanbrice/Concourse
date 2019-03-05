@@ -31,10 +31,10 @@ export class LoginComponent implements OnInit {
     console.log('End ngOnInit.');
   }
 
-  onLogin() {
+  async onLogin() {
     this.css_loading = 'dimmer active';
     if (this.valid_input) {
-      this.user_service.login(this.user_email, this.user_password).subscribe(data => {
+        await this.user_service.login(this.user_email, this.user_password).subscribe(data => {
         console.log('Response onLogin: ' + JSON.stringify(data));
         document.getElementById('lbl-error').style.display = 'none';
         this.css_loading = 'dimmer';

@@ -59,12 +59,19 @@ namespace MyConcourse.Controllers
         {
             ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
 
+            var identity = (ClaimsIdentity)User.Identity;
+            IEnumerable<Claim> claims = identity.Claims;
+            var test = identity.FindFirst("FirstName").Value;
+            
             return new UserInfoViewModel
             {
-                
+
                 Email = User.Identity.GetUserName(),
                 HasRegistered = externalLogin == null,
-                LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
+                LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null,
+
+
+                
             };
         }
 
@@ -352,7 +359,7 @@ namespace MyConcourse.Controllers
                 return BadRequest(errors.ToString());
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
@@ -363,7 +370,7 @@ namespace MyConcourse.Controllers
                 StringBuilder errors = new StringBuilder();
                 while (error_list_enum.MoveNext())
                 {
-                    errors.Append(error_list_enum.Current);
+                    errors.Append(error_list_enum.Current + " ");
                 }
 
 

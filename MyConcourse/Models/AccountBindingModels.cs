@@ -48,6 +48,18 @@ namespace MyConcourse.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [StringLength(50, ErrorMessage = "Your first name should be at least {2} characters long.", MinimumLength = 2)]
+        [Display(Name = "FirstName")]
+        public string FirstName { get; set;}
+
+
+        [Required]
+        [StringLength(50, ErrorMessage = "Your last name should be at least {2} characters long.", MinimumLength = 2)]
+        [Display(Name = "LastName")]
+        public string LastName { get; set; }
+
     }
 
     public class RegisterExternalBindingModel

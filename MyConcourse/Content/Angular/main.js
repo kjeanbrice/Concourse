@@ -157,7 +157,7 @@ var AppModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n\r\n.card-options-settings{\r\n    color:#495057 !important;\r\n}\r\n\r\n.card-content{\r\n    min-height: 50px;\r\n    padding-bottom: 20px;\r\n}\r\n\r\n.modal-title-settings{\r\n    text-align: center;\r\n    font-size: 18px;\r\n}"
+module.exports = "\r\n\r\n.card-options-settings{\r\n    color:#495057 !important;\r\n}\r\n\r\n.card-content{\r\n    min-height: 50px;\r\n    padding-bottom: 20px;\r\n}\r\n\r\n.modal-title-settings{\r\n    text-align: center;\r\n    \r\n}"
 
 /***/ }),
 
@@ -168,7 +168,7 @@ module.exports = "\r\n\r\n.card-options-settings{\r\n    color:#495057 !importan
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"page\">\r\n  <div class=\"page-main\">\r\n    <!--Navigation bar-->\r\n    <app-navbar></app-navbar>\r\n    <!--Nav Options Area-->\r\n    <div class=\"header collapse d-lg-flex p-0\" id=\"headerMenuCollapse\">\r\n      <div class=\"container\">\r\n        <div class=\"row align-items-center\">\r\n\r\n          <div class=\"col-lg\">\r\n            <ul class=\"nav nav-tabs border-0 flex-column flex-lg-row\">\r\n              <li class=\"nav-item\">\r\n                <a href=\"#\" class=\"nav-link\"><i class=\"fe fe-home\"></i> Home</a>\r\n              </li>\r\n              <li class=\"nav-item\">\r\n                <a href=\"javascript:void(0);\" class=\"nav-link\" data-toggle=\"modal\" data-target=\"#create-group-modal\"><i class=\"fe fe-box\"></i> Create Group</a>\r\n              </li>\r\n              <li class=\"nav-item\">\r\n                <a href=\"#\" class=\"nav-link\"><i class=\"fe fe-check-square\"></i> Join Group</a>\r\n              </li>\r\n            </ul>\r\n          </div>\r\n\r\n          <div class=\"col-lg-3 ml-auto\">\r\n            <form class=\"input-icon my-3 my-lg-0\">\r\n              <input type=\"search\" class=\"form-control header-search\" placeholder=\"Search&hellip;\" tabindex=\"1\">\r\n              <div class=\"input-icon-addon\">\r\n                <i class=\"fe fe-search\"></i>\r\n              </div>\r\n            </form>\r\n          </div>\r\n\r\n\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <!--Nav Options Area End-->\r\n\r\n    <!-- Group Area -->\r\n    <div class=\"my-3 my-mid-5\">\r\n      <div class=\"container\">\r\n        <div class=\"row\">\r\n          <div class=\"col-12\">\r\n            <form class=\"card\" action=\"javascript:void(0);\" method=\"post\">\r\n              <div class=\"card-header\">\r\n                <h3 class=\"card-title\"> My Groups</h3>\r\n                <div class=\"card-options card-options-settings\">\r\n                  <div class=\"custom-controls-stacked\">\r\n                    <label class=\"custom-control custom-radio custom-control-inline\">\r\n                      <input type=\"radio\" class=\"custom-control-input\" name=\"example-inline-radios\" value=\"option1\"\r\n                        checked=\"\">\r\n                      <span class=\"custom-control-label\">All</span>\r\n                    </label>\r\n                    <label class=\"custom-control custom-radio custom-control-inline\">\r\n                      <input type=\"radio\" class=\"custom-control-input\" name=\"example-inline-radios\" value=\"option2\">\r\n                      <span class=\"custom-control-label\">Groups you created</span>\r\n                    </label>\r\n                    <label class=\"custom-control custom-radio custom-control-inline\">\r\n                      <input type=\"radio\" class=\"custom-control-input\" name=\"example-inline-radios\" value=\"option3\">\r\n                      <span class=\"custom-control-label\">Groups you joined</span>\r\n                    </label>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n\r\n              <!--Individual Group Card-->\r\n              <div class=\"card-body\">\r\n                <div class=\"group-content\">\r\n                  <div class=\"row\">\r\n                    <div class=\"col-md-6 col-xl-4\">\r\n                      <div class=\"card\">\r\n                        <div class=\"card-status bg-red\"></div>\r\n                        <div class=\"card-header\">\r\n                          <h3 class=\"card-title\">This is a standard card</h3>\r\n                          <div class=\"card-options\">\r\n                            <span class=\"tag tag-red\">Owner</span>\r\n                            <a href=\"javascript:void(0);\" class=\"card-options-collapse\" data-toggle=\"card-collapse\"><i\r\n                                class=\"fe fe-chevron-up\"></i></a>\r\n                          </div>\r\n                        </div>\r\n                        <div class=\"card-body\">\r\n                          <div class=\"card-content\">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam\r\n                            deleniti fugit incidunt,\r\n                            iste, itaque minima neque pariatur perferendis sed suscipit velit vitae voluptatem. A\r\n                            consequuntur, deserunt eaque error nulla temporibus!</div>\r\n                          <div>\r\n                            <span class=\"tag tag-rounded tag-red\">Created By: Richard Nelson</span>\r\n                          </div>\r\n                        </div>\r\n                        <div class=\"card-footer\">\r\n                          <div class=\"container\">\r\n                            <div class=\"row\">\r\n                              <div class=\"col-md-1 col-lg-1 col-xl-1 offset-11\">\r\n                                <div class=\"item-action dropdown\">\r\n                                  <a href=\"javascript:void(0)\" data-toggle=\"dropdown\" class=\"icon\"><i\r\n                                      class=\"fe fe-more-horizontal\"></i></a>\r\n                                  <div class=\"dropdown-menu dropdown-menu-right\">\r\n                                    <a routerLink=\"/home\" class=\"dropdown-item\"><i\r\n                                        class=\"dropdown-icon fe fe-arrow-right-circle\"></i>Enter</a>\r\n                                    <a href=\"javascript:void(0)\" class=\"dropdown-item\"><i\r\n                                        class=\"dropdown-icon fe fe-edit-2\"></i>Edit </a>\r\n                                    <a data-toggle=\"modal\" data-target=\"#exampleModal\" href=\"javascript:void(0)\"\r\n                                      class=\"dropdown-item\"><i class=\"dropdown-icon fe fe-book-open\"></i> Details</a>\r\n                                    <div class=\"dropdown-divider\"></div>\r\n                                    <a href=\"javascript:void(0)\" class=\"dropdown-item\"><i\r\n                                        class=\"dropdown-icon fe fe-trash-2\"></i> Delete</a>\r\n                                  </div>\r\n                                </div>\r\n                              </div>\r\n                            </div>\r\n                          </div>\r\n                        </div>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n\r\n                </div>\r\n              </div>\r\n              <!--Individual Group Card End-->\r\n\r\n            </form>\r\n            <!-- Form End-->\r\n          </div>\r\n        </div>\r\n      </div>\r\n\r\n\r\n    </div>\r\n    <!-- Group Area End-->\r\n\r\n    <!-- Modal Area-->\r\n    <!-- Modal -->\r\n    <div class=\"modal fade\" id=\"create-group-modal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLongTitle\"\r\n      aria-hidden=\"true\">\r\n      <div class=\"modal-dialog\" role=\"document\">\r\n        <div class=\"modal-content\">\r\n          <div class=\"modal-header\">\r\n            <h5 class=\"col-12 modal-title modal-title-settings\" id=\"exampleModalLongTitle\">Group Creation</h5>\r\n            <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"></button>\r\n          </div>\r\n          <div class=\"modal-body\">\r\n            <form action=\"javascript:void(0);\" action=\"post\">\r\n                <div class=\"container-fluid\">\r\n                  <div class=\"row\">\r\n                    <div class=\"col-lg-12 col-md-12 col-sm-12\">\r\n                      <div class=\"form-group\">\r\n                        <label class=\"form-label\">Group Name\r\n                          <span class=\"form-required\">*</span>\r\n                          <span class=\"form-label-small\">0/20</span>\r\n                        </label>\r\n                        <input class=\"form-control\" type=\"input\" name=\"group-name\" placeholder=\"Enter a group name..\"/>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n\r\n                  <div class=\"row\">\r\n                      <div class=\"col-lg-12 col-md-12 col-sm-12\">\r\n                          <div class=\"form-group\">\r\n                              <label class=\"form-label\">Description\r\n                                <span class=\"form-label-small\">10/200</span>\r\n                              </label>\r\n\r\n                              <textarea class=\"form-control\" name=\"group-description\" style=\"resize: none;\" rows = \"6\" placeholder=\"Enter a short description for about group\" ></textarea>\r\n                          </div>\r\n                      </div>\r\n                  </div>\r\n\r\n                  <div class=\"row\">\r\n                    <div class=\"col-lg-12 col-md-12 col-sm-12\">\r\n                      <div class=\"form-group\">\r\n                      <label class=\"form-label\">Group Code\r\n                        <span class=\"form-required\">*</span>\r\n                        <span class=\"form-label-small\">0/15</span>\r\n                      </label>\r\n                      <input class=\"form-control\" type=\"input\"  name=\"group-name\" placeholder=\"Enter a group code\"/>\r\n                      <div class=\"invalid-feedback\" style=\"display:inline !important;\">\r\n                        <p>Note: Users will use this code to join your group along with the Group ID, which is generated after the group has been successfully created.</p>\r\n                         <p>If you forget your Group ID and/or Group code, click on the \"Details\" option for the group.</p>\r\n                      </div>\r\n                      </div>\r\n\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n            </form>\r\n          </div>\r\n          <div class=\"modal-footer\">\r\n            <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\r\n            <button type=\"button\" class=\"btn btn-primary\">Create Group</button>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <!-- Modal Area End-->\r\n\r\n  </div>\r\n  <app-footer-nav></app-footer-nav>\r\n</div>"
+module.exports = "<div class=\"page\">\r\n  <div class=\"page-main\">\r\n    <!--Navigation bar-->\r\n    <app-navbar></app-navbar>\r\n    <!--Nav Options Area-->\r\n    <div class=\"header collapse d-lg-flex p-0\" id=\"headerMenuCollapse\">\r\n      <div class=\"container\">\r\n        <div class=\"row align-items-center\">\r\n\r\n          <div class=\"col-lg\">\r\n            <ul class=\"nav nav-tabs border-0 flex-column flex-lg-row\">\r\n              <li class=\"nav-item\">\r\n                <a href=\"#\" class=\"nav-link\"><i class=\"fe fe-home\"></i> Home</a>\r\n              </li>\r\n              <li class=\"nav-item\">\r\n                <a href=\"javascript:void(0);\" class=\"nav-link\" data-toggle=\"modal\" data-target=\"#create-group-modal\"><i class=\"fe fe-box\"></i> Create Group</a>\r\n              </li>\r\n              <li class=\"nav-item\">\r\n                <a href=\"#\" class=\"nav-link\" data-toggle=\"modal\" data-target=\"#join-group-modal\"><i class=\"fe fe-check-square\"></i> Join Group</a>\r\n              </li>\r\n            </ul>\r\n          </div>\r\n\r\n          <div class=\"col-lg-3 ml-auto\">\r\n            <form class=\"input-icon my-3 my-lg-0\">\r\n              <input type=\"search\" class=\"form-control header-search\" placeholder=\"Search&hellip;\" tabindex=\"1\">\r\n              <div class=\"input-icon-addon\">\r\n                <i class=\"fe fe-search\"></i>\r\n              </div>\r\n            </form>\r\n          </div>\r\n\r\n\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <!--Nav Options Area End-->\r\n\r\n    <!-- Group Area -->\r\n    <div class=\"my-3 my-mid-5\">\r\n      <div class=\"container\">\r\n        <div class=\"row\">\r\n          <div class=\"col-12\">\r\n            <form class=\"card\" action=\"javascript:void(0);\" method=\"post\">\r\n              <div class=\"card-header\">\r\n                <h3 class=\"card-title\"> My Groups</h3>\r\n                <div class=\"card-options card-options-settings\">\r\n                  <div class=\"custom-controls-stacked\">\r\n                    <label class=\"custom-control custom-radio custom-control-inline\">\r\n                      <input type=\"radio\" class=\"custom-control-input\" name=\"example-inline-radios\" value=\"option1\"\r\n                        checked=\"\">\r\n                      <span class=\"custom-control-label\">All</span>\r\n                    </label>\r\n                    <label class=\"custom-control custom-radio custom-control-inline\">\r\n                      <input type=\"radio\" class=\"custom-control-input\" name=\"example-inline-radios\" value=\"option2\">\r\n                      <span class=\"custom-control-label\">Groups you created</span>\r\n                    </label>\r\n                    <label class=\"custom-control custom-radio custom-control-inline\">\r\n                      <input type=\"radio\" class=\"custom-control-input\" name=\"example-inline-radios\" value=\"option3\">\r\n                      <span class=\"custom-control-label\">Groups you joined</span>\r\n                    </label>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n\r\n              <!--Individual Group Card-->\r\n              <div class=\"card-body\">\r\n                <div class=\"group-content\">\r\n                  <div class=\"row\">\r\n                    <div class=\"col-md-4 col-xl-4 col-sm-4\">\r\n                      <div class=\"card\">\r\n                        <div class=\"card-status bg-red\"></div>\r\n                        <div class=\"card-header\">\r\n                          <h3 class=\"card-title\">This is a standard card</h3>\r\n                          <div class=\"card-options\">\r\n                            <span class=\"tag tag-red\">Owner</span>\r\n                            <a href=\"javascript:void(0);\" class=\"card-options-collapse\" data-toggle=\"card-collapse\"><i\r\n                                class=\"fe fe-chevron-up\"></i></a>\r\n                          </div>\r\n                        </div>\r\n                        <div class=\"card-body\">\r\n                          <div class=\"card-content\">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam\r\n                            deleniti fugit incidunt,\r\n                            iste, itaque minima neque pariatur perferendis sed suscipit velit vitae voluptatem. A\r\n                            consequuntur, deserunt eaque error nulla temporibus!</div>\r\n                          <div>\r\n                            <span class=\"tag tag-rounded tag-red\">Created By: Richard Nelson</span>\r\n                          </div>\r\n                        </div>\r\n                        <div class=\"card-footer\">\r\n                          <div class=\"container\">\r\n                            <div class=\"row\">\r\n                              <div class=\"col-md-1 col-lg-1 col-xl-1 offset-11\">\r\n                                <div class=\"item-action dropdown\">\r\n                                  <a href=\"javascript:void(0)\" data-toggle=\"dropdown\" class=\"icon\"><i\r\n                                      class=\"fe fe-more-horizontal\"></i></a>\r\n                                  <div class=\"dropdown-menu dropdown-menu-right\">\r\n                                    <a routerLink=\"/home\" class=\"dropdown-item\"><i\r\n                                        class=\"dropdown-icon fe fe-arrow-right-circle\"></i>Enter</a>\r\n                                    <a data-toggle=\"modal\" data-target=\"#edit-group-modal\" href=\"javascript:void(0)\" class=\"dropdown-item\"><i\r\n                                        class=\"dropdown-icon fe fe-edit-2\"></i>Edit </a>\r\n                                    <a data-toggle=\"modal\" data-target=\"#details-modal\" href=\"javascript:void(0)\"\r\n                                      class=\"dropdown-item\"><i class=\"dropdown-icon fe fe-book-open\"></i> Details</a>\r\n                                    <div class=\"dropdown-divider\"></div>\r\n                                    <a href=\"javascript:void(0)\" data-toggle=\"modal\" data-target=\"#delete-group-modal\" class=\"dropdown-item\"><i\r\n                                        class=\"dropdown-icon fe fe-trash-2\"></i> Delete</a>\r\n                                  </div>\r\n                                </div>\r\n                              </div>\r\n                            </div>\r\n                          </div>\r\n                        </div>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n\r\n                </div>\r\n              </div>\r\n              <!--Individual Group Card End-->\r\n\r\n            </form>\r\n            <!-- Form End-->\r\n          </div>\r\n        </div>\r\n      </div>\r\n\r\n\r\n    </div>\r\n    <!-- Group Area End-->\r\n\r\n    <!-- Modal Area-->\r\n    <!-- Modal -->\r\n\r\n\r\n    <!--Create Group Modal-->\r\n    <div class=\"modal fade\" id=\"create-group-modal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLongTitle\"\r\n      aria-hidden=\"true\">\r\n      <div class=\"modal-dialog\" role=\"document\">\r\n        <div class=\"modal-content\">\r\n          <div class=\"modal-header\">\r\n            <h5 class=\"col-12 modal-title modal-title-settings\" id=\"exampleModalLongTitle\">Group Creation\r\n            <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"></button>\r\n            </h5>\r\n            \r\n          </div>\r\n          <div class=\"modal-body\">\r\n            <form action=\"javascript:void(0);\" action=\"post\">\r\n                <div class=\"container-fluid\">\r\n                  <div class=\"row\">\r\n                    <div class=\"col-lg-12 col-md-12 col-sm-12\">\r\n                      <div class=\"form-group\">\r\n                        <label class=\"form-label\">Group Name\r\n                          <span class=\"form-required\">*</span>\r\n                          <span class=\"form-label-small\">0/20</span>\r\n                        </label>\r\n                        <input class=\"form-control\" type=\"input\" name=\"group-name\" placeholder=\"Enter Group Name\"/>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n\r\n                  <div class=\"row\">\r\n                      <div class=\"col-lg-12 col-md-12 col-sm-12\">\r\n                          <div class=\"form-group\">\r\n                              <label class=\"form-label\">Description\r\n                                <span class=\"form-label-small\">10/200</span>\r\n                              </label>\r\n\r\n                              <textarea class=\"form-control\" name=\"group-description\" style=\"resize: none;\" rows = \"6\" placeholder=\"Enter a short description for about group\" ></textarea>\r\n                          </div>\r\n                      </div>\r\n                  </div>\r\n\r\n                  <div class=\"row\">\r\n                    <div class=\"col-lg-12 col-md-12 col-sm-12\">\r\n                      <div class=\"form-group\">\r\n                      <label class=\"form-label\">Group Code\r\n                        <span class=\"form-required\">*</span>\r\n                        <span class=\"form-label-small\">0/15</span>\r\n                      </label>\r\n                      <input class=\"form-control\" type=\"input\"  name=\"group-name\" placeholder=\"Enter a group code\"/>\r\n                      <div class=\"invalid-feedback\" style=\"display:inline !important;\">\r\n                        <p>Note: Users will use this code to join your group along with the Group ID, which is generated after the group has been successfully created.</p>\r\n                         <p>If you forget your Group ID and/or Group code, click on the \"Details\" option for the group.</p>\r\n                      </div>\r\n                      </div>\r\n\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n            </form>\r\n          </div>\r\n          <div class=\"modal-footer\">\r\n            <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\r\n            <button type=\"button\" class=\"btn btn-primary\" id =\"btn-create-group\">Create Group</button>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n\r\n    <!--Edit Group Modal-->\r\n    <div class=\"modal fade\" id=\"edit-group-modal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLongTitle\"\r\n      aria-hidden=\"true\">\r\n      <div class=\"modal-dialog\" role=\"document\">\r\n        <div class=\"modal-content\">\r\n          <div class=\"modal-header\">\r\n            <h5 class=\"col-12 modal-title modal-title-settings\" id=\"exampleModalLongTitle\">Make Changes To This Group\r\n            <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"></button>\r\n            </h5>\r\n            \r\n          </div>\r\n          <div class=\"modal-body\">\r\n            <form action=\"javascript:void(0);\" action=\"post\">\r\n                <div class=\"container-fluid\">\r\n                  <div class=\"row\">\r\n                    <div class=\"col-lg-12 col-md-12 col-sm-12\">\r\n                      <div class=\"form-group\">\r\n                        <label class=\"form-label\">Group Name\r\n                          <span class=\"form-required\">*</span>\r\n                          <span class=\"form-label-small\">0/20</span>\r\n                        </label>\r\n                        <input class=\"form-control\" type=\"input\" name=\"group-name\" placeholder=\"Enter Group Name\"/>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n\r\n                  <div class=\"row\">\r\n                      <div class=\"col-lg-12 col-md-12 col-sm-12\">\r\n                          <div class=\"form-group\">\r\n                              <label class=\"form-label\">Description\r\n                                <span class=\"form-label-small\">10/200</span>\r\n                              </label>\r\n\r\n                              <textarea class=\"form-control\" name=\"group-description\" style=\"resize: none;\" rows = \"6\" placeholder=\"Enter a short description for about group\" ></textarea>\r\n                          </div>\r\n                      </div>\r\n                  </div>\r\n\r\n                  <div class=\"row\">\r\n                    <div class=\"col-lg-12 col-md-12 col-sm-12\">\r\n                      <div class=\"form-group\">\r\n                      <label class=\"form-label\">Current Group Code\r\n                      </label>\r\n                      <input class=\"form-control\" type=\"input\"  name=\"old-group-code\" disabled placeholder=\"ProgrammingRocks!\"/>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n\r\n\r\n                  <div class=\"row\">\r\n                      <div class=\"col-lg-12 col-md-12 col-sm-12\">\r\n                        <div class=\"form-group\">\r\n                        <label class=\"form-label\">New Group Code\r\n                          <span class=\"form-required\">*</span>\r\n                          <span class=\"form-label-small\">0/15</span>\r\n                        </label>\r\n                        <input class=\"form-control\" type=\"input\" name=\"new-group-code\" placeholder=\"Enter a group code\"/>\r\n                        <div class=\"invalid-feedback\"></div>\r\n                        </div>\r\n  \r\n                      </div>\r\n                    </div>\r\n\r\n                </div>\r\n            </form>\r\n          </div>\r\n          <div class=\"modal-footer\">\r\n            <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\r\n            <button type=\"button\" class=\"btn btn-primary\" id =\"btn-create-group\">Save Changes</button>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n    <!-- Join Group Modal-->\r\n    <div class=\"modal fade\" id=\"join-group-modal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLongTitle\"\r\n    aria-hidden=\"true\">\r\n    <div class=\"modal-dialog\" role=\"document\">\r\n      <div class=\"modal-content\">\r\n        <div class=\"modal-header\">\r\n          <h5 class=\"col-12 modal-title modal-title-settings\" id=\"exampleModalLongTitle\">Get Connected and Join A Group\r\n          <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"></button>\r\n          </h5>\r\n        </div>\r\n        <div class=\"modal-body\">\r\n          <form action=\"javascript:void(0);\" action=\"post\">\r\n              <div class=\"container-fluid\">\r\n                <div class=\"row\">\r\n                  <div class=\"col-lg-12 col-md-12 col-sm-12\">\r\n                    <div class=\"form-group\">\r\n                      <label class=\"form-label\">Group ID\r\n                        <span class=\"form-required\">*</span>\r\n                      </label>\r\n                      <input class=\"form-control\" type=\"input\" name=\"group-name\" placeholder=\"Enter Group ID\"/>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n\r\n                <div class=\"row\">\r\n                  <div class=\"col-lg-12 col-md-12 col-sm-12\">\r\n                    <div class=\"form-group\">\r\n                    <label class=\"form-label\">Group Code\r\n                      <span class=\"form-required\">*</span>\r\n                    </label>\r\n                    <input class=\"form-control\" type=\"input\"  name=\"group-code\" placeholder=\"Enter Group Code\"/>\r\n                    <div class=\"invalid-feedback\"></div>\r\n                    </div>\r\n\r\n                  </div>\r\n                </div>\r\n              </div>\r\n          </form>\r\n        </div>\r\n        <div class=\"modal-footer\">\r\n          <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\r\n          <button type=\"button\" class=\"btn btn-primary\" id=\"btn-join-group\">Join Group</button>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <!-- Details Modal-->\r\n  <div class=\"modal fade\" id=\"details-modal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLongTitle\"\r\n    aria-hidden=\"true\">\r\n    <div class=\"modal-dialog\" role=\"document\">\r\n      <div class=\"modal-content\">\r\n        <div class=\"modal-header\">\r\n          <h5 class=\"col-12 modal-title modal-title-settings\" id=\"exampleModalLongTitle\">Group Details\r\n          <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"></button>\r\n          </h5>\r\n        </div>\r\n        <div class=\"modal-body\">\r\n          <form action=\"javascript:void(0);\" action=\"post\">\r\n              <div class=\"container-fluid\">\r\n                <div class=\"row\">\r\n                  <div class=\"col-lg-12 col-md-12 col-sm-12\">\r\n                    <div class=\"form-group\">\r\n                      <label class=\"form-label\">Group ID\r\n                      </label>\r\n                      <input class=\"form-control\" type=\"input\" name=\"group-name\" disabled=\"\" value=\"1002\" placeholder=\"Enter Group ID\"/>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n\r\n                <div class=\"row\">\r\n                  <div class=\"col-lg-12 col-md-12 col-sm-12\">\r\n                    <div class=\"form-group\">\r\n                    <label class=\"form-label\">Group Code\r\n                    </label>\r\n                    <input class=\"form-control\" type=\"input\" disabled = \"\" name=\"group-code\" value =\"ProgrammingRocks!\" placeholder=\"Enter Group Code\"/>\r\n                    <div class=\"invalid-feedback\"></div>\r\n                    </div>\r\n\r\n                  </div>\r\n                </div>\r\n              </div>\r\n          </form>\r\n        </div>\r\n        <div class=\"modal-footer\">\r\n          <button type=\"button\" class=\"btn btn-primary\" data-dismiss =\"modal\">Close</button>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <!-- Delete Group  Modal-->\r\n  <div class=\"modal fade\" id=\"delete-group-modal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLongTitle\"\r\n    aria-hidden=\"true\">\r\n    <div class=\"modal-dialog\" role=\"document\">\r\n      <div class=\"modal-content\">\r\n        <div class=\"modal-header\">\r\n          <h4 class=\"col-12 modal-title modal-title-settings\" id=\"exampleModalLongTitle\">Are you sure?\r\n          <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"></button>\r\n          </h4>\r\n        </div>\r\n        <div class=\"modal-body\">\r\n          <form action=\"javascript:void(0);\" action=\"post\">\r\n              <div class=\"container-fluid\">\r\n                <div class=\"row\">\r\n                  <div class=\"col-lg-12 col-md-12 col-sm-12 modal-title-settings\">\r\n                    <h5> Do you really want to delete this group? This process cannot be undone.</h5>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n          </form>\r\n        </div>\r\n        <div class=\"modal-footer\">\r\n            <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\r\n            <button type=\"button\" class=\"btn btn-danger\" id=\"btn-delete-group\">Delete Group</button>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n    <!-- Modal Area End-->\r\n\r\n  </div>\r\n  <app-footer-nav></app-footer-nav>\r\n</div>"
 
 /***/ }),
 
@@ -272,7 +272,7 @@ var FooterComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"header py-4\">\r\n  <div class=\"container\">\r\n    <div class=\"d-flex\">\r\n      <a class=\"header-brand\" href=\"/\">\r\n        <img src=\"https://tabler.github.io/tabler/demo/brand/tabler.svg\" class=\"header-brand-img\" alt=\"tabler logo\">\r\n      </a>\r\n      <div class=\"d-flex order-lg-2 ml-auto\">\r\n        <div class=\"nav-item d-none d-md-flex\">\r\n         \r\n        </div>\r\n        <!--Bell notification area-->\r\n        <div class=\"dropdown d-none d-md-flex\">\r\n          <a class=\"nav-link icon\" data-toggle=\"dropdown\">\r\n            <i class=\"fe fe-bell\"></i>\r\n            <span class=\"nav-unread\"></span>\r\n          </a>\r\n          <div class=\"dropdown-menu dropdown-menu-right dropdown-menu-arrow\">\r\n            <a href=\"#\" class=\"dropdown-item d-flex\">\r\n              <span class=\"avatar mr-3 align-self-center\" style=\"background-image: url(https://tabler.github.io/tabler/demo/faces/male/41.jpg)\"></span>\r\n              <div>\r\n                <strong>Nathan</strong> pushed new commit: Fix page load performance issue.\r\n                <div class=\"small text-muted\">10 minutes ago</div>\r\n              </div>\r\n            </a>\r\n            <a href=\"#\" class=\"dropdown-item d-flex\">\r\n              <span class=\"avatar mr-3 align-self-center\" style=\"background-image: url(https://tabler.github.io/tabler/demo/faces/female/1.jpg)\"></span>\r\n              <div>\r\n                <strong>Alice</strong> started new task: Tabler UI design.\r\n                <div class=\"small text-muted\">1 hour ago</div>\r\n              </div>\r\n            </a>\r\n            <a href=\"#\" class=\"dropdown-item d-flex\">\r\n              <span class=\"avatar mr-3 align-self-center\" style=\"background-image: url(https://tabler.github.io/tabler/demo/faces/female/18.jpg)\"></span>\r\n              <div>\r\n                <strong>Rose</strong> deployed new version of NodeJS REST Api V3\r\n                <div class=\"small text-muted\">2 hours ago</div>\r\n              </div>\r\n            </a>\r\n            <div class=\"dropdown-divider\"></div>\r\n            <a href=\"#\" class=\"dropdown-item text-center text-muted-dark\">Mark all as read</a>\r\n          </div>\r\n        </div>\r\n        <!--Bell notification area end-->\r\n        <div class=\"dropdown\">\r\n          <a href=\"#\" class=\"nav-link pr-0 leading-none\" data-toggle=\"dropdown\">\r\n            <span class=\"avatar\" style=\"background-image: url(https://tabler.github.io/tabler/demo/faces/female/25.jpg)\"></span>\r\n            <span class=\"ml-2 d-none d-lg-block\">\r\n              <span class=\"text-default\">Jane Pearson</span>\r\n              <small class=\"text-muted d-block mt-1\">Administrator</small>\r\n            </span>\r\n          </a>\r\n          <div class=\"dropdown-menu dropdown-menu-right dropdown-menu-arrow\">\r\n            <a class=\"dropdown-item\" href=\"#\">\r\n              <i class=\"dropdown-icon fe fe-user\"></i> Profile\r\n            </a>\r\n            <a class=\"dropdown-item\" href=\"#\">\r\n              <i class=\"dropdown-icon fe fe-settings\"></i> Settings\r\n            </a>\r\n            <a class=\"dropdown-item\" href=\"#\">\r\n              <span class=\"float-right\"><span class=\"badge badge-primary\">6</span></span>\r\n              <i class=\"dropdown-icon fe fe-mail\"></i> Inbox\r\n            </a>\r\n            <a class=\"dropdown-item\" href=\"#\">\r\n              <i class=\"dropdown-icon fe fe-send\"></i> Message\r\n            </a>\r\n            <div class=\"dropdown-divider\"></div>\r\n            <a class=\"dropdown-item\" href=\"#\">\r\n              <i class=\"dropdown-icon fe fe-help-circle\"></i> Need help?\r\n            </a>\r\n            <a class=\"dropdown-item\" href=\"#\">\r\n              <i class=\"dropdown-icon fe fe-log-out\"></i> Sign out\r\n            </a>\r\n          </div>\r\n        </div>\r\n      </div>\r\n      <a href=\"#\" class=\"header-toggler d-lg-none ml-3 ml-lg-0\" data-toggle=\"collapse\" data-target=\"#headerMenuCollapse\">\r\n        <span class=\"header-toggler-icon\"></span>\r\n      </a>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"header py-4\">\r\n  <div class=\"container\">\r\n    <div class=\"d-flex\">\r\n      <a class=\"header-brand\" href=\"/\">\r\n        <img src=\"https://tabler.github.io/tabler/demo/brand/tabler.svg\" class=\"header-brand-img\" alt=\"tabler logo\">\r\n      </a>\r\n      <div class=\"d-flex order-lg-2 ml-auto\">\r\n        <div class=\"nav-item d-none d-md-flex\">\r\n         \r\n        </div>\r\n        <!--Bell notification area-->\r\n        <div class=\"dropdown d-none d-md-flex\">\r\n          <a class=\"nav-link icon\" data-toggle=\"dropdown\">\r\n            <i class=\"fe fe-bell\"></i>\r\n            <span class=\"nav-unread\"></span>\r\n          </a>\r\n          <div class=\"dropdown-menu dropdown-menu-right dropdown-menu-arrow\">\r\n            <a href=\"#\" class=\"dropdown-item d-flex\">\r\n              <span class=\"avatar mr-3 align-self-center\" style=\"background-image: url(https://tabler.github.io/tabler/demo/faces/male/41.jpg)\"></span>\r\n              <div>\r\n                <strong>Nathan</strong> pushed new commit: Fix page load performance issue.\r\n                <div class=\"small text-muted\">10 minutes ago</div>\r\n              </div>\r\n            </a>\r\n            <a href=\"#\" class=\"dropdown-item d-flex\">\r\n              <span class=\"avatar mr-3 align-self-center\" style=\"background-image: url(https://tabler.github.io/tabler/demo/faces/female/1.jpg)\"></span>\r\n              <div>\r\n                <strong>Alice</strong> started new task: Tabler UI design.\r\n                <div class=\"small text-muted\">1 hour ago</div>\r\n              </div>\r\n            </a>\r\n            <a href=\"#\" class=\"dropdown-item d-flex\">\r\n              <span class=\"avatar mr-3 align-self-center\" style=\"background-image: url(https://tabler.github.io/tabler/demo/faces/female/18.jpg)\"></span>\r\n              <div>\r\n                <strong>Rose</strong> deployed new version of NodeJS REST Api V3\r\n                <div class=\"small text-muted\">2 hours ago</div>\r\n              </div>\r\n            </a>\r\n            <div class=\"dropdown-divider\"></div>\r\n            <a href=\"#\" class=\"dropdown-item text-center text-muted-dark\">Mark all as read</a>\r\n          </div>\r\n        </div>\r\n        <!--Bell notification area end-->\r\n        <div class=\"dropdown\">\r\n          <a href=\"#\" class=\"nav-link pr-0 leading-none\" data-toggle=\"dropdown\">\r\n            <span class=\"avatar\" style=\"background-image: url(https://tabler.github.io/tabler/demo/faces/female/25.jpg)\"></span>\r\n            <span class=\"ml-2 d-none d-lg-block\">\r\n              <span class=\"text-default\">Jane Pearson</span>\r\n              <small class=\"text-muted d-block mt-1\">Administrator</small>\r\n            </span>\r\n          </a>\r\n          <div class=\"dropdown-menu dropdown-menu-right dropdown-menu-arrow\">\r\n            <a class=\"dropdown-item\" href=\"#\">\r\n              <i class=\"dropdown-icon fe fe-user\"></i> Profile\r\n            </a>\r\n            <a class=\"dropdown-item\" href=\"#\">\r\n              <i class=\"dropdown-icon fe fe-settings\"></i> Settings\r\n            </a>\r\n            <a class=\"dropdown-item\" href=\"#\">\r\n              <span class=\"float-right\"><span class=\"badge badge-primary\">6</span></span>\r\n              <i class=\"dropdown-icon fe fe-mail\"></i> Inbox\r\n            </a>\r\n            <a class=\"dropdown-item\" href=\"#\">\r\n              <i class=\"dropdown-icon fe fe-send\"></i> Message\r\n            </a>\r\n            <div class=\"dropdown-divider\"></div>\r\n            <a class=\"dropdown-item\" href=\"#\">\r\n              <i class=\"dropdown-icon fe fe-help-circle\"></i> Need help?\r\n            </a>\r\n            <a (click) = \"onSignOut()\" class=\"dropdown-item\" href=\"#\">\r\n              <i class=\"dropdown-icon fe fe-log-out\"></i> Sign out\r\n            </a>\r\n          </div>\r\n        </div>\r\n      </div>\r\n      <a href=\"#\" class=\"header-toggler d-lg-none ml-3 ml-lg-0\" data-toggle=\"collapse\" data-target=\"#headerMenuCollapse\">\r\n        <span class=\"header-toggler-icon\"></span>\r\n      </a>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -287,21 +287,39 @@ module.exports = "<div class=\"header py-4\">\r\n  <div class=\"container\">\r\n
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NavbarComponent", function() { return NavbarComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../services/index */ "./src/app/services/index.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
 
 var NavbarComponent = /** @class */ (function () {
-    function NavbarComponent() {
+    function NavbarComponent(user_service, router) {
+        this.user_service = user_service;
+        this.router = router;
     }
+    //
+    NavbarComponent.prototype.ngOnInit = function () {
+    };
+    //
+    NavbarComponent.prototype.onSignOut = function () {
+        this.user_service.logout();
+        this.router.navigate(['\home']);
+    };
     NavbarComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-navbar',
             template: __webpack_require__(/*! ./navbar.component.html */ "./src/app/components/generalcomponents/navbarcomponent/navbar.component.html")
-        })
+        }),
+        __metadata("design:paramtypes", [_services_index__WEBPACK_IMPORTED_MODULE_1__["UserService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
     ], NavbarComponent);
     return NavbarComponent;
 }());
@@ -511,7 +529,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!***********************************************!*\
   !*** ./src/app/constants/constants.export.ts ***!
   \***********************************************/
-/*! exports provided: ERROR_PASSWORD_INVALID_MATCH, ERROR_EMAIL_NOT_VALID, ERROR_PASSWORD_NOT_VALID, ERROR_TERMS_AND_CONIDTIONS */
+/*! exports provided: ERROR_PASSWORD_INVALID_MATCH, ERROR_EMAIL_NOT_VALID, ERROR_PASSWORD_NOT_VALID, ERROR_TERMS_AND_CONIDTIONS, ERROR_NAME_NOT_VALID */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -520,10 +538,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ERROR_EMAIL_NOT_VALID", function() { return ERROR_EMAIL_NOT_VALID; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ERROR_PASSWORD_NOT_VALID", function() { return ERROR_PASSWORD_NOT_VALID; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ERROR_TERMS_AND_CONIDTIONS", function() { return ERROR_TERMS_AND_CONIDTIONS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ERROR_NAME_NOT_VALID", function() { return ERROR_NAME_NOT_VALID; });
 var ERROR_PASSWORD_INVALID_MATCH = 'These passwords don\'t match. Try again?';
 var ERROR_EMAIL_NOT_VALID = 'This email address is not valid.';
 var ERROR_PASSWORD_NOT_VALID = 'This password does not meet the required length.';
 var ERROR_TERMS_AND_CONIDTIONS = 'You must agree to the terms and conditions.';
+var ERROR_NAME_NOT_VALID = 'Invalid Length. This field cannot be empty.';
 
 
 
@@ -698,29 +718,40 @@ var LoginComponent = /** @class */ (function () {
         });
     };
     LoginComponent.prototype.onLogin = function () {
-        var _this = this;
-        this.css_loading = 'dimmer active';
-        if (this.valid_input) {
-            this.user_service.login(this.user_email, this.user_password).subscribe(function (data) {
-                console.log('Response onLogin: ' + JSON.stringify(data));
-                document.getElementById('lbl-error').style.display = 'none';
-                _this.css_loading = 'dimmer';
-                _this.router.navigate(['/dashboard']);
-            }, function (error) {
-                console.log('Error onLogin: ' + JSON.stringify(error));
-                var error_des = (error['error'])['error_description'];
-                if (error_des) {
-                    _this.error_message = error_des;
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        this.css_loading = 'dimmer active';
+                        if (!this.valid_input) return [3 /*break*/, 2];
+                        return [4 /*yield*/, this.user_service.login(this.user_email, this.user_password).subscribe(function (data) {
+                                console.log('Response onLogin: ' + JSON.stringify(data));
+                                document.getElementById('lbl-error').style.display = 'none';
+                                _this.css_loading = 'dimmer';
+                                _this.router.navigate(['/dashboard']);
+                            }, function (error) {
+                                console.log('Error onLogin: ' + JSON.stringify(error));
+                                var error_des = (error['error'])['error_description'];
+                                if (error_des) {
+                                    _this.error_message = error_des;
+                                }
+                                else {
+                                    _this.error_message = 'An error occurred. Please try again later.';
+                                }
+                                //
+                                document.getElementById('lbl-error').style.display = 'block';
+                                _this.css_loading = 'dimmer';
+                            })];
+                    case 1:
+                        _a.sent();
+                        _a.label = 2;
+                    case 2:
+                        console.log('Hello from onLogin()');
+                        return [2 /*return*/];
                 }
-                else {
-                    _this.error_message = 'An error occurred. Please try again later.';
-                }
-                //
-                document.getElementById('lbl-error').style.display = 'block';
-                _this.css_loading = 'dimmer';
             });
-        }
-        console.log('Hello from onLogin()');
+        });
     };
     LoginComponent.prototype.onUpdate = function (event) {
         switch (event.target.name) {
@@ -790,7 +821,7 @@ var LoginComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"page\">\r\n  <div class=\"page-single\">\r\n    <div class=\"container\">\r\n      <div class=\"row\">\r\n        <div class=\"col col-login mx-auto\">\r\n          <div class=\"text-center mb-6\">\r\n            <img src=\"./demo/brand/tabler.svg\" class=\"h-6\" alt=\"\">\r\n          </div>\r\n          <form class=\"card\" action=\"javascript:void(0);\" method=\"post\">\r\n            <div class=\"card-body p-6\">\r\n              <div class=\"card-title\">Create new account</div>\r\n              <div class=\"form-group\">\r\n                <label class=\"form-label\">Email address</label>\r\n                <input id = \"input-email\" type=\"email\" class=\"form-control\" placeholder=\"Enter email\" (input) = \"onUpdate($event)\" (keyup) = \"onUpdate($event)\" >\r\n                <div id=\"lbl-error-email\" class=\"invalid-feedback\">{{error_email}}</div>\r\n              </div>\r\n              <div class=\"form-group\">\r\n                <label class=\"form-label\">Password</label>\r\n                <input id=\"input-password\" type=\"password\" class=\"form-control\" placeholder=\"Password\" (input) = \"onUpdate($event)\" (keyup) = \"onUpdate($event)\">\r\n                <div id=\"lbl-error-password\" class=\"invalid-feedback\">{{error_password}}</div>\r\n              </div>\r\n              <div class=\"form-group\">\r\n                <label class=\"form-label\">Confirm Password</label>\r\n                <input id=\"input-confirm-password\"type=\"password\" class=\"form-control\" placeholder=\"Password\" (input) = \"onUpdate($event)\" (keyup) = \"onUpdate($event)\">\r\n                <div id=\"lbl-error-confirm-password\" class=\"invalid-feedback\">{{error_confirm_password}}</div>\r\n              </div>\r\n              <div class=\"form-group\">\r\n                <label class=\"custom-control custom-checkbox\">\r\n                  <input id = \"input-agree\" (change) = \"onUpdate($event)\" type=\"checkbox\" class=\"custom-control-input\" />\r\n                  <span class=\"custom-control-label\">Agree the <a href=\"terms.html\">terms and policy</a></span>\r\n                  <div id=\"lbl-error-policy\" class=\"invalid-feedback\">{{error_terms_policy}}</div>\r\n                </label>\r\n              </div>\r\n              <div class=\"form-footer\">\r\n                <button id=\"btn-register\" type=\"submit\" class=\"btn btn-primary btn-block\">Create new account</button>\r\n              </div>\r\n            </div>\r\n          </form>\r\n          <div class=\"text-center text-muted\">\r\n            Already have account? <a routerLink=\"/login\">Sign in</a>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"page\">\r\n  <div class=\"page-single\">\r\n    <div class=\"container\">\r\n      <div class=\"row\">\r\n        <div class=\"col col-login mx-auto\">\r\n          <div class=\"text-center mb-6\">\r\n            <img src=\"./demo/brand/tabler.svg\" class=\"h-6\" alt=\"\">\r\n          </div>\r\n          <form class=\"card\" action=\"javascript:void(0);\" method=\"post\">\r\n            <div class=\"card-body p-6\">\r\n              <div class=\"card-title\">Create new account</div>\r\n              <div class=\"form-group\">\r\n                <label class=\"form-label\">First Name</label>\r\n                <input id = \"input-first-name\" type=\"input\" class=\"form-control\" placeholder=\"Enter first name\" (input) = \"onUpdate($event)\" (keyup) = \"onUpdate($event)\" >\r\n                <div id=\"lbl-error-first-name\" class=\"invalid-feedback\">{{error_firstname}}</div>\r\n              </div>\r\n              <div class=\"form-group\">\r\n                <label class=\"form-label\">Last Name</label>\r\n                <input id = \"input-last-name\" type=\"input\" class=\"form-control\" placeholder=\"Enter last name\" (input) = \"onUpdate($event)\" (keyup) = \"onUpdate($event)\" >\r\n                <div id=\"lbl-error-last-name\" class=\"invalid-feedback\">{{error_lastname}}</div>\r\n              </div>\r\n              <div class=\"form-group\">\r\n                <label class=\"form-label\">Email address</label>\r\n                <input id = \"input-email\" type=\"email\" class=\"form-control\" placeholder=\"Enter email\" (input) = \"onUpdate($event)\" (keyup) = \"onUpdate($event)\" >\r\n                <div id=\"lbl-error-email\" class=\"invalid-feedback\">{{error_email}}</div>\r\n              </div>\r\n              <div class=\"form-group\">\r\n                <label class=\"form-label\">Password</label>\r\n                <input id=\"input-password\" type=\"password\" class=\"form-control\" placeholder=\"Password\" (input) = \"onUpdate($event)\" (keyup) = \"onUpdate($event)\">\r\n                <div id=\"lbl-error-password\" class=\"invalid-feedback\">{{error_password}}</div>\r\n              </div>\r\n              <div class=\"form-group\">\r\n                <label class=\"form-label\">Confirm Password</label>\r\n                <input id=\"input-confirm-password\"type=\"password\" class=\"form-control\" placeholder=\"Password\" (input) = \"onUpdate($event)\" (keyup) = \"onUpdate($event)\">\r\n                <div id=\"lbl-error-confirm-password\" class=\"invalid-feedback\">{{error_confirm_password}}</div>\r\n              </div>\r\n              <div class=\"form-group\">\r\n                <label class=\"custom-control custom-checkbox\">\r\n                  <input id = \"input-agree\" (change) = \"onUpdate($event)\" type=\"checkbox\" class=\"custom-control-input\" />\r\n                  <span class=\"custom-control-label\">Agree the <a href=\"terms.html\">terms and policy</a></span>\r\n                  <div id=\"lbl-error-policy\" class=\"invalid-feedback\">{{error_terms_policy}}</div>\r\n                </label>\r\n              </div>\r\n              <div class=\"form-footer\">\r\n                  <div class=\"{{css_loading}}\">\r\n                      <div class=\"loader\"></div>\r\n                      <div class=\"dimmer-content\">\r\n                            <button id=\"btn-register\" type=\"submit\" class=\"btn btn-primary btn-block\" (click) = \"onRegister()\">Create new account</button>\r\n                      </div>\r\n                    </div>             \r\n              </div>\r\n            </div>\r\n          </form>\r\n          <div class=\"text-center text-muted\">\r\n            Already have account? <a routerLink=\"/login\">Sign in</a>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -864,6 +895,7 @@ var RegisterComponent = /** @class */ (function () {
     function RegisterComponent(user_service, router) {
         this.user_service = user_service;
         this.router = router;
+        this.css_loading = 'dimmer';
     }
     RegisterComponent.prototype.ngOnInit = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -875,6 +907,8 @@ var RegisterComponent = /** @class */ (function () {
                         document.getElementById('input-email').setAttribute('value', '');
                         document.getElementById('input-password').setAttribute('value', '');
                         document.getElementById('input-confirm-password').setAttribute('value', '');
+                        document.getElementById('input-first-name').setAttribute('value', '');
+                        document.getElementById('input-last-name').setAttribute('value', '');
                         document.getElementById('input-agree').checked = false;
                         this.valid_input = false;
                         document.getElementById('btn-register').setAttribute('disabled', '');
@@ -885,6 +919,42 @@ var RegisterComponent = /** @class */ (function () {
     };
     RegisterComponent.prototype.onUpdate = function (event) {
         switch (event.target.id) {
+            case 'input-first-name':
+                var user_firstname = event.target.value;
+                if (user_firstname === null || user_firstname === undefined) {
+                    user_firstname = '';
+                }
+                user_firstname = user_firstname.trim();
+                if (user_firstname.length === 0) {
+                    this.error_firstname = _constants_constants_export__WEBPACK_IMPORTED_MODULE_4__["ERROR_NAME_NOT_VALID"];
+                    document.getElementById('lbl-error-first-name').style.display = 'block';
+                    this.valid_firstname = false;
+                }
+                else {
+                    this.error_firstname = '';
+                    this.valid_firstname = true;
+                    document.getElementById('lbl-error-first-name').style.display = 'none';
+                }
+                this.user_firstname = user_firstname;
+                break;
+            case 'input-last-name':
+                var user_lastname = event.target.value;
+                if (user_lastname === null || user_lastname === undefined) {
+                    user_lastname = '';
+                }
+                user_lastname = user_lastname.trim();
+                if (user_lastname.length === 0) {
+                    this.error_lastname = _constants_constants_export__WEBPACK_IMPORTED_MODULE_4__["ERROR_NAME_NOT_VALID"];
+                    document.getElementById('lbl-error-last-name').style.display = 'block';
+                    this.valid_lastname = false;
+                }
+                else {
+                    this.error_lastname = '';
+                    this.valid_lastname = true;
+                    document.getElementById('lbl-error-last-name').style.display = 'none';
+                }
+                this.user_lastname = user_lastname;
+                break;
             case 'input-email':
                 var user_email = event.target.value;
                 if (user_email === null || user_email === undefined) {
@@ -939,7 +1009,7 @@ var RegisterComponent = /** @class */ (function () {
                     this.error_confirm_password = _constants_constants_export__WEBPACK_IMPORTED_MODULE_4__["ERROR_PASSWORD_INVALID_MATCH"];
                     document.getElementById('lbl-error-confirm-password').style.display = 'block';
                 }
-                //
+                this.user_confirm_password = user_confirm_password;
                 console.log('user_confirm_password: ' + this.valid_confirm_password + ' v: ' + this.valid_confirm_password);
                 break;
             case 'input-agree':
@@ -958,7 +1028,8 @@ var RegisterComponent = /** @class */ (function () {
             default:
                 console.log('event for target not supported');
         }
-        if (this.valid_email && this.valid_password && this.valid_confirm_password && this.terms_policy_checked) {
+        if (this.valid_firstname && this.valid_lastname && this.valid_email
+            && this.valid_password && this.valid_confirm_password && this.terms_policy_checked) {
             this.valid_input = true;
             document.getElementById('btn-register').removeAttribute('disabled');
         }
@@ -966,6 +1037,46 @@ var RegisterComponent = /** @class */ (function () {
             this.valid_input = false;
             document.getElementById('btn-register').setAttribute('disabled', '');
         }
+    };
+    RegisterComponent.prototype.onRegister = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var registration_success;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        this.css_loading = 'dimmer active';
+                        registration_success = false;
+                        if (!(this.valid_input === true)) return [3 /*break*/, 2];
+                        return [4 /*yield*/, (this.user_service.register(this.user_firstname, this.user_lastname, this.user_email, this.user_password, this.user_confirm_password)).subscribe(function (data) {
+                                registration_success = true;
+                                console.log('Register: Success!');
+                                // Log the user after registration completes
+                                _this.user_service.login(_this.user_email, _this.user_password).subscribe(function () {
+                                    _this.css_loading = 'dimmer';
+                                    _this.router.navigate(['/dashboard']);
+                                }, function (err) {
+                                    _this.css_loading = 'dimmer';
+                                    _this.router.navigate(['/home']);
+                                });
+                            }, function (err) {
+                                _this.css_loading = 'dimmer';
+                                var err_des = (err['error'])['Message'];
+                                if (err_des) {
+                                    _this.error_terms_policy = err_des;
+                                }
+                                else {
+                                    _this.error_terms_policy = 'An error occurred. Please try again later.';
+                                }
+                                document.getElementById('lbl-error-policy').style.display = 'block';
+                            })];
+                    case 1:
+                        _a.sent();
+                        _a.label = 2;
+                    case 2: return [2 /*return*/];
+                }
+            });
+        });
     };
     RegisterComponent.prototype.isAuthenticated = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -1373,8 +1484,32 @@ var UserService = /** @class */ (function () {
         }));
         return auth_check;
     };
-    UserService.prototype.register = function (_email, _password, _confirmpassword) {
-        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])(null);
+    UserService.prototype.register = function (_firstname, _lastname, _email, _password, _confirmpassword) {
+        var httpOptions = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        };
+        var params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpParams"]();
+        params = params.set('firstname', _firstname);
+        params = params.set('lastname', _lastname);
+        params = params.set('email', _email);
+        params = params.set('password', _password);
+        params = params.set('confirmpassword', _confirmpassword);
+        console.log('Inside Register');
+        return this.http.post(UserService_1.BASE_URL + '/api/account/register', params).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["retryWhen"])(function (errors) {
+            return errors.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["delay"])(5000), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["concatMap"])(function (error, index) {
+                if (index === 2) {
+                    console.log('Inside Register: ' + index);
+                    return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["throwError"])(error);
+                }
+                return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])(null);
+            }));
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) {
+            console.log('Register Success');
+            console.log(response);
+            return response;
+        }));
     };
     UserService.prototype.login = function (_username, _password) {
         var _this = this;

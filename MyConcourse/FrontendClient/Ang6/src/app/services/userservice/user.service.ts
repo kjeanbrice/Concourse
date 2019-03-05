@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse, HttpParams } from '@angular/common/http';
-import { retryWhen, delay, take, map, catchError, concatMap } from 'rxjs/operators';
-import { throwError, Observable, concat, of } from 'rxjs';
+import { retryWhen, delay, take, map, catchError, concatMap, scan, delayWhen} from 'rxjs/operators';
+import { throwError, Observable, concat, of, timer } from 'rxjs';
 import { makeBindingParser } from '@angular/compiler';
 
 
@@ -85,8 +85,45 @@ export class UserService {
     return auth_check;
   }
 
-  register(_email: string, _password: string, _confirmpassword): Observable<any> {
-    return of(null);
+  register(_firstname: string, _lastname: string, _email: string, _password: string, _confirmpassword): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      })
+    };
+
+    let params: HttpParams = new HttpParams();
+    params = params.set('firstname', _firstname);
+    params = params.set('lastname', _lastname);
+    params = params.set('email', _email);
+    params = params.set('password', _password);
+    params = params.set('confirmpassword', _confirmpassword);
+
+    console.log('Inside Register');
+
+    return this.http.post(UserService.BASE_URL + '/api/account/register', params).pipe(
+      retryWhen((errors) => {
+        return errors.pipe(
+          delay(5000),
+          concatMap((error, index) => {
+            if (index === 2) {
+              console.log('Inside Register: ' + index);
+              return throwError(error);
+            }
+            return of(null);
+          })
+
+        );
+      }
+      ),
+      map((response: Response) => {
+        console.log('Register Success');
+        console.log(response);
+        return response;
+      }
+      )
+    );
   }
 
   login(_username: string, _password: string): Observable<any> {
