@@ -32,6 +32,50 @@ namespace MyConcourse.Models
         public bool HasRegistered { get; set; }
 
         public string LoginProvider { get; set; }
+
+        private string _firstname = "";
+        public string FirstName {
+            get {
+                return this._firstname;
+            }
+            set {
+                if(value == null || value.Length == 0)
+                {
+                    this._firstname = "";
+                }
+
+                if(value.Length == 1)
+                {
+                    this._firstname = value.ToUpper();
+                }
+
+                string temp = value.ToLower();
+                this._firstname = temp.Substring(0, 1).ToUpper() + temp.Substring(1);
+                
+
+            }
+        }
+
+        private string _lastname = "";
+        public string LastName {
+            get {
+                return this._lastname;
+            }
+            set {
+                if (value == null || value.Length == 0)
+                {
+                    this._lastname = "";
+                }
+
+                if (value.Length == 1)
+                {
+                    this._lastname = value.ToUpper();
+                }
+
+                string temp = value.ToLower();
+                this._lastname = temp.Substring(0, 1).ToUpper() + temp.Substring(1);
+            }
+        }
     }
 
     public class UserLoginInfoViewModel

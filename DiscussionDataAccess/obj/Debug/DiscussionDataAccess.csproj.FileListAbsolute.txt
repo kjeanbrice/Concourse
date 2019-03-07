@@ -1,0 +1,12 @@
+C:\Users\Karl\source\repos\MyConcourse\DiscussionDataAccess\bin\Debug\DiscussionDataAccess.dll.config
+C:\Users\Karl\source\repos\MyConcourse\DiscussionDataAccess\bin\Debug\DiscussionDataAccess.dll
+C:\Users\Karl\source\repos\MyConcourse\DiscussionDataAccess\bin\Debug\DiscussionDataAccess.pdb
+C:\Users\Karl\source\repos\MyConcourse\DiscussionDataAccess\bin\Debug\EntityFramework.dll
+C:\Users\Karl\source\repos\MyConcourse\DiscussionDataAccess\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Karl\source\repos\MyConcourse\DiscussionDataAccess\bin\Debug\EntityFramework.xml
+C:\Users\Karl\source\repos\MyConcourse\DiscussionDataAccess\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Karl\source\repos\MyConcourse\DiscussionDataAccess\obj\Debug\DiscussionDataAccess.csproj.CoreCompileInputs.cache
+C:\Users\Karl\source\repos\MyConcourse\DiscussionDataAccess\obj\Debug\DiscussionDataAccess.csproj.CopyComplete
+C:\Users\Karl\source\repos\MyConcourse\DiscussionDataAccess\obj\Debug\DiscussionDataAccess.dll
+C:\Users\Karl\source\repos\MyConcourse\DiscussionDataAccess\obj\Debug\DiscussionDataAccess.pdb
+C:\Users\Karl\source\repos\MyConcourse\DiscussionDataAccess\obj\Debug\DiscussionDataAccess.csprojAssemblyReference.cache

@@ -1,0 +1,248 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ConcourseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AdminData">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="AdminRole" Type="Int32" />
+    <Property Name="IsDeleted" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="CommentID" />
+    </Key>
+    <Property Name="CommentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DiscussionBoardId" Type="Int32" Nullable="false" />
+    <Property Name="PostID" Type="Int32" Nullable="false" />
+    <Property Name="OwnerId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Content" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DateCreated" Type="DateTime" Precision="3" />
+    <Property Name="IsDeleted" Type="Int32" />
+    <NavigationProperty Name="Post" Relationship="Self.FK_Comment_PostID" FromRole="Comment" ToRole="Post" />
+  </EntityType>
+  <EntityType Name="DiscussionBoard">
+    <Key>
+      <PropertyRef Name="AdminId" />
+      <PropertyRef Name="Title" />
+    </Key>
+    <Property Name="DiscussionBoardId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AdminId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Title" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="BoardDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="DateCreated" Type="DateTime" Precision="3" />
+    <Property Name="IsDeleted" Type="Int32" />
+  </EntityType>
+  <EntityType Name="DiscussionBoardCode">
+    <Key>
+      <PropertyRef Name="CodeId" />
+    </Key>
+    <Property Name="CodeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DiscussionBoardId" Type="Int32" Nullable="false" />
+    <Property Name="Code" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DateCreated" Type="DateTime" Precision="3" />
+    <Property Name="IsDeleted" Type="Int32" />
+  </EntityType>
+  <EntityType Name="DiscussionBoardMember">
+    <Key>
+      <PropertyRef Name="DiscussionBoardId" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="DiscussionBoardId" Type="Int32" Nullable="false" />
+    <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserRole" Type="Int32" />
+    <Property Name="UserName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="IsConfirmed" Type="Int32" />
+    <Property Name="IsBanned" Type="Int32" />
+    <Property Name="DateJoined" Type="DateTime" Precision="3" />
+    <Property Name="IsDeleted" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Post">
+    <Key>
+      <PropertyRef Name="PostID" />
+    </Key>
+    <Property Name="PostID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DiscussionBoardID" Type="Int32" Nullable="false" />
+    <Property Name="OwnerId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Title" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Content" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DateCreated" Type="DateTime" Precision="3" />
+    <Property Name="IsDeleted" Type="Int32" />
+    <NavigationProperty Name="Comments" Relationship="Self.FK_Comment_PostID" FromRole="Post" ToRole="Comment" />
+  </EntityType>
+  <Association Name="FK_Comment_PostID">
+    <End Role="Post" Type="Self.Post" Multiplicity="1" />
+    <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Post">
+        <PropertyRef Name="PostID" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="PostID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ConcourseEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AdminDatas" EntityType="Self.AdminData" />
+    <EntitySet Name="Comments" EntityType="Self.Comment" />
+    <EntitySet Name="DiscussionBoards" EntityType="Self.DiscussionBoard" />
+    <EntitySet Name="DiscussionBoardCodes" EntityType="Self.DiscussionBoardCode" />
+    <EntitySet Name="DiscussionBoardMembers" EntityType="Self.DiscussionBoardMember" />
+    <EntitySet Name="Posts" EntityType="Self.Post" />
+    <AssociationSet Name="FK_Comment_PostID" Association="Self.FK_Comment_PostID">
+      <End Role="Post" EntitySet="Posts" />
+      <End Role="Comment" EntitySet="Comments" />
+    </AssociationSet>
+    <FunctionImport Name="spBanUserFromDiscussionBoard" ReturnType="Collection(ConcourseModel.spBanUserFromDiscussionBoard_Result)">
+      <Parameter Name="UserId" Mode="In" Type="String" />
+      <Parameter Name="UserIdToBan" Mode="In" Type="String" />
+      <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
+      <Parameter Name="BanValue" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spGetCommentsByPostId" ReturnType="Collection(ConcourseModel.spGetCommentsByPostId_Result)">
+      <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
+      <Parameter Name="PostId" Mode="In" Type="Int32" />
+      <Parameter Name="UserId" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="spGetDiscussionBoardsByUserId" ReturnType="Collection(ConcourseModel.spGetDiscussionBoardsByUserId_Result)">
+      <Parameter Name="UserId" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="spConfirmUserById">
+      <Parameter Name="UserId" Mode="In" Type="String" />
+      <Parameter Name="UserIdToConfirm" Mode="In" Type="String" />
+      <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spCreateComment">
+      <Parameter Name="UserId" Mode="In" Type="String" />
+      <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
+      <Parameter Name="PostId" Mode="In" Type="Int32" />
+      <Parameter Name="Content" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="spCreateDiscussionBoard">
+      <Parameter Name="UserId" Mode="In" Type="String" />
+      <Parameter Name="Title" Mode="In" Type="String" />
+      <Parameter Name="Code" Mode="In" Type="String" />
+      <Parameter Name="Description" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="spCreatePost">
+      <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
+      <Parameter Name="UserId" Mode="In" Type="String" />
+      <Parameter Name="Title" Mode="In" Type="String" />
+      <Parameter Name="Content" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="spDeleteCommentById">
+      <Parameter Name="UserId" Mode="In" Type="String" />
+      <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
+      <Parameter Name="CommentId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spDeleteDiscussionBoard">
+      <Parameter Name="UserId" Mode="In" Type="String" />
+      <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spDeletePost">
+      <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
+      <Parameter Name="UserId" Mode="In" Type="String" />
+      <Parameter Name="PostId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spGetDiscussionBoardMembers" ReturnType="Collection(ConcourseModel.spGetDiscussionBoardMembers_Result)">
+      <Parameter Name="UserId" Mode="In" Type="String" />
+      <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spGetPosts" ReturnType="Collection(ConcourseModel.spGetPosts_Result)">
+      <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
+      <Parameter Name="UserId" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="spJoinDiscussionBoard">
+      <Parameter Name="CodeId" Mode="In" Type="Int32" />
+      <Parameter Name="Code" Mode="In" Type="String" />
+      <Parameter Name="UserId" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="spRemoveUserFromDiscussionBoard">
+      <Parameter Name="UserId" Mode="In" Type="String" />
+      <Parameter Name="UserIdToRemove" Mode="In" Type="String" />
+      <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spUpdateCommentById">
+      <Parameter Name="UserId" Mode="In" Type="String" />
+      <Parameter Name="CommentId" Mode="In" Type="Int32" />
+      <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
+      <Parameter Name="NewContent" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="spUpdateDiscussionBoard">
+      <Parameter Name="UserId" Mode="In" Type="String" />
+      <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
+      <Parameter Name="NewTitle" Mode="In" Type="String" />
+      <Parameter Name="NewDescription" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="spUpdateDiscussionBoardCode">
+      <Parameter Name="UserId" Mode="In" Type="String" />
+      <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
+      <Parameter Name="NewCode" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="spUpdatePost">
+      <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
+      <Parameter Name="UserId" Mode="In" Type="String" />
+      <Parameter Name="PostId" Mode="In" Type="Int32" />
+      <Parameter Name="NewTitle" Mode="In" Type="String" />
+      <Parameter Name="NewContent" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="spGetDiscussionBoardsByUserId_Result">
+    <Property Type="String" Name="AdminId" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="DiscussionBoardId" Nullable="false" />
+    <Property Type="String" Name="Title" Nullable="false" MaxLength="25" />
+    <Property Type="String" Name="BoardDescription" Nullable="true" MaxLength="200" />
+    <Property Type="Int32" Name="IsConfirmed" Nullable="true" />
+    <Property Type="Int32" Name="IsBanned" Nullable="true" />
+    <Property Type="String" Name="Code" Nullable="false" MaxLength="15" />
+    <Property Type="Int32" Name="CodeId" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="spGetCommentsByPostId_Result">
+    <Property Type="Int32" Name="CommentID" Nullable="false" />
+    <Property Type="Int32" Name="PostID" Nullable="false" />
+    <Property Type="Int32" Name="DiscussionBoardID" Nullable="false" />
+    <Property Type="String" Name="OwnerId" Nullable="false" MaxLength="128" />
+    <Property Type="String" Name="Content" Nullable="false" MaxLength="500" />
+    <Property Type="String" Name="DateCreated" Nullable="true" MaxLength="4000" />
+    <Property Type="String" Name="TimeCreated" Nullable="true" MaxLength="4000" />
+  </ComplexType>
+  <ComplexType Name="spBanUserFromDiscussionBoard_Result">
+    <Property Type="Int32" Name="ReturnValue" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="spGetDiscussionBoardsByUserId1_Result">
+    <Property Type="String" Name="AdminId" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="DiscussionBoardId" Nullable="false" />
+    <Property Type="String" Name="Title" Nullable="false" MaxLength="25" />
+    <Property Type="String" Name="BoardDescription" Nullable="true" MaxLength="200" />
+    <Property Type="Int32" Name="IsConfirmed" Nullable="true" />
+    <Property Type="Int32" Name="IsBanned" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="spGetDiscussionBoardsByUserId_Result1">
+    <Property Type="String" Name="AdminId" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="DiscussionBoardId" Nullable="false" />
+    <Property Type="String" Name="Title" Nullable="false" MaxLength="25" />
+    <Property Type="String" Name="BoardDescription" Nullable="true" MaxLength="200" />
+    <Property Type="Int32" Name="IsConfirmed" Nullable="true" />
+    <Property Type="Int32" Name="IsBanned" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="spGetDiscussionBoardMembers_Result">
+    <Property Type="String" Name="UserId" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="IsConfirmed" Nullable="true" />
+    <Property Type="Int32" Name="IsBanned" Nullable="true" />
+    <Property Type="String" Name="Email" Nullable="true" MaxLength="256" />
+    <Property Type="String" Name="UserName" Nullable="true" MaxLength="25" />
+    <Property Type="String" Name="DateJoined" Nullable="true" MaxLength="4000" />
+    <Property Type="String" Name="TimeJoined" Nullable="true" MaxLength="4000" />
+  </ComplexType>
+  <ComplexType Name="spGetPosts_Result">
+    <Property Type="Int32" Name="PostId" Nullable="false" />
+    <Property Type="Int32" Name="DiscussionBoardID" Nullable="false" />
+    <Property Type="String" Name="OwnerId" Nullable="false" MaxLength="128" />
+    <Property Type="String" Name="Title" Nullable="false" MaxLength="150" />
+    <Property Type="String" Name="Content" Nullable="false" MaxLength="500" />
+    <Property Type="String" Name="UserName" Nullable="false" MaxLength="256" />
+    <Property Type="String" Name="DateCreated" Nullable="true" MaxLength="4000" />
+    <Property Type="String" Name="TimeCreated" Nullable="true" MaxLength="4000" />
+  </ComplexType>
+</Schema>

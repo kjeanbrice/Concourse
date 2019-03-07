@@ -67,8 +67,17 @@ export class UserService {
         }
 
         const response_email: string = response['Email'];
+        const first_name: string = response['FirstName'];
+        const last_name:  string = response['LastName'];
+
+        sessionStorage.setItem('firstname', first_name);
+        sessionStorage.setItem('lastname', last_name);
+
+
+
         const test_email: string = sessionStorage.getItem('email').trim();
-        console.log('isAuth method inside User.Service class: test_email: ' + test_email + ' Respone email: ' + response_email );
+        console.log('isAuth method inside User.Service class: test_email: ' + test_email + ' Respone email: ' +
+        response_email + 'FirstName: ' + first_name + ' LastName: ' + last_name);
 
 
         if (response['Email'] === sessionStorage.getItem('email').trim()) {

@@ -61,17 +61,17 @@ namespace MyConcourse.Controllers
 
             var identity = (ClaimsIdentity)User.Identity;
             IEnumerable<Claim> claims = identity.Claims;
-            var test = identity.FindFirst("FirstName").Value;
-            
+            string first_name = identity.FindFirst("FirstName").Value;
+            string last_name = identity.FindFirst("LastName").Value;
+
             return new UserInfoViewModel
             {
 
                 Email = User.Identity.GetUserName(),
                 HasRegistered = externalLogin == null,
                 LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null,
-
-
-                
+                FirstName = first_name,
+                LastName = last_name      
             };
         }
 

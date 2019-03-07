@@ -10,11 +10,13 @@ import { Router } from '@angular/router';
 
 export class NavbarComponent implements OnInit {
 
+  user_name: string;
   constructor(private user_service: UserService, private router: Router) {
 
   }
   //
   ngOnInit(): void {
+    this.user_name = sessionStorage.getItem('firstname') + ' ' + sessionStorage.getItem('lastname');
   }
   //
   onSignOut(): void {

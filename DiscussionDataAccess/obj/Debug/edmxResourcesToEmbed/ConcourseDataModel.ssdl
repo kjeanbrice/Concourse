@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ConcourseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AdminData">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="AdminRole" Type="int" />
+    <Property Name="IsDeleted" Type="int" />
+  </EntityType>
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="CommentID" />
+    </Key>
+    <Property Name="CommentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DiscussionBoardId" Type="int" Nullable="false" />
+    <Property Name="PostID" Type="int" Nullable="false" />
+    <Property Name="OwnerId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Content" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" />
+    <Property Name="IsDeleted" Type="int" />
+  </EntityType>
+  <EntityType Name="DiscussionBoard">
+    <Key>
+      <PropertyRef Name="AdminId" />
+      <PropertyRef Name="Title" />
+    </Key>
+    <Property Name="DiscussionBoardId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AdminId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="25" Nullable="false" />
+    <Property Name="BoardDescription" Type="nvarchar" MaxLength="200" />
+    <Property Name="DateCreated" Type="datetime" />
+    <Property Name="IsDeleted" Type="int" />
+  </EntityType>
+  <EntityType Name="DiscussionBoardCode">
+    <Key>
+      <PropertyRef Name="CodeId" />
+    </Key>
+    <Property Name="CodeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DiscussionBoardId" Type="int" Nullable="false" />
+    <Property Name="Code" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" />
+    <Property Name="IsDeleted" Type="int" />
+  </EntityType>
+  <EntityType Name="DiscussionBoardMember">
+    <Key>
+      <PropertyRef Name="DiscussionBoardId" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="DiscussionBoardId" Type="int" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="UserRole" Type="int" />
+    <Property Name="UserName" Type="varchar" MaxLength="25" />
+    <Property Name="IsConfirmed" Type="int" />
+    <Property Name="IsBanned" Type="int" />
+    <Property Name="DateJoined" Type="datetime" />
+    <Property Name="IsDeleted" Type="int" />
+  </EntityType>
+  <EntityType Name="Post">
+    <Key>
+      <PropertyRef Name="PostID" />
+    </Key>
+    <Property Name="PostID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DiscussionBoardID" Type="int" Nullable="false" />
+    <Property Name="OwnerId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Content" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" />
+    <Property Name="IsDeleted" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_Comment_DiscussionBoardID' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_Comment_DiscussionBoardID" />-->
+  <Association Name="FK_Comment_PostID">
+    <End Role="Post" Type="Self.Post" Multiplicity="1" />
+    <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Post">
+        <PropertyRef Name="PostID" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="PostID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_DiscussionBoardCode_DiscussionBoardID' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_DiscussionBoardCode_DiscussionBoardID" />-->
+  <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_DiscussionBoardMember_DiscussionBoardId' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_DiscussionBoardMember_DiscussionBoardId" />-->
+  <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_Post_DiscussionBoardID' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_Post_DiscussionBoardID" />-->
+  <Function Name="spBanUserFromDiscussionBoard" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+    <Parameter Name="UserIdToBan" Type="nvarchar" Mode="In" />
+    <Parameter Name="DiscussionBoardId" Type="int" Mode="In" />
+    <Parameter Name="BanValue" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spConfirmUserById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+    <Parameter Name="UserIdToConfirm" Type="nvarchar" Mode="In" />
+    <Parameter Name="DiscussionBoardId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spCreateComment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+    <Parameter Name="DiscussionBoardId" Type="int" Mode="In" />
+    <Parameter Name="PostId" Type="int" Mode="In" />
+    <Parameter Name="Content" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="spCreateDiscussionBoard" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+    <Parameter Name="Title" Type="nvarchar" Mode="In" />
+    <Parameter Name="Code" Type="nvarchar" Mode="In" />
+    <Parameter Name="Description" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="spCreatePost" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="DiscussionBoardId" Type="int" Mode="In" />
+    <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+    <Parameter Name="Title" Type="nvarchar" Mode="In" />
+    <Parameter Name="Content" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="spDeleteCommentById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+    <Parameter Name="DiscussionBoardId" Type="int" Mode="In" />
+    <Parameter Name="CommentId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spDeleteDiscussionBoard" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+    <Parameter Name="DiscussionBoardId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spDeletePost" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="DiscussionBoardId" Type="int" Mode="In" />
+    <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+    <Parameter Name="PostId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spGetCommentsByPostId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="DiscussionBoardId" Type="int" Mode="In" />
+    <Parameter Name="PostId" Type="int" Mode="In" />
+    <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="spGetDiscussionBoardMembers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+    <Parameter Name="DiscussionBoardId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spGetDiscussionBoardsByUserId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="spGetPosts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="DiscussionBoardId" Type="int" Mode="In" />
+    <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="spJoinDiscussionBoard" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CodeId" Type="int" Mode="In" />
+    <Parameter Name="Code" Type="varchar" Mode="In" />
+    <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="spRemoveUserFromDiscussionBoard" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+    <Parameter Name="UserIdToRemove" Type="nvarchar" Mode="In" />
+    <Parameter Name="DiscussionBoardId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spUpdateCommentById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+    <Parameter Name="CommentId" Type="int" Mode="In" />
+    <Parameter Name="DiscussionBoardId" Type="int" Mode="In" />
+    <Parameter Name="NewContent" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="spUpdateDiscussionBoard" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+    <Parameter Name="DiscussionBoardId" Type="int" Mode="In" />
+    <Parameter Name="NewTitle" Type="nvarchar" Mode="In" />
+    <Parameter Name="NewDescription" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="spUpdateDiscussionBoardCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+    <Parameter Name="DiscussionBoardId" Type="int" Mode="In" />
+    <Parameter Name="NewCode" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="spUpdatePost" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="DiscussionBoardId" Type="int" Mode="In" />
+    <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+    <Parameter Name="PostId" Type="int" Mode="In" />
+    <Parameter Name="NewTitle" Type="nvarchar" Mode="In" />
+    <Parameter Name="NewContent" Type="nvarchar" Mode="In" />
+  </Function>
+  <EntityContainer Name="ConcourseModelStoreContainer">
+    <EntitySet Name="AdminData" EntityType="Self.AdminData" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DiscussionBoard" EntityType="Self.DiscussionBoard" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DiscussionBoardCode" EntityType="Self.DiscussionBoardCode" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DiscussionBoardMember" EntityType="Self.DiscussionBoardMember" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Comment_PostID" Association="Self.FK_Comment_PostID">
+      <End Role="Post" EntitySet="Post" />
+      <End Role="Comment" EntitySet="Comment" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

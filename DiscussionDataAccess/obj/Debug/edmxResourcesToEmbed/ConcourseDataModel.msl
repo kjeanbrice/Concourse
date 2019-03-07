@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ConcourseModelStoreContainer" CdmEntityContainer="ConcourseEntities">
+    <EntitySetMapping Name="AdminDatas">
+      <EntityTypeMapping TypeName="ConcourseModel.AdminData">
+        <MappingFragment StoreEntitySet="AdminData">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="AdminRole" ColumnName="AdminRole" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Comments">
+      <EntityTypeMapping TypeName="ConcourseModel.Comment">
+        <MappingFragment StoreEntitySet="Comment">
+          <ScalarProperty Name="CommentID" ColumnName="CommentID" />
+          <ScalarProperty Name="DiscussionBoardId" ColumnName="DiscussionBoardId" />
+          <ScalarProperty Name="PostID" ColumnName="PostID" />
+          <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DiscussionBoards">
+      <EntityTypeMapping TypeName="ConcourseModel.DiscussionBoard">
+        <MappingFragment StoreEntitySet="DiscussionBoard">
+          <ScalarProperty Name="DiscussionBoardId" ColumnName="DiscussionBoardId" />
+          <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="BoardDescription" ColumnName="BoardDescription" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DiscussionBoardCodes">
+      <EntityTypeMapping TypeName="ConcourseModel.DiscussionBoardCode">
+        <MappingFragment StoreEntitySet="DiscussionBoardCode">
+          <ScalarProperty Name="CodeId" ColumnName="CodeId" />
+          <ScalarProperty Name="DiscussionBoardId" ColumnName="DiscussionBoardId" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DiscussionBoardMembers">
+      <EntityTypeMapping TypeName="ConcourseModel.DiscussionBoardMember">
+        <MappingFragment StoreEntitySet="DiscussionBoardMember">
+          <ScalarProperty Name="DiscussionBoardId" ColumnName="DiscussionBoardId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserRole" ColumnName="UserRole" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
+          <ScalarProperty Name="IsBanned" ColumnName="IsBanned" />
+          <ScalarProperty Name="DateJoined" ColumnName="DateJoined" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Posts">
+      <EntityTypeMapping TypeName="ConcourseModel.Post">
+        <MappingFragment StoreEntitySet="Post">
+          <ScalarProperty Name="PostID" ColumnName="PostID" />
+          <ScalarProperty Name="DiscussionBoardID" ColumnName="DiscussionBoardID" />
+          <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="spBanUserFromDiscussionBoard" FunctionName="ConcourseModel.Store.spBanUserFromDiscussionBoard">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ConcourseModel.spBanUserFromDiscussionBoard_Result">
+          <ScalarProperty Name="ReturnValue" ColumnName="ReturnValue" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spGetCommentsByPostId" FunctionName="ConcourseModel.Store.spGetCommentsByPostId">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ConcourseModel.spGetCommentsByPostId_Result">
+          <ScalarProperty Name="CommentID" ColumnName="CommentID" />
+          <ScalarProperty Name="PostID" ColumnName="PostID" />
+          <ScalarProperty Name="DiscussionBoardID" ColumnName="DiscussionBoardID" />
+          <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="TimeCreated" ColumnName="TimeCreated" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spGetDiscussionBoardsByUserId" FunctionName="ConcourseModel.Store.spGetDiscussionBoardsByUserId">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ConcourseModel.spGetDiscussionBoardsByUserId_Result">
+          <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+          <ScalarProperty Name="DiscussionBoardId" ColumnName="DiscussionBoardId" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="BoardDescription" ColumnName="BoardDescription" />
+          <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
+          <ScalarProperty Name="IsBanned" ColumnName="IsBanned" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="CodeId" ColumnName="CodeId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spConfirmUserById" FunctionName="ConcourseModel.Store.spConfirmUserById" />
+    <FunctionImportMapping FunctionImportName="spCreateComment" FunctionName="ConcourseModel.Store.spCreateComment" />
+    <FunctionImportMapping FunctionImportName="spCreateDiscussionBoard" FunctionName="ConcourseModel.Store.spCreateDiscussionBoard" />
+    <FunctionImportMapping FunctionImportName="spCreatePost" FunctionName="ConcourseModel.Store.spCreatePost" />
+    <FunctionImportMapping FunctionImportName="spDeleteCommentById" FunctionName="ConcourseModel.Store.spDeleteCommentById" />
+    <FunctionImportMapping FunctionImportName="spDeleteDiscussionBoard" FunctionName="ConcourseModel.Store.spDeleteDiscussionBoard" />
+    <FunctionImportMapping FunctionImportName="spDeletePost" FunctionName="ConcourseModel.Store.spDeletePost" />
+    <FunctionImportMapping FunctionImportName="spGetDiscussionBoardMembers" FunctionName="ConcourseModel.Store.spGetDiscussionBoardMembers">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ConcourseModel.spGetDiscussionBoardMembers_Result">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
+          <ScalarProperty Name="IsBanned" ColumnName="IsBanned" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="DateJoined" ColumnName="DateJoined" />
+          <ScalarProperty Name="TimeJoined" ColumnName="TimeJoined" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spGetPosts" FunctionName="ConcourseModel.Store.spGetPosts">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ConcourseModel.spGetPosts_Result">
+          <ScalarProperty Name="PostId" ColumnName="PostId" />
+          <ScalarProperty Name="DiscussionBoardID" ColumnName="DiscussionBoardID" />
+          <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="TimeCreated" ColumnName="TimeCreated" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spJoinDiscussionBoard" FunctionName="ConcourseModel.Store.spJoinDiscussionBoard" />
+    <FunctionImportMapping FunctionImportName="spRemoveUserFromDiscussionBoard" FunctionName="ConcourseModel.Store.spRemoveUserFromDiscussionBoard" />
+    <FunctionImportMapping FunctionImportName="spUpdateCommentById" FunctionName="ConcourseModel.Store.spUpdateCommentById" />
+    <FunctionImportMapping FunctionImportName="spUpdateDiscussionBoard" FunctionName="ConcourseModel.Store.spUpdateDiscussionBoard" />
+    <FunctionImportMapping FunctionImportName="spUpdateDiscussionBoardCode" FunctionName="ConcourseModel.Store.spUpdateDiscussionBoardCode" />
+    <FunctionImportMapping FunctionImportName="spUpdatePost" FunctionName="ConcourseModel.Store.spUpdatePost" />
+  </EntityContainerMapping>
+</Mapping>
