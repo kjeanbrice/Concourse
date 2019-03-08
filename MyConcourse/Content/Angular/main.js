@@ -138,6 +138,7 @@ var AppModule = /** @class */ (function () {
             ],
             providers: [
                 _services_index__WEBPACK_IMPORTED_MODULE_6__["UserService"],
+                _services_index__WEBPACK_IMPORTED_MODULE_6__["DashboardService"],
                 _routes_guards_index__WEBPACK_IMPORTED_MODULE_7__["AuthGuard"]
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"]]
@@ -183,19 +184,46 @@ module.exports = "<div class=\"page\">\r\n  <div class=\"page-main\">\r\n    <!-
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DashboardComponent", function() { return DashboardComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/index */ "./src/app/services/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
 
 var DashboardComponent = /** @class */ (function () {
-    function DashboardComponent() {
+    function DashboardComponent(dashboard_service) {
+        this.dashboard_service = dashboard_service;
+        this.items_per_row = 3;
     }
     DashboardComponent.prototype.ngOnInit = function () {
         // this.loadScript('content/angular/assets/js/jquery-3.2.1.min.js');
         this.loadScript('content/angular/assets/js/modifiedcore.js');
+        this.loadGroups();
+    };
+    DashboardComponent.prototype.loadGroups = function () {
+        var _this = this;
+        this.dashboard_service.retrieveGroups().subscribe(function (data) {
+            _this.groups = data;
+            var container_index = 0;
+            for (var i = 0; i < _this.groups.length; i++) {
+                // tslint:disable-next-line:prefer-const
+                if (i % 3 === 0 && i !== 0) {
+                    _this.groups_container[++container_index].push(_this.groups[i]);
+                }
+                else {
+                    _this.groups_container[container_index].push(_this.groups[i]);
+                }
+                console.log('Results: ' + JSON.stringify(_this.groups_container));
+            }
+        }, function (error) {
+            console.log('An error occured while attempting to load data. Error: ' + error);
+        });
     };
     DashboardComponent.prototype.loadScript = function (url) {
         var body = document.body;
@@ -211,7 +239,8 @@ var DashboardComponent = /** @class */ (function () {
             selector: 'app-dashboard',
             template: __webpack_require__(/*! ./dashboard.component.html */ "./src/app/components/dashboardcomponent/dashboard.component.html"),
             styles: [__webpack_require__(/*! ./dashboard.component.css */ "./src/app/components/dashboardcomponent/dashboard.component.css")]
-        })
+        }),
+        __metadata("design:paramtypes", [_services_index__WEBPACK_IMPORTED_MODULE_1__["DashboardService"]])
     ], DashboardComponent);
     return DashboardComponent;
 }());
@@ -1402,7 +1431,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DashboardService", function() { return DashboardService; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1415,24 +1445,77 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var DashboardService = /** @class */ (function () {
     function DashboardService(http) {
         this.http = http;
     }
-    DashboardService.prototype.createGroup = function (_title, _description_, _coursecode) {
-        return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["of"])(null);
+    DashboardService_1 = DashboardService;
+    DashboardService.prototype.retrieveGroups = function () {
+        var _this = this;
+        var httpOptions = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Authorization': 'Bearer ' + window.sessionStorage.getItem('access_token')
+            })
+        };
+        return this.http.get(DashboardService_1.BASE_URL + '/api/dashboard/creategroup', httpOptions)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["retryWhen"])(function (errors) {
+            return errors.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["delay"])(3000), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["concatMap"])(function (error, index) {
+                if (index === 1) {
+                    return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["throwError"])(error);
+                }
+                return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])(null);
+            }));
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) {
+            console.log('Status:' + response);
+            return response.groups;
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(function (err) { console.log(err.status); return _this.errorHandler(err); }));
+    };
+    DashboardService.prototype.createGroup = function (_title, _description, _coursecode) {
+        var _this = this;
+        var httpOptions = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Authorization': 'Bearer ' + window.sessionStorage.getItem('access_token')
+            })
+        };
+        var params_opt = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpParams"]();
+        params_opt.set('title', _title);
+        params_opt = params_opt.set('description', _description);
+        params_opt = params_opt.set('coursecode', _coursecode);
+        //
+        return this.http.post(DashboardService_1.BASE_URL + '/api/dashboard/creategroup', { headers: httpOptions, params: params_opt })
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["retryWhen"])(function (errors) {
+            return errors.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["delay"])(3000), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["concatMap"])(function (error, index) {
+                if (index === 1) {
+                    return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["throwError"])(error);
+                }
+                return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])(null);
+            }));
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) {
+            console.log('Status:' + response);
+            return response;
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(function (err) { console.log(err.status); return _this.errorHandler(err); }));
     };
     DashboardService.prototype.joinGroup = function (_groupID, _coursecode) {
-        return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["of"])(true);
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])(true);
     };
     DashboardService.prototype.deleteGroup = function (_itemID) {
-        return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["of"])(true);
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])(true);
     };
     DashboardService.prototype.editGroup = function (_newtitle, _newdescription, _newcoursecode) {
-        return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["of"])(true);
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])(true);
     };
+    DashboardService.prototype.errorHandler = function (err) {
+        if (err) {
+            return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["throwError"])(err);
+        }
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["throwError"])('Server Error');
+    };
+    var DashboardService_1;
     DashboardService.BASE_URL = document.getElementById('baseurl-asp').innerHTML;
-    DashboardService = __decorate([
+    DashboardService = DashboardService_1 = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
         __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
     ], DashboardService);

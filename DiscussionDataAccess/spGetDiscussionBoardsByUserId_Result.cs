@@ -21,5 +21,6 @@ namespace DiscussionDataAccess
         public Nullable<int> IsBanned { get; set; }
         public string Code { get; set; }
         public int CodeId { get; set; }
+        public int IsOwner { get; set; }
     }
 }

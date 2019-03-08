@@ -105,6 +105,7 @@
           <ScalarProperty Name="IsBanned" ColumnName="IsBanned" />
           <ScalarProperty Name="Code" ColumnName="Code" />
           <ScalarProperty Name="CodeId" ColumnName="CodeId" />
+          <ScalarProperty Name="IsOwner" ColumnName="IsOwner" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse, HttpParams } from '@angular/common/http';
-import { retryWhen, delay, take, map, catchError, concatMap, scan, delayWhen} from 'rxjs/operators';
+import { retryWhen, delay, take, map, catchError, concatMap, scan, delayWhen } from 'rxjs/operators';
 import { throwError, Observable, concat, of, timer } from 'rxjs';
+import {Group, GroupResponse} from '../../interfaces/group.interface';
 
 @Injectable()
 export class DashboardService {
@@ -11,8 +12,73 @@ export class DashboardService {
     constructor(private http: HttpClient) {
     }
 
-    createGroup(_title: string, _description_: string, _coursecode: string): Observable<any> {
-        return of(null);
+    retrieveGroups(): Observable<Group[]> {
+
+        const httpOptions = {
+            headers: new HttpHeaders({
+              'Content-Type': 'application/x-www-form-urlencoded',
+              'Authorization': 'Bearer ' + window.sessionStorage.getItem('access_token')
+            })
+          };
+
+        return this.http.get<GroupResponse>(DashboardService.BASE_URL + '/api/dashboard/creategroup', httpOptions)
+            .pipe(
+                retryWhen((errors) => {
+                    return errors.pipe(
+                        delay(3000),
+                        concatMap((error, index) => {
+                            if (index === 1) {
+                                return throwError(error);
+                            }
+                            return of(null);
+                        })
+
+                    );
+                }
+                ),
+                map((response: GroupResponse) => {
+                    console.log('Status:' + response);
+                    return response.groups;
+                }),
+
+                catchError((err: any) => { console.log(err.status); return this.errorHandler(err); })
+            );
+    }
+
+    createGroup(_title: string, _description: string, _coursecode: string): Observable<any> {
+        const httpOptions = {
+            headers: new HttpHeaders({
+              'Content-Type': 'application/x-www-form-urlencoded',
+              'Authorization': 'Bearer ' + window.sessionStorage.getItem('access_token')
+            })
+          };
+        let params_opt = new HttpParams();
+        params_opt.set('title', _title);
+        params_opt = params_opt.set('description', _description);
+        params_opt = params_opt.set('coursecode', _coursecode);
+        //
+        return this.http.post(DashboardService.BASE_URL + '/api/dashboard/creategroup', {headers: httpOptions, params: params_opt})
+            .pipe(
+                retryWhen((errors) => {
+                    return errors.pipe(
+                        delay(3000),
+                        concatMap((error, index) => {
+                            if (index === 1) {
+                                return throwError(error);
+                            }
+                            return of(null);
+                        })
+
+                    );
+                }
+                ),
+                map((response: Response) => {
+                    console.log('Status:' + response);
+                    return response;
+                }),
+
+                catchError((err: any) => { console.log(err.status); return this.errorHandler(err); })
+            );
     }
 
 
@@ -28,5 +94,11 @@ export class DashboardService {
         return of(true);
     }
 
+    private errorHandler(err: any) {
+        if (err) {
+          return throwError(err);
+        }
+        return throwError('Server Error');
+      }
 
 }

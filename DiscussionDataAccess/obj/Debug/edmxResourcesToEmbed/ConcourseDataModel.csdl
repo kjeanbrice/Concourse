@@ -197,6 +197,7 @@
     <Property Type="Int32" Name="IsBanned" Nullable="true" />
     <Property Type="String" Name="Code" Nullable="false" MaxLength="15" />
     <Property Type="Int32" Name="CodeId" Nullable="false" />
+    <Property Type="Int32" Name="IsOwner" Nullable="false" />
   </ComplexType>
   <ComplexType Name="spGetCommentsByPostId_Result">
     <Property Type="Int32" Name="CommentID" Nullable="false" />

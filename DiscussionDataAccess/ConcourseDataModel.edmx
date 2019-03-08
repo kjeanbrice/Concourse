@@ -404,6 +404,7 @@ warning 6035: The relationship 'FK_Post_DiscussionBoardID' has columns that are 
           <Property Type="Int32" Name="IsBanned" Nullable="true" />
           <Property Type="String" Name="Code" Nullable="false" MaxLength="15" />
           <Property Type="Int32" Name="CodeId" Nullable="false" />
+          <Property Type="Int32" Name="IsOwner" Nullable="false" />
         </ComplexType>
         <ComplexType Name="spGetCommentsByPostId_Result">
           <Property Type="Int32" Name="CommentID" Nullable="false" />
@@ -562,6 +563,7 @@ warning 6035: The relationship 'FK_Post_DiscussionBoardID' has columns that are 
                 <ScalarProperty Name="IsBanned" ColumnName="IsBanned" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="CodeId" ColumnName="CodeId" />
+                <ScalarProperty Name="IsOwner" ColumnName="IsOwner" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

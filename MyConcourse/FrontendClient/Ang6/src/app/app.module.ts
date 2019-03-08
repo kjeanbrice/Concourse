@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import {FooterComponent, DashboardComponent, SubNavbarComponent, NavbarComponent, NavbarHomeComponent,
   HomeComponent } from './components/index';
 import { AppRoutingModule } from './routes/index';
-import { UserService } from './services/index';
+import { UserService, DashboardService } from './services/index';
 import { AuthGuard } from './routes/guards/index';
 import { AuthenticationModule, ErrorsModule } from './modules/index';
 
@@ -28,6 +28,7 @@ import { AuthenticationModule, ErrorsModule } from './modules/index';
   ],
   providers: [
     UserService,
+    DashboardService,
     AuthGuard
   ],
   bootstrap: [AppComponent]
