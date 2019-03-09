@@ -22,5 +22,7 @@ namespace DiscussionDataAccess
         public string Code { get; set; }
         public int CodeId { get; set; }
         public int IsOwner { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
     }
 }

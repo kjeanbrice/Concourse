@@ -21,7 +21,7 @@ export class DashboardService {
             })
           };
 
-        return this.http.get<GroupResponse>(DashboardService.BASE_URL + '/api/dashboard/creategroup', httpOptions)
+        return this.http.get<Group[]>(DashboardService.BASE_URL + '/api/dashboard', httpOptions)
             .pipe(
                 retryWhen((errors) => {
                     return errors.pipe(
@@ -36,9 +36,9 @@ export class DashboardService {
                     );
                 }
                 ),
-                map((response: GroupResponse) => {
-                    console.log('Status:' + response);
-                    return response.groups;
+                map((response: Group[]) => {
+                    console.log('Status:' + JSON.stringify(response));
+                    return response;
                 }),
 
                 catchError((err: any) => { console.log(err.status); return this.errorHandler(err); })

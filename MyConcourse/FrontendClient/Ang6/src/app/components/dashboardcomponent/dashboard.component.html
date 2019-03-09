@@ -66,25 +66,35 @@
               <!--Individual Group Card-->
               <div class="card-body">
                 <div class="group-content">
-                  <div class="row">
-                    <div class="col-md-4 col-xl-4 col-sm-4">
+                  <div *ngFor = "let groups of groups_container; let i = index;" class="row">
+                    <div *ngFor = "let groupitem of groups" class="col-md-4 col-xl-4 col-sm-4">
                       <div class="card">
-                        <div class="card-status bg-red"></div>
+
+                        <div *ngIf="groupitem.IsOwner == 1; else memberCardBackground" class="card-status bg-blue"></div>
+                        <ng-template #memberCardBackground>
+                          <div class="card-status bg-green"></div>
+                        </ng-template>
+
                         <div class="card-header">
-                          <h3 class="card-title">This is a standard card</h3>
+                          <h3 class="card-title">{{groupitem.Title}}</h3>
                           <div class="card-options">
-                            <span class="tag tag-red">Owner</span>
+
+                            <span *ngIf="groupitem.IsOwner == 1; else memberTag" class="tag tag-blue">Owner</span>
+                            <ng-template #memberTag>
+                                <span class="tag tag-green">Member</span>
+                            </ng-template>
+
                             <a href="javascript:void(0);" class="card-options-collapse" data-toggle="card-collapse"><i
                                 class="fe fe-chevron-up"></i></a>
                           </div>
                         </div>
                         <div class="card-body">
-                          <div class="card-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam
-                            deleniti fugit incidunt,
-                            iste, itaque minima neque pariatur perferendis sed suscipit velit vitae voluptatem. A
-                            consequuntur, deserunt eaque error nulla temporibus!</div>
+                          <div class="card-content">{{groupitem.BoardDescription}}</div>
                           <div>
-                            <span class="tag tag-rounded tag-red">Created By: Richard Nelson</span>
+                            <span *ngIf="groupitem.IsOwner == 1; else memberCreatorName"class="tag tag-rounded tag-blue">Created By: {{groupitem.FirstName}} {{groupitem.LastName}}</span>
+                            <ng-template #memberCreatorName>
+                                <span class="tag tag-rounded tag-green">Created By: {{groupitem.FirstName}} {{groupitem.LastName}}</span>
+                            </ng-template>
                           </div>
                         </div>
                         <div class="card-footer">
@@ -94,16 +104,35 @@
                                 <div class="item-action dropdown">
                                   <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i
                                       class="fe fe-more-horizontal"></i></a>
+                                  
+                                  
                                   <div class="dropdown-menu dropdown-menu-right">
-                                    <a routerLink="/home" class="dropdown-item"><i
-                                        class="dropdown-icon fe fe-arrow-right-circle"></i>Enter</a>
-                                    <a data-toggle="modal" data-target="#edit-group-modal" href="javascript:void(0)" class="dropdown-item"><i
-                                        class="dropdown-icon fe fe-edit-2"></i>Edit </a>
-                                    <a data-toggle="modal" data-target="#details-modal" href="javascript:void(0)"
-                                      class="dropdown-item"><i class="dropdown-icon fe fe-book-open"></i> Details</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a href="javascript:void(0)" data-toggle="modal" data-target="#delete-group-modal" class="dropdown-item"><i
-                                        class="dropdown-icon fe fe-trash-2"></i> Delete</a>
+                                    
+                                    <div *ngIf="groupitem.IsOwner == 1; then OwnerGroupOptions else MemberGroupOptions"></div>
+
+                                    <ng-template #OwnerGroupOptions>
+                                      <a (click) = "onClickGroupOptions($event)" routerLink="/home" attr.data-discussionid="{{groupitem.DiscussionBoardId}}" class="dropdown-item"><i
+                                          class="dropdown-icon fe fe-arrow-right-circle"></i>Enter</a>
+                                      
+                                          <span  id="edit{{groupitem.DiscussionBoardId}}" data-toggle="modal" class="hide-item" data-target="#edit-group-modal"></span>
+                                          <a name ="editgroup" (click) = "onClickGroupOptions($event)" attr.data-discussionid="{{groupitem.DiscussionBoardId}}" href="javascript:void(0)" class="dropdown-item"><i
+                                          class="dropdown-icon fe fe-edit-2"></i>Edit </a>
+                                      
+                                          <span  id="details{{groupitem.DiscussionBoardId}}" data-toggle="modal" data-target="#details-modal" class="hide-item" ></span>
+                                          <a name = "detailsgroup" (click) = "onClickGroupOptions($event)" attr.data-discussionid="{{groupitem.DiscussionBoardId}}" href="javascript:void(0)"
+                                          class="dropdown-item"><i class="dropdown-icon fe fe-book-open"></i> Details</a>
+                                      
+                                        <div class="dropdown-divider"></div>
+                                      
+                                        <span id="delete{{groupitem.DiscussionBoardId}}" data-toggle="modal" data-target="#delete-group-modal" class="hide-item" ></span>
+                                        <a name = "deletegroup" (click) = "onClickGroupOptions($event)" href="javascript:void(0)" attr.data-discussionid="{{groupitem.DiscussionBoardId}}"  class="dropdown-item"><i
+                                          class="dropdown-icon fe fe-trash-2"></i> Delete</a>
+                                      </ng-template>
+
+                                      <ng-template #MemberGroupOptions>
+                                          <a (click) = "onClickGroupOptions($event)" routerLink="/home" attr.data-discussionid="{{groupitem.DiscussionBoardId}}" class="dropdown-item"><i
+                                              class="dropdown-icon fe fe-arrow-right-circle"></i>Enter</a>
+                                      </ng-template>
                                   </div>
                                 </div>
                               </div>
@@ -139,7 +168,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="col-12 modal-title modal-title-settings" id="exampleModalLongTitle">Group Creation
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+            <button id="createmodal-close" type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
             </h5>
             
           </div>
@@ -165,7 +194,7 @@
                                 <span class="form-label-small">10/200</span>
                               </label>
 
-                              <textarea class="form-control" name="group-description" style="resize: none;" rows = "6" placeholder="Enter a short description for about group" ></textarea>
+                              <textarea class="form-control" name="group-description" style="resize: none;" rows = "6" placeholder="Enter a short description for the group" ></textarea>
                           </div>
                       </div>
                   </div>
@@ -205,7 +234,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="col-12 modal-title modal-title-settings" id="exampleModalLongTitle">Make Changes To This Group
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+            <button id="editgroupmodal-close" type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
             </h5>
             
           </div>
@@ -219,7 +248,7 @@
                           <span class="form-required">*</span>
                           <span class="form-label-small">0/20</span>
                         </label>
-                        <input class="form-control" type="input" name="group-name" placeholder="Enter Group Name"/>
+                        <input id="edit-title" class="form-control" type="input" name="group-name" placeholder="Enter Group Name"/>
                       </div>
                     </div>
                   </div>
@@ -231,7 +260,7 @@
                                 <span class="form-label-small">10/200</span>
                               </label>
 
-                              <textarea class="form-control" name="group-description" style="resize: none;" rows = "6" placeholder="Enter a short description for about group" ></textarea>
+                              <textarea id="edit-description" class="form-control" name="group-description" style="resize: none;" rows = "6" placeholder="Enter a short description for the group" ></textarea>
                           </div>
                       </div>
                   </div>
@@ -241,7 +270,7 @@
                       <div class="form-group">
                       <label class="form-label">Current Group Code
                       </label>
-                      <input class="form-control" type="input"  name="old-group-code" disabled placeholder="ProgrammingRocks!"/>
+                      <input id = "edit-currgroupcode" class="form-control" type="input"  name="old-group-code" disabled placeholder="ProgrammingRocks!"/>
                       </div>
                     </div>
                   </div>
@@ -254,7 +283,7 @@
                           <span class="form-required">*</span>
                           <span class="form-label-small">0/15</span>
                         </label>
-                        <input class="form-control" type="input" name="new-group-code" placeholder="Enter a group code"/>
+                        <input id="edit-newgroupcode" class="form-control" type="input" name="new-group-code" placeholder="Enter a group code"/>
                         <div class="invalid-feedback"></div>
                         </div>
   
@@ -279,7 +308,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="col-12 modal-title modal-title-settings" id="exampleModalLongTitle">Get Connected and Join A Group
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+          <button id="joinmodal-close" type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
           </h5>
         </div>
         <div class="modal-body">
@@ -326,7 +355,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="col-12 modal-title modal-title-settings" id="exampleModalLongTitle">Group Details
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+          <button id="detailsmodal-close" type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
           </h5>
         </div>
         <div class="modal-body">
@@ -337,7 +366,7 @@
                     <div class="form-group">
                       <label class="form-label">Group ID
                       </label>
-                      <input class="form-control" type="input" name="group-name" disabled="" value="1002" placeholder="Enter Group ID"/>
+                      <input id="details-groupid" class="form-control" type="input"  disabled=""  placeholder="Group ID"/>
                     </div>
                   </div>
                 </div>
@@ -347,7 +376,7 @@
                     <div class="form-group">
                     <label class="form-label">Group Code
                     </label>
-                    <input class="form-control" type="input" disabled = "" name="group-code" value ="ProgrammingRocks!" placeholder="Enter Group Code"/>
+                    <input id="details-groupcode" class="form-control" type="input" disabled = ""  placeholder="Group Code"/>
                     <div class="invalid-feedback"></div>
                     </div>
 
@@ -370,7 +399,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="col-12 modal-title modal-title-settings" id="exampleModalLongTitle">Are you sure?
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+          <button id="deletegroup-close"type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
           </h4>
         </div>
         <div class="modal-body">

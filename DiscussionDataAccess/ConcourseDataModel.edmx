@@ -405,6 +405,8 @@ warning 6035: The relationship 'FK_Post_DiscussionBoardID' has columns that are 
           <Property Type="String" Name="Code" Nullable="false" MaxLength="15" />
           <Property Type="Int32" Name="CodeId" Nullable="false" />
           <Property Type="Int32" Name="IsOwner" Nullable="false" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="50" />
         </ComplexType>
         <ComplexType Name="spGetCommentsByPostId_Result">
           <Property Type="Int32" Name="CommentID" Nullable="false" />
@@ -564,6 +566,8 @@ warning 6035: The relationship 'FK_Post_DiscussionBoardID' has columns that are 
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="CodeId" ColumnName="CodeId" />
                 <ScalarProperty Name="IsOwner" ColumnName="IsOwner" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

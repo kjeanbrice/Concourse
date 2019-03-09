@@ -8,6 +8,8 @@ export interface Group {
     Code: string;
     CodeId: number;
     IsOwner: number;
+    FirstName: string;
+    LastName: string;
 }
 
 export interface GroupResponse {

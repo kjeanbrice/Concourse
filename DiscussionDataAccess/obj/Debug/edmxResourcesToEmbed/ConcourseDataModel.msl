@@ -106,6 +106,8 @@
           <ScalarProperty Name="Code" ColumnName="Code" />
           <ScalarProperty Name="CodeId" ColumnName="CodeId" />
           <ScalarProperty Name="IsOwner" ColumnName="IsOwner" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
