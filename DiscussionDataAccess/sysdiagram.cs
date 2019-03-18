@@ -7,18 +7,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyConcourse.Models
+namespace DiscussionDataAccess
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class DiscussionBoardCode
+    public partial class sysdiagram
     {
-        public string AdminId { get; set; }
-        public int DiscussionBoardId { get; set; }
-        public string Code { get; set; }
-        public Nullable<int> IsDeleted { get; set; }
-    
-        public virtual AspNetUser AspNetUser { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

@@ -256,49 +256,8 @@
     </Compile>
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\AspNetRole.cs">
-      <DependentUpon>ConcourseDBEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AspNetUser.cs">
-      <DependentUpon>ConcourseDBEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AspNetUserClaim.cs">
-      <DependentUpon>ConcourseDBEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AspNetUserLogin.cs">
-      <DependentUpon>ConcourseDBEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Comment.cs">
-      <DependentUpon>ConcourseDBEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ConcourseDBEntities.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ConcourseDBEntities.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ConcourseDBEntities.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ConcourseDBEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ConcourseDBEntities.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ConcourseDBEntities.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DiscussionBoard.cs">
-      <DependentUpon>ConcourseDBEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DiscussionBoardCode.cs">
-      <DependentUpon>ConcourseDBEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DiscussionBoardMember.cs">
-      <DependentUpon>ConcourseDBEntities.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\DiscussionBoardAPIModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Post.cs">
-      <DependentUpon>ConcourseDBEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
@@ -742,16 +701,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <None Include="FrontendClient\Ang6\src\app\Components\LoginComponent\login.component.html" />
     <Content Include="Global.asax" />
-    <Content Include="Models\ConcourseDBEntities.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ConcourseDBEntities.edmx</DependentUpon>
-      <LastGenOutput>ConcourseDBEntities.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\ConcourseDBEntities.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ConcourseDBEntities.edmx</DependentUpon>
-      <LastGenOutput>ConcourseDBEntities.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -794,13 +743,6 @@
     <Content Include="Content\Tabler\fonts\feather\feather-webfont.woff" />
     <Content Include="Content\Tabler\fonts\feather\feather-webfont.ttf" />
     <Content Include="Content\Tabler\fonts\feather\feather-webfont.eot" />
-    <EntityDeploy Include="Models\ConcourseDBEntities.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ConcourseDBEntities.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\ConcourseDBEntities.edmx.diagram">
-      <DependentUpon>ConcourseDBEntities.edmx</DependentUpon>
-    </Content>
     <None Include="Properties\PublishProfiles\myconcourse - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />

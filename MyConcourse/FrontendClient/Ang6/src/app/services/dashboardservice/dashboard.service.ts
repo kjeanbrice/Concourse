@@ -45,7 +45,7 @@ export class DashboardService {
             );
     }
 
-    createGroup(_title: string, _description: string, _coursecode: string): Observable<any> {
+    createGroup(_title: string, _description: string, _groupcode: string): Observable<any> {
         const httpOptions = {
             headers: new HttpHeaders({
               'Content-Type': 'application/x-www-form-urlencoded',
@@ -53,11 +53,11 @@ export class DashboardService {
             })
           };
         let params_opt = new HttpParams();
-        params_opt.set('title', _title);
+        params_opt = params_opt.set('title', _title);
         params_opt = params_opt.set('description', _description);
-        params_opt = params_opt.set('coursecode', _coursecode);
+        params_opt = params_opt.set('groupcode', _groupcode);
         //
-        return this.http.post(DashboardService.BASE_URL + '/api/dashboard/creategroup', {headers: httpOptions, params: params_opt})
+        return this.http.post(DashboardService.BASE_URL + '/api/dashboard/creategroup', params_opt , httpOptions)
             .pipe(
                 retryWhen((errors) => {
                     return errors.pipe(

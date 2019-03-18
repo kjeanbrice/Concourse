@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyConcourse.Models
+namespace DiscussionDataAccess
 {
     using System;
     using System.Collections.Generic;

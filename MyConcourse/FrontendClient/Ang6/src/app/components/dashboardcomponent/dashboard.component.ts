@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NavbarComponent, SubNavbarComponent } from '../index';
-import {DashboardService} from '../../services/index';
+import { DashboardService } from '../../services/index';
 import { Group } from '../../interfaces/group.interface';
+import { ERROR_NAME_NOT_VALID, ERROR_SERVER_ERROR } from '../../constants/constants.export';
+import * as validator from 'validator';
 import { GroupedObservable } from 'rxjs';
 import $ from 'jquery';
 
@@ -14,13 +16,48 @@ import $ from 'jquery';
 
 export class DashboardComponent implements OnInit {
 
-  items_per_row = 3;
+  MAX_TITLE_LIMIT = 80;
+  MAX_DESCRIPTION_LIMIT = 500;
+  MAX_CODE_LIMIT = 30;
+
+  items_per_row = 2;
   groups_container: Array<Group[]>;
   groups: Group[];
 
+
+  error_create_group_title: string;
+  error_create_group_description: string;
+  error_create_group_code: string;
+  error_create_group_server: string;
+
+
+  create_group_title_count: string;
+  create_group_description_count: string;
+  create_group_code_count: string;
+
+  join_group_id: string;
+  join_group_code: string;
+
+  create_group_title: string;
+  create_group_description: string;
+  create_group_code: string;
+
+  valid_create_group_title = false;
+  valid_create_group_description = false;
+  valid_create_group_code = false;
+  valid_create_group_info = false;
+
+  valid_join_group_id = false;
+  valid_join_group_code = false;
+  valid_join_group_info = false;
+
+  css_loading = 'dimmer';
+
+
+  alert_success_settings = 'hide-item';
+  alert_success_message = '';
+
   constructor(private dashboard_service: DashboardService) {
-    this.groups_container = [];
-    this.groups_container[0] = [];
   }
 
 
@@ -28,6 +65,56 @@ export class DashboardComponent implements OnInit {
     // this.loadScript('content/angular/assets/js/jquery-3.2.1.min.js');
     this.loadScript('content/angular/assets/js/modifiedcore.js');
     this.loadGroups();
+
+    this.resetFormFields();
+  }
+
+  onCreateGroup(event: any): void {
+    this.css_loading = 'dimmer active';
+    if (this.valid_create_group_info === true) {
+      if (this.create_group_description === undefined || this.create_group_description === null) {
+        this.create_group_description = '';
+      }
+
+      this.dashboard_service.createGroup(this.create_group_title, this.create_group_description, this.create_group_code).subscribe(
+          data => {
+            document.getElementById('createmodal-close').click();
+            this.changeAlertSuccessMessage('You have successfully created a new group called ' + this.create_group_title + '!');
+            this.onAlertSuccessOpen();
+            this.resetFormFields();
+            document.getElementById('error-creategroup-server').style.display = 'none';
+            this.loadGroups();
+          },
+          errors => {
+            if (errors.error) {
+              this.error_create_group_server = errors.error;
+            } else {
+              this.error_create_group_server = ERROR_SERVER_ERROR;
+            }
+            document.getElementById('error-creategroup-server').style.display = 'block';
+            this.css_loading = 'dimmer';
+          });
+    } else {
+      this.css_loading = 'dimmer';
+      console.log('Dashboard: CreateGroup Error');
+    }
+
+  }
+
+
+
+
+
+  changeAlertSuccessMessage(message: string): void {
+    this.alert_success_message = message;
+  }
+
+  onAlertSuccessClose(event: any): void {
+    this.alert_success_settings = 'hide-item';
+  }
+
+  onAlertSuccessOpen(): void {
+    this.alert_success_settings = '';
   }
 
 
@@ -35,33 +122,132 @@ export class DashboardComponent implements OnInit {
     this.dashboard_service.retrieveGroups().subscribe(data => {
       this.groups = data;
       let container_index = 0;
+      this.groups_container = [];
+      this.groups_container[container_index] = [];
+
       for (let i = 0; i < this.groups.length; i++) {
-        if ( i % this.items_per_row === 0 && i !== 0) {
+        if (i % this.items_per_row === 0 && i !== 0) {
           this.groups_container[++container_index] = [];
-          }
-          this.groups_container[container_index].push(this.groups[i]);
-          console.log('Results: ' + JSON.stringify(this.groups_container));
+        }
+        this.groups_container[container_index].push(this.groups[i]);
+        console.log('Results: ' + JSON.stringify(this.groups_container));
       }
     },
-    error => {
-      console.log('An error occured while attempting to load data. Error: ' + error);
-    });
+      error => {
+        console.log('An error occured while attempting to load data. Error: ' + error);
+      });
   }
 
   onSubmit(event: any): void {
     switch (event.target.id) {
       case 'editgroup-submit':
-      // API Call
-      break;
+        // API Call
+        break;
       case 'joingroup-submit':
-      // API Call
-      break;
+        // API Call
+        break;
       case 'creategroup-submit':
-      // API Call
-      break;
+        // API Call
+        break;
       case 'deletegroup-submit':
-      // API Call
+        // API Call
+        break;
+    }
+  }
+
+
+  onUpdateCreateGroup(event: any): void {
+
+    switch (event.target.id) {
+      case 'creategroup-title':
+        const title = event.target.value;
+        if (title === null || title.trim().length === 0) {
+          this.error_create_group_title = ERROR_NAME_NOT_VALID;
+          document.getElementById('error-creategroup-title').style.display = 'block';
+          this.valid_create_group_title = false;
+        } else {
+          this.create_group_title = title.trim();
+          this.valid_create_group_title = true;
+          document.getElementById('error-creategroup-title').style.display = 'none';
+        }
+
+        this.create_group_title_count = event.target.value.length + '/' + this.MAX_TITLE_LIMIT;
+        break;
+      case 'creategroup-description':
+        let description = event.target.value;
+        if (description === null || description.trim().length === 0) {
+          description = '';
+        }
+
+        this.create_group_description_count = event.target.value.length + '/' + this.MAX_DESCRIPTION_LIMIT;
+        this.create_group_description = description.trim();
+
+        break;
+      case 'creategroup-code':
+        const groupcode = event.target.value;
+        if (groupcode === null || groupcode.trim().length === 0) {
+          this.error_create_group_code = ERROR_NAME_NOT_VALID;
+          document.getElementById('error-creategroup-code').style.display = 'block';
+          this.valid_create_group_code = false;
+        } else {
+          this.create_group_code = groupcode.trim();
+          document.getElementById('error-creategroup-code').style.display = 'none';
+          this.valid_create_group_code = true;
+        }
+
+        this.create_group_code_count = event.target.value.length + '/' + this.MAX_CODE_LIMIT;
+        break;
+      default:
+        console.log('OnUpdate: Dashboard Error');
+        break;
+    }
+
+    if (this.valid_create_group_title && this.valid_create_group_code) {
+      this.valid_create_group_info = true;
+      document.getElementById('btn-creategroup').removeAttribute('disabled');
+    } else {
+      this.valid_create_group_info = false;
+      document.getElementById('btn-creategroup').setAttribute('disabled', '');
+    }
+
+  }
+
+
+  onUpdateJoinGroup(event: any): void {
+    switch (event.target.id) {
+      case 'joingroup-id':
+      const groupid: string = event.target.value.trim();
+      this.valid_join_group_id = validator.isLength(groupid, { min: 1, max: undefined });
+      this.error_create_group_code = ERROR_NAME_NOT_VALID;
+      if (this.valid_join_group_id) {
+        document.getElementById('error-joingroup-id').style.display = 'none';
+        this.join_group_id = groupid;
+      } else {
+        document.getElementById('error-joingroup-id').style.display = 'block';
+      }
+
       break;
+      case 'joingroup-code':
+      const groupcode: string = event.target.value.trim();
+      this.error_create_group_code = ERROR_NAME_NOT_VALID;
+      this.valid_join_group_code = validator.isLength(groupcode, { min: 1, max: undefined });
+      if (this.valid_join_group_code) {
+        this.join_group_code = groupcode;
+        document.getElementById('error-joingroup-code').style.display = 'none';
+      } else {
+        document.getElementById('error-joingroup-code').style.display = 'block';
+      }
+      break;
+      default:
+      break;
+    }
+
+    if (this.valid_join_group_code && this.valid_join_group_id) {
+      this.valid_join_group_info = true;
+      document.getElementById('btn-joingroup').removeAttribute('disabled');
+    } else {
+      this.valid_join_group_info = false;
+      document.getElementById('btn-joingroup').setAttribute('disabled', '');
     }
   }
   onClickGroupOptions(event: any): void {
@@ -71,45 +257,79 @@ export class DashboardComponent implements OnInit {
     }
 
     let item: Group;
-      for (let i = 0; i < this.groups.length; i++) {
-        if ( this.groups[i].DiscussionBoardId === parseInt(discussion_id, 10)) {
-          item = this.groups[i];
-          break;
-        }
+    for (let i = 0; i < this.groups.length; i++) {
+      if (this.groups[i].DiscussionBoardId === parseInt(discussion_id, 10)) {
+        item = this.groups[i];
+        break;
       }
+    }
 
-      if (item === null) {
-        return;
-      }
+    if (item === null) {
+      return;
+    }
 
     switch (event.target.name) {
       case 'editgroup':
-      (<HTMLInputElement>document.getElementById('edit-title')).value = item.Title;
-      (<HTMLInputElement>document.getElementById('edit-description')).value = item.BoardDescription;
-      (<HTMLInputElement>document.getElementById('edit-currgroupcode')).value = item.Code;
-      document.getElementById('edit' + discussion_id).click();
-      break;
+        (<HTMLInputElement>document.getElementById('edit-title')).value = item.Title;
+        (<HTMLInputElement>document.getElementById('edit-description')).value = item.BoardDescription;
+        (<HTMLInputElement>document.getElementById('edit-currgroupcode')).value = item.Code;
+        (<HTMLInputElement>document.getElementById('edit-discussionid')).value = discussion_id;
+        document.getElementById('edit' + discussion_id).click();
+        break;
       case 'detailsgroup':
-      (<HTMLInputElement>document.getElementById('details-groupid')).value = item.CodeId + '';
-      (<HTMLInputElement>document.getElementById('details-groupcode')).value = item.Code;
-      document.getElementById('details' + discussion_id).click();
-      break;
+        (<HTMLInputElement>document.getElementById('details-groupid')).value = item.CodeId + '';
+        (<HTMLInputElement>document.getElementById('details-groupcode')).value = item.Code;
+        document.getElementById('details' + discussion_id).click();
+        break;
       case 'deletegroup':
-      document.getElementById('delete' + discussion_id).click();
-      break;
-
-
+        document.getElementById('delete' + discussion_id).click();
+        break;
     }
 
   }
 
+  resetFormFields(): void {
+
+    (<HTMLInputElement>document.getElementById('edit-title')).value = '';
+    (<HTMLInputElement>document.getElementById('edit-description')).value = '';
+    (<HTMLInputElement>document.getElementById('edit-currgroupcode')).value = '';
+    (<HTMLInputElement>document.getElementById('edit-discussionid')).value = '';
+
+    (<HTMLInputElement>document.getElementById('creategroup-title')).value = '';
+    (<HTMLInputElement>document.getElementById('creategroup-description')).value = '';
+    (<HTMLInputElement>document.getElementById('creategroup-code')).value = '';
+
+    (<HTMLInputElement>document.getElementById('joingroup-id')).value = '';
+    (<HTMLInputElement>document.getElementById('joingroup-code')).value = '';
+
+    document.getElementById('error-creategroup-title').style.display = 'none';
+    document.getElementById('error-creategroup-code').style.display = 'none';
+    document.getElementById('error-joingroup-id').style.display = 'none';
+    document.getElementById('error-joingroup-code').style.display = 'none';
+
+    this.create_group_title_count = 0 + '/' + this.MAX_TITLE_LIMIT;
+    this.create_group_description_count = 0 + '/' + this.MAX_DESCRIPTION_LIMIT;
+    this.create_group_code_count = 0 + '/' + this.MAX_CODE_LIMIT;
+
+    document.getElementById('btn-creategroup').setAttribute('disabled', '');
+    document.getElementById('btn-editgroup').setAttribute('disabled', '');
+    document.getElementById('btn-joingroup').setAttribute('disabled', '');
+
+    this.valid_create_group_title = false;
+    this.valid_create_group_description = false;
+    this.valid_create_group_code = false;
+    this.valid_create_group_info = false;
+
+    this.css_loading = 'dimmer';
+  }
+
   loadScript(url: string) {
-   const body = <HTMLDivElement> document.body;
-   const script = document.createElement('script');
-   script.innerHTML = '';
-   script.src = url;
-   script.async = false;
-   script.defer = true;
-   body.appendChild(script);
- }
+    const body = <HTMLDivElement>document.body;
+    const script = document.createElement('script');
+    script.innerHTML = '';
+    script.src = url;
+    script.async = false;
+    script.defer = true;
+    body.appendChild(script);
+  }
 }

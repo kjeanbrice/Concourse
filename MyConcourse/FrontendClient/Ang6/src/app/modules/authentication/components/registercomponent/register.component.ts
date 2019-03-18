@@ -203,6 +203,8 @@ export class RegisterComponent implements OnInit {
           document.getElementById('lbl-error-policy').style.display = 'block';
         }
         );
+      } else {
+        this.css_loading = 'dimmer';
       }
   }
   async isAuthenticated() {

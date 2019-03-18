@@ -5,6 +5,16 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="ConcourseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
         <EntityType Name="AdminData">
           <Key>
             <PropertyRef Name="UserId" />
@@ -13,6 +23,59 @@
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="AdminRole" Type="int" />
           <Property Name="IsDeleted" Type="int" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Comment">
           <Key>
@@ -33,8 +96,8 @@
           </Key>
           <Property Name="DiscussionBoardId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AdminId" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="Title" Type="nvarchar" MaxLength="25" Nullable="false" />
-          <Property Name="BoardDescription" Type="nvarchar" MaxLength="200" />
+          <Property Name="Title" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="BoardDescription" Type="nvarchar" MaxLength="500" />
           <Property Name="DateCreated" Type="datetime" />
           <Property Name="IsDeleted" Type="int" />
         </EntityType>
@@ -44,7 +107,7 @@
           </Key>
           <Property Name="CodeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DiscussionBoardId" Type="int" Nullable="false" />
-          <Property Name="Code" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Code" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" />
           <Property Name="IsDeleted" Type="int" />
         </EntityType>
@@ -62,6 +125,12 @@
           <Property Name="DateJoined" Type="datetime" />
           <Property Name="IsDeleted" Type="int" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'Concourse.dbo.IgnoreResultSet' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="IgnoreResultSet">
+          <Property Name="Id" Type="int" />
+          <Property Name="ResultData" Type="int" />
+        </EntityType>-->
         <EntityType Name="Post">
           <Key>
             <PropertyRef Name="PostID" />
@@ -74,9 +143,31 @@
           <Property Name="DateCreated" Type="datetime" />
           <Property Name="IsDeleted" Type="int" />
         </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <!--Errors Found During Generation:
 warning 6035: The relationship 'FK_Comment_DiscussionBoardID' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
         <Association Name="FK_Comment_DiscussionBoardID" />-->
+        <Association Name="FK_Comment_OwnerEmail">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="OwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Comment_PostID">
           <End Role="Post" Type="Self.Post" Multiplicity="1" />
           <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
@@ -89,15 +180,152 @@ warning 6035: The relationship 'FK_Comment_DiscussionBoardID' has columns that a
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DiscussionBoard_AdminId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DiscussionBoard" Type="Self.DiscussionBoard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DiscussionBoard">
+              <PropertyRef Name="AdminId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <!--Errors Found During Generation:
 warning 6035: The relationship 'FK_DiscussionBoardCode_DiscussionBoardID' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
         <Association Name="FK_DiscussionBoardCode_DiscussionBoardID" />-->
         <!--Errors Found During Generation:
 warning 6035: The relationship 'FK_DiscussionBoardMember_DiscussionBoardId' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
         <Association Name="FK_DiscussionBoardMember_DiscussionBoardId" />-->
+        <Association Name="FK_DiscussionBoardMember_MemberId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="DiscussionBoardMember" Type="Self.DiscussionBoardMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DiscussionBoardMember">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <!--Errors Found During Generation:
 warning 6035: The relationship 'FK_Post_DiscussionBoardID' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
         <Association Name="FK_Post_DiscussionBoardID" />-->
+        <Association Name="FK_Post_OwnerId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Post" Type="Self.Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Post">
+              <PropertyRef Name="OwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PK_AdminData_AspNetUserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="AdminData" Type="Self.AdminData" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AdminData">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="spBanUserFromDiscussionBoard" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserId" Type="nvarchar" Mode="In" />
           <Parameter Name="UserIdToBan" Type="nvarchar" Mode="In" />
@@ -157,6 +385,38 @@ warning 6035: The relationship 'FK_Post_DiscussionBoardID' has columns that are 
           <Parameter Name="DiscussionBoardId" Type="int" Mode="In" />
           <Parameter Name="UserId" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="spHasPermissions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+          <Parameter Name="DiscussionBoardId" Type="int" Mode="In" />
+          <Parameter Name="Status" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="spIsAdmin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+          <Parameter Name="Status" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="spIsBanned" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+          <Parameter Name="DiscussionBoardId" Type="int" Mode="In" />
+          <Parameter Name="Status" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="spIsConfirmed" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+          <Parameter Name="DiscussionBoardId" Type="int" Mode="In" />
+          <Parameter Name="Status" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="spIsMemberOfDiscussionBoard" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+          <Parameter Name="DiscussionBoardId" Type="int" Mode="In" />
+          <Parameter Name="Status" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="spIsValidDiscussionBoard" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DiscussionBoardId" Type="int" Mode="In" />
+          <Parameter Name="Status" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="spIsValidUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="nvarchar" Mode="In" />
+          <Parameter Name="status" Type="int" Mode="InOut" />
+        </Function>
         <Function Name="spJoinDiscussionBoard" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CodeId" Type="int" Mode="In" />
           <Parameter Name="Code" Type="varchar" Mode="In" />
@@ -192,15 +452,58 @@ warning 6035: The relationship 'FK_Post_DiscussionBoardID' has columns that are 
           <Parameter Name="NewContent" Type="nvarchar" Mode="In" />
         </Function>
         <EntityContainer Name="ConcourseModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AdminData" EntityType="Self.AdminData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DiscussionBoard" EntityType="Self.DiscussionBoard" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DiscussionBoardCode" EntityType="Self.DiscussionBoardCode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DiscussionBoardMember" EntityType="Self.DiscussionBoardMember" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Comment_OwnerEmail" Association="Self.FK_Comment_OwnerEmail">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
           <AssociationSet Name="FK_Comment_PostID" Association="Self.FK_Comment_PostID">
             <End Role="Post" EntitySet="Post" />
             <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DiscussionBoard_AdminId" Association="Self.FK_DiscussionBoard_AdminId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="DiscussionBoard" EntitySet="DiscussionBoard" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DiscussionBoardMember_MemberId" Association="Self.FK_DiscussionBoardMember_MemberId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="DiscussionBoardMember" EntitySet="DiscussionBoardMember" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Post_OwnerId" Association="Self.FK_Post_OwnerId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Post" EntitySet="Post" />
+          </AssociationSet>
+          <AssociationSet Name="PK_AdminData_AspNetUserId" Association="Self.PK_AdminData_AspNetUserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AdminData" EntitySet="AdminData" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -215,6 +518,7 @@ warning 6035: The relationship 'FK_Post_DiscussionBoardID' has columns that are 
           <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="AdminRole" Type="Int32" />
           <Property Name="IsDeleted" Type="Int32" />
+          <NavigationProperty Name="AspNetUser" Relationship="ConcourseModel.PK_AdminData_AspNetUserId" FromRole="AdminData" ToRole="AspNetUser" />
         </EntityType>
         <EntityType Name="Comment">
           <Key>
@@ -228,6 +532,7 @@ warning 6035: The relationship 'FK_Post_DiscussionBoardID' has columns that are 
           <Property Name="DateCreated" Type="DateTime" Precision="3" />
           <Property Name="IsDeleted" Type="Int32" />
           <NavigationProperty Name="Post" Relationship="Self.FK_Comment_PostID" FromRole="Comment" ToRole="Post" />
+          <NavigationProperty Name="AspNetUser" Relationship="ConcourseModel.FK_Comment_OwnerEmail" FromRole="Comment" ToRole="AspNetUser" />
         </EntityType>
         <EntityType Name="DiscussionBoard">
           <Key>
@@ -236,10 +541,11 @@ warning 6035: The relationship 'FK_Post_DiscussionBoardID' has columns that are 
           </Key>
           <Property Name="DiscussionBoardId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AdminId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Title" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="BoardDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BoardDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="DateCreated" Type="DateTime" Precision="3" />
           <Property Name="IsDeleted" Type="Int32" />
+          <NavigationProperty Name="AspNetUser" Relationship="ConcourseModel.FK_DiscussionBoard_AdminId" FromRole="DiscussionBoard" ToRole="AspNetUser" />
         </EntityType>
         <EntityType Name="DiscussionBoardCode">
           <Key>
@@ -247,7 +553,7 @@ warning 6035: The relationship 'FK_Post_DiscussionBoardID' has columns that are 
           </Key>
           <Property Name="CodeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DiscussionBoardId" Type="Int32" Nullable="false" />
-          <Property Name="Code" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="DateCreated" Type="DateTime" Precision="3" />
           <Property Name="IsDeleted" Type="Int32" />
         </EntityType>
@@ -264,6 +570,7 @@ warning 6035: The relationship 'FK_Post_DiscussionBoardID' has columns that are 
           <Property Name="IsBanned" Type="Int32" />
           <Property Name="DateJoined" Type="DateTime" Precision="3" />
           <Property Name="IsDeleted" Type="Int32" />
+          <NavigationProperty Name="AspNetUser" Relationship="ConcourseModel.FK_DiscussionBoardMember_MemberId" FromRole="DiscussionBoardMember" ToRole="AspNetUser" />
         </EntityType>
         <EntityType Name="Post">
           <Key>
@@ -277,6 +584,7 @@ warning 6035: The relationship 'FK_Post_DiscussionBoardID' has columns that are 
           <Property Name="DateCreated" Type="DateTime" Precision="3" />
           <Property Name="IsDeleted" Type="Int32" />
           <NavigationProperty Name="Comments" Relationship="Self.FK_Comment_PostID" FromRole="Post" ToRole="Comment" />
+          <NavigationProperty Name="AspNetUser" Relationship="ConcourseModel.FK_Post_OwnerId" FromRole="Post" ToRole="AspNetUser" />
         </EntityType>
         <Association Name="FK_Comment_PostID">
           <End Role="Post" Type="Self.Post" Multiplicity="1" />
@@ -394,6 +702,106 @@ warning 6035: The relationship 'FK_Post_DiscussionBoardID' has columns that are 
             <Parameter Name="NewTitle" Mode="In" Type="String" />
             <Parameter Name="NewContent" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="C__MigrationHistory" EntityType="ConcourseModel.C__MigrationHistory" />
+          <EntitySet Name="AspNetRoles" EntityType="ConcourseModel.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="ConcourseModel.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="ConcourseModel.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="ConcourseModel.AspNetUser" />
+          <EntitySet Name="sysdiagrams" EntityType="ConcourseModel.sysdiagram" />
+          <AssociationSet Name="PK_AdminData_AspNetUserId" Association="ConcourseModel.PK_AdminData_AspNetUserId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="AdminData" EntitySet="AdminDatas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="ConcourseModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="ConcourseModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_OwnerEmail" Association="ConcourseModel.FK_Comment_OwnerEmail">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DiscussionBoard_AdminId" Association="ConcourseModel.FK_DiscussionBoard_AdminId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="DiscussionBoard" EntitySet="DiscussionBoards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DiscussionBoardMember_MemberId" Association="ConcourseModel.FK_DiscussionBoardMember_MemberId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="DiscussionBoardMember" EntitySet="DiscussionBoardMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Post_OwnerId" Association="ConcourseModel.FK_Post_OwnerId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Post" EntitySet="Posts" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="ConcourseModel.AspNetUserRoles">
+            <End Role="AspNetRole" EntitySet="AspNetRoles" />
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(ConcourseModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(ConcourseModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <FunctionImport Name="spHasPermissions">
+            <Parameter Name="UserId" Mode="In" Type="String" />
+            <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
+            <Parameter Name="Status" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spIsAdmin">
+            <Parameter Name="UserId" Mode="In" Type="String" />
+            <Parameter Name="Status" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spIsBanned">
+            <Parameter Name="UserId" Mode="In" Type="String" />
+            <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
+            <Parameter Name="Status" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spIsConfirmed">
+            <Parameter Name="UserId" Mode="In" Type="String" />
+            <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
+            <Parameter Name="Status" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spIsMemberOfDiscussionBoard">
+            <Parameter Name="UserId" Mode="In" Type="String" />
+            <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
+            <Parameter Name="Status" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spIsValidDiscussionBoard">
+            <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
+            <Parameter Name="Status" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spIsValidUser">
+            <Parameter Name="id" Mode="In" Type="String" />
+            <Parameter Name="status" Mode="InOut" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="spGetDiscussionBoardsByUserId_Result">
           <Property Type="String" Name="AdminId" Nullable="false" MaxLength="128" />
@@ -454,6 +862,187 @@ warning 6035: The relationship 'FK_Post_DiscussionBoardID' has columns that are 
           <Property Type="String" Name="UserName" Nullable="false" MaxLength="256" />
           <Property Type="String" Name="DateCreated" Nullable="true" MaxLength="4000" />
           <Property Type="String" Name="TimeCreated" Nullable="true" MaxLength="4000" />
+        </ComplexType>
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="ConcourseModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="ConcourseModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaim" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogin">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="ConcourseModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AdminData" Relationship="ConcourseModel.PK_AdminData_AspNetUserId" FromRole="AspNetUser" ToRole="AdminData" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="ConcourseModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="ConcourseModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
+          <NavigationProperty Name="Comments" Relationship="ConcourseModel.FK_Comment_OwnerEmail" FromRole="AspNetUser" ToRole="Comment" />
+          <NavigationProperty Name="DiscussionBoards" Relationship="ConcourseModel.FK_DiscussionBoard_AdminId" FromRole="AspNetUser" ToRole="DiscussionBoard" />
+          <NavigationProperty Name="DiscussionBoardMembers" Relationship="ConcourseModel.FK_DiscussionBoardMember_MemberId" FromRole="AspNetUser" ToRole="DiscussionBoardMember" />
+          <NavigationProperty Name="Posts" Relationship="ConcourseModel.FK_Post_OwnerId" FromRole="AspNetUser" ToRole="Post" />
+          <NavigationProperty Name="AspNetRoles" Relationship="ConcourseModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="PK_AdminData_AspNetUserId">
+          <End Type="ConcourseModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="ConcourseModel.AdminData" Role="AdminData" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AdminData">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Type="ConcourseModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ConcourseModel.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaim">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Type="ConcourseModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ConcourseModel.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogin">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_OwnerEmail">
+          <End Type="ConcourseModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="ConcourseModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="OwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DiscussionBoard_AdminId">
+          <End Type="ConcourseModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ConcourseModel.DiscussionBoard" Role="DiscussionBoard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DiscussionBoard">
+              <PropertyRef Name="AdminId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DiscussionBoardMember_MemberId">
+          <End Type="ConcourseModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="ConcourseModel.DiscussionBoardMember" Role="DiscussionBoardMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DiscussionBoardMember">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Post_OwnerId">
+          <End Type="ConcourseModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="ConcourseModel.Post" Role="Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Post">
+              <PropertyRef Name="OwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Type="ConcourseModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+          <End Type="ConcourseModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+        </Association>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -611,6 +1200,113 @@ warning 6035: The relationship 'FK_Post_DiscussionBoardID' has columns that are 
           <FunctionImportMapping FunctionImportName="spUpdateDiscussionBoard" FunctionName="ConcourseModel.Store.spUpdateDiscussionBoard" />
           <FunctionImportMapping FunctionImportName="spUpdateDiscussionBoardCode" FunctionName="ConcourseModel.Store.spUpdateDiscussionBoardCode" />
           <FunctionImportMapping FunctionImportName="spUpdatePost" FunctionName="ConcourseModel.Store.spUpdatePost" />
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="ConcourseModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="ConcourseModel.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="ConcourseModel.AspNetUserClaim">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="ConcourseModel.AspNetUserLogin">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="ConcourseModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ConcourseModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="ConcourseModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetUser">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="AspNetRole">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="ConcourseModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="ConcourseModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="ConcourseModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="ConcourseModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ConcourseModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="ConcourseModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ConcourseModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="ConcourseModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="ConcourseModel.Store.sp_upgraddiagrams" />
+          <FunctionImportMapping FunctionImportName="spHasPermissions" FunctionName="ConcourseModel.Store.spHasPermissions" />
+          <FunctionImportMapping FunctionImportName="spIsAdmin" FunctionName="ConcourseModel.Store.spIsAdmin" />
+          <FunctionImportMapping FunctionImportName="spIsBanned" FunctionName="ConcourseModel.Store.spIsBanned" />
+          <FunctionImportMapping FunctionImportName="spIsConfirmed" FunctionName="ConcourseModel.Store.spIsConfirmed" />
+          <FunctionImportMapping FunctionImportName="spIsMemberOfDiscussionBoard" FunctionName="ConcourseModel.Store.spIsMemberOfDiscussionBoard" />
+          <FunctionImportMapping FunctionImportName="spIsValidDiscussionBoard" FunctionName="ConcourseModel.Store.spIsValidDiscussionBoard" />
+          <FunctionImportMapping FunctionImportName="spIsValidUser" FunctionName="ConcourseModel.Store.spIsValidUser" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

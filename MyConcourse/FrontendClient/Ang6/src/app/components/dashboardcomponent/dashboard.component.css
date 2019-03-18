@@ -5,7 +5,7 @@
 }
 
 .card-content{
-    min-height: 110px;
+    min-height: 230px;
     padding-bottom: 20px;
 }
 
@@ -17,4 +17,11 @@
 
 .hide-item{
     display:none;
+}
+
+.group-area{
+    /*height: 85vh;*/
+}
+.modal-wrap{
+    word-wrap: break-word;
 }

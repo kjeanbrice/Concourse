@@ -22,5 +22,7 @@ namespace DiscussionDataAccess
         public Nullable<int> IsBanned { get; set; }
         public Nullable<System.DateTime> DateJoined { get; set; }
         public Nullable<int> IsDeleted { get; set; }
+    
+        public virtual AspNetUser AspNetUser { get; set; }
     }
 }

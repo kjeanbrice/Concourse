@@ -23,5 +23,6 @@ namespace DiscussionDataAccess
         public Nullable<int> IsDeleted { get; set; }
     
         public virtual Post Post { get; set; }
+        public virtual AspNetUser AspNetUser { get; set; }
     }
 }

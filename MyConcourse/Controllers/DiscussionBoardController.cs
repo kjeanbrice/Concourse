@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using DiscussionDataAccess;
 using Microsoft.AspNet.Identity;
+using MyConcourse.Models;
 
 namespace MyConcourse.Controllers
 {
@@ -67,9 +68,10 @@ namespace MyConcourse.Controllers
 
         [HttpPost]
         [Route("creategroup")]
-        public IHttpActionResult CreateDiscussionBoard([FromBody]string title, [FromBody]string description, [FromBody]string groupCode)
+        public IHttpActionResult CreateDiscussionBoard([FromBody]DiscussionBoardAPIModel group)
         {
             string user_id = User.Identity.GetUserId();
+
             if(user_id == null || user_id.Length == 0)
             {
                 HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.Unauthorized);
@@ -78,23 +80,23 @@ namespace MyConcourse.Controllers
             }
 
 
-            if(title == null || title.Trim().Length == 0)
+            if(group.Title == null || group.Title.Trim().Length == 0)
             {
                 HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.BadRequest);
                 message.Content = new StringContent("The group title must have at least one character");
                 throw new HttpResponseException(message);
             }
 
-            if (groupCode == null || groupCode.Trim().Length == 0)
+            if (group.Groupcode == null || group.Groupcode.Trim().Length == 0)
             {
                 HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.BadRequest);
                 message.Content = new StringContent("The group code cannot be empty.");
                 throw new HttpResponseException(message);
             }
 
-            if (description == null)
+            if (group.Description == null || group.Description.Trim().Length == 0)
             {
-                description = "";
+                group.Description = "";
             }
 
 
@@ -103,7 +105,8 @@ namespace MyConcourse.Controllers
             {
                 using(ConcourseEntities entities = new ConcourseEntities())
                 {
-                   result = entities.spCreateDiscussionBoard(user_id, title.Trim(), groupCode.Trim(), description.Trim());
+                    entities.Configuration.EnsureTransactionsForFunctionsAndCommands = false;
+                    result = entities.spCreateDiscussionBoard(user_id, group.Title.Trim(), group.Groupcode.Trim(), group.Description.Trim());
                    
                 }
             }
@@ -135,13 +138,7 @@ namespace MyConcourse.Controllers
                 throw new HttpResponseException(message);
             }
 
-            if(result != 1)
-            {
-                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.BadRequest);
-                message.Content = new StringContent("An error occured while processing your request. Please try again later");
-                throw new HttpResponseException(message);       
-            }
-
+         
             return Ok();
 
         }

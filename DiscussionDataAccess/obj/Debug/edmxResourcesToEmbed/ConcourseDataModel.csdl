@@ -8,6 +8,7 @@
     <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="AdminRole" Type="Int32" />
     <Property Name="IsDeleted" Type="Int32" />
+    <NavigationProperty Name="AspNetUser" Relationship="ConcourseModel.PK_AdminData_AspNetUserId" FromRole="AdminData" ToRole="AspNetUser" />
   </EntityType>
   <EntityType Name="Comment">
     <Key>
@@ -21,6 +22,7 @@
     <Property Name="DateCreated" Type="DateTime" Precision="3" />
     <Property Name="IsDeleted" Type="Int32" />
     <NavigationProperty Name="Post" Relationship="Self.FK_Comment_PostID" FromRole="Comment" ToRole="Post" />
+    <NavigationProperty Name="AspNetUser" Relationship="ConcourseModel.FK_Comment_OwnerEmail" FromRole="Comment" ToRole="AspNetUser" />
   </EntityType>
   <EntityType Name="DiscussionBoard">
     <Key>
@@ -29,10 +31,11 @@
     </Key>
     <Property Name="DiscussionBoardId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="AdminId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Title" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="BoardDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Title" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="BoardDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Name="DateCreated" Type="DateTime" Precision="3" />
     <Property Name="IsDeleted" Type="Int32" />
+    <NavigationProperty Name="AspNetUser" Relationship="ConcourseModel.FK_DiscussionBoard_AdminId" FromRole="DiscussionBoard" ToRole="AspNetUser" />
   </EntityType>
   <EntityType Name="DiscussionBoardCode">
     <Key>
@@ -40,7 +43,7 @@
     </Key>
     <Property Name="CodeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="DiscussionBoardId" Type="Int32" Nullable="false" />
-    <Property Name="Code" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Code" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="DateCreated" Type="DateTime" Precision="3" />
     <Property Name="IsDeleted" Type="Int32" />
   </EntityType>
@@ -57,6 +60,7 @@
     <Property Name="IsBanned" Type="Int32" />
     <Property Name="DateJoined" Type="DateTime" Precision="3" />
     <Property Name="IsDeleted" Type="Int32" />
+    <NavigationProperty Name="AspNetUser" Relationship="ConcourseModel.FK_DiscussionBoardMember_MemberId" FromRole="DiscussionBoardMember" ToRole="AspNetUser" />
   </EntityType>
   <EntityType Name="Post">
     <Key>
@@ -70,6 +74,7 @@
     <Property Name="DateCreated" Type="DateTime" Precision="3" />
     <Property Name="IsDeleted" Type="Int32" />
     <NavigationProperty Name="Comments" Relationship="Self.FK_Comment_PostID" FromRole="Post" ToRole="Comment" />
+    <NavigationProperty Name="AspNetUser" Relationship="ConcourseModel.FK_Post_OwnerId" FromRole="Post" ToRole="AspNetUser" />
   </EntityType>
   <Association Name="FK_Comment_PostID">
     <End Role="Post" Type="Self.Post" Multiplicity="1" />
@@ -187,6 +192,106 @@
       <Parameter Name="NewTitle" Mode="In" Type="String" />
       <Parameter Name="NewContent" Mode="In" Type="String" />
     </FunctionImport>
+    <EntitySet Name="C__MigrationHistory" EntityType="ConcourseModel.C__MigrationHistory" />
+    <EntitySet Name="AspNetRoles" EntityType="ConcourseModel.AspNetRole" />
+    <EntitySet Name="AspNetUserClaims" EntityType="ConcourseModel.AspNetUserClaim" />
+    <EntitySet Name="AspNetUserLogins" EntityType="ConcourseModel.AspNetUserLogin" />
+    <EntitySet Name="AspNetUsers" EntityType="ConcourseModel.AspNetUser" />
+    <EntitySet Name="sysdiagrams" EntityType="ConcourseModel.sysdiagram" />
+    <AssociationSet Name="PK_AdminData_AspNetUserId" Association="ConcourseModel.PK_AdminData_AspNetUserId">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="AdminData" EntitySet="AdminDatas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="ConcourseModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="ConcourseModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comment_OwnerEmail" Association="ConcourseModel.FK_Comment_OwnerEmail">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="Comment" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DiscussionBoard_AdminId" Association="ConcourseModel.FK_DiscussionBoard_AdminId">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="DiscussionBoard" EntitySet="DiscussionBoards" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DiscussionBoardMember_MemberId" Association="ConcourseModel.FK_DiscussionBoardMember_MemberId">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="DiscussionBoardMember" EntitySet="DiscussionBoardMembers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Post_OwnerId" Association="ConcourseModel.FK_Post_OwnerId">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="Post" EntitySet="Posts" />
+    </AssociationSet>
+    <AssociationSet Name="AspNetUserRoles" Association="ConcourseModel.AspNetUserRoles">
+      <End Role="AspNetRole" EntitySet="AspNetRoles" />
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+    </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(ConcourseModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(ConcourseModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <FunctionImport Name="spHasPermissions">
+      <Parameter Name="UserId" Mode="In" Type="String" />
+      <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
+      <Parameter Name="Status" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spIsAdmin">
+      <Parameter Name="UserId" Mode="In" Type="String" />
+      <Parameter Name="Status" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spIsBanned">
+      <Parameter Name="UserId" Mode="In" Type="String" />
+      <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
+      <Parameter Name="Status" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spIsConfirmed">
+      <Parameter Name="UserId" Mode="In" Type="String" />
+      <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
+      <Parameter Name="Status" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spIsMemberOfDiscussionBoard">
+      <Parameter Name="UserId" Mode="In" Type="String" />
+      <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
+      <Parameter Name="Status" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spIsValidDiscussionBoard">
+      <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
+      <Parameter Name="Status" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spIsValidUser">
+      <Parameter Name="id" Mode="In" Type="String" />
+      <Parameter Name="status" Mode="InOut" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="spGetDiscussionBoardsByUserId_Result">
     <Property Type="String" Name="AdminId" Nullable="false" MaxLength="128" />
@@ -247,5 +352,186 @@
     <Property Type="String" Name="UserName" Nullable="false" MaxLength="256" />
     <Property Type="String" Name="DateCreated" Nullable="true" MaxLength="4000" />
     <Property Type="String" Name="TimeCreated" Nullable="true" MaxLength="4000" />
+  </ComplexType>
+  <EntityType Name="C__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+    <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="AspNetRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUsers" Relationship="ConcourseModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaim">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="ConcourseModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaim" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogin">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="ConcourseModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+    <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AdminData" Relationship="ConcourseModel.PK_AdminData_AspNetUserId" FromRole="AspNetUser" ToRole="AdminData" />
+    <NavigationProperty Name="AspNetUserClaims" Relationship="ConcourseModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
+    <NavigationProperty Name="AspNetUserLogins" Relationship="ConcourseModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
+    <NavigationProperty Name="Comments" Relationship="ConcourseModel.FK_Comment_OwnerEmail" FromRole="AspNetUser" ToRole="Comment" />
+    <NavigationProperty Name="DiscussionBoards" Relationship="ConcourseModel.FK_DiscussionBoard_AdminId" FromRole="AspNetUser" ToRole="DiscussionBoard" />
+    <NavigationProperty Name="DiscussionBoardMembers" Relationship="ConcourseModel.FK_DiscussionBoardMember_MemberId" FromRole="AspNetUser" ToRole="DiscussionBoardMember" />
+    <NavigationProperty Name="Posts" Relationship="ConcourseModel.FK_Post_OwnerId" FromRole="AspNetUser" ToRole="Post" />
+    <NavigationProperty Name="AspNetRoles" Relationship="ConcourseModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="PK_AdminData_AspNetUserId">
+    <End Type="ConcourseModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+    <End Type="ConcourseModel.AdminData" Role="AdminData" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AdminData">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Type="ConcourseModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="ConcourseModel.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaim">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Type="ConcourseModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="ConcourseModel.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogin">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comment_OwnerEmail">
+    <End Type="ConcourseModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+    <End Type="ConcourseModel.Comment" Role="Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="OwnerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DiscussionBoard_AdminId">
+    <End Type="ConcourseModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="ConcourseModel.DiscussionBoard" Role="DiscussionBoard" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DiscussionBoard">
+        <PropertyRef Name="AdminId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DiscussionBoardMember_MemberId">
+    <End Type="ConcourseModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+    <End Type="ConcourseModel.DiscussionBoardMember" Role="DiscussionBoardMember" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DiscussionBoardMember">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Post_OwnerId">
+    <End Type="ConcourseModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+    <End Type="ConcourseModel.Post" Role="Post" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Post">
+        <PropertyRef Name="OwnerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AspNetUserRoles">
+    <End Type="ConcourseModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+    <End Type="ConcourseModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+  </Association>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
   </ComplexType>
 </Schema>
