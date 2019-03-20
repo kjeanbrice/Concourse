@@ -82,16 +82,107 @@ export class DashboardService {
     }
 
 
-    joinGroup(_groupID: number, _coursecode: string): Observable<boolean> {
-        return of(true);
+    joinGroup(_groupid: string, _groupcode: string): Observable<any> {
+        const httpOptions = {
+            headers: new HttpHeaders({
+              'Content-Type': 'application/x-www-form-urlencoded',
+              'Authorization': 'Bearer ' + window.sessionStorage.getItem('access_token')
+            })
+          };
+        let params_opt = new HttpParams();
+        params_opt = params_opt.set('groupid', _groupid);
+        params_opt = params_opt.set('groupcode', _groupcode);
+
+        return this.http.post(DashboardService.BASE_URL + '/api/dashboard/joingroup', params_opt, httpOptions).pipe(
+            retryWhen((errors) => {
+                return errors.pipe(
+                    delay(3000),
+                    concatMap((error, index) => {
+                        if (index === 1) {
+                            return throwError(error);
+                        }
+                        return of(null);
+                    })
+
+                );
+            }
+            ),
+            map((response: Response) => {
+                console.log('Status:' + response);
+                return response;
+            }),
+
+            catchError((err: any) => { console.log(err.status); return this.errorHandler(err); })
+        );
     }
 
-    deleteGroup(_itemID: string): Observable<boolean> {
-        return of(true);
+    deleteGroup(_itemID: string): Observable<any> {
+        const httpOptions = {
+            headers: new HttpHeaders({
+              'Content-Type': 'application/x-www-form-urlencoded',
+              'Authorization': 'Bearer ' + window.sessionStorage.getItem('access_token')
+            })
+          };
+        let params_opt = new HttpParams();
+        params_opt = params_opt.set('discussionboardid', _itemID);
+
+        return this.http.post(DashboardService.BASE_URL + '/api/dashboard/deletegroup', params_opt, httpOptions).pipe(
+            retryWhen((errors) => {
+                return errors.pipe(
+                    delay(3000),
+                    concatMap((error, index) => {
+                        if (index === 1) {
+                            return throwError(error);
+                        }
+                        return of(null);
+                    })
+
+                );
+            }
+            ),
+            map((response: Response) => {
+                console.log('Status:' + response);
+                return response;
+            }),
+
+            catchError((err: any) => { console.log(err.status); return this.errorHandler(err); })
+        );
     }
 
-    editGroup(_newtitle: string, _newdescription: string, _newcoursecode: string): Observable<boolean> {
-        return of(true);
+    editGroup(_newtitle: string, _newdescription: string, _newgroupcode: string, _itemID: string): Observable<any> {
+        const httpOptions = {
+            headers: new HttpHeaders({
+              'Content-Type': 'application/x-www-form-urlencoded',
+              'Authorization': 'Bearer ' + window.sessionStorage.getItem('access_token')
+            })
+          };
+        let params_opt = new HttpParams();
+        params_opt = params_opt.set('newtitle', _newtitle);
+        params_opt = params_opt.set('newdesription', _newdescription);
+        params_opt = params_opt.set('newcoursecode', _newgroupcode);
+        params_opt = params_opt.set('discussionboardid', _itemID);
+
+        return this.http.post(DashboardService.BASE_URL + '/api/dashboard/editgroup', params_opt, httpOptions).pipe(
+            retryWhen((errors) => {
+                return errors.pipe(
+                    delay(3000),
+                    concatMap((error, index) => {
+                        if (index === 1) {
+                            return throwError(error);
+                        }
+                        return of(null);
+                    })
+
+                );
+            }
+            ),
+            map((response: Response) => {
+                console.log('Status:' + response);
+                return response;
+            }),
+
+            catchError((err: any) => { console.log(err.status); return this.errorHandler(err); })
+        );
     }
 
     private errorHandler(err: any) {

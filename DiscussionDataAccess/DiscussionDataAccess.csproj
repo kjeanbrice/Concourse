@@ -53,18 +53,6 @@
     <Compile Include="AdminData.cs">
       <DependentUpon>ConcourseDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="AspNetRole.cs">
-      <DependentUpon>ConcourseDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AspNetUser.cs">
-      <DependentUpon>ConcourseDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AspNetUserClaim.cs">
-      <DependentUpon>ConcourseDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AspNetUserLogin.cs">
-      <DependentUpon>ConcourseDataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Comment.cs">
       <DependentUpon>ConcourseDataModel.tt</DependentUpon>
     </Compile>
@@ -82,9 +70,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ConcourseDataModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="C__MigrationHistory.cs">
-      <DependentUpon>ConcourseDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DiscussionBoard.cs">
       <DependentUpon>ConcourseDataModel.tt</DependentUpon>
@@ -124,9 +109,6 @@
       <DependentUpon>ConcourseDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_helpdiagrams_Result.cs">
-      <DependentUpon>ConcourseDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sysdiagram.cs">
       <DependentUpon>ConcourseDataModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>

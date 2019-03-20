@@ -18,7 +18,5 @@ namespace DiscussionDataAccess
         public string UserId { get; set; }
         public Nullable<int> AdminRole { get; set; }
         public Nullable<int> IsDeleted { get; set; }
-    
-        public virtual AspNetUser AspNetUser { get; set; }
     }
 }

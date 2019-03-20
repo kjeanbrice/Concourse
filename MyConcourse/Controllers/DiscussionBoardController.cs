@@ -87,7 +87,7 @@ namespace MyConcourse.Controllers
                 throw new HttpResponseException(message);
             }
 
-            if (group.Groupcode == null || group.Groupcode.Trim().Length == 0)
+            if (group.GroupCode == null || group.GroupCode.Trim().Length == 0)
             {
                 HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.BadRequest);
                 message.Content = new StringContent("The group code cannot be empty.");
@@ -106,7 +106,7 @@ namespace MyConcourse.Controllers
                 using(ConcourseEntities entities = new ConcourseEntities())
                 {
                     entities.Configuration.EnsureTransactionsForFunctionsAndCommands = false;
-                    result = entities.spCreateDiscussionBoard(user_id, group.Title.Trim(), group.Groupcode.Trim(), group.Description.Trim());
+                    result = entities.spCreateDiscussionBoard(user_id, group.Title.Trim(), group.GroupCode.Trim(), group.Description.Trim());
                    
                 }
             }
@@ -131,7 +131,7 @@ namespace MyConcourse.Controllers
                         message.Content = new StringContent("A board with the same title already exists in your account.");
                         break;
                     default:
-                        message.Content = new StringContent("Server error, please try again later");
+                        message.Content = new StringContent("An error occured while processing your request. Please try again later");
                         break;
                 }
 
@@ -144,8 +144,8 @@ namespace MyConcourse.Controllers
         }
 
         [HttpPost]
-        [Route("join")]
-        public IHttpActionResult JoinDiscussionBoard([FromBody]int groupID, [FromBody]string groupCode)
+        [Route("joingroup")]
+        public IHttpActionResult JoinDiscussionBoard([FromBody]DiscussionBoardAPIModel group)
         {
             String user_id = User.Identity.GetUserId();
             if(user_id == null || user_id.Length == 0)
@@ -155,12 +155,31 @@ namespace MyConcourse.Controllers
                 throw new HttpResponseException(message);
             }
 
-            int result = 0;
+
+            if(group.GroupCode == null || group.GroupCode.Length == 0 || group.GroupID == null || group.GroupID.Length == 0)
+            {
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.BadRequest);
+                message.Content = new StringContent("The Group Code and/or Group ID are incorrect.");
+                throw new HttpResponseException(message);
+            }
+
+            int result_groupid;
+            bool valid = int.TryParse(group.GroupID, out result_groupid);
+            if (!valid)
+            {
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.BadRequest);
+                message.Content = new StringContent("The Group Code and/or Group ID are incorrect.");
+                throw new HttpResponseException(message);
+            }
+
+            int result;
+ 
             try
             {
                 using (ConcourseEntities entities = new ConcourseEntities())
                 {
-                    result = entities.spJoinDiscussionBoard(groupID, groupCode, user_id);
+                    entities.Configuration.EnsureTransactionsForFunctionsAndCommands = false;
+                    result = entities.spJoinDiscussionBoard(result_groupid,group.GroupCode, user_id);
                 }
 
             }
@@ -179,7 +198,7 @@ namespace MyConcourse.Controllers
                 {
                     case "INVALID_REQUEST_NULL":
                     case "INVALID_REQUEST_INVALID":
-                        message.Content = new StringContent("Invalid User");
+                        message.Content = new StringContent("Unauthorized User");
                         break;
                     case "INVALID_REQUEST_ALREADY_EXISTS":
                         message.Content = new StringContent("A board with the same title already exists in your account.");
@@ -194,17 +213,10 @@ namespace MyConcourse.Controllers
                         message.Content = new StringContent("You're already enrolled in this group.");
                         break;
                     default:
-                        message.Content = new StringContent("Server error, please try again later");
+                        message.Content = new StringContent("An error occured while processing your request. Please try again later");
                         break;
                 }
 
-                throw new HttpResponseException(message);
-            }
-
-            if (result != 1)
-            {
-                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.BadRequest);
-                message.Content = new StringContent("An error occured while processing your request. Please try again later");
                 throw new HttpResponseException(message);
             }
 
@@ -215,7 +227,7 @@ namespace MyConcourse.Controllers
 
         [HttpPost]
         [Route("deletegroup")]
-        public IHttpActionResult DeleteGroup([FromBody]int discussionBoardID)
+        public IHttpActionResult DeleteGroup([FromBody]DiscussionBoardAPIModel group)
         {
             string user_id = User.Identity.GetUserId();
             if (user_id == null || user_id.Length == 0)
@@ -225,24 +237,52 @@ namespace MyConcourse.Controllers
                 throw new HttpResponseException(message);
             }
 
+            int discussion_board_id;
+            bool is_valid = int.TryParse(group.DiscussionBoardID, out discussion_board_id);
+            if (!is_valid)
+            {
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.BadRequest);
+                message.Content = new StringContent("Hmm, it seems we can't do that transacation for you. Please try again later.");
+                throw new HttpResponseException(message);
+            }
+
             int result = 0;
+            
             try
             {
                 using (ConcourseEntities entities = new ConcourseEntities())
                 {
-                    result = entities.spDeleteDiscussionBoard(user_id, discussionBoardID);
+                    entities.Configuration.EnsureTransactionsForFunctionsAndCommands = false;
+                    result = entities.spDeleteDiscussionBoard(user_id, discussion_board_id);
                 }
 
-                if (result != 1)
+            }
+            catch(Exception ex)
+            {
+                Exception inner_ex = ex.InnerException;
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.BadRequest);
+                if (inner_ex == null)
                 {
-                    HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.NotFound);
-                    message.Content = new StringContent("An error occured. Please try again later");
+                    message.Content = new StringContent("Server error, please try again later.");
                     throw new HttpResponseException(message);
                 }
-            }
-            catch
-            {
-                //Add Error Handling
+
+                switch (inner_ex.Message.ToUpper())
+                {
+                    case "INVALID_REQUEST_NULL":
+                    case "INVALID_REQUEST_INVALID":
+                        message.Content = new StringContent("Unauthorized User");
+                        break;
+                    case "INVALID_REQUEST_ID":
+                    case "INVALID_REQUEST_PERMISSONS":
+                        message.Content = new StringContent("You are not unauthorized to perform this request. Please try agian later.");
+                        break;
+                    default:
+                        message.Content = new StringContent("An error occured while processing your request. Please try again later");
+                        break;
+                }
+
+                throw new HttpResponseException(message);
             }
 
             return Ok();
@@ -251,37 +291,93 @@ namespace MyConcourse.Controllers
 
         [HttpPost]
         [Route("updategroup")]
-        public IHttpActionResult UpdateGroup([FromBody]int discussionBoardID,string newTitle, string newDescription, string newGroupCode)
+        public IHttpActionResult UpdateGroup([FromBody]DiscussionBoardAPIModel group)
         {
             string user_id = User.Identity.GetUserId();
-            if(user_id == null || user_id.Length == 0)
+
+            if (user_id == null || user_id.Length == 0)
             {
-                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.NotFound);
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.Unauthorized);
                 message.Content = new StringContent("Not logged in");
                 throw new HttpResponseException(message);
             }
 
-            int group_info_result = 0;
-            int code_info_result = 0;
+
+            if (group.Title == null || group.Title.Trim().Length == 0)
+            {
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.BadRequest);
+                message.Content = new StringContent("The group title must have at least one character");
+                throw new HttpResponseException(message);
+            }
+
+            if (group.GroupCode == null || group.GroupCode.Trim().Length == 0)
+            {
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.BadRequest);
+                message.Content = new StringContent("The group code cannot be empty.");
+                throw new HttpResponseException(message);
+            }
+
+            if (group.Description == null || group.Description.Trim().Length == 0)
+            {
+                group.Description = "";
+            }
+
+
+            int discussion_board_id;
+            bool is_valid = int.TryParse(group.DiscussionBoardID, out discussion_board_id);
+            if (!is_valid)
+            {
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.BadRequest);
+                message.Content = new StringContent("Hmm, it seems we can't do that transaction for you. Please try again later.");
+                throw new HttpResponseException(message);
+            }
+
+
+            int result = 0;
             try
             {
-                 using(ConcourseEntities entities = new ConcourseEntities())
+                using (ConcourseEntities entities = new ConcourseEntities())
                 {
-                    group_info_result = entities.spUpdateDiscussionBoard(user_id, discussionBoardID, newTitle, newDescription);
-                    code_info_result = entities.spUpdateDiscussionBoardCode(user_id, discussionBoardID, newGroupCode);
+                    entities.Configuration.EnsureTransactionsForFunctionsAndCommands = false;
+                    result = entities.spUpdateDiscussionBoard(user_id, discussion_board_id, group.Title, group.Description);
+                    result = entities.spUpdateDiscussionBoardCode(user_id, discussion_board_id, group.GroupCode);
 
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.InternalServerError);
-                message.Content = new StringContent("Error: Please try again later.");
-                throw new HttpResponseException(message);
+                //Handle Errors 
+                Exception inner_ex = ex.InnerException;
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.BadRequest);
+                if (inner_ex == null)
+                {
+                    message.Content = new StringContent("Server error, please try again later.");
+                    throw new HttpResponseException(message);
+                }
 
-                //Add additional error handling
+                switch (inner_ex.Message.ToUpper())
+                {
+                    case "INVALID_REQUEST_NULL":
+                    case "INVALID_REQUEST_INVALID":
+                        message.Content = new StringContent("Invalid User");
+                        break;
+                    case "INVALID_REQUEST_PERMISSONS":
+                        message.Content = new StringContent("Hmm, it seems we can't do that transaction for you. Please try again later.");
+                        break;
+                    case "INVALID_REQUEST_ALREADY_EXISTS":
+                        message.Content = new StringContent("A board with the same title already exists in your account.");
+                        break;
+                    default:
+                        message.Content = new StringContent("An error occured while processing your request. Please try again later");
+                        break;
+                }
+
+                throw new HttpResponseException(message);
             }
-       
+
+
             return Ok();
+
         }
 
     }

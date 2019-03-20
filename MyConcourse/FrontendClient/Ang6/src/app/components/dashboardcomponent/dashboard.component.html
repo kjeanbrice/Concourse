@@ -254,10 +254,10 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <div class="{{css_loading}}">
+            <div class="{{css_loading_creategroup}}">
               <div class="loader"></div>
               <div class="dimmer-content">
-                <button type="button" class="btn btn-primary" (click)="onCreateGroup($event)"
+                <button type="button" class="btn btn-primary" (click)="onSubmit($event)"
                   id="btn-creategroup">Create Group</button>
               </div>
             </div>
@@ -271,7 +271,7 @@
     <!--Edit Group Modal-->
     <div class="modal fade" id="edit-group-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
       aria-hidden="true">
-      <div class="modal-dialog" role="document">
+      <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="col-12 modal-title modal-title-settings" id="exampleModalLongTitle">Make Changes To This Group
@@ -315,7 +315,7 @@
                       <label class="form-label">Current Group Code
                       </label>
                       <input id="edit-currgroupcode" class="form-control" type="input" name="old-group-code" disabled
-                        placeholder="ProgrammingRocks!" />
+                        placeholder="Group Code" />
                     </div>
                   </div>
                 </div>
@@ -330,21 +330,27 @@
                       </label>
                       <input id="edit-newgroupcode" class="form-control" type="input" name="new-group-code"
                         placeholder="Enter a group code" />
-                      <div class="invalid-feedback"></div>
+                        <div id="error-editgroup" class="invalid-feedback">{{error_edit_group}}</div>
                     </div>
 
                   </div>
                 </div>
-
-                <span class="hide-item" id="edit-discussionid">void</span>
-
+                <span class="hide-item" id="edit-discussionid" attr.data-discussionid=''>void</span>
               </div>
             </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" id="btn-editgroup">Save Changes</button>
+            <div class="{{css_loading_editgroup}}">
+                <div class="loader"></div>
+                <div class="dimmer-content">
+                  <button type="button" class="btn btn-primary" (click)="onSubmit($event)"
+                    id="btn-editgroup">Edit Group</button>
+                </div>
+              </div>
           </div>
+
+         
         </div>
       </div>
     </div>
@@ -383,6 +389,7 @@
                       </label>
                       <input attr.maxlength="{{MAX_CODE_LIMIT}}" (input)="onUpdateJoinGroup($event)" (keyup)="onUpdateJoinGroup($event)" id="joingroup-code" class="form-control" type="input" name="group-code" placeholder="Enter Group Code" />
                       <div id="error-joingroup-code" class="invalid-feedback">{{error_create_group_code}}</div>
+                      <div id="error-joingroup-server" class="invalid-feedback">{{error_join_group_server}}</div>
                     </div>
 
                   </div>
@@ -392,7 +399,13 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" id="btn-joingroup">Join Group</button>
+            <div class="{{css_loading_joingroup}}">
+              <div class="loader"></div>
+              <div class="dimmer-content">
+                <button type="button" class="btn btn-primary" (click)="onSubmit($event)"
+                  id="btn-joingroup">Join Group</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -449,6 +462,7 @@
     <div class="modal fade" id="delete-group-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
       aria-hidden="true">
       <div class="modal-dialog" role="document">
+        <span class="hide-item" id = "delete-discussionid" attr.data-discussionid=''></span>
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="col-12 modal-title modal-title-settings" id="exampleModalLongTitle">Are you sure?
@@ -468,8 +482,14 @@
             </form>
           </div>
           <div class="modal-footer">
+            <div id="error-deletegroup" class="invalid-feedback">{{error_delete_group}}</div>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-danger" id="btn-delete-group">Delete Group</button>
+            <div class="{{css_loading_deletegroup}}">
+                <div class="loader"></div>
+                <div class="dimmer-content">
+                    <button type="button" class="btn btn-danger" (click) = "onSubmit($event)" id="btn-deletegroup">Delete Group</button>
+                </div>
+              </div>    
           </div>
         </div>
       </div>

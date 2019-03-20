@@ -20,7 +20,5 @@ namespace DiscussionDataAccess
         public string BoardDescription { get; set; }
         public Nullable<System.DateTime> DateCreated { get; set; }
         public Nullable<int> IsDeleted { get; set; }
-    
-        public virtual AspNetUser AspNetUser { get; set; }
     }
 }

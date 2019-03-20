@@ -169,7 +169,7 @@ module.exports = "\r\n\r\n.card-options-settings{\r\n    color:#495057 !importan
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"page\">\r\n  <div class=\"page-main\">\r\n    <!--Navigation bar-->\r\n    <app-navbar></app-navbar>\r\n    <!--Nav Options Area-->\r\n    <div class=\"header collapse d-lg-flex p-0\" id=\"headerMenuCollapse\">\r\n      <div class=\"container\">\r\n        <div class=\"row align-items-center\">\r\n\r\n          <div class=\"col-lg\">\r\n            <ul class=\"nav nav-tabs border-0 flex-column flex-lg-row\">\r\n              <li class=\"nav-item\">\r\n                <a href=\"#\" class=\"nav-link\"><i class=\"fe fe-home\"></i> Home</a>\r\n              </li>\r\n              <li class=\"nav-item\">\r\n                <a href=\"javascript:void(0);\" class=\"nav-link\" data-toggle=\"modal\" data-target=\"#create-group-modal\"><i\r\n                    class=\"fe fe-box\"></i> Create Group</a>\r\n              </li>\r\n              <li class=\"nav-item\">\r\n                <a href=\"#\" class=\"nav-link\" data-toggle=\"modal\" data-target=\"#join-group-modal\"><i\r\n                    class=\"fe fe-check-square\"></i> Join Group</a>\r\n              </li>\r\n            </ul>\r\n          </div>\r\n\r\n          <div class=\"col-lg-3 ml-auto\">\r\n            <form class=\"input-icon my-3 my-lg-0\">\r\n              <input type=\"search\" class=\"form-control header-search\" placeholder=\"Search&hellip;\" tabindex=\"1\">\r\n              <div class=\"input-icon-addon\">\r\n                <i class=\"fe fe-search\"></i>\r\n              </div>\r\n            </form>\r\n          </div>\r\n\r\n\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <!--Nav Options Area End-->\r\n\r\n    <!-- Group Area -->\r\n    <div class=\"my-3 my-mid-5\">\r\n      <div class=\"container\">\r\n        <div class=\"row\">\r\n          <div class=\"col-12\">\r\n            <div class=\"alert alert-success alert-dismissible {{alert_success_settings}}\">\r\n              <button id=\"alert-success-creategroup\" (click)=\"onAlertSuccessClose($event)\" class=\"close\"></button>\r\n              <i class=\"fe fe-check mr-2\" aria-hidden=\"true\"></i> {{alert_success_message}}\r\n            </div>\r\n            <form class=\"card\" action=\"javascript:void(0);\" method=\"post\">\r\n              <div class=\"card-header\">\r\n                <h3 class=\"card-title\"> My Groups</h3>\r\n                <div class=\"card-options card-options-settings\">\r\n                  <div class=\"custom-controls-stacked\">\r\n                    <label class=\"custom-control custom-radio custom-control-inline\">\r\n                      <input type=\"radio\" class=\"custom-control-input\" name=\"example-inline-radios\" value=\"option1\"\r\n                        checked=\"\">\r\n                      <span class=\"custom-control-label\">All</span>\r\n                    </label>\r\n                    <label class=\"custom-control custom-radio custom-control-inline\">\r\n                      <input type=\"radio\" class=\"custom-control-input\" name=\"example-inline-radios\" value=\"option2\">\r\n                      <span class=\"custom-control-label\">Groups you created</span>\r\n                    </label>\r\n                    <label class=\"custom-control custom-radio custom-control-inline\">\r\n                      <input type=\"radio\" class=\"custom-control-input\" name=\"example-inline-radios\" value=\"option3\">\r\n                      <span class=\"custom-control-label\">Groups you joined</span>\r\n                    </label>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n\r\n              <!--Individual Group Card-->\r\n              <div class=\"card-body group-area\">\r\n                <div class=\"group-content\">\r\n                  <div *ngFor=\"let groups of groups_container; let i = index;\" class=\"row\">\r\n                    <div *ngFor=\"let groupitem of groups\" class=\"col-md-6 col-xl-6 col-sm-6\">\r\n                      <div class=\"card\">\r\n\r\n                        <div *ngIf=\"groupitem.IsOwner == 1; else memberCardBackground\" class=\"card-status bg-blue\">\r\n                        </div>\r\n                        <ng-template #memberCardBackground>\r\n                          <div class=\"card-status bg-green\"></div>\r\n                        </ng-template>\r\n\r\n                        <div class=\"card-header\">\r\n                          <h3 class=\"card-title\">{{groupitem.Title}}</h3>\r\n                          <div class=\"card-options\">\r\n\r\n                            <span *ngIf=\"groupitem.IsOwner == 1; else memberTag\" class=\"tag tag-blue\">Owner</span>\r\n                            <ng-template #memberTag>\r\n                              <span class=\"tag tag-green\">Member</span>\r\n                            </ng-template>\r\n\r\n                            <a href=\"javascript:void(0);\" class=\"card-options-collapse\" data-toggle=\"card-collapse\"><i\r\n                                class=\"fe fe-chevron-up\"></i></a>\r\n                          </div>\r\n                        </div>\r\n                        <div class=\"card-body\">\r\n                          <div class=\"card-content\">{{groupitem.BoardDescription}}</div>\r\n                          <div>\r\n                            <span *ngIf=\"groupitem.IsOwner == 1; else memberCreatorName\"\r\n                              class=\"tag tag-rounded tag-blue\">Created By: {{groupitem.FirstName}}\r\n                              {{groupitem.LastName}}</span>\r\n                            <ng-template #memberCreatorName>\r\n                              <span class=\"tag tag-rounded tag-green\">Created By: {{groupitem.FirstName}}\r\n                                {{groupitem.LastName}}</span>\r\n                            </ng-template>\r\n                          </div>\r\n                        </div>\r\n                        <div class=\"card-footer\">\r\n                          <div class=\"container\">\r\n                            <div class=\"row\">\r\n                              <div class=\"col-md-1 col-lg-1 col-xl-1 offset-11\">\r\n                                <div class=\"item-action dropdown\">\r\n                                  <a href=\"javascript:void(0)\" data-toggle=\"dropdown\" class=\"icon\"><i\r\n                                      class=\"fe fe-more-horizontal\"></i></a>\r\n\r\n\r\n                                  <div class=\"dropdown-menu dropdown-menu-right\">\r\n\r\n                                    <div *ngIf=\"groupitem.IsOwner == 1; then OwnerGroupOptions else MemberGroupOptions\">\r\n                                    </div>\r\n\r\n                                    <ng-template #OwnerGroupOptions>\r\n                                      <a (click)=\"onClickGroupOptions($event)\" routerLink=\"/home\"\r\n                                        attr.data-discussionid=\"{{groupitem.DiscussionBoardId}}\"\r\n                                        class=\"dropdown-item\"><i\r\n                                          class=\"dropdown-icon fe fe-arrow-right-circle\"></i>Enter</a>\r\n\r\n                                      <span id=\"edit{{groupitem.DiscussionBoardId}}\" data-toggle=\"modal\"\r\n                                        class=\"hide-item\" data-target=\"#edit-group-modal\"></span>\r\n                                      <a name=\"editgroup\" (click)=\"onClickGroupOptions($event)\"\r\n                                        attr.data-discussionid=\"{{groupitem.DiscussionBoardId}}\"\r\n                                        href=\"javascript:void(0)\" class=\"dropdown-item\"><i\r\n                                          class=\"dropdown-icon fe fe-edit-2\"></i>Edit </a>\r\n\r\n                                      <span id=\"details{{groupitem.DiscussionBoardId}}\" data-toggle=\"modal\"\r\n                                        data-target=\"#details-modal\" class=\"hide-item\"></span>\r\n                                      <a name=\"detailsgroup\" (click)=\"onClickGroupOptions($event)\"\r\n                                        attr.data-discussionid=\"{{groupitem.DiscussionBoardId}}\"\r\n                                        href=\"javascript:void(0)\" class=\"dropdown-item\"><i\r\n                                          class=\"dropdown-icon fe fe-book-open\"></i> Details</a>\r\n\r\n                                      <div class=\"dropdown-divider\"></div>\r\n\r\n                                      <span id=\"delete{{groupitem.DiscussionBoardId}}\" data-toggle=\"modal\"\r\n                                        data-target=\"#delete-group-modal\" class=\"hide-item\"></span>\r\n                                      <a name=\"deletegroup\" (click)=\"onClickGroupOptions($event)\"\r\n                                        href=\"javascript:void(0)\"\r\n                                        attr.data-discussionid=\"{{groupitem.DiscussionBoardId}}\"\r\n                                        class=\"dropdown-item\"><i class=\"dropdown-icon fe fe-trash-2\"></i> Delete</a>\r\n                                    </ng-template>\r\n\r\n                                    <ng-template #MemberGroupOptions>\r\n                                      <a (click)=\"onClickGroupOptions($event)\" routerLink=\"/home\"\r\n                                        attr.data-discussionid=\"{{groupitem.DiscussionBoardId}}\"\r\n                                        class=\"dropdown-item\"><i\r\n                                          class=\"dropdown-icon fe fe-arrow-right-circle\"></i>Enter</a>\r\n                                    </ng-template>\r\n                                  </div>\r\n                                </div>\r\n                              </div>\r\n                            </div>\r\n                          </div>\r\n                        </div>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n\r\n                </div>\r\n              </div>\r\n              <!--Individual Group Card End-->\r\n\r\n            </form>\r\n            <!-- Form End-->\r\n          </div>\r\n        </div>\r\n      </div>\r\n\r\n\r\n    </div>\r\n    <!-- Group Area End-->\r\n\r\n    <!-- Modal Area-->\r\n    <!-- Modal -->\r\n\r\n\r\n    <!--Create Group Modal-->\r\n    <div class=\"modal fade modal-wrap\" id=\"create-group-modal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLongTitle\"\r\n      aria-hidden=\"true\">\r\n      <div class=\"modal-dialog modal-lg\" role=\"document\">\r\n        <div class=\"modal-content\">\r\n          <div class=\"modal-header\">\r\n            <h5 class=\"col-12 modal-title modal-title-settings\" id=\"exampleModalLongTitle\">Group Creation\r\n              <button id=\"createmodal-close\" type=\"button\" class=\"close\" data-dismiss=\"modal\"\r\n                aria-label=\"Close\"></button>\r\n            </h5>\r\n\r\n          </div>\r\n          <div class=\"modal-body\">\r\n            <form action=\"javascript:void(0);\" action=\"post\">\r\n              <div class=\"container-fluid\">\r\n                <div class=\"card-body\">\r\n                  <div class=\"row\">\r\n                    <div class=\"col-lg-12 col-md-12 col-sm-12\">\r\n                      <div class=\"form-group\">\r\n                        <label class=\"form-label\">Group Name\r\n                          <span class=\"form-required\">*</span>\r\n                          <span id=\"creategroup-title-count\"\r\n                            class=\"form-label-small\">{{create_group_title_count}}</span>\r\n                        </label>\r\n                        <input id=\"creategroup-title\" attr.maxlength=\"{{MAX_TITLE_LIMIT}}\" class=\"form-control\"\r\n                          type=\"input\" name=\"group-name\" placeholder=\"Enter Group Name\"\r\n                          (input)=\"onUpdateCreateGroup($event)\" (keyup)=\"onUpdateCreateGroup($event)\" />\r\n                        <div id=\"error-creategroup-title\" class=\"invalid-feedback\">{{error_create_group_title}}</div>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n\r\n                  <div class=\"row\">\r\n                    <div class=\"col-lg-12 col-md-12 col-sm-12\">\r\n                      <div class=\"form-group\">\r\n                        <label class=\"form-label\">Description\r\n                          <span id=\"creategroup-description-count\"\r\n                            class=\"form-label-small\">{{create_group_description_count}}</span>\r\n                        </label>\r\n                        <textarea attr.maxlength=\"{{MAX_DESCRIPTION_LIMIT}}\" id=\"creategroup-description\"\r\n                          (input)=\"onUpdateCreateGroup($event)\" (keyup)=\"onUpdateCreateGroup($event)\"\r\n                          class=\"form-control\" name=\"group-description\" style=\"resize: none;\" rows=\"6\"\r\n                          placeholder=\"Enter a short description for the group\"></textarea>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n\r\n                  <div class=\"row\">\r\n                    <div class=\"col-lg-12 col-md-12 col-sm-12\">\r\n                      <div class=\"form-group\">\r\n                        <label class=\"form-label\">Group Code\r\n                          <span class=\"form-required\">*</span>\r\n                          <span id=\"creategroup-code-count\" class=\"form-label-small\">{{create_group_code_count}}</span>\r\n                        </label>\r\n                        <input id=\"creategroup-code\" attr.maxlength=\"{{MAX_CODE_LIMIT}}\" class=\"form-control\"\r\n                          type=\"input\" name=\"group-name\" placeholder=\"Enter a group code\"\r\n                          (input)=\"onUpdateCreateGroup($event)\" (keyup)=\"onUpdateCreateGroup($event)\" />\r\n                        <div id=\"error-creategroup-code\" class=\"invalid-feedback\">{{error_create_group_code}}</div>\r\n                        <div id=\"error-creategroup-server\" class=\"invalid-feedback\">{{error_create_group_server}}</div>\r\n                      </div>\r\n\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </form>\r\n          </div>\r\n          <div class=\"modal-footer\">\r\n            <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\r\n            <div class=\"{{css_loading}}\">\r\n              <div class=\"loader\"></div>\r\n              <div class=\"dimmer-content\">\r\n                <button type=\"button\" class=\"btn btn-primary\" (click)=\"onCreateGroup($event)\"\r\n                  id=\"btn-creategroup\">Create Group</button>\r\n              </div>\r\n            </div>\r\n          </div>\r\n\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n\r\n    <!--Edit Group Modal-->\r\n    <div class=\"modal fade\" id=\"edit-group-modal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLongTitle\"\r\n      aria-hidden=\"true\">\r\n      <div class=\"modal-dialog\" role=\"document\">\r\n        <div class=\"modal-content\">\r\n          <div class=\"modal-header\">\r\n            <h5 class=\"col-12 modal-title modal-title-settings\" id=\"exampleModalLongTitle\">Make Changes To This Group\r\n              <button id=\"editgroupmodal-close\" type=\"button\" class=\"close\" data-dismiss=\"modal\"\r\n                aria-label=\"Close\"></button>\r\n            </h5>\r\n\r\n          </div>\r\n          <div class=\"modal-body\">\r\n            <form action=\"javascript:void(0);\" action=\"post\">\r\n              <div class=\"container-fluid\">\r\n                <div class=\"row\">\r\n                  <div class=\"col-lg-12 col-md-12 col-sm-12\">\r\n                    <div class=\"form-group\">\r\n                      <label class=\"form-label\">Group Name\r\n                        <span class=\"form-required\">*</span>\r\n                        <span class=\"form-label-small\">0/20</span>\r\n                      </label>\r\n                      <input id=\"edit-title\" class=\"form-control\" type=\"input\" name=\"group-name\"\r\n                        placeholder=\"Enter Group Name\" />\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n\r\n                <div class=\"row\">\r\n                  <div class=\"col-lg-12 col-md-12 col-sm-12\">\r\n                    <div class=\"form-group\">\r\n                      <label class=\"form-label\">Description\r\n                        <span class=\"form-label-small\">10/200</span>\r\n                      </label>\r\n\r\n                      <textarea id=\"edit-description\" class=\"form-control\" name=\"group-description\"\r\n                        style=\"resize: none;\" rows=\"6\" placeholder=\"Enter a short description for the group\"></textarea>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n\r\n                <div class=\"row\">\r\n                  <div class=\"col-lg-12 col-md-12 col-sm-12\">\r\n                    <div class=\"form-group\">\r\n                      <label class=\"form-label\">Current Group Code\r\n                      </label>\r\n                      <input id=\"edit-currgroupcode\" class=\"form-control\" type=\"input\" name=\"old-group-code\" disabled\r\n                        placeholder=\"ProgrammingRocks!\" />\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n\r\n\r\n                <div class=\"row\">\r\n                  <div class=\"col-lg-12 col-md-12 col-sm-12\">\r\n                    <div class=\"form-group\">\r\n                      <label class=\"form-label\">New Group Code\r\n                        <span class=\"form-required\">*</span>\r\n                        <span class=\"form-label-small\">0/15</span>\r\n                      </label>\r\n                      <input id=\"edit-newgroupcode\" class=\"form-control\" type=\"input\" name=\"new-group-code\"\r\n                        placeholder=\"Enter a group code\" />\r\n                      <div class=\"invalid-feedback\"></div>\r\n                    </div>\r\n\r\n                  </div>\r\n                </div>\r\n\r\n                <span class=\"hide-item\" id=\"edit-discussionid\">void</span>\r\n\r\n              </div>\r\n            </form>\r\n          </div>\r\n          <div class=\"modal-footer\">\r\n            <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\r\n            <button type=\"button\" class=\"btn btn-primary\" id=\"btn-editgroup\">Save Changes</button>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n    <!-- Join Group Modal-->\r\n    <div class=\"modal fade\" id=\"join-group-modal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLongTitle\"\r\n      aria-hidden=\"true\">\r\n      <div class=\"modal-dialog\" role=\"document\">\r\n        <div class=\"modal-content\">\r\n          <div class=\"modal-header\">\r\n            <h5 class=\"col-12 modal-title modal-title-settings\" id=\"exampleModalLongTitle\">Get Connected and Join A\r\n              Group\r\n              <button id=\"joinmodal-close\" type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"></button>\r\n            </h5>\r\n          </div>\r\n          <div class=\"modal-body\">\r\n            <form action=\"javascript:void(0);\" action=\"post\">\r\n              <div class=\"container-fluid\">\r\n                <div class=\"row\">\r\n                  <div class=\"col-lg-12 col-md-12 col-sm-12\">\r\n                    <div class=\"form-group\">\r\n                      <label class=\"form-label\">Group ID\r\n                        <span class=\"form-required\">*</span>\r\n                      </label>\r\n                      <input (input)=\"onUpdateJoinGroup($event)\" (keyup)=\"onUpdateJoinGroup($event)\" id=\"joingroup-id\" class=\"form-control\" type=\"input\" name=\"group-name\" placeholder=\"Enter Group ID\" />\r\n                      <div id=\"error-joingroup-id\" class=\"invalid-feedback\">{{error_create_group_code}}</div>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n\r\n                <div class=\"row\">\r\n                  <div class=\"col-lg-12 col-md-12 col-sm-12\">\r\n                    <div class=\"form-group\">\r\n                      <label class=\"form-label\">Group Code\r\n                        <span class=\"form-required\">*</span>\r\n                      </label>\r\n                      <input attr.maxlength=\"{{MAX_CODE_LIMIT}}\" (input)=\"onUpdateJoinGroup($event)\" (keyup)=\"onUpdateJoinGroup($event)\" id=\"joingroup-code\" class=\"form-control\" type=\"input\" name=\"group-code\" placeholder=\"Enter Group Code\" />\r\n                      <div id=\"error-joingroup-code\" class=\"invalid-feedback\">{{error_create_group_code}}</div>\r\n                    </div>\r\n\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </form>\r\n          </div>\r\n          <div class=\"modal-footer\">\r\n            <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\r\n            <button type=\"button\" class=\"btn btn-primary\" id=\"btn-joingroup\">Join Group</button>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n    <!-- Details Modal-->\r\n    <div class=\"modal fade\" id=\"details-modal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLongTitle\"\r\n      aria-hidden=\"true\">\r\n      <div class=\"modal-dialog\" role=\"document\">\r\n        <div class=\"modal-content\">\r\n          <div class=\"modal-header\">\r\n            <h5 class=\"col-12 modal-title modal-title-settings\" id=\"exampleModalLongTitle\">Group Details\r\n              <button id=\"detailsmodal-close\" type=\"button\" class=\"close\" data-dismiss=\"modal\"\r\n                aria-label=\"Close\"></button>\r\n            </h5>\r\n          </div>\r\n          <div class=\"modal-body\">\r\n            <form action=\"javascript:void(0);\" action=\"post\">\r\n              <div class=\"container-fluid\">\r\n                <div class=\"row\">\r\n                  <div class=\"col-lg-12 col-md-12 col-sm-12\">\r\n                    <div class=\"form-group\">\r\n                      <label class=\"form-label\">Group ID\r\n                      </label>\r\n                      <input id=\"details-groupid\" class=\"form-control\" type=\"input\" disabled=\"\"\r\n                        placeholder=\"Group ID\" />\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n\r\n                <div class=\"row\">\r\n                  <div class=\"col-lg-12 col-md-12 col-sm-12\">\r\n                    <div class=\"form-group\">\r\n                      <label class=\"form-label\">Group Code\r\n                      </label>\r\n                      <input id=\"details-groupcode\" class=\"form-control\" type=\"input\" disabled=\"\"\r\n                        placeholder=\"Group Code\" />\r\n                      <div class=\"invalid-feedback\"></div>\r\n                    </div>\r\n\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </form>\r\n          </div>\r\n          <div class=\"modal-footer\">\r\n            <button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\">Close</button>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n    <!-- Delete Group  Modal-->\r\n    <div class=\"modal fade\" id=\"delete-group-modal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLongTitle\"\r\n      aria-hidden=\"true\">\r\n      <div class=\"modal-dialog\" role=\"document\">\r\n        <div class=\"modal-content\">\r\n          <div class=\"modal-header\">\r\n            <h4 class=\"col-12 modal-title modal-title-settings\" id=\"exampleModalLongTitle\">Are you sure?\r\n              <button id=\"deletegroup-close\" type=\"button\" class=\"close\" data-dismiss=\"modal\"\r\n                aria-label=\"Close\"></button>\r\n            </h4>\r\n          </div>\r\n          <div class=\"modal-body\">\r\n            <form action=\"javascript:void(0);\" action=\"post\">\r\n              <div class=\"container-fluid\">\r\n                <div class=\"row\">\r\n                  <div class=\"col-lg-12 col-md-12 col-sm-12 modal-title-settings\">\r\n                    <h5> Do you really want to delete this group? This process cannot be undone.</h5>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </form>\r\n          </div>\r\n          <div class=\"modal-footer\">\r\n            <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\r\n            <button type=\"button\" class=\"btn btn-danger\" id=\"btn-delete-group\">Delete Group</button>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <!-- Modal Area End-->\r\n\r\n  </div>\r\n  <app-footer-nav></app-footer-nav>\r\n</div>"
+module.exports = "<div class=\"page\">\r\n  <div class=\"page-main\">\r\n    <!--Navigation bar-->\r\n    <app-navbar></app-navbar>\r\n    <!--Nav Options Area-->\r\n    <div class=\"header collapse d-lg-flex p-0\" id=\"headerMenuCollapse\">\r\n      <div class=\"container\">\r\n        <div class=\"row align-items-center\">\r\n\r\n          <div class=\"col-lg\">\r\n            <ul class=\"nav nav-tabs border-0 flex-column flex-lg-row\">\r\n              <li class=\"nav-item\">\r\n                <a href=\"#\" class=\"nav-link\"><i class=\"fe fe-home\"></i> Home</a>\r\n              </li>\r\n              <li class=\"nav-item\">\r\n                <a href=\"javascript:void(0);\" class=\"nav-link\" data-toggle=\"modal\" data-target=\"#create-group-modal\"><i\r\n                    class=\"fe fe-box\"></i> Create Group</a>\r\n              </li>\r\n              <li class=\"nav-item\">\r\n                <a href=\"#\" class=\"nav-link\" data-toggle=\"modal\" data-target=\"#join-group-modal\"><i\r\n                    class=\"fe fe-check-square\"></i> Join Group</a>\r\n              </li>\r\n            </ul>\r\n          </div>\r\n\r\n          <div class=\"col-lg-3 ml-auto\">\r\n            <form class=\"input-icon my-3 my-lg-0\">\r\n              <input type=\"search\" class=\"form-control header-search\" placeholder=\"Search&hellip;\" tabindex=\"1\">\r\n              <div class=\"input-icon-addon\">\r\n                <i class=\"fe fe-search\"></i>\r\n              </div>\r\n            </form>\r\n          </div>\r\n\r\n\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <!--Nav Options Area End-->\r\n\r\n    <!-- Group Area -->\r\n    <div class=\"my-3 my-mid-5\">\r\n      <div class=\"container\">\r\n        <div class=\"row\">\r\n          <div class=\"col-12\">\r\n            <div class=\"alert alert-success alert-dismissible {{alert_success_settings}}\">\r\n              <button id=\"alert-success-creategroup\" (click)=\"onAlertSuccessClose($event)\" class=\"close\"></button>\r\n              <i class=\"fe fe-check mr-2\" aria-hidden=\"true\"></i> {{alert_success_message}}\r\n            </div>\r\n            <form class=\"card\" action=\"javascript:void(0);\" method=\"post\">\r\n              <div class=\"card-header\">\r\n                <h3 class=\"card-title\"> My Groups</h3>\r\n                <div class=\"card-options card-options-settings\">\r\n                  <div class=\"custom-controls-stacked\">\r\n                    <label class=\"custom-control custom-radio custom-control-inline\">\r\n                      <input type=\"radio\" class=\"custom-control-input\" name=\"example-inline-radios\" value=\"option1\"\r\n                        checked=\"\">\r\n                      <span class=\"custom-control-label\">All</span>\r\n                    </label>\r\n                    <label class=\"custom-control custom-radio custom-control-inline\">\r\n                      <input type=\"radio\" class=\"custom-control-input\" name=\"example-inline-radios\" value=\"option2\">\r\n                      <span class=\"custom-control-label\">Groups you created</span>\r\n                    </label>\r\n                    <label class=\"custom-control custom-radio custom-control-inline\">\r\n                      <input type=\"radio\" class=\"custom-control-input\" name=\"example-inline-radios\" value=\"option3\">\r\n                      <span class=\"custom-control-label\">Groups you joined</span>\r\n                    </label>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n\r\n              <!--Individual Group Card-->\r\n              <div class=\"card-body group-area\">\r\n                <div class=\"group-content\">\r\n                  <div *ngFor=\"let groups of groups_container; let i = index;\" class=\"row\">\r\n                    <div *ngFor=\"let groupitem of groups\" class=\"col-md-6 col-xl-6 col-sm-6\">\r\n                      <div class=\"card\">\r\n\r\n                        <div *ngIf=\"groupitem.IsOwner == 1; else memberCardBackground\" class=\"card-status bg-blue\">\r\n                        </div>\r\n                        <ng-template #memberCardBackground>\r\n                          <div class=\"card-status bg-green\"></div>\r\n                        </ng-template>\r\n\r\n                        <div class=\"card-header\">\r\n                          <h3 class=\"card-title\">{{groupitem.Title}}</h3>\r\n                          <div class=\"card-options\">\r\n\r\n                            <span *ngIf=\"groupitem.IsOwner == 1; else memberTag\" class=\"tag tag-blue\">Owner</span>\r\n                            <ng-template #memberTag>\r\n                              <span class=\"tag tag-green\">Member</span>\r\n                            </ng-template>\r\n\r\n                            <a href=\"javascript:void(0);\" class=\"card-options-collapse\" data-toggle=\"card-collapse\"><i\r\n                                class=\"fe fe-chevron-up\"></i></a>\r\n                          </div>\r\n                        </div>\r\n                        <div class=\"card-body\">\r\n                          <div class=\"card-content\">{{groupitem.BoardDescription}}</div>\r\n                          <div>\r\n                            <span *ngIf=\"groupitem.IsOwner == 1; else memberCreatorName\"\r\n                              class=\"tag tag-rounded tag-blue\">Created By: {{groupitem.FirstName}}\r\n                              {{groupitem.LastName}}</span>\r\n                            <ng-template #memberCreatorName>\r\n                              <span class=\"tag tag-rounded tag-green\">Created By: {{groupitem.FirstName}}\r\n                                {{groupitem.LastName}}</span>\r\n                            </ng-template>\r\n                          </div>\r\n                        </div>\r\n                        <div class=\"card-footer\">\r\n                          <div class=\"container\">\r\n                            <div class=\"row\">\r\n                              <div class=\"col-md-1 col-lg-1 col-xl-1 offset-11\">\r\n                                <div class=\"item-action dropdown\">\r\n                                  <a href=\"javascript:void(0)\" data-toggle=\"dropdown\" class=\"icon\"><i\r\n                                      class=\"fe fe-more-horizontal\"></i></a>\r\n\r\n\r\n                                  <div class=\"dropdown-menu dropdown-menu-right\">\r\n\r\n                                    <div *ngIf=\"groupitem.IsOwner == 1; then OwnerGroupOptions else MemberGroupOptions\">\r\n                                    </div>\r\n\r\n                                    <ng-template #OwnerGroupOptions>\r\n                                      <a (click)=\"onClickGroupOptions($event)\" routerLink=\"/home\"\r\n                                        attr.data-discussionid=\"{{groupitem.DiscussionBoardId}}\"\r\n                                        class=\"dropdown-item\"><i\r\n                                          class=\"dropdown-icon fe fe-arrow-right-circle\"></i>Enter</a>\r\n\r\n                                      <span id=\"edit{{groupitem.DiscussionBoardId}}\" data-toggle=\"modal\"\r\n                                        class=\"hide-item\" data-target=\"#edit-group-modal\"></span>\r\n                                      <a name=\"editgroup\" (click)=\"onClickGroupOptions($event)\"\r\n                                        attr.data-discussionid=\"{{groupitem.DiscussionBoardId}}\"\r\n                                        href=\"javascript:void(0)\" class=\"dropdown-item\"><i\r\n                                          class=\"dropdown-icon fe fe-edit-2\"></i>Edit </a>\r\n\r\n                                      <span id=\"details{{groupitem.DiscussionBoardId}}\" data-toggle=\"modal\"\r\n                                        data-target=\"#details-modal\" class=\"hide-item\"></span>\r\n                                      <a name=\"detailsgroup\" (click)=\"onClickGroupOptions($event)\"\r\n                                        attr.data-discussionid=\"{{groupitem.DiscussionBoardId}}\"\r\n                                        href=\"javascript:void(0)\" class=\"dropdown-item\"><i\r\n                                          class=\"dropdown-icon fe fe-book-open\"></i> Details</a>\r\n\r\n                                      <div class=\"dropdown-divider\"></div>\r\n\r\n                                      <span id=\"delete{{groupitem.DiscussionBoardId}}\" data-toggle=\"modal\"\r\n                                        data-target=\"#delete-group-modal\" class=\"hide-item\"></span>\r\n                                      <a name=\"deletegroup\" (click)=\"onClickGroupOptions($event)\"\r\n                                        href=\"javascript:void(0)\"\r\n                                        attr.data-discussionid=\"{{groupitem.DiscussionBoardId}}\"\r\n                                        class=\"dropdown-item\"><i class=\"dropdown-icon fe fe-trash-2\"></i> Delete</a>\r\n                                    </ng-template>\r\n\r\n                                    <ng-template #MemberGroupOptions>\r\n                                      <a (click)=\"onClickGroupOptions($event)\" routerLink=\"/home\"\r\n                                        attr.data-discussionid=\"{{groupitem.DiscussionBoardId}}\"\r\n                                        class=\"dropdown-item\"><i\r\n                                          class=\"dropdown-icon fe fe-arrow-right-circle\"></i>Enter</a>\r\n                                    </ng-template>\r\n                                  </div>\r\n                                </div>\r\n                              </div>\r\n                            </div>\r\n                          </div>\r\n                        </div>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n\r\n                </div>\r\n              </div>\r\n              <!--Individual Group Card End-->\r\n\r\n            </form>\r\n            <!-- Form End-->\r\n          </div>\r\n        </div>\r\n      </div>\r\n\r\n\r\n    </div>\r\n    <!-- Group Area End-->\r\n\r\n    <!-- Modal Area-->\r\n    <!-- Modal -->\r\n\r\n\r\n    <!--Create Group Modal-->\r\n    <div class=\"modal fade modal-wrap\" id=\"create-group-modal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLongTitle\"\r\n      aria-hidden=\"true\">\r\n      <div class=\"modal-dialog modal-lg\" role=\"document\">\r\n        <div class=\"modal-content\">\r\n          <div class=\"modal-header\">\r\n            <h5 class=\"col-12 modal-title modal-title-settings\" id=\"exampleModalLongTitle\">Group Creation\r\n              <button id=\"createmodal-close\" type=\"button\" class=\"close\" data-dismiss=\"modal\"\r\n                aria-label=\"Close\"></button>\r\n            </h5>\r\n\r\n          </div>\r\n          <div class=\"modal-body\">\r\n            <form action=\"javascript:void(0);\" action=\"post\">\r\n              <div class=\"container-fluid\">\r\n                <div class=\"card-body\">\r\n                  <div class=\"row\">\r\n                    <div class=\"col-lg-12 col-md-12 col-sm-12\">\r\n                      <div class=\"form-group\">\r\n                        <label class=\"form-label\">Group Name\r\n                          <span class=\"form-required\">*</span>\r\n                          <span id=\"creategroup-title-count\"\r\n                            class=\"form-label-small\">{{create_group_title_count}}</span>\r\n                        </label>\r\n                        <input id=\"creategroup-title\" attr.maxlength=\"{{MAX_TITLE_LIMIT}}\" class=\"form-control\"\r\n                          type=\"input\" name=\"group-name\" placeholder=\"Enter Group Name\"\r\n                          (input)=\"onUpdateCreateGroup($event)\" (keyup)=\"onUpdateCreateGroup($event)\" />\r\n                        <div id=\"error-creategroup-title\" class=\"invalid-feedback\">{{error_create_group_title}}</div>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n\r\n                  <div class=\"row\">\r\n                    <div class=\"col-lg-12 col-md-12 col-sm-12\">\r\n                      <div class=\"form-group\">\r\n                        <label class=\"form-label\">Description\r\n                          <span id=\"creategroup-description-count\"\r\n                            class=\"form-label-small\">{{create_group_description_count}}</span>\r\n                        </label>\r\n                        <textarea attr.maxlength=\"{{MAX_DESCRIPTION_LIMIT}}\" id=\"creategroup-description\"\r\n                          (input)=\"onUpdateCreateGroup($event)\" (keyup)=\"onUpdateCreateGroup($event)\"\r\n                          class=\"form-control\" name=\"group-description\" style=\"resize: none;\" rows=\"6\"\r\n                          placeholder=\"Enter a short description for the group\"></textarea>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n\r\n                  <div class=\"row\">\r\n                    <div class=\"col-lg-12 col-md-12 col-sm-12\">\r\n                      <div class=\"form-group\">\r\n                        <label class=\"form-label\">Group Code\r\n                          <span class=\"form-required\">*</span>\r\n                          <span id=\"creategroup-code-count\" class=\"form-label-small\">{{create_group_code_count}}</span>\r\n                        </label>\r\n                        <input id=\"creategroup-code\" attr.maxlength=\"{{MAX_CODE_LIMIT}}\" class=\"form-control\"\r\n                          type=\"input\" name=\"group-name\" placeholder=\"Enter a group code\"\r\n                          (input)=\"onUpdateCreateGroup($event)\" (keyup)=\"onUpdateCreateGroup($event)\" />\r\n                        <div id=\"error-creategroup-code\" class=\"invalid-feedback\">{{error_create_group_code}}</div>\r\n                        <div id=\"error-creategroup-server\" class=\"invalid-feedback\">{{error_create_group_server}}</div>\r\n                      </div>\r\n\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </form>\r\n          </div>\r\n          <div class=\"modal-footer\">\r\n            <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\r\n            <div class=\"{{css_loading_creategroup}}\">\r\n              <div class=\"loader\"></div>\r\n              <div class=\"dimmer-content\">\r\n                <button type=\"button\" class=\"btn btn-primary\" (click)=\"onSubmit($event)\"\r\n                  id=\"btn-creategroup\">Create Group</button>\r\n              </div>\r\n            </div>\r\n          </div>\r\n\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n\r\n    <!--Edit Group Modal-->\r\n    <div class=\"modal fade\" id=\"edit-group-modal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLongTitle\"\r\n      aria-hidden=\"true\">\r\n      <div class=\"modal-dialog modal-lg\" role=\"document\">\r\n        <div class=\"modal-content\">\r\n          <div class=\"modal-header\">\r\n            <h5 class=\"col-12 modal-title modal-title-settings\" id=\"exampleModalLongTitle\">Make Changes To This Group\r\n              <button id=\"editgroupmodal-close\" type=\"button\" class=\"close\" data-dismiss=\"modal\"\r\n                aria-label=\"Close\"></button>\r\n            </h5>\r\n\r\n          </div>\r\n          <div class=\"modal-body\">\r\n            <form action=\"javascript:void(0);\" action=\"post\">\r\n              <div class=\"container-fluid\">\r\n                <div class=\"row\">\r\n                  <div class=\"col-lg-12 col-md-12 col-sm-12\">\r\n                    <div class=\"form-group\">\r\n                      <label class=\"form-label\">Group Name\r\n                        <span class=\"form-required\">*</span>\r\n                        <span class=\"form-label-small\">0/20</span>\r\n                      </label>\r\n                      <input id=\"edit-title\" class=\"form-control\" type=\"input\" name=\"group-name\"\r\n                        placeholder=\"Enter Group Name\" />\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n\r\n                <div class=\"row\">\r\n                  <div class=\"col-lg-12 col-md-12 col-sm-12\">\r\n                    <div class=\"form-group\">\r\n                      <label class=\"form-label\">Description\r\n                        <span class=\"form-label-small\">10/200</span>\r\n                      </label>\r\n\r\n                      <textarea id=\"edit-description\" class=\"form-control\" name=\"group-description\"\r\n                        style=\"resize: none;\" rows=\"6\" placeholder=\"Enter a short description for the group\"></textarea>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n\r\n                <div class=\"row\">\r\n                  <div class=\"col-lg-12 col-md-12 col-sm-12\">\r\n                    <div class=\"form-group\">\r\n                      <label class=\"form-label\">Current Group Code\r\n                      </label>\r\n                      <input id=\"edit-currgroupcode\" class=\"form-control\" type=\"input\" name=\"old-group-code\" disabled\r\n                        placeholder=\"Group Code\" />\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n\r\n\r\n                <div class=\"row\">\r\n                  <div class=\"col-lg-12 col-md-12 col-sm-12\">\r\n                    <div class=\"form-group\">\r\n                      <label class=\"form-label\">New Group Code\r\n                        <span class=\"form-required\">*</span>\r\n                        <span class=\"form-label-small\">0/15</span>\r\n                      </label>\r\n                      <input id=\"edit-newgroupcode\" class=\"form-control\" type=\"input\" name=\"new-group-code\"\r\n                        placeholder=\"Enter a group code\" />\r\n                        <div id=\"error-editgroup\" class=\"invalid-feedback\">{{error_edit_group}}</div>\r\n                    </div>\r\n\r\n                  </div>\r\n                </div>\r\n                <span class=\"hide-item\" id=\"edit-discussionid\" attr.data-discussionid=''>void</span>\r\n              </div>\r\n            </form>\r\n          </div>\r\n          <div class=\"modal-footer\">\r\n            <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\r\n            <div class=\"{{css_loading_editgroup}}\">\r\n                <div class=\"loader\"></div>\r\n                <div class=\"dimmer-content\">\r\n                  <button type=\"button\" class=\"btn btn-primary\" (click)=\"onSubmit($event)\"\r\n                    id=\"btn-editgroup\">Edit Group</button>\r\n                </div>\r\n              </div>\r\n          </div>\r\n\r\n         \r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n    <!-- Join Group Modal-->\r\n    <div class=\"modal fade\" id=\"join-group-modal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLongTitle\"\r\n      aria-hidden=\"true\">\r\n      <div class=\"modal-dialog\" role=\"document\">\r\n        <div class=\"modal-content\">\r\n          <div class=\"modal-header\">\r\n            <h5 class=\"col-12 modal-title modal-title-settings\" id=\"exampleModalLongTitle\">Get Connected and Join A\r\n              Group\r\n              <button id=\"joinmodal-close\" type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"></button>\r\n            </h5>\r\n          </div>\r\n          <div class=\"modal-body\">\r\n            <form action=\"javascript:void(0);\" action=\"post\">\r\n              <div class=\"container-fluid\">\r\n                <div class=\"row\">\r\n                  <div class=\"col-lg-12 col-md-12 col-sm-12\">\r\n                    <div class=\"form-group\">\r\n                      <label class=\"form-label\">Group ID\r\n                        <span class=\"form-required\">*</span>\r\n                      </label>\r\n                      <input (input)=\"onUpdateJoinGroup($event)\" (keyup)=\"onUpdateJoinGroup($event)\" id=\"joingroup-id\" class=\"form-control\" type=\"input\" name=\"group-name\" placeholder=\"Enter Group ID\" />\r\n                      <div id=\"error-joingroup-id\" class=\"invalid-feedback\">{{error_create_group_code}}</div>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n\r\n                <div class=\"row\">\r\n                  <div class=\"col-lg-12 col-md-12 col-sm-12\">\r\n                    <div class=\"form-group\">\r\n                      <label class=\"form-label\">Group Code\r\n                        <span class=\"form-required\">*</span>\r\n                      </label>\r\n                      <input attr.maxlength=\"{{MAX_CODE_LIMIT}}\" (input)=\"onUpdateJoinGroup($event)\" (keyup)=\"onUpdateJoinGroup($event)\" id=\"joingroup-code\" class=\"form-control\" type=\"input\" name=\"group-code\" placeholder=\"Enter Group Code\" />\r\n                      <div id=\"error-joingroup-code\" class=\"invalid-feedback\">{{error_create_group_code}}</div>\r\n                      <div id=\"error-joingroup-server\" class=\"invalid-feedback\">{{error_join_group_server}}</div>\r\n                    </div>\r\n\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </form>\r\n          </div>\r\n          <div class=\"modal-footer\">\r\n            <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\r\n            <div class=\"{{css_loading_joingroup}}\">\r\n              <div class=\"loader\"></div>\r\n              <div class=\"dimmer-content\">\r\n                <button type=\"button\" class=\"btn btn-primary\" (click)=\"onSubmit($event)\"\r\n                  id=\"btn-joingroup\">Join Group</button>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n    <!-- Details Modal-->\r\n    <div class=\"modal fade\" id=\"details-modal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLongTitle\"\r\n      aria-hidden=\"true\">\r\n      <div class=\"modal-dialog\" role=\"document\">\r\n        <div class=\"modal-content\">\r\n          <div class=\"modal-header\">\r\n            <h5 class=\"col-12 modal-title modal-title-settings\" id=\"exampleModalLongTitle\">Group Details\r\n              <button id=\"detailsmodal-close\" type=\"button\" class=\"close\" data-dismiss=\"modal\"\r\n                aria-label=\"Close\"></button>\r\n            </h5>\r\n          </div>\r\n          <div class=\"modal-body\">\r\n            <form action=\"javascript:void(0);\" action=\"post\">\r\n              <div class=\"container-fluid\">\r\n                <div class=\"row\">\r\n                  <div class=\"col-lg-12 col-md-12 col-sm-12\">\r\n                    <div class=\"form-group\">\r\n                      <label class=\"form-label\">Group ID\r\n                      </label>\r\n                      <input id=\"details-groupid\" class=\"form-control\" type=\"input\" disabled=\"\"\r\n                        placeholder=\"Group ID\" />\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n\r\n                <div class=\"row\">\r\n                  <div class=\"col-lg-12 col-md-12 col-sm-12\">\r\n                    <div class=\"form-group\">\r\n                      <label class=\"form-label\">Group Code\r\n                      </label>\r\n                      <input id=\"details-groupcode\" class=\"form-control\" type=\"input\" disabled=\"\"\r\n                        placeholder=\"Group Code\" />\r\n                      <div class=\"invalid-feedback\"></div>\r\n                    </div>\r\n\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </form>\r\n          </div>\r\n          <div class=\"modal-footer\">\r\n            <button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\">Close</button>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n    <!-- Delete Group  Modal-->\r\n    <div class=\"modal fade\" id=\"delete-group-modal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLongTitle\"\r\n      aria-hidden=\"true\">\r\n      <div class=\"modal-dialog\" role=\"document\">\r\n        <span class=\"hide-item\" id = \"delete-discussionid\" attr.data-discussionid=''></span>\r\n        <div class=\"modal-content\">\r\n          <div class=\"modal-header\">\r\n            <h4 class=\"col-12 modal-title modal-title-settings\" id=\"exampleModalLongTitle\">Are you sure?\r\n              <button id=\"deletegroup-close\" type=\"button\" class=\"close\" data-dismiss=\"modal\"\r\n                aria-label=\"Close\"></button>\r\n            </h4>\r\n          </div>\r\n          <div class=\"modal-body\">\r\n            <form action=\"javascript:void(0);\" action=\"post\">\r\n              <div class=\"container-fluid\">\r\n                <div class=\"row\">\r\n                  <div class=\"col-lg-12 col-md-12 col-sm-12 modal-title-settings\">\r\n                    <h5> Do you really want to delete this group? This process cannot be undone.</h5>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </form>\r\n          </div>\r\n          <div class=\"modal-footer\">\r\n            <div id=\"error-deletegroup\" class=\"invalid-feedback\">{{error_delete_group}}</div>\r\n            <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\r\n            <div class=\"{{css_loading_deletegroup}}\">\r\n                <div class=\"loader\"></div>\r\n                <div class=\"dimmer-content\">\r\n                    <button type=\"button\" class=\"btn btn-danger\" (click) = \"onSubmit($event)\" id=\"btn-deletegroup\">Delete Group</button>\r\n                </div>\r\n              </div>    \r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <!-- Modal Area End-->\r\n\r\n  </div>\r\n  <app-footer-nav></app-footer-nav>\r\n</div>"
 
 /***/ }),
 
@@ -215,7 +215,10 @@ var DashboardComponent = /** @class */ (function () {
         this.valid_join_group_id = false;
         this.valid_join_group_code = false;
         this.valid_join_group_info = false;
-        this.css_loading = 'dimmer';
+        this.css_loading_creategroup = 'dimmer';
+        this.css_loading_joingroup = 'dimmer';
+        this.css_loading_deletegroup = 'dimmer';
+        this.css_loading_editgroup = 'dimmer';
         this.alert_success_settings = 'hide-item';
         this.alert_success_message = '';
     }
@@ -225,36 +228,64 @@ var DashboardComponent = /** @class */ (function () {
         this.loadGroups();
         this.resetFormFields();
     };
-    DashboardComponent.prototype.onCreateGroup = function (event) {
-        var _this = this;
-        this.css_loading = 'dimmer active';
-        if (this.valid_create_group_info === true) {
-            if (this.create_group_description === undefined || this.create_group_description === null) {
-                this.create_group_description = '';
+    /*onCreateGroup(event: any): void {
+      this.css_loading_creategroup = 'dimmer active';
+      if (this.valid_create_group_info === true) {
+        if (this.create_group_description === undefined || this.create_group_description === null) {
+          this.create_group_description = '';
+        }
+  
+        this.dashboard_service.createGroup(this.create_group_title, this.create_group_description, this.create_group_code).subscribe(
+          data => {
+            document.getElementById('createmodal-close').click();
+            this.changeAlertSuccessMessage('You have successfully created a new group called ' + this.create_group_title + '!');
+            this.onAlertSuccessOpen();
+            this.resetFormFields();
+            document.getElementById('error-creategroup-server').style.display = 'none';
+            this.loadGroups();
+          },
+          errors => {
+            if (errors.error) {
+              this.error_create_group_server = errors.error;
+            } else {
+              this.error_create_group_server = ERROR_SERVER_ERROR;
             }
-            this.dashboard_service.createGroup(this.create_group_title, this.create_group_description, this.create_group_code).subscribe(function (data) {
-                document.getElementById('createmodal-close').click();
-                _this.changeAlertSuccessMessage('You have successfully created a new group called ' + _this.create_group_title + '!');
-                _this.onAlertSuccessOpen();
-                _this.resetFormFields();
-                document.getElementById('error-creategroup-server').style.display = 'none';
-                _this.loadGroups();
-            }, function (errors) {
-                if (errors.error) {
-                    _this.error_create_group_server = errors.error;
-                }
-                else {
-                    _this.error_create_group_server = _constants_constants_export__WEBPACK_IMPORTED_MODULE_2__["ERROR_SERVER_ERROR"];
-                }
-                document.getElementById('error-creategroup-server').style.display = 'block';
-                _this.css_loading = 'dimmer';
-            });
-        }
-        else {
-            this.css_loading = 'dimmer';
-            console.log('Dashboard: CreateGroup Error');
-        }
-    };
+            document.getElementById('error-creategroup-server').style.display = 'block';
+            this.css_loading_creategroup = 'dimmer';
+          });
+      } else {
+        this.css_loading_creategroup = 'dimmer';
+        console.log('Dashboard: CreateGroup Error');
+      }
+  
+    }
+  
+    onJoinGroup(event: any): void {
+      this.css_loading_joingroup = 'dimmer active';
+      if (this.valid_join_group_info === true) {
+        this.dashboard_service.joinGroup(this.join_group_id, this.join_group_code).subscribe(
+          data => {
+            this.changeAlertSuccessMessage('You have successfully joined a new group!');
+            this.onAlertSuccessOpen();
+            this.resetFormFields();
+            document.getElementById('joinmodal-close').click();
+            document.getElementById('error-joingroup-server').style.display = 'none';
+            this.css_loading_joingroup = 'dimmer';
+            this.loadGroups();
+          },
+          errors => {
+            console.log('Error:' + JSON.stringify(errors));
+            if (errors.error) {
+              this.error_join_group_server = errors.error;
+            } else {
+              this.error_join_group_server = ERROR_SERVER_ERROR;
+            }
+            document.getElementById('error-joingroup-server').style.display = 'block';
+            this.css_loading_joingroup = 'dimmer';
+          }
+        );
+      }
+    }*/
     DashboardComponent.prototype.changeAlertSuccessMessage = function (message) {
         this.alert_success_message = message;
     };
@@ -262,7 +293,13 @@ var DashboardComponent = /** @class */ (function () {
         this.alert_success_settings = 'hide-item';
     };
     DashboardComponent.prototype.onAlertSuccessOpen = function () {
-        this.alert_success_settings = '';
+        if (this.alert_success_settings === 'hide-item') {
+            this.alert_success_settings = '';
+        }
+        else {
+            this.alert_success_settings = 'hide-item';
+            this.alert_success_settings = '';
+        }
     };
     DashboardComponent.prototype.loadGroups = function () {
         var _this = this;
@@ -283,18 +320,131 @@ var DashboardComponent = /** @class */ (function () {
         });
     };
     DashboardComponent.prototype.onSubmit = function (event) {
+        var _this = this;
+        console.log('OnSubmit');
         switch (event.target.id) {
             case 'editgroup-submit':
                 // API Call
+                this.css_loading_editgroup = 'dimmer active';
+                var new_title = document.getElementById('edit-title').value;
+                var new_description = document.getElementById('edit-description').value;
+                var old_group_code = document.getElementById('edit-currgroupcode').value;
+                var new_group_code = document.getElementById('edit-newgroupcode').value;
+                var edit_itemid = document.getElementById('edit-discussionboardid').getAttribute('data-discussionid');
+                new_title = new_title ? new_title : '';
+                new_description = new_description ? new_description : '';
+                if (new_group_code === undefined || new_group_code === null || new_group_code.trim().length === 0) {
+                    if (old_group_code === undefined || old_group_code === null || old_group_code.trim().length === 0) {
+                        new_group_code = '';
+                    }
+                    else {
+                        new_group_code = old_group_code;
+                    }
+                }
+                this.dashboard_service.editGroup(new_title, new_description, new_group_code, edit_itemid).subscribe(function (data) {
+                    _this.changeAlertSuccessMessage('You have successfully edited a group!');
+                    _this.onAlertSuccessOpen();
+                    _this.resetFormFields();
+                    document.getElementById('editmodal-close').click();
+                    document.getElementById('error-editgroup').style.display = 'none';
+                    _this.css_loading_editgroup = 'dimmer';
+                    _this.loadGroups();
+                }, function (errors) {
+                    console.log('Error:' + JSON.stringify(errors));
+                    if (errors.error) {
+                        _this.error_join_group_server = errors.error;
+                    }
+                    else {
+                        _this.error_join_group_server = _constants_constants_export__WEBPACK_IMPORTED_MODULE_2__["ERROR_SERVER"];
+                    }
+                    document.getElementById('error-editgroup').style.display = 'block';
+                    _this.css_loading_editgroup = 'dimmer';
+                });
                 break;
-            case 'joingroup-submit':
+            case 'btn-joingroup':
                 // API Call
+                this.css_loading_joingroup = 'dimmer active';
+                if (this.valid_join_group_info === true) {
+                    this.dashboard_service.joinGroup(this.join_group_id, this.join_group_code).subscribe(function (data) {
+                        _this.changeAlertSuccessMessage('You have successfully joined a new group!');
+                        _this.onAlertSuccessOpen();
+                        _this.resetFormFields();
+                        document.getElementById('joinmodal-close').click();
+                        document.getElementById('error-joingroup-server').style.display = 'none';
+                        _this.css_loading_joingroup = 'dimmer';
+                        _this.loadGroups();
+                    }, function (errors) {
+                        console.log('Error:' + JSON.stringify(errors));
+                        if (errors.error) {
+                            _this.error_join_group_server = errors.error;
+                        }
+                        else {
+                            _this.error_join_group_server = _constants_constants_export__WEBPACK_IMPORTED_MODULE_2__["ERROR_SERVER"];
+                        }
+                        document.getElementById('error-joingroup-server').style.display = 'block';
+                        _this.css_loading_joingroup = 'dimmer';
+                    });
+                }
                 break;
-            case 'creategroup-submit':
+            case 'btn-creategroup':
                 // API Call
+                this.css_loading_creategroup = 'dimmer active';
+                if (this.valid_create_group_info === true) {
+                    if (this.create_group_description === undefined || this.create_group_description === null) {
+                        this.create_group_description = '';
+                    }
+                    this.dashboard_service.createGroup(this.create_group_title, this.create_group_description, this.create_group_code).subscribe(function (data) {
+                        document.getElementById('createmodal-close').click();
+                        _this.changeAlertSuccessMessage('You have successfully created a new group called ' + _this.create_group_title + '!');
+                        _this.onAlertSuccessOpen();
+                        _this.resetFormFields();
+                        document.getElementById('error-creategroup-server').style.display = 'none';
+                        _this.loadGroups();
+                    }, function (errors) {
+                        if (errors.error) {
+                            _this.error_create_group_server = errors.error;
+                        }
+                        else {
+                            _this.error_create_group_server = _constants_constants_export__WEBPACK_IMPORTED_MODULE_2__["ERROR_SERVER"];
+                        }
+                        document.getElementById('error-creategroup-server').style.display = 'block';
+                        _this.css_loading_creategroup = 'dimmer';
+                    });
+                }
+                else {
+                    this.css_loading_creategroup = 'dimmer';
+                    console.log('Dashboard: CreateGroup Error');
+                }
                 break;
-            case 'deletegroup-submit':
+            case 'btn-deletegroup':
                 // API Call
+                this.css_loading_deletegroup = 'dimmer active';
+                var item_id = document.getElementById('delete-discussionid').getAttribute('data-discussionid');
+                if (item_id === null || item_id === undefined) {
+                    this.error_delete_group = _constants_constants_export__WEBPACK_IMPORTED_MODULE_2__["ERROR_SERVER"];
+                    document.getElementById('error-deletegroup').style.display = 'block';
+                }
+                else {
+                    this.dashboard_service.deleteGroup(item_id).subscribe(function (data) {
+                        _this.changeAlertSuccessMessage('You have successfully deleted the group.');
+                        console.log('Delete: Success');
+                        document.getElementById('error-deletegroup').style.display = 'none';
+                        document.getElementById('deletegroup-close').click();
+                        _this.onAlertSuccessOpen();
+                        _this.loadGroups();
+                        _this.resetFormFields();
+                        _this.css_loading_deletegroup = 'dimmer';
+                    }, function (errors) {
+                        if (errors.error) {
+                            _this.error_delete_group = errors.error;
+                        }
+                        else {
+                            _this.error_delete_group = _constants_constants_export__WEBPACK_IMPORTED_MODULE_2__["ERROR_SERVER"];
+                        }
+                        document.getElementById('error-deletegroup').style.display = 'block';
+                        _this.css_loading_deletegroup = 'dimmer';
+                    });
+                }
                 break;
         }
     };
@@ -408,6 +558,7 @@ var DashboardComponent = /** @class */ (function () {
                 document.getElementById('edit-description').value = item.BoardDescription;
                 document.getElementById('edit-currgroupcode').value = item.Code;
                 document.getElementById('edit-discussionid').value = discussion_id;
+                document.getElementById('edit-discussionid').setAttribute('data-discussionid', discussion_id);
                 document.getElementById('edit' + discussion_id).click();
                 break;
             case 'detailsgroup':
@@ -417,6 +568,7 @@ var DashboardComponent = /** @class */ (function () {
                 break;
             case 'deletegroup':
                 document.getElementById('delete' + discussion_id).click();
+                document.getElementById('delete-discussionid').setAttribute('data-discussionid', discussion_id);
                 break;
         }
     };
@@ -444,7 +596,8 @@ var DashboardComponent = /** @class */ (function () {
         this.valid_create_group_description = false;
         this.valid_create_group_code = false;
         this.valid_create_group_info = false;
-        this.css_loading = 'dimmer';
+        this.css_loading_creategroup = 'dimmer';
+        this.css_loading_joingroup = 'dimmer';
     };
     DashboardComponent.prototype.loadScript = function (url) {
         var body = document.body;
@@ -597,7 +750,7 @@ module.exports = ".header{\r\n    background:none !important;\r\n    border-bott
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"header py-4\">\r\n    <div class=\"container-fluid nav-padding\">\r\n      <div class=\"d-flex\">\r\n        <a class=\"header-brand\" href=\"/\">\r\n          <nav>\r\n              <a href=\"#\">Concourse <span>Free</span></a>      \r\n          </nav>\r\n        </a>\r\n        <div class=\"d-flex order-lg-2 ml-auto\">\r\n          \r\n          <div class=\"dropdown\">\r\n            <a href=\"#\" class=\"nav-link pr-0 leading-none\" data-toggle=\"dropdown\">\r\n              <span class=\"avatar\" style=\"background-image: url(/content/angular/assets/images/nav_icon.png)\"></span>\r\n              \r\n            </a>\r\n            <div class=\"dropdown-menu dropdown-menu-right dropdown-menu-arrow\">\r\n                <a class=\"dropdown-item\"  routerLink=\"/login\" href=\"#\">\r\n                  <i class=\"dropdown-icon fe fe-log-out\"></i> Login\r\n                </a>\r\n              \r\n              <a class=\"dropdown-item\" href=\"#\">\r\n                <i class=\"dropdown-icon fe fe-help-circle\"></i> Need help?\r\n              </a>     \r\n            </div>\r\n          </div>\r\n        </div>\r\n       \r\n      </div>\r\n    </div>\r\n  </div>\r\n  \r\n"
+module.exports = "<div class=\"header py-4\">\r\n    <div class=\"container-fluid nav-padding\">\r\n      <div class=\"d-flex\">\r\n        <a class=\"header-brand\" href=\"/\">\r\n          <nav>\r\n              <a href=\"#\">Concourse <span>Beta</span></a>      \r\n          </nav>\r\n        </a>\r\n        <div class=\"d-flex order-lg-2 ml-auto\">\r\n          \r\n          <div class=\"dropdown\">\r\n            <a href=\"#\" class=\"nav-link pr-0 leading-none\" data-toggle=\"dropdown\">\r\n              <span class=\"avatar\" style=\"background-image: url(/content/angular/assets/images/nav_icon.png)\"></span>\r\n              \r\n            </a>\r\n            <div class=\"dropdown-menu dropdown-menu-right dropdown-menu-arrow\">\r\n                <a class=\"dropdown-item\"  routerLink=\"/login\" href=\"#\">\r\n                  <i class=\"dropdown-icon fe fe-log-out\"></i> Login\r\n                </a>\r\n              \r\n              <a class=\"dropdown-item\" href=\"#\">\r\n                <i class=\"dropdown-icon fe fe-help-circle\"></i> Need help?\r\n              </a>     \r\n            </div>\r\n          </div>\r\n        </div>\r\n       \r\n      </div>\r\n    </div>\r\n  </div>\r\n  \r\n"
 
 /***/ }),
 
@@ -780,7 +933,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!***********************************************!*\
   !*** ./src/app/constants/constants.export.ts ***!
   \***********************************************/
-/*! exports provided: ERROR_PASSWORD_INVALID_MATCH, ERROR_EMAIL_NOT_VALID, ERROR_PASSWORD_NOT_VALID, ERROR_TERMS_AND_CONIDTIONS, ERROR_NAME_NOT_VALID, ERROR_SERVER_ERROR */
+/*! exports provided: ERROR_PASSWORD_INVALID_MATCH, ERROR_EMAIL_NOT_VALID, ERROR_PASSWORD_NOT_VALID, ERROR_TERMS_AND_CONIDTIONS, ERROR_NAME_NOT_VALID, ERROR_GENERIC, ERROR_SERVER */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -790,13 +943,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ERROR_PASSWORD_NOT_VALID", function() { return ERROR_PASSWORD_NOT_VALID; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ERROR_TERMS_AND_CONIDTIONS", function() { return ERROR_TERMS_AND_CONIDTIONS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ERROR_NAME_NOT_VALID", function() { return ERROR_NAME_NOT_VALID; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ERROR_SERVER_ERROR", function() { return ERROR_SERVER_ERROR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ERROR_GENERIC", function() { return ERROR_GENERIC; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ERROR_SERVER", function() { return ERROR_SERVER; });
 var ERROR_PASSWORD_INVALID_MATCH = 'These passwords don\'t match. Try again?';
 var ERROR_EMAIL_NOT_VALID = 'This email address is not valid.';
 var ERROR_PASSWORD_NOT_VALID = 'This password does not meet the required length.';
 var ERROR_TERMS_AND_CONIDTIONS = 'You must agree to the terms and conditions.';
 var ERROR_NAME_NOT_VALID = 'This field cannot be empty.';
-var ERROR_SERVER_ERROR = 'A server error occured, please try again later.';
+var ERROR_SERVER = 'A server error occured, please try again later.';
+var ERROR_GENERIC = 'An error occured, please try agian later';
 
 
 
@@ -1724,14 +1879,75 @@ var DashboardService = /** @class */ (function () {
             return response;
         }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(function (err) { console.log(err.status); return _this.errorHandler(err); }));
     };
-    DashboardService.prototype.joinGroup = function (_groupID, _coursecode) {
-        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])(true);
+    DashboardService.prototype.joinGroup = function (_groupid, _groupcode) {
+        var _this = this;
+        var httpOptions = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Authorization': 'Bearer ' + window.sessionStorage.getItem('access_token')
+            })
+        };
+        var params_opt = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpParams"]();
+        params_opt = params_opt.set('groupid', _groupid);
+        params_opt = params_opt.set('groupcode', _groupcode);
+        return this.http.post(DashboardService_1.BASE_URL + '/api/dashboard/joingroup', params_opt, httpOptions).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["retryWhen"])(function (errors) {
+            return errors.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["delay"])(3000), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["concatMap"])(function (error, index) {
+                if (index === 1) {
+                    return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["throwError"])(error);
+                }
+                return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])(null);
+            }));
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) {
+            console.log('Status:' + response);
+            return response;
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(function (err) { console.log(err.status); return _this.errorHandler(err); }));
     };
     DashboardService.prototype.deleteGroup = function (_itemID) {
-        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])(true);
+        var _this = this;
+        var httpOptions = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Authorization': 'Bearer ' + window.sessionStorage.getItem('access_token')
+            })
+        };
+        var params_opt = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpParams"]();
+        params_opt = params_opt.set('discussionboardid', _itemID);
+        return this.http.post(DashboardService_1.BASE_URL + '/api/dashboard/deletegroup', params_opt, httpOptions).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["retryWhen"])(function (errors) {
+            return errors.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["delay"])(3000), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["concatMap"])(function (error, index) {
+                if (index === 1) {
+                    return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["throwError"])(error);
+                }
+                return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])(null);
+            }));
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) {
+            console.log('Status:' + response);
+            return response;
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(function (err) { console.log(err.status); return _this.errorHandler(err); }));
     };
-    DashboardService.prototype.editGroup = function (_newtitle, _newdescription, _newcoursecode) {
-        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])(true);
+    DashboardService.prototype.editGroup = function (_newtitle, _newdescription, _newgroupcode, _itemID) {
+        var _this = this;
+        var httpOptions = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Authorization': 'Bearer ' + window.sessionStorage.getItem('access_token')
+            })
+        };
+        var params_opt = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpParams"]();
+        params_opt = params_opt.set('newtitle', _newtitle);
+        params_opt = params_opt.set('newdesription', _newdescription);
+        params_opt = params_opt.set('newcoursecode', _newgroupcode);
+        params_opt = params_opt.set('discussionboardid', _itemID);
+        return this.http.post(DashboardService_1.BASE_URL + '/api/dashboard/editgroup', params_opt, httpOptions).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["retryWhen"])(function (errors) {
+            return errors.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["delay"])(3000), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["concatMap"])(function (error, index) {
+                if (index === 1) {
+                    return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["throwError"])(error);
+                }
+                return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])(null);
+            }));
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) {
+            console.log('Status:' + response);
+            return response;
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(function (err) { console.log(err.status); return _this.errorHandler(err); }));
     };
     DashboardService.prototype.errorHandler = function (err) {
         if (err) {

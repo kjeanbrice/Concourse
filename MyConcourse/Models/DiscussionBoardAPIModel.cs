@@ -9,6 +9,8 @@ namespace MyConcourse.Models
     {
         public string Title { get; set; }
         public string Description { get; set; }
-        public string Groupcode { get; set; }
+        public string GroupCode { get; set; }
+        public string GroupID { get; set; }
+        public string DiscussionBoardID { get; set; }
     }
 }

@@ -12,21 +12,7 @@
         <EntityTypeShape EntityType="ConcourseModel.DiscussionBoardMember" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ConcourseModel.Post" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="ConcourseModel.FK_Comment_PostID" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="ConcourseModel.C__MigrationHistory" Width="1.5" PointX="9.625" PointY="4.75" />
-        <EntityTypeShape EntityType="ConcourseModel.AspNetRole" Width="1.5" PointX="1.5" PointY="8.125" />
-        <EntityTypeShape EntityType="ConcourseModel.AspNetUserClaim" Width="1.5" PointX="3" PointY="13.25" />
-        <EntityTypeShape EntityType="ConcourseModel.AspNetUserLogin" Width="1.5" PointX="3" PointY="10.625" />
-        <EntityTypeShape EntityType="ConcourseModel.AspNetUser" Width="1.5" PointX="0.75" PointY="1.25" />
-        <EntityTypeShape EntityType="ConcourseModel.sysdiagram" Width="1.5" PointX="7.625" PointY="7.75" />
-        <AssociationConnector Association="ConcourseModel.PK_AdminData_AspNetUserId" />
-        <AssociationConnector Association="ConcourseModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
-        <AssociationConnector Association="ConcourseModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
-        <AssociationConnector Association="ConcourseModel.FK_Comment_OwnerEmail" />
-        <AssociationConnector Association="ConcourseModel.FK_DiscussionBoard_AdminId" />
-        <AssociationConnector Association="ConcourseModel.FK_DiscussionBoardMember_MemberId" />
-        <AssociationConnector Association="ConcourseModel.FK_Post_OwnerId" />
-        <AssociationConnector Association="ConcourseModel.AspNetUserRoles" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>
