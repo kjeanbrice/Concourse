@@ -180,14 +180,14 @@ export class DashboardComponent implements OnInit {
   onSubmit(event: any): void {
     console.log('OnSubmit');
     switch (event.target.id) {
-      case 'editgroup-submit':
+      case 'btn-editgroup':
         // API Call
         this.css_loading_editgroup = 'dimmer active';
         let new_title = (<HTMLInputElement>document.getElementById('edit-title')).value;
         let new_description =  (<HTMLInputElement>document.getElementById('edit-description')).value;
         const old_group_code = (<HTMLInputElement>document.getElementById('edit-currgroupcode')).value;
         let new_group_code = (<HTMLInputElement>document.getElementById('edit-newgroupcode')).value;
-        const edit_itemid = document.getElementById('edit-discussionboardid').getAttribute('data-discussionid');
+        const edit_itemid = document.getElementById('edit-discussionid').getAttribute('data-discussionid');
 
         new_title = new_title ? new_title : '';
         new_description = new_description ? new_description : '';
@@ -213,9 +213,9 @@ export class DashboardComponent implements OnInit {
           errors => {
             console.log('Error:' + JSON.stringify(errors));
             if (errors.error) {
-              this.error_join_group_server = errors.error;
+              this.error_edit_group = errors.error;
             } else {
-              this.error_join_group_server = ERROR_SERVER;
+              this.error_edit_group = ERROR_SERVER;
             }
             document.getElementById('error-editgroup').style.display = 'block';
             this.css_loading_editgroup = 'dimmer';
@@ -260,7 +260,7 @@ export class DashboardComponent implements OnInit {
           this.dashboard_service.createGroup(this.create_group_title, this.create_group_description, this.create_group_code).subscribe(
             data => {
               document.getElementById('createmodal-close').click();
-              this.changeAlertSuccessMessage('You have successfully created a new group called ' + this.create_group_title + '!');
+              this.changeAlertSuccessMessage('You have successfully created a new group called \'' + this.create_group_title + '\'!');
               this.onAlertSuccessOpen();
               this.resetFormFields();
               document.getElementById('error-creategroup-server').style.display = 'none';
@@ -310,6 +310,9 @@ export class DashboardComponent implements OnInit {
             }
           );
         }
+        break;
+        default:
+        console.log('OnSubmit: No event handler found for requested event.');
         break;
     }
   }
@@ -455,6 +458,7 @@ export class DashboardComponent implements OnInit {
     (<HTMLInputElement>document.getElementById('edit-description')).value = '';
     (<HTMLInputElement>document.getElementById('edit-currgroupcode')).value = '';
     (<HTMLInputElement>document.getElementById('edit-discussionid')).value = '';
+    (<HTMLInputElement>document.getElementById('edit-newgroupcode')).value = '';
 
     (<HTMLInputElement>document.getElementById('creategroup-title')).value = '';
     (<HTMLInputElement>document.getElementById('creategroup-description')).value = '';
@@ -473,7 +477,6 @@ export class DashboardComponent implements OnInit {
     this.create_group_code_count = 0 + '/' + this.MAX_CODE_LIMIT;
 
     document.getElementById('btn-creategroup').setAttribute('disabled', '');
-    document.getElementById('btn-editgroup').setAttribute('disabled', '');
     document.getElementById('btn-joingroup').setAttribute('disabled', '');
 
     this.valid_create_group_title = false;
@@ -483,6 +486,8 @@ export class DashboardComponent implements OnInit {
 
     this.css_loading_creategroup = 'dimmer';
     this.css_loading_joingroup = 'dimmer';
+    this.css_loading_editgroup = 'dimmer';
+    this.css_loading_deletegroup = 'dimmer';
   }
 
   loadScript(url: string) {

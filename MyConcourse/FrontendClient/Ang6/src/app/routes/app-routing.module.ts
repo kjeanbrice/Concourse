@@ -1,6 +1,6 @@
 import { Routes, RouterModule } from '@angular/router';
 import { FooterComponent, DashboardComponent, SubNavbarComponent, NavbarComponent
-  , NavbarHomeComponent, HomeComponent} from '../components/index';
+  , NavbarHomeComponent, HomeComponent, GroupComponent} from '../components/index';
 import { LoginComponent, RegisterComponent } from '../modules/authentication/components/index';
 import { PageNotFoundComponent } from '../modules/errors/components/index';
 import { AuthGuard} from './guards/index';
@@ -12,6 +12,7 @@ const app_routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'discussion', component: GroupComponent, canActivate: [AuthGuard]},
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent}
 ];

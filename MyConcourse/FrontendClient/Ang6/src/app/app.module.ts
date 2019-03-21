@@ -3,7 +3,7 @@ import { NgModule} from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import {FooterComponent, DashboardComponent, SubNavbarComponent, NavbarComponent, NavbarHomeComponent,
-  HomeComponent } from './components/index';
+  HomeComponent, GroupComponent } from './components/index';
 import { AppRoutingModule } from './routes/index';
 import { UserService, DashboardService } from './services/index';
 import { AuthGuard } from './routes/guards/index';
@@ -17,7 +17,8 @@ import { AuthenticationModule, ErrorsModule } from './modules/index';
     NavbarHomeComponent,
     DashboardComponent,
     SubNavbarComponent,
-    FooterComponent
+    FooterComponent,
+    GroupComponent
   ],
   imports: [
     BrowserModule,

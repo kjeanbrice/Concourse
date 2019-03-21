@@ -157,12 +157,12 @@ export class DashboardService {
             })
           };
         let params_opt = new HttpParams();
-        params_opt = params_opt.set('newtitle', _newtitle);
-        params_opt = params_opt.set('newdesription', _newdescription);
-        params_opt = params_opt.set('newcoursecode', _newgroupcode);
+        params_opt = params_opt.set('title', _newtitle);
+        params_opt = params_opt.set('description', _newdescription);
+        params_opt = params_opt.set('groupcode', _newgroupcode);
         params_opt = params_opt.set('discussionboardid', _itemID);
 
-        return this.http.post(DashboardService.BASE_URL + '/api/dashboard/editgroup', params_opt, httpOptions).pipe(
+        return this.http.post(DashboardService.BASE_URL + '/api/dashboard/updategroup', params_opt, httpOptions).pipe(
             retryWhen((errors) => {
                 return errors.pipe(
                     delay(3000),
