@@ -1,0 +1,56 @@
+.group-icon{
+    font-size: 1.5rem;
+}
+
+.padding-overide{
+    padding-left: .75rem !important; 
+}
+
+.card-group-title{
+    font-size: 1.2rem !important;
+    font-weight: 600 !important;
+    vertical-align: middle;
+}
+
+.dropdown-right{
+    float:right;
+}
+
+.card-footer-group{
+    border: none !important;
+}
+
+.members-list{
+    min-height: 20rem;
+    max-height: 35rem;
+    
+}
+
+.posts-list{
+    min-height: 40rem;
+    max-height: 50rem;
+
+    
+}
+
+.postrow {
+    padding: 1.0rem 1.0rem 1.0rem 0rem;
+    /*margin-right: 1.5rem;*/
+    background-color: none;
+    -webkit-transition: background-color .5s ease-in-out;
+    -moz-transition: background-color .5s ease-in-out;
+    -o-transition: background-color .5s ease-in-out;
+    transition: background-color .5s ease-in-out;
+}
+
+.postrow:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+.cardbody-group{
+    padding: 0rem !important;
+}
+
+.activepost{
+    background-color: rgba(0, 0, 0, 0.04);
+}
