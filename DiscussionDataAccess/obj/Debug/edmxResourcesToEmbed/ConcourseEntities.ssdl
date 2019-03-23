@@ -187,6 +187,38 @@
     <Parameter Name="DiscussionBoardId" Type="int" Mode="In" />
     <Parameter Name="UserId" Type="nvarchar" Mode="In" />
   </Function>
+  <Function Name="spHasPermissions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+    <Parameter Name="DiscussionBoardId" Type="int" Mode="In" />
+    <Parameter Name="Status" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="spIsAdmin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+    <Parameter Name="Status" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="spIsBanned" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+    <Parameter Name="DiscussionBoardId" Type="int" Mode="In" />
+    <Parameter Name="Status" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="spIsConfirmed" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+    <Parameter Name="DiscussionBoardId" Type="int" Mode="In" />
+    <Parameter Name="Status" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="spIsMemberOfDiscussionBoard" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+    <Parameter Name="DiscussionBoardId" Type="int" Mode="In" />
+    <Parameter Name="Status" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="spIsValidDiscussionBoard" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="DiscussionBoardId" Type="int" Mode="In" />
+    <Parameter Name="Status" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="spIsValidUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="nvarchar" Mode="In" />
+    <Parameter Name="status" Type="int" Mode="InOut" />
+  </Function>
   <Function Name="spJoinDiscussionBoard" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="CodeId" Type="int" Mode="In" />
     <Parameter Name="Code" Type="varchar" Mode="In" />

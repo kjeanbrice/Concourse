@@ -14,13 +14,13 @@ namespace DiscussionDataAccess
     public partial class spGetDiscussionBoardsByUserId_Result
     {
         public string AdminId { get; set; }
+        public string Code { get; set; }
+        public int CodeId { get; set; }
         public int DiscussionBoardId { get; set; }
         public string Title { get; set; }
         public string BoardDescription { get; set; }
         public Nullable<int> IsConfirmed { get; set; }
         public Nullable<int> IsBanned { get; set; }
-        public string Code { get; set; }
-        public int CodeId { get; set; }
         public int IsOwner { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

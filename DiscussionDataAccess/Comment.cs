@@ -22,6 +22,7 @@ namespace DiscussionDataAccess
         public Nullable<System.DateTime> DateCreated { get; set; }
         public Nullable<int> IsDeleted { get; set; }
     
+        public virtual DiscussionBoard DiscussionBoard { get; set; }
         public virtual Post Post { get; set; }
     }
 }

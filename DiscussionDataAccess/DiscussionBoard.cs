@@ -14,11 +14,29 @@ namespace DiscussionDataAccess
     
     public partial class DiscussionBoard
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public DiscussionBoard()
+        {
+            this.Comments = new HashSet<Comment>();
+            this.DiscussionBoardCodes = new HashSet<DiscussionBoardCode>();
+            this.DiscussionBoardMembers = new HashSet<DiscussionBoardMember>();
+            this.Posts = new HashSet<Post>();
+        }
+    
         public int DiscussionBoardId { get; set; }
         public string AdminId { get; set; }
         public string Title { get; set; }
         public string BoardDescription { get; set; }
         public Nullable<System.DateTime> DateCreated { get; set; }
         public Nullable<int> IsDeleted { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Comment> Comments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DiscussionBoardCode> DiscussionBoardCodes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DiscussionBoardMember> DiscussionBoardMembers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Post> Posts { get; set; }
     }
 }

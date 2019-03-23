@@ -122,7 +122,7 @@
                                     </div>
 
                                     <ng-template #OwnerGroupOptions>
-                                      <a (click)="onClickGroupOptions($event)" routerLink="/home"
+                                      <a name="entergroup" (click)="onClickGroupOptions($event)" routerLink="/home"
                                         attr.data-discussionid="{{groupitem.DiscussionBoardId}}"
                                         class="dropdown-item"><i
                                           class="dropdown-icon fe fe-arrow-right-circle"></i>Enter</a>

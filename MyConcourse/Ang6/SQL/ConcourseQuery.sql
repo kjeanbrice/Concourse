@@ -23,6 +23,7 @@ if OBJECT_ID('AdminData') is not NULL
 
 
 	Select * from AspNetUsers
+	Select * from DiscussionBoard
 
 CREATE TABLE AdminData
 (
@@ -43,8 +44,9 @@ CREATE TABLE DiscussionBoard(
 	BoardDescription nvarchar(500),
 	DateCreated datetime DEFAULT GetDate(),
 	IsDeleted int DEFAULT 0,
-	CONSTRAINT FK_DiscussionBoard_AdminId FOREIGN KEY(AdminId) REFERENCES dbo.AspNetUsers(Id) ON DELETE CASCADE,
-	CONSTRAINT PK_DiscussionBoard_AdminId_Title PRIMARY KEY(AdminId,Title)
+	CONSTRAINT FK_DiscussionBoard_AdminId FOREIGN KEY(AdminId) REFERENCES dbo.AspNetUsers(Id),
+	/*CONSTRAINT PK_DiscussionBoard_AdminId_Title PRIMARY KEY(AdminId,Title)*/
+	CONSTRAINT PK_DiscussionBoardId Primary Key(DiscussionBoardId)
 );
 
 CREATE TABLE DiscussionBoardCode(

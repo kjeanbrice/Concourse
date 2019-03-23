@@ -224,6 +224,38 @@
       <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
       <Parameter Name="UserId" Mode="In" Type="String" />
     </FunctionImport>
+    <FunctionImport Name="spHasPermissions">
+      <Parameter Name="UserId" Mode="In" Type="String" />
+      <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
+      <Parameter Name="Status" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spIsAdmin">
+      <Parameter Name="UserId" Mode="In" Type="String" />
+      <Parameter Name="Status" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spIsBanned">
+      <Parameter Name="UserId" Mode="In" Type="String" />
+      <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
+      <Parameter Name="Status" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spIsConfirmed">
+      <Parameter Name="UserId" Mode="In" Type="String" />
+      <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
+      <Parameter Name="Status" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spIsMemberOfDiscussionBoard">
+      <Parameter Name="UserId" Mode="In" Type="String" />
+      <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
+      <Parameter Name="Status" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spIsValidDiscussionBoard">
+      <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
+      <Parameter Name="Status" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spIsValidUser">
+      <Parameter Name="id" Mode="In" Type="String" />
+      <Parameter Name="status" Mode="InOut" Type="Int32" />
+    </FunctionImport>
     <FunctionImport Name="spJoinDiscussionBoard">
       <Parameter Name="CodeId" Mode="In" Type="Int32" />
       <Parameter Name="Code" Mode="In" Type="String" />

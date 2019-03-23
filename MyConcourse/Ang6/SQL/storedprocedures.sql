@@ -612,11 +612,13 @@ Begin
 				End	
 			End
 
-			Select PostId, DiscussionBoardID, OwnerId, Title, Content, AspNetUsers.UserName ,Format(DateCreated, 'dddd MMMM dd, yyyy') AS DateCreated,  Format(DateCreated, 'hh:mm:ss tt') As TimeCreated
+			Select PostId, dbo.Post.DiscussionBoardID, dbo.DiscussionBoardMember.UserRole, OwnerId, Title, Content, AspNetUsers.FirstName, AspNetUsers.LastName, AspNetUsers.UserName ,Format(DateCreated, 'dddd MMMM dd, yyyy') AS DateCreated,  Format(DateCreated, 'hh:mm:ss tt') As TimeCreated
 			From dbo.Post
-			Inner Join dbo.AspNetUsers 
+			Join dbo.AspNetUsers 
 			ON Post.OwnerId = AspNetUsers.Id
-			Where DiscussionBoardId = @DiscussionBoardId And IsDeleted = 0
+			Join dbo.DiscussionBoardMember
+			ON dbo.DiscussionBoardMember.DiscussionBoardId = @DiscussionBoardId AND dbo.DiscussionBoardMember.UserId = @UserId
+			Where dbo.Post.DiscussionBoardId = @DiscussionBoardId 
 
 		Commit Transaction
 	End Try
@@ -1306,11 +1308,11 @@ Begin
 
 			If @HasPermission = 1
 			Begin
-				Select UserId, IsConfirmed, IsBanned, Email, dbo.DiscussionBoardMember.UserName, Format(DateJoined, 'dddd MMMM dd, yyyy') AS DateJoined,  Format(DateJoined, 'hh:mm:ss tt') As TimeJoined
+				Select UserId, IsConfirmed, IsBanned, Email, dbo.DiscussionBoardMember.UserName, dbo.DiscussionBoardMember.UserRole, Format(DateJoined, 'dddd MMMM dd, yyyy') AS DateJoined,  Format(DateJoined, 'hh:mm:ss tt') As TimeJoined
 				From dbo.DiscussionBoardMember
 				Inner Join dbo.AspNetUsers
 				On dbo.DiscussionBoardMember.UserId = dbo.AspNetUsers.Id
-				Where dbo.DiscussionBoardMember.DiscussionBoardId = @DiscussionBoardId And dbo.DiscussionBoardMember.UserId <> @UserId
+				Where dbo.DiscussionBoardMember.DiscussionBoardId = @DiscussionBoardId
 			End
 			Else
 			Begin
@@ -1323,7 +1325,7 @@ Begin
 					RETURN	
 				End 
 
-				Select  Email, dbo.DiscussionBoardMember.UserName
+				Select  Email, dbo.DiscussionBoardMember.UserName, dbo.DiscussionBoardMember.UserRole
 				From dbo.DiscussionBoardMember
 				Inner Join dbo.AspNetUsers
 				On dbo.DiscussionBoardMember.UserId = dbo.AspNetUsers.Id

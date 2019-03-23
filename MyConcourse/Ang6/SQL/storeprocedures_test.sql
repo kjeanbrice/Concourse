@@ -6,7 +6,7 @@ exec spCreateDiscussionBoard @userId = 'b47365c3-21b6-446f-91ce-f7006ca3776c', @
 exec spCreateDiscussionBoard @userId = 'b47365c3-21b6-446f-91ce-f7006ca3776c', @title = 'CSE-220', @code='HelloThere', @description=''
 
 exec spJoinDiscussionBoard @CodeId = 1004, @Code = 'GrandLarson', @UserId = '40f559e6-418a-43f5-a7ad-d5a6058058ac'
-exec spJoinDiscussionBoard @CodeId = 1000, @Code = 'GrandLarson', @UserId = '058019a2-dd6c-4ad9-b296-b38821a67d09'
+exec spJoinDiscussionBoard @CodeId = 1000, @Code = 'Testing', @UserId = '058019a2-dd6c-4ad9-b296-b38821a67d09'
 exec spJoinDiscussionBoard @CodeId = 1000, @Code = 'GrandLarson', @UserId = '9ac18c89-394c-44c1-991f-0b8d7bed6fee'
 exec spJoinDiscussionBoard @CodeId = 1002, @Code = 'GrandLarson', @UserId = '9ac18c89-394c-44c1-991f-0b8d7bed6fee'
 
@@ -71,6 +71,7 @@ Select Id, username from dbo.AspNetUsers
 
 Select Title From dbo.DiscussionBoard Where '40f559e6-418a-43f5-a7ad-d5a6058058ac' in (Select Id From dbo.AspNetUsers)
 
+Select * from dbo.DiscussionBoard
 				
 Insert INTO dbo.AdminData(UserId,AdminRole)
 Values('b47365c3-21b6-446f-91ce-f7006ca3776c',0)

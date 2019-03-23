@@ -143,6 +143,13 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spHasPermissions" FunctionName="ConcourseModel.Store.spHasPermissions" />
+    <FunctionImportMapping FunctionImportName="spIsAdmin" FunctionName="ConcourseModel.Store.spIsAdmin" />
+    <FunctionImportMapping FunctionImportName="spIsBanned" FunctionName="ConcourseModel.Store.spIsBanned" />
+    <FunctionImportMapping FunctionImportName="spIsConfirmed" FunctionName="ConcourseModel.Store.spIsConfirmed" />
+    <FunctionImportMapping FunctionImportName="spIsMemberOfDiscussionBoard" FunctionName="ConcourseModel.Store.spIsMemberOfDiscussionBoard" />
+    <FunctionImportMapping FunctionImportName="spIsValidDiscussionBoard" FunctionName="ConcourseModel.Store.spIsValidDiscussionBoard" />
+    <FunctionImportMapping FunctionImportName="spIsValidUser" FunctionName="ConcourseModel.Store.spIsValidUser" />
     <FunctionImportMapping FunctionImportName="spJoinDiscussionBoard" FunctionName="ConcourseModel.Store.spJoinDiscussionBoard" />
     <FunctionImportMapping FunctionImportName="spRemoveUserFromDiscussionBoard" FunctionName="ConcourseModel.Store.spRemoveUserFromDiscussionBoard" />
     <FunctionImportMapping FunctionImportName="spUpdateCommentById" FunctionName="ConcourseModel.Store.spUpdateCommentById" />

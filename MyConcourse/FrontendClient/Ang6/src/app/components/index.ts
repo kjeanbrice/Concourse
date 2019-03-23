@@ -4,7 +4,7 @@ import { HomeComponent } from './homecomponent/home.component';
 import { DashboardComponent } from './dashboardcomponent/dashboard.component';
 import { SubNavbarComponent } from './generalcomponents/subnavbarcomponent/subnavbar.component';
 import { FooterComponent } from './generalcomponents/footercomponent/footer.component';
-import { GroupComponent } from './groupcomponent/group.component';
+import { DiscussionBoardComponent } from './discussionboardcomponent/discussionboard.component';
 export {
   NavbarComponent,
   NavbarHomeComponent,
@@ -12,5 +12,5 @@ export {
   DashboardComponent,
   SubNavbarComponent,
   FooterComponent,
-  GroupComponent
+  DiscussionBoardComponent
 };

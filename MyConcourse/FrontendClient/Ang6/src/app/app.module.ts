@@ -3,9 +3,9 @@ import { NgModule} from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import {FooterComponent, DashboardComponent, SubNavbarComponent, NavbarComponent, NavbarHomeComponent,
-  HomeComponent, GroupComponent } from './components/index';
+  HomeComponent, DiscussionBoardComponent } from './components/index';
 import { AppRoutingModule } from './routes/index';
-import { UserService, DashboardService } from './services/index';
+import { UserService, DashboardService, DiscussionBoardService } from './services/index';
 import { AuthGuard } from './routes/guards/index';
 import { AuthenticationModule, ErrorsModule } from './modules/index';
 
@@ -18,7 +18,7 @@ import { AuthenticationModule, ErrorsModule } from './modules/index';
     DashboardComponent,
     SubNavbarComponent,
     FooterComponent,
-    GroupComponent
+    DiscussionBoardComponent
   ],
   imports: [
     BrowserModule,
@@ -30,6 +30,7 @@ import { AuthenticationModule, ErrorsModule } from './modules/index';
   providers: [
     UserService,
     DashboardService,
+    DiscussionBoardService,
     AuthGuard
   ],
   bootstrap: [AppComponent]

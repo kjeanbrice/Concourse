@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ConcourseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="ConcourseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AdminData">
           <Key>
             <PropertyRef Name="UserId" />
@@ -28,8 +28,7 @@
         </EntityType>
         <EntityType Name="DiscussionBoard">
           <Key>
-            <PropertyRef Name="AdminId" />
-            <PropertyRef Name="Title" />
+            <PropertyRef Name="DiscussionBoardId" />
           </Key>
           <Property Name="DiscussionBoardId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AdminId" Type="nvarchar" MaxLength="128" Nullable="false" />
@@ -74,9 +73,18 @@
           <Property Name="DateCreated" Type="datetime" />
           <Property Name="IsDeleted" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6035: The relationship 'FK_Comment_DiscussionBoardID' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
-        <Association Name="FK_Comment_DiscussionBoardID" />-->
+        <Association Name="FK_Comment_DiscussionBoardID">
+          <End Role="DiscussionBoard" Type="Self.DiscussionBoard" Multiplicity="1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DiscussionBoard">
+              <PropertyRef Name="DiscussionBoardId" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="DiscussionBoardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Comment_PostID">
           <End Role="Post" Type="Self.Post" Multiplicity="1" />
           <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
@@ -89,46 +97,42 @@ warning 6035: The relationship 'FK_Comment_DiscussionBoardID' has columns that a
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <!--Errors Found During Generation:
-warning 6035: The relationship 'FK_DiscussionBoardCode_DiscussionBoardID' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
-        <Association Name="FK_DiscussionBoardCode_DiscussionBoardID" />-->
-        <!--Errors Found During Generation:
-warning 6035: The relationship 'FK_DiscussionBoardMember_DiscussionBoardId' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
-        <Association Name="FK_DiscussionBoardMember_DiscussionBoardId" />-->
-        <!--Errors Found During Generation:
-warning 6035: The relationship 'FK_Post_DiscussionBoardID' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
-        <Association Name="FK_Post_DiscussionBoardID" />-->
-        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
-        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="version" Type="int" Mode="In" />
-          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
-        </Function>
-        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="version" Type="int" Mode="In" />
-          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
-        </Function>
-        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
-        </Function>
-        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Association Name="FK_DiscussionBoardCode_DiscussionBoardID">
+          <End Role="DiscussionBoard" Type="Self.DiscussionBoard" Multiplicity="1" />
+          <End Role="DiscussionBoardCode" Type="Self.DiscussionBoardCode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DiscussionBoard">
+              <PropertyRef Name="DiscussionBoardId" />
+            </Principal>
+            <Dependent Role="DiscussionBoardCode">
+              <PropertyRef Name="DiscussionBoardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DiscussionBoardMember_DiscussionBoardId">
+          <End Role="DiscussionBoard" Type="Self.DiscussionBoard" Multiplicity="1" />
+          <End Role="DiscussionBoardMember" Type="Self.DiscussionBoardMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DiscussionBoard">
+              <PropertyRef Name="DiscussionBoardId" />
+            </Principal>
+            <Dependent Role="DiscussionBoardMember">
+              <PropertyRef Name="DiscussionBoardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Post_DiscussionBoardID">
+          <End Role="DiscussionBoard" Type="Self.DiscussionBoard" Multiplicity="1" />
+          <End Role="Post" Type="Self.Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DiscussionBoard">
+              <PropertyRef Name="DiscussionBoardId" />
+            </Principal>
+            <Dependent Role="Post">
+              <PropertyRef Name="DiscussionBoardID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="spBanUserFromDiscussionBoard" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserId" Type="nvarchar" Mode="In" />
           <Parameter Name="UserIdToBan" Type="nvarchar" Mode="In" />
@@ -188,38 +192,6 @@ warning 6035: The relationship 'FK_Post_DiscussionBoardID' has columns that are 
           <Parameter Name="DiscussionBoardId" Type="int" Mode="In" />
           <Parameter Name="UserId" Type="nvarchar" Mode="In" />
         </Function>
-        <Function Name="spHasPermissions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="UserId" Type="nvarchar" Mode="In" />
-          <Parameter Name="DiscussionBoardId" Type="int" Mode="In" />
-          <Parameter Name="Status" Type="int" Mode="InOut" />
-        </Function>
-        <Function Name="spIsAdmin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="UserId" Type="nvarchar" Mode="In" />
-          <Parameter Name="Status" Type="int" Mode="InOut" />
-        </Function>
-        <Function Name="spIsBanned" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="UserId" Type="nvarchar" Mode="In" />
-          <Parameter Name="DiscussionBoardId" Type="int" Mode="In" />
-          <Parameter Name="Status" Type="int" Mode="InOut" />
-        </Function>
-        <Function Name="spIsConfirmed" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="UserId" Type="nvarchar" Mode="In" />
-          <Parameter Name="DiscussionBoardId" Type="int" Mode="In" />
-          <Parameter Name="Status" Type="int" Mode="InOut" />
-        </Function>
-        <Function Name="spIsMemberOfDiscussionBoard" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="UserId" Type="nvarchar" Mode="In" />
-          <Parameter Name="DiscussionBoardId" Type="int" Mode="In" />
-          <Parameter Name="Status" Type="int" Mode="InOut" />
-        </Function>
-        <Function Name="spIsValidDiscussionBoard" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="DiscussionBoardId" Type="int" Mode="In" />
-          <Parameter Name="Status" Type="int" Mode="InOut" />
-        </Function>
-        <Function Name="spIsValidUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="id" Type="nvarchar" Mode="In" />
-          <Parameter Name="status" Type="int" Mode="InOut" />
-        </Function>
         <Function Name="spJoinDiscussionBoard" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CodeId" Type="int" Mode="In" />
           <Parameter Name="Code" Type="varchar" Mode="In" />
@@ -261,12 +233,29 @@ warning 6035: The relationship 'FK_Post_DiscussionBoardID' has columns that are 
           <EntitySet Name="DiscussionBoardCode" EntityType="Self.DiscussionBoardCode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DiscussionBoardMember" EntityType="Self.DiscussionBoardMember" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Comment_DiscussionBoardID" Association="Self.FK_Comment_DiscussionBoardID">
+            <End Role="DiscussionBoard" EntitySet="DiscussionBoard" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
           <AssociationSet Name="FK_Comment_PostID" Association="Self.FK_Comment_PostID">
             <End Role="Post" EntitySet="Post" />
             <End Role="Comment" EntitySet="Comment" />
           </AssociationSet>
-          </EntityContainer>
-      </Schema></edmx:StorageModels>
+          <AssociationSet Name="FK_DiscussionBoardCode_DiscussionBoardID" Association="Self.FK_DiscussionBoardCode_DiscussionBoardID">
+            <End Role="DiscussionBoard" EntitySet="DiscussionBoard" />
+            <End Role="DiscussionBoardCode" EntitySet="DiscussionBoardCode" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DiscussionBoardMember_DiscussionBoardId" Association="Self.FK_DiscussionBoardMember_DiscussionBoardId">
+            <End Role="DiscussionBoard" EntitySet="DiscussionBoard" />
+            <End Role="DiscussionBoardMember" EntitySet="DiscussionBoardMember" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Post_DiscussionBoardID" Association="Self.FK_Post_DiscussionBoardID">
+            <End Role="DiscussionBoard" EntitySet="DiscussionBoard" />
+            <End Role="Post" EntitySet="Post" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ConcourseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -290,12 +279,12 @@ warning 6035: The relationship 'FK_Post_DiscussionBoardID' has columns that are 
           <Property Name="Content" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DateCreated" Type="DateTime" Precision="3" />
           <Property Name="IsDeleted" Type="Int32" />
+          <NavigationProperty Name="DiscussionBoard" Relationship="Self.FK_Comment_DiscussionBoardID" FromRole="Comment" ToRole="DiscussionBoard" />
           <NavigationProperty Name="Post" Relationship="Self.FK_Comment_PostID" FromRole="Comment" ToRole="Post" />
         </EntityType>
         <EntityType Name="DiscussionBoard">
           <Key>
-            <PropertyRef Name="AdminId" />
-            <PropertyRef Name="Title" />
+            <PropertyRef Name="DiscussionBoardId" />
           </Key>
           <Property Name="DiscussionBoardId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AdminId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
@@ -303,6 +292,10 @@ warning 6035: The relationship 'FK_Post_DiscussionBoardID' has columns that are 
           <Property Name="BoardDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="DateCreated" Type="DateTime" Precision="3" />
           <Property Name="IsDeleted" Type="Int32" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK_Comment_DiscussionBoardID" FromRole="DiscussionBoard" ToRole="Comment" />
+          <NavigationProperty Name="DiscussionBoardCodes" Relationship="Self.FK_DiscussionBoardCode_DiscussionBoardID" FromRole="DiscussionBoard" ToRole="DiscussionBoardCode" />
+          <NavigationProperty Name="DiscussionBoardMembers" Relationship="Self.FK_DiscussionBoardMember_DiscussionBoardId" FromRole="DiscussionBoard" ToRole="DiscussionBoardMember" />
+          <NavigationProperty Name="Posts" Relationship="Self.FK_Post_DiscussionBoardID" FromRole="DiscussionBoard" ToRole="Post" />
         </EntityType>
         <EntityType Name="DiscussionBoardCode">
           <Key>
@@ -313,6 +306,7 @@ warning 6035: The relationship 'FK_Post_DiscussionBoardID' has columns that are 
           <Property Name="Code" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="DateCreated" Type="DateTime" Precision="3" />
           <Property Name="IsDeleted" Type="Int32" />
+          <NavigationProperty Name="DiscussionBoard" Relationship="Self.FK_DiscussionBoardCode_DiscussionBoardID" FromRole="DiscussionBoardCode" ToRole="DiscussionBoard" />
         </EntityType>
         <EntityType Name="DiscussionBoardMember">
           <Key>
@@ -327,6 +321,7 @@ warning 6035: The relationship 'FK_Post_DiscussionBoardID' has columns that are 
           <Property Name="IsBanned" Type="Int32" />
           <Property Name="DateJoined" Type="DateTime" Precision="3" />
           <Property Name="IsDeleted" Type="Int32" />
+          <NavigationProperty Name="DiscussionBoard" Relationship="Self.FK_DiscussionBoardMember_DiscussionBoardId" FromRole="DiscussionBoardMember" ToRole="DiscussionBoard" />
         </EntityType>
         <EntityType Name="Post">
           <Key>
@@ -340,7 +335,20 @@ warning 6035: The relationship 'FK_Post_DiscussionBoardID' has columns that are 
           <Property Name="DateCreated" Type="DateTime" Precision="3" />
           <Property Name="IsDeleted" Type="Int32" />
           <NavigationProperty Name="Comments" Relationship="Self.FK_Comment_PostID" FromRole="Post" ToRole="Comment" />
+          <NavigationProperty Name="DiscussionBoard" Relationship="Self.FK_Post_DiscussionBoardID" FromRole="Post" ToRole="DiscussionBoard" />
         </EntityType>
+        <Association Name="FK_Comment_DiscussionBoardID">
+          <End Role="DiscussionBoard" Type="Self.DiscussionBoard" Multiplicity="1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DiscussionBoard">
+              <PropertyRef Name="DiscussionBoardId" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="DiscussionBoardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Comment_PostID">
           <End Role="Post" Type="Self.Post" Multiplicity="1" />
           <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
@@ -353,6 +361,42 @@ warning 6035: The relationship 'FK_Post_DiscussionBoardID' has columns that are 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DiscussionBoardCode_DiscussionBoardID">
+          <End Role="DiscussionBoard" Type="Self.DiscussionBoard" Multiplicity="1" />
+          <End Role="DiscussionBoardCode" Type="Self.DiscussionBoardCode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DiscussionBoard">
+              <PropertyRef Name="DiscussionBoardId" />
+            </Principal>
+            <Dependent Role="DiscussionBoardCode">
+              <PropertyRef Name="DiscussionBoardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DiscussionBoardMember_DiscussionBoardId">
+          <End Role="DiscussionBoard" Type="Self.DiscussionBoard" Multiplicity="1" />
+          <End Role="DiscussionBoardMember" Type="Self.DiscussionBoardMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DiscussionBoard">
+              <PropertyRef Name="DiscussionBoardId" />
+            </Principal>
+            <Dependent Role="DiscussionBoardMember">
+              <PropertyRef Name="DiscussionBoardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Post_DiscussionBoardID">
+          <End Role="DiscussionBoard" Type="Self.DiscussionBoard" Multiplicity="1" />
+          <End Role="Post" Type="Self.Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DiscussionBoard">
+              <PropertyRef Name="DiscussionBoardId" />
+            </Principal>
+            <Dependent Role="Post">
+              <PropertyRef Name="DiscussionBoardID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="ConcourseEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AdminDatas" EntityType="Self.AdminData" />
           <EntitySet Name="Comments" EntityType="Self.Comment" />
@@ -360,23 +404,31 @@ warning 6035: The relationship 'FK_Post_DiscussionBoardID' has columns that are 
           <EntitySet Name="DiscussionBoardCodes" EntityType="Self.DiscussionBoardCode" />
           <EntitySet Name="DiscussionBoardMembers" EntityType="Self.DiscussionBoardMember" />
           <EntitySet Name="Posts" EntityType="Self.Post" />
+          <AssociationSet Name="FK_Comment_DiscussionBoardID" Association="Self.FK_Comment_DiscussionBoardID">
+            <End Role="DiscussionBoard" EntitySet="DiscussionBoards" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
           <AssociationSet Name="FK_Comment_PostID" Association="Self.FK_Comment_PostID">
             <End Role="Post" EntitySet="Posts" />
             <End Role="Comment" EntitySet="Comments" />
           </AssociationSet>
-          <FunctionImport Name="spBanUserFromDiscussionBoard" ReturnType="Collection(ConcourseModel.spBanUserFromDiscussionBoard_Result)">
+          <AssociationSet Name="FK_DiscussionBoardCode_DiscussionBoardID" Association="Self.FK_DiscussionBoardCode_DiscussionBoardID">
+            <End Role="DiscussionBoard" EntitySet="DiscussionBoards" />
+            <End Role="DiscussionBoardCode" EntitySet="DiscussionBoardCodes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DiscussionBoardMember_DiscussionBoardId" Association="Self.FK_DiscussionBoardMember_DiscussionBoardId">
+            <End Role="DiscussionBoard" EntitySet="DiscussionBoards" />
+            <End Role="DiscussionBoardMember" EntitySet="DiscussionBoardMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Post_DiscussionBoardID" Association="Self.FK_Post_DiscussionBoardID">
+            <End Role="DiscussionBoard" EntitySet="DiscussionBoards" />
+            <End Role="Post" EntitySet="Posts" />
+          </AssociationSet>
+          <FunctionImport Name="spBanUserFromDiscussionBoard" ReturnType="Collection(Int32)">
             <Parameter Name="UserId" Mode="In" Type="String" />
             <Parameter Name="UserIdToBan" Mode="In" Type="String" />
             <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
             <Parameter Name="BanValue" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="spGetCommentsByPostId" ReturnType="Collection(ConcourseModel.spGetCommentsByPostId_Result)">
-            <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
-            <Parameter Name="PostId" Mode="In" Type="Int32" />
-            <Parameter Name="UserId" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="spGetDiscussionBoardsByUserId" ReturnType="Collection(ConcourseModel.spGetDiscussionBoardsByUserId_Result)">
-          <Parameter Name="UserId" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spConfirmUserById">
             <Parameter Name="UserId" Mode="In" Type="String" />
@@ -415,9 +467,17 @@ warning 6035: The relationship 'FK_Post_DiscussionBoardID' has columns that are 
             <Parameter Name="UserId" Mode="In" Type="String" />
             <Parameter Name="PostId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="spGetCommentsByPostId" ReturnType="Collection(ConcourseModel.spGetCommentsByPostId_Result)">
+            <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
+            <Parameter Name="PostId" Mode="In" Type="Int32" />
+            <Parameter Name="UserId" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="spGetDiscussionBoardMembers" ReturnType="Collection(ConcourseModel.spGetDiscussionBoardMembers_Result)">
             <Parameter Name="UserId" Mode="In" Type="String" />
             <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spGetDiscussionBoardsByUserId" ReturnType="Collection(ConcourseModel.spGetDiscussionBoardsByUserId_Result)">
+            <Parameter Name="UserId" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spGetPosts" ReturnType="Collection(ConcourseModel.spGetPosts_Result)">
             <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
@@ -457,82 +517,7 @@ warning 6035: The relationship 'FK_Post_DiscussionBoardID' has columns that are 
             <Parameter Name="NewTitle" Mode="In" Type="String" />
             <Parameter Name="NewContent" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="sp_alterdiagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="version" Mode="In" Type="Int32" />
-            <Parameter Name="definition" Mode="In" Type="Binary" />
-          </FunctionImport>
-          <FunctionImport Name="sp_creatediagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="version" Mode="In" Type="Int32" />
-            <Parameter Name="definition" Mode="In" Type="Binary" />
-          </FunctionImport>
-          <FunctionImport Name="sp_dropdiagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(ConcourseModel.sp_helpdiagramdefinition_Result)">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(ConcourseModel.sp_helpdiagrams_Result)">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_renamediagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="new_diagramname" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_upgraddiagrams" />
-          <FunctionImport Name="spHasPermissions">
-            <Parameter Name="UserId" Mode="In" Type="String" />
-            <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
-            <Parameter Name="Status" Mode="InOut" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="spIsAdmin">
-            <Parameter Name="UserId" Mode="In" Type="String" />
-            <Parameter Name="Status" Mode="InOut" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="spIsBanned">
-            <Parameter Name="UserId" Mode="In" Type="String" />
-            <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
-            <Parameter Name="Status" Mode="InOut" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="spIsConfirmed">
-            <Parameter Name="UserId" Mode="In" Type="String" />
-            <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
-            <Parameter Name="Status" Mode="InOut" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="spIsMemberOfDiscussionBoard">
-            <Parameter Name="UserId" Mode="In" Type="String" />
-            <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
-            <Parameter Name="Status" Mode="InOut" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="spIsValidDiscussionBoard">
-            <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
-            <Parameter Name="Status" Mode="InOut" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="spIsValidUser">
-            <Parameter Name="id" Mode="In" Type="String" />
-            <Parameter Name="status" Mode="InOut" Type="Int32" />
-          </FunctionImport>
         </EntityContainer>
-        <ComplexType Name="spGetDiscussionBoardsByUserId_Result">
-          <Property Type="String" Name="AdminId" Nullable="false" MaxLength="128" />
-          <Property Type="Int32" Name="DiscussionBoardId" Nullable="false" />
-          <Property Type="String" Name="Title" Nullable="false" MaxLength="25" />
-          <Property Type="String" Name="BoardDescription" Nullable="true" MaxLength="200" />
-          <Property Type="Int32" Name="IsConfirmed" Nullable="true" />
-          <Property Type="Int32" Name="IsBanned" Nullable="true" />
-          <Property Type="String" Name="Code" Nullable="false" MaxLength="15" />
-          <Property Type="Int32" Name="CodeId" Nullable="false" />
-          <Property Type="Int32" Name="IsOwner" Nullable="false" />
-          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="LastName" Nullable="true" MaxLength="50" />
-        </ComplexType>
         <ComplexType Name="spGetCommentsByPostId_Result">
           <Property Type="Int32" Name="CommentID" Nullable="false" />
           <Property Type="Int32" Name="PostID" Nullable="false" />
@@ -542,54 +527,41 @@ warning 6035: The relationship 'FK_Post_DiscussionBoardID' has columns that are 
           <Property Type="String" Name="DateCreated" Nullable="true" MaxLength="4000" />
           <Property Type="String" Name="TimeCreated" Nullable="true" MaxLength="4000" />
         </ComplexType>
-        <ComplexType Name="spBanUserFromDiscussionBoard_Result">
-          <Property Type="Int32" Name="ReturnValue" Nullable="false" />
-        </ComplexType>
-        <ComplexType Name="spGetDiscussionBoardsByUserId1_Result">
-          <Property Type="String" Name="AdminId" Nullable="false" MaxLength="128" />
-          <Property Type="Int32" Name="DiscussionBoardId" Nullable="false" />
-          <Property Type="String" Name="Title" Nullable="false" MaxLength="25" />
-          <Property Type="String" Name="BoardDescription" Nullable="true" MaxLength="200" />
-          <Property Type="Int32" Name="IsConfirmed" Nullable="true" />
-          <Property Type="Int32" Name="IsBanned" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="spGetDiscussionBoardsByUserId_Result1">
-          <Property Type="String" Name="AdminId" Nullable="false" MaxLength="128" />
-          <Property Type="Int32" Name="DiscussionBoardId" Nullable="false" />
-          <Property Type="String" Name="Title" Nullable="false" MaxLength="25" />
-          <Property Type="String" Name="BoardDescription" Nullable="true" MaxLength="200" />
-          <Property Type="Int32" Name="IsConfirmed" Nullable="true" />
-          <Property Type="Int32" Name="IsBanned" Nullable="true" />
-        </ComplexType>
         <ComplexType Name="spGetDiscussionBoardMembers_Result">
           <Property Type="String" Name="UserId" Nullable="false" MaxLength="128" />
           <Property Type="Int32" Name="IsConfirmed" Nullable="true" />
           <Property Type="Int32" Name="IsBanned" Nullable="true" />
           <Property Type="String" Name="Email" Nullable="true" MaxLength="256" />
           <Property Type="String" Name="UserName" Nullable="true" MaxLength="25" />
+          <Property Type="Int32" Name="UserRole" Nullable="true" />
           <Property Type="String" Name="DateJoined" Nullable="true" MaxLength="4000" />
           <Property Type="String" Name="TimeJoined" Nullable="true" MaxLength="4000" />
+        </ComplexType>
+        <ComplexType Name="spGetDiscussionBoardsByUserId_Result">
+          <Property Type="String" Name="AdminId" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="Code" Nullable="false" MaxLength="30" />
+          <Property Type="Int32" Name="CodeId" Nullable="false" />
+          <Property Type="Int32" Name="DiscussionBoardId" Nullable="false" />
+          <Property Type="String" Name="Title" Nullable="false" MaxLength="80" />
+          <Property Type="String" Name="BoardDescription" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="IsConfirmed" Nullable="true" />
+          <Property Type="Int32" Name="IsBanned" Nullable="true" />
+          <Property Type="Int32" Name="IsOwner" Nullable="false" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="50" />
         </ComplexType>
         <ComplexType Name="spGetPosts_Result">
           <Property Type="Int32" Name="PostId" Nullable="false" />
           <Property Type="Int32" Name="DiscussionBoardID" Nullable="false" />
+          <Property Type="Int32" Name="UserRole" Nullable="true" />
           <Property Type="String" Name="OwnerId" Nullable="false" MaxLength="128" />
           <Property Type="String" Name="Title" Nullable="false" MaxLength="150" />
           <Property Type="String" Name="Content" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="UserName" Nullable="false" MaxLength="256" />
           <Property Type="String" Name="DateCreated" Nullable="true" MaxLength="4000" />
           <Property Type="String" Name="TimeCreated" Nullable="true" MaxLength="4000" />
-        </ComplexType>
-        <ComplexType Name="sp_helpdiagramdefinition_Result">
-          <Property Type="Int32" Name="version" Nullable="true" />
-          <Property Type="Binary" Name="definition" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="sp_helpdiagrams_Result">
-          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
-          <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -670,13 +642,14 @@ warning 6035: The relationship 'FK_Post_DiscussionBoardID' has columns that are 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="spBanUserFromDiscussionBoard" FunctionName="ConcourseModel.Store.spBanUserFromDiscussionBoard" >
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="ConcourseModel.spBanUserFromDiscussionBoard_Result">
-                <ScalarProperty Name="ReturnValue" ColumnName="ReturnValue" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spBanUserFromDiscussionBoard" FunctionName="ConcourseModel.Store.spBanUserFromDiscussionBoard" />
+          <FunctionImportMapping FunctionImportName="spConfirmUserById" FunctionName="ConcourseModel.Store.spConfirmUserById" />
+          <FunctionImportMapping FunctionImportName="spCreateComment" FunctionName="ConcourseModel.Store.spCreateComment" />
+          <FunctionImportMapping FunctionImportName="spCreateDiscussionBoard" FunctionName="ConcourseModel.Store.spCreateDiscussionBoard" />
+          <FunctionImportMapping FunctionImportName="spCreatePost" FunctionName="ConcourseModel.Store.spCreatePost" />
+          <FunctionImportMapping FunctionImportName="spDeleteCommentById" FunctionName="ConcourseModel.Store.spDeleteCommentById" />
+          <FunctionImportMapping FunctionImportName="spDeleteDiscussionBoard" FunctionName="ConcourseModel.Store.spDeleteDiscussionBoard" />
+          <FunctionImportMapping FunctionImportName="spDeletePost" FunctionName="ConcourseModel.Store.spDeletePost" />
           <FunctionImportMapping FunctionImportName="spGetCommentsByPostId" FunctionName="ConcourseModel.Store.spGetCommentsByPostId">
             <ResultMapping>
               <ComplexTypeMapping TypeName="ConcourseModel.spGetCommentsByPostId_Result">
@@ -690,30 +663,6 @@ warning 6035: The relationship 'FK_Post_DiscussionBoardID' has columns that are 
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="spGetDiscussionBoardsByUserId" FunctionName="ConcourseModel.Store.spGetDiscussionBoardsByUserId">
-          <ResultMapping>
-              <ComplexTypeMapping TypeName="ConcourseModel.spGetDiscussionBoardsByUserId_Result">
-                <ScalarProperty Name="AdminId" ColumnName="AdminId" />
-                <ScalarProperty Name="DiscussionBoardId" ColumnName="DiscussionBoardId" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="BoardDescription" ColumnName="BoardDescription" />
-                <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
-                <ScalarProperty Name="IsBanned" ColumnName="IsBanned" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="CodeId" ColumnName="CodeId" />
-                <ScalarProperty Name="IsOwner" ColumnName="IsOwner" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="spConfirmUserById" FunctionName="ConcourseModel.Store.spConfirmUserById" />
-          <FunctionImportMapping FunctionImportName="spCreateComment" FunctionName="ConcourseModel.Store.spCreateComment" />
-          <FunctionImportMapping FunctionImportName="spCreateDiscussionBoard" FunctionName="ConcourseModel.Store.spCreateDiscussionBoard" />
-          <FunctionImportMapping FunctionImportName="spCreatePost" FunctionName="ConcourseModel.Store.spCreatePost" />
-          <FunctionImportMapping FunctionImportName="spDeleteCommentById" FunctionName="ConcourseModel.Store.spDeleteCommentById" />
-          <FunctionImportMapping FunctionImportName="spDeleteDiscussionBoard" FunctionName="ConcourseModel.Store.spDeleteDiscussionBoard" />
-          <FunctionImportMapping FunctionImportName="spDeletePost" FunctionName="ConcourseModel.Store.spDeletePost" />
           <FunctionImportMapping FunctionImportName="spGetDiscussionBoardMembers" FunctionName="ConcourseModel.Store.spGetDiscussionBoardMembers">
             <ResultMapping>
               <ComplexTypeMapping TypeName="ConcourseModel.spGetDiscussionBoardMembers_Result">
@@ -722,8 +671,26 @@ warning 6035: The relationship 'FK_Post_DiscussionBoardID' has columns that are 
                 <ScalarProperty Name="IsBanned" ColumnName="IsBanned" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserRole" ColumnName="UserRole" />
                 <ScalarProperty Name="DateJoined" ColumnName="DateJoined" />
                 <ScalarProperty Name="TimeJoined" ColumnName="TimeJoined" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetDiscussionBoardsByUserId" FunctionName="ConcourseModel.Store.spGetDiscussionBoardsByUserId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ConcourseModel.spGetDiscussionBoardsByUserId_Result">
+                <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="CodeId" ColumnName="CodeId" />
+                <ScalarProperty Name="DiscussionBoardId" ColumnName="DiscussionBoardId" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="BoardDescription" ColumnName="BoardDescription" />
+                <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
+                <ScalarProperty Name="IsBanned" ColumnName="IsBanned" />
+                <ScalarProperty Name="IsOwner" ColumnName="IsOwner" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -732,9 +699,12 @@ warning 6035: The relationship 'FK_Post_DiscussionBoardID' has columns that are 
               <ComplexTypeMapping TypeName="ConcourseModel.spGetPosts_Result">
                 <ScalarProperty Name="PostId" ColumnName="PostId" />
                 <ScalarProperty Name="DiscussionBoardID" ColumnName="DiscussionBoardID" />
+                <ScalarProperty Name="UserRole" ColumnName="UserRole" />
                 <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="TimeCreated" ColumnName="TimeCreated" />
@@ -747,37 +717,6 @@ warning 6035: The relationship 'FK_Post_DiscussionBoardID' has columns that are 
           <FunctionImportMapping FunctionImportName="spUpdateDiscussionBoard" FunctionName="ConcourseModel.Store.spUpdateDiscussionBoard" />
           <FunctionImportMapping FunctionImportName="spUpdateDiscussionBoardCode" FunctionName="ConcourseModel.Store.spUpdateDiscussionBoardCode" />
           <FunctionImportMapping FunctionImportName="spUpdatePost" FunctionName="ConcourseModel.Store.spUpdatePost" />
-          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="ConcourseModel.Store.sp_alterdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="ConcourseModel.Store.sp_creatediagram" />
-          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="ConcourseModel.Store.sp_dropdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="ConcourseModel.Store.sp_helpdiagramdefinition">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="ConcourseModel.sp_helpdiagramdefinition_Result">
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="ConcourseModel.Store.sp_helpdiagrams">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="ConcourseModel.sp_helpdiagrams_Result">
-                <ScalarProperty Name="Database" ColumnName="Database" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Owner" ColumnName="Owner" />
-                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="ConcourseModel.Store.sp_renamediagram" />
-          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="ConcourseModel.Store.sp_upgraddiagrams" />
-          <FunctionImportMapping FunctionImportName="spHasPermissions" FunctionName="ConcourseModel.Store.spHasPermissions" />
-          <FunctionImportMapping FunctionImportName="spIsAdmin" FunctionName="ConcourseModel.Store.spIsAdmin" />
-          <FunctionImportMapping FunctionImportName="spIsBanned" FunctionName="ConcourseModel.Store.spIsBanned" />
-          <FunctionImportMapping FunctionImportName="spIsConfirmed" FunctionName="ConcourseModel.Store.spIsConfirmed" />
-          <FunctionImportMapping FunctionImportName="spIsMemberOfDiscussionBoard" FunctionName="ConcourseModel.Store.spIsMemberOfDiscussionBoard" />
-          <FunctionImportMapping FunctionImportName="spIsValidDiscussionBoard" FunctionName="ConcourseModel.Store.spIsValidDiscussionBoard" />
-          <FunctionImportMapping FunctionImportName="spIsValidUser" FunctionName="ConcourseModel.Store.spIsValidUser" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

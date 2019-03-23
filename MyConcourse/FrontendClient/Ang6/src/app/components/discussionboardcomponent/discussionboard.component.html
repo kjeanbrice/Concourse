@@ -41,7 +41,7 @@
         <div class="my-3 my-mid-5">
             <div class="container">
                 <div class="row">
-                    <div class="col-4">
+                    <div class="col-lg-4 col-sm-6">
                         
                         <!-- Post Selection Area-->
                         <div class="row">
@@ -304,7 +304,7 @@
                         <!-- Member Area End -->
 
                     </div>
-                    <div class="col-8">
+                    <div class="col-lg-8 col-sm-6">
                         <!-- Post Section -->
                         <div class="row">
                             <div class="col-12">
@@ -508,5 +508,76 @@
                 </div>
             </div>
         </div>
+    </div>
+    <!-- Main Area end-->
+
+
+    <!-- Modal Area-->
+    <!-- Modal -->
+
+
+    <!--Create Post Modal-->
+    <div class="modal fade modal-wrap" id="create-post-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+      aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="col-12 modal-title modal-title-settings" id="exampleModalLongTitle">Post Creation
+              <button id="createmodal-close" type="button" class="close" data-dismiss="modal"
+                aria-label="Close"></button>
+            </h5>
+
+          </div>
+          <div class="modal-body">
+            <form action="javascript:void(0);" action="post">
+              <div class="container-fluid">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label class="form-label">Subject
+                          <span class="form-required">*</span>
+                          <span id="creategroup-title-count"
+                            class="form-label-small">{{create_group_title_count}}</span>
+                        </label>
+                        <input id="createpost-title" attr.maxlength="{{MAX_TITLE_LIMIT}}" class="form-control"
+                          type="input"  placeholder="Enter Post Subject"
+                          (input)="onUpdateCreateGroup($event)" (keyup)="onUpdateCreateGroup($event)" />
+                        <div id="error-creategroup-title" class="invalid-feedback">{{error_createpost_subject}}</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label class="form-label">Content
+                          <span id="creategroup-description-count"
+                            class="form-label-small">{{createpost_content__count}}</span>
+                        </label>
+                        <textarea attr.maxlength="{{MAX_CONTENT_LIMIT}}" id="createpost-content"
+                          (input)="onUpdateCreateGroup($event)" (keyup)="onUpdateCreateGroup($event)"
+                          class="form-control" name="group-description" style="resize: none;" rows="6"
+                          placeholder="Enter a short description for your post"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <div class="{{css_loading_createpost}}">
+              <div class="loader"></div>
+              <div class="dimmer-content">
+                <button type="button" class="btn btn-primary" (click)="onSubmit($event)"
+                  id="btn-creategroup">Create Post</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
 </div>

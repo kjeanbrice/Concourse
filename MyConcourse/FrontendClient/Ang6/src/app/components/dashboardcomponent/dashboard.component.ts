@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NavbarComponent, SubNavbarComponent } from '../index';
-import { DashboardService } from '../../services/index';
+import { DashboardService, DiscussionBoardService } from '../../services/index';
 import { Group } from '../../interfaces/group.interface';
 import { ERROR_NAME_NOT_VALID, ERROR_SERVER, ERROR_GENERIC } from '../../constants/constants.export';
 import * as validator from 'validator';
+import { Router } from '@angular/router';
 import { GroupedObservable } from 'rxjs';
 import $ from 'jquery';
 
@@ -64,7 +65,8 @@ export class DashboardComponent implements OnInit {
   alert_success_settings = 'hide-item';
   alert_success_message = '';
 
-  constructor(private dashboard_service: DashboardService) {
+  constructor(private router: Router, private dashboard_service: DashboardService,
+    private discussionboard_service: DiscussionBoardService) {
   }
 
 
@@ -431,6 +433,11 @@ export class DashboardComponent implements OnInit {
     }
 
     switch (event.target.name) {
+      case 'entergroup':
+      const discussionboard_id = event.target.getAttribute('data-discussionid');
+      this.discussionboard_service.setDiscussionBoardID(discussionboard_id);
+      this.router.navigate(['/discussion', discussionboard_id]);
+      break;
       case 'editgroup':
         (<HTMLInputElement>document.getElementById('edit-title')).value = item.Title;
         (<HTMLInputElement>document.getElementById('edit-description')).value = item.BoardDescription;

@@ -18,6 +18,7 @@ namespace DiscussionDataAccess
         public Nullable<int> IsBanned { get; set; }
         public string Email { get; set; }
         public string UserName { get; set; }
+        public Nullable<int> UserRole { get; set; }
         public string DateJoined { get; set; }
         public string TimeJoined { get; set; }
     }

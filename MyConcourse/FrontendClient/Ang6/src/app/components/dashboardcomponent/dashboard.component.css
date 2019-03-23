@@ -20,7 +20,7 @@
 }
 
 .group-area{
-    /*height: 85vh;*/
+    min-height: 70vh;
 }
 .modal-wrap{
     word-wrap: break-word;
