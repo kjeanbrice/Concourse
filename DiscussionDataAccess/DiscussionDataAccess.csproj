@@ -87,6 +87,9 @@
     <Compile Include="spGetCommentsByPostId_Result.cs">
       <DependentUpon>ConcourseDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="spGetComments_Result.cs">
+      <DependentUpon>ConcourseDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="spGetDiscussionBoardMembers_Result.cs">
       <DependentUpon>ConcourseDataModel.tt</DependentUpon>
     </Compile>

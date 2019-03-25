@@ -380,5 +380,225 @@ namespace MyConcourse.Controllers
 
         }
 
+        [HttpGet]
+        [Route("posts")]
+        public List<spGetPosts_Result> GetPosts([FromUri]DiscussionBoardAPIModel group)
+        {
+            string user_id = User.Identity.GetUserId();
+            if (user_id == null || user_id.Length == 0)
+            {
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.NotFound);
+                message.Content = new StringContent("Not logged in");
+                throw new HttpResponseException(message);
+            }
+
+            int discussion_board_id;
+            bool is_valid = int.TryParse(group.DiscussionBoardID, out discussion_board_id);
+            if (!is_valid)
+            {
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.BadRequest);
+                message.Content = new StringContent("Hmm, it seems we can't do that transacation for you. Please try again later.");
+                throw new HttpResponseException(message);
+            }
+
+            List<spGetPosts_Result> results = new List<spGetPosts_Result>();
+
+            try
+            {
+                using (ConcourseEntities entities = new ConcourseEntities())
+                {
+                    entities.Configuration.EnsureTransactionsForFunctionsAndCommands = false;
+                    var temp = entities.spGetPosts(discussion_board_id, user_id);
+                    results = temp.ToList<spGetPosts_Result>();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Exception inner_ex = ex.InnerException;
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.BadRequest);
+                if (inner_ex == null)
+                {
+                    message.Content = new StringContent("Server error, please try again later.");
+                    throw new HttpResponseException(message);
+                }
+
+                switch (inner_ex.Message.ToUpper())
+                {
+                    case "INVALID_REQUEST_NULL":
+                    case "INVALID_REQUEST_INVALID":
+                        message.Content = new StringContent("Unauthorized User");
+                        break;
+                    case "INVALID_REQUEST_ID":
+                    case "INVALID_REQUEST_PERMISSONS":
+                        message.Content = new StringContent("You are not unauthorized to perform this request. Please try agian later.");
+                        break;
+                    default:
+                        message.Content = new StringContent("An error occured while processing your request. Please try again later");
+                        break;
+                }
+
+                throw new HttpResponseException(message);
+            }
+
+            return results;
+
+        }
+
+
+        [HttpPost]
+        [Route("createpost")]
+        public IHttpActionResult CreatePost([FromBody]PostAPIModel post)
+        {
+            string user_id = User.Identity.GetUserId();
+            if (user_id == null || user_id.Length == 0)
+            {
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.NotFound);
+                message.Content = new StringContent("Not logged in");
+                throw new HttpResponseException(message);
+            }
+
+
+            if (post.Subject == null || post.Subject.Trim().Length == 0)
+            {
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.NotFound);
+                message.Content = new StringContent("The subject of your post cannot be empty.");
+                throw new HttpResponseException(message);
+            }
+
+            if (post.Content == null || post.Content.Trim().Length == 0)
+            {
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.NotFound);
+                message.Content = new StringContent("The content of your post cannot be empty.");
+                throw new HttpResponseException(message);
+            }
+
+
+            int discussion_board_id;
+            bool is_valid = int.TryParse(post.DiscussionBoardID, out discussion_board_id);
+            if (!is_valid)
+            {
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.BadRequest);
+                message.Content = new StringContent("Hmm, it seems we can't do that transacation for you. Please try again later.");
+                throw new HttpResponseException(message);
+            }
+
+            int results = -1;
+
+            try
+            {
+                using (ConcourseEntities entities = new ConcourseEntities())
+                {
+                    entities.Configuration.EnsureTransactionsForFunctionsAndCommands = false;
+                    results = entities.spCreatePost(discussion_board_id, user_id,post.Subject.Trim(),post.Content.Trim());
+                    
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Exception inner_ex = ex.InnerException;
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.BadRequest);
+                if (inner_ex == null)
+                {
+                    message.Content = new StringContent("Server error, please try again later.");
+                    throw new HttpResponseException(message);
+                }
+
+                switch (inner_ex.Message.ToUpper())
+                {
+                    case "INVALID_REQUEST_NULL":
+                    case "INVALID_REQUEST_INVALID":
+                    case "INVALID_REQUEST_USER":
+                        message.Content = new StringContent("Unauthorized User");
+                        break;
+                    case "INVALID_REQUEST_ID":
+                    case "INVALID_REQUEST_PERMISSONS":
+                    case "INVALID_REQUEST_NOT_CONFIRMED":
+                        message.Content = new StringContent("You are not unauthorized to perform this request. Please try agian later.");
+                        break;
+                    case "INVALID_REQUEST_GROUP":
+                        message.Content = new StringContent("You are not a member of this group. Please join this group and try again.");
+                        break;
+                    
+                        
+                    default:
+                        message.Content = new StringContent("An error occured while processing your request. Please try again later");
+                        break;
+                }
+
+                throw new HttpResponseException(message);
+            }
+
+            return Ok();
+
+        }
+
+
+        [HttpPost]
+        [Route("comments")]
+        public List<spGetComments_Result> GetComments([FromBody]DiscussionBoardAPIModel group)
+        {
+            string user_id = User.Identity.GetUserId();
+            if (user_id == null || user_id.Length == 0)
+            {
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.NotFound);
+                message.Content = new StringContent("Not logged in");
+                throw new HttpResponseException(message);
+            }
+
+            int discussion_board_id;
+            bool is_valid = int.TryParse(group.DiscussionBoardID, out discussion_board_id);
+            if (!is_valid)
+            {
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.BadRequest);
+                message.Content = new StringContent("Hmm, it seems we can't do that transacation for you. Please try again later.");
+                throw new HttpResponseException(message);
+            }
+
+            List<spGetComments_Result> results = new List<spGetComments_Result>();
+
+            try
+            {
+                using (ConcourseEntities entities = new ConcourseEntities())
+                {
+                    entities.Configuration.EnsureTransactionsForFunctionsAndCommands = false;
+                    var temp = entities.spGetComments(discussion_board_id, user_id);
+                    results = temp.ToList<spGetComments_Result>();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Exception inner_ex = ex.InnerException;
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.BadRequest);
+                if (inner_ex == null)
+                {
+                    message.Content = new StringContent("Server error, please try again later.");
+                    throw new HttpResponseException(message);
+                }
+
+                switch (inner_ex.Message.ToUpper())
+                {
+                    case "INVALID_REQUEST_NULL":
+                    case "INVALID_REQUEST_INVALID":
+                        message.Content = new StringContent("Unauthorized User");
+                        break;
+                    case "INVALID_REQUEST_ID":
+                    case "INVALID_REQUEST_PERMISSONS":
+                        message.Content = new StringContent("You are not unauthorized to perform this request. Please try agian later.");
+                        break;
+                    default:
+                        message.Content = new StringContent("An error occured while processing your request. Please try again later");
+                        break;
+                }
+
+                throw new HttpResponseException(message);
+            }
+
+            return results;
+
+        }
+
     }
 }

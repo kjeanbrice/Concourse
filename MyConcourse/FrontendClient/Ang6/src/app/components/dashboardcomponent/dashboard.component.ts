@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NavbarComponent, SubNavbarComponent } from '../index';
 import { DashboardService, DiscussionBoardService } from '../../services/index';
 import { Group } from '../../interfaces/group.interface';
 import { ERROR_NAME_NOT_VALID, ERROR_SERVER, ERROR_GENERIC } from '../../constants/constants.export';
 import * as validator from 'validator';
 import { Router } from '@angular/router';
-import { GroupedObservable } from 'rxjs';
-import $ from 'jquery';
+import { interval, Observable, Subscription} from 'rxjs';
+import { flatMap } from 'rxjs/operators';
+
 
 
 @Component({
@@ -15,11 +16,12 @@ import $ from 'jquery';
   styleUrls: ['./dashboard.component.css']
 })
 
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
 
   MAX_TITLE_LIMIT = 80;
   MAX_DESCRIPTION_LIMIT = 500;
   MAX_CODE_LIMIT = 30;
+  load_group_obs: Subscription  = null;
 
   items_per_row = 2;
   groups_container: Array<Group[]>;
@@ -73,9 +75,16 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     // this.loadScript('content/angular/assets/js/jquery-3.2.1.min.js');
     this.loadScript('content/angular/assets/js/modifiedcore.js');
-    this.loadGroups();
-
+    this.loadGroups(0);
+    this.loadGroups(10000);
     this.resetFormFields();
+  }
+
+  ngOnDestroy() {
+    if (this.load_group_obs !== null) {
+      this.load_group_obs.unsubscribe();
+    }
+
   }
 
   /*onCreateGroup(event: any): void {
@@ -159,24 +168,45 @@ export class DashboardComponent implements OnInit {
   }
 
 
-  loadGroups(): void {
-    this.dashboard_service.retrieveGroups().subscribe(data => {
-      this.groups = data;
-      let container_index = 0;
-      this.groups_container = [];
-      this.groups_container[container_index] = [];
+  loadGroups(period: number): void {
+    if (period > 0) {
+     this.load_group_obs = interval(period).pipe(
+      flatMap(() => this.dashboard_service.retrieveGroups())
+      ).subscribe(data => {
+        this.groups = data;
+        let container_index = 0;
+        this.groups_container = [];
+        this.groups_container[container_index] = [];
 
-      for (let i = 0; i < this.groups.length; i++) {
-        if (i % this.items_per_row === 0 && i !== 0) {
-          this.groups_container[++container_index] = [];
+        for (let i = 0; i < this.groups.length; i++) {
+          if (i % this.items_per_row === 0 && i !== 0) {
+            this.groups_container[++container_index] = [];
+          }
+          this.groups_container[container_index].push(this.groups[i]);
+          console.log('Results loadGroups()');
         }
-        this.groups_container[container_index].push(this.groups[i]);
-        console.log('Results: ' + JSON.stringify(this.groups_container));
+      },
+        error => {
+          console.log('An error occured while attempting to load data. Error: ' + error);
+        });
+      } else {
+          this.dashboard_service.retrieveGroups().subscribe(data => {
+          this.groups = data;
+          let container_index = 0;
+          this.groups_container = [];
+          this.groups_container[container_index] = [];
+          for (let i = 0; i < this.groups.length; i++) {
+            if (i % this.items_per_row === 0 && i !== 0) {
+              this.groups_container[++container_index] = [];
+            }
+            this.groups_container[container_index].push(this.groups[i]);
+            console.log('Results: ' + JSON.stringify(this.groups_container));
+          }
+        },
+          error => {
+            console.log('An error occured while attempting to load data. Error: ' + error);
+          });
       }
-    },
-      error => {
-        console.log('An error occured while attempting to load data. Error: ' + error);
-      });
   }
 
   onSubmit(event: any): void {
@@ -210,7 +240,7 @@ export class DashboardComponent implements OnInit {
             document.getElementById('editmodal-close').click();
             document.getElementById('error-editgroup').style.display = 'none';
             this.css_loading_editgroup = 'dimmer';
-            this.loadGroups();
+            this.loadGroups(0);
           },
           errors => {
             console.log('Error:' + JSON.stringify(errors));
@@ -236,7 +266,7 @@ export class DashboardComponent implements OnInit {
               document.getElementById('joinmodal-close').click();
               document.getElementById('error-joingroup-server').style.display = 'none';
               this.css_loading_joingroup = 'dimmer';
-              this.loadGroups();
+              this.loadGroups(0);
             },
             errors => {
               console.log('Error:' + JSON.stringify(errors));
@@ -266,7 +296,7 @@ export class DashboardComponent implements OnInit {
               this.onAlertSuccessOpen();
               this.resetFormFields();
               document.getElementById('error-creategroup-server').style.display = 'none';
-              this.loadGroups();
+              this.loadGroups(0);
             },
             errors => {
               if (errors.error) {
@@ -297,7 +327,7 @@ export class DashboardComponent implements OnInit {
               document.getElementById('error-deletegroup').style.display = 'none';
               document.getElementById('deletegroup-close').click();
               this.onAlertSuccessOpen();
-              this.loadGroups();
+              this.loadGroups(0);
               this.resetFormFields();
               this.css_loading_deletegroup = 'dimmer';
             },
@@ -435,7 +465,6 @@ export class DashboardComponent implements OnInit {
     switch (event.target.name) {
       case 'entergroup':
       const discussionboard_id = event.target.getAttribute('data-discussionid');
-      this.discussionboard_service.setDiscussionBoardID(discussionboard_id);
       this.router.navigate(['/discussion', discussionboard_id]);
       break;
       case 'editgroup':

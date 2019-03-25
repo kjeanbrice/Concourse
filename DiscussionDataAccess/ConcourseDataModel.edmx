@@ -22,7 +22,7 @@
           <Property Name="DiscussionBoardId" Type="int" Nullable="false" />
           <Property Name="PostID" Type="int" Nullable="false" />
           <Property Name="OwnerId" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="Content" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" />
           <Property Name="IsDeleted" Type="int" />
         </EntityType>
@@ -68,8 +68,8 @@
           <Property Name="PostID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DiscussionBoardID" Type="int" Nullable="false" />
           <Property Name="OwnerId" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="Title" Type="nvarchar" MaxLength="150" Nullable="false" />
-          <Property Name="Content" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" />
           <Property Name="IsDeleted" Type="int" />
         </EntityType>
@@ -176,6 +176,10 @@
           <Parameter Name="UserId" Type="nvarchar" Mode="In" />
           <Parameter Name="PostId" Type="int" Mode="In" />
         </Function>
+        <Function Name="spGetComments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DiscussionBoardId" Type="int" Mode="In" />
+          <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="spGetCommentsByPostId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="DiscussionBoardId" Type="int" Mode="In" />
           <Parameter Name="PostId" Type="int" Mode="In" />
@@ -191,6 +195,10 @@
         <Function Name="spGetPosts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="DiscussionBoardId" Type="int" Mode="In" />
           <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spIsAdmin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+          <Parameter Name="Status" Type="int" Mode="InOut" />
         </Function>
         <Function Name="spJoinDiscussionBoard" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CodeId" Type="int" Mode="In" />
@@ -276,7 +284,7 @@
           <Property Name="DiscussionBoardId" Type="Int32" Nullable="false" />
           <Property Name="PostID" Type="Int32" Nullable="false" />
           <Property Name="OwnerId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Content" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DateCreated" Type="DateTime" Precision="3" />
           <Property Name="IsDeleted" Type="Int32" />
           <NavigationProperty Name="DiscussionBoard" Relationship="Self.FK_Comment_DiscussionBoardID" FromRole="Comment" ToRole="DiscussionBoard" />
@@ -330,8 +338,8 @@
           <Property Name="PostID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DiscussionBoardID" Type="Int32" Nullable="false" />
           <Property Name="OwnerId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Title" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Content" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DateCreated" Type="DateTime" Precision="3" />
           <Property Name="IsDeleted" Type="Int32" />
           <NavigationProperty Name="Comments" Relationship="Self.FK_Comment_PostID" FromRole="Post" ToRole="Comment" />
@@ -467,6 +475,10 @@
             <Parameter Name="UserId" Mode="In" Type="String" />
             <Parameter Name="PostId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="spGetComments" ReturnType="Collection(ConcourseModel.spGetComments_Result)">
+            <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
+            <Parameter Name="UserId" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="spGetCommentsByPostId" ReturnType="Collection(ConcourseModel.spGetCommentsByPostId_Result)">
             <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
             <Parameter Name="PostId" Mode="In" Type="Int32" />
@@ -482,6 +494,10 @@
           <FunctionImport Name="spGetPosts" ReturnType="Collection(ConcourseModel.spGetPosts_Result)">
             <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
             <Parameter Name="UserId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spIsAdmin">
+            <Parameter Name="UserId" Mode="In" Type="String" />
+            <Parameter Name="Status" Mode="InOut" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spJoinDiscussionBoard">
             <Parameter Name="CodeId" Mode="In" Type="Int32" />
@@ -518,12 +534,23 @@
             <Parameter Name="NewContent" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="spGetComments_Result">
+          <Property Type="Int32" Name="CommentID" Nullable="false" />
+          <Property Type="Int32" Name="PostID" Nullable="false" />
+          <Property Type="Int32" Name="DiscussionBoardID" Nullable="false" />
+          <Property Type="String" Name="OwnerId" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="Content" Nullable="false" />
+          <Property Type="Int32" Name="UserRole" Nullable="true" />
+          <Property Type="String" Name="DateCreated" Nullable="true" MaxLength="4000" />
+          <Property Type="String" Name="TimeCreated" Nullable="true" MaxLength="4000" />
+        </ComplexType>
         <ComplexType Name="spGetCommentsByPostId_Result">
           <Property Type="Int32" Name="CommentID" Nullable="false" />
           <Property Type="Int32" Name="PostID" Nullable="false" />
           <Property Type="Int32" Name="DiscussionBoardID" Nullable="false" />
           <Property Type="String" Name="OwnerId" Nullable="false" MaxLength="128" />
-          <Property Type="String" Name="Content" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="Content" Nullable="false" />
+          <Property Type="Int32" Name="UserRole" Nullable="true" />
           <Property Type="String" Name="DateCreated" Nullable="true" MaxLength="4000" />
           <Property Type="String" Name="TimeCreated" Nullable="true" MaxLength="4000" />
         </ComplexType>
@@ -555,8 +582,8 @@
           <Property Type="Int32" Name="DiscussionBoardID" Nullable="false" />
           <Property Type="Int32" Name="UserRole" Nullable="true" />
           <Property Type="String" Name="OwnerId" Nullable="false" MaxLength="128" />
-          <Property Type="String" Name="Title" Nullable="false" MaxLength="150" />
-          <Property Type="String" Name="Content" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="Title" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Content" Nullable="false" />
           <Property Type="String" Name="FirstName" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="LastName" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="UserName" Nullable="false" MaxLength="256" />
@@ -650,6 +677,20 @@
           <FunctionImportMapping FunctionImportName="spDeleteCommentById" FunctionName="ConcourseModel.Store.spDeleteCommentById" />
           <FunctionImportMapping FunctionImportName="spDeleteDiscussionBoard" FunctionName="ConcourseModel.Store.spDeleteDiscussionBoard" />
           <FunctionImportMapping FunctionImportName="spDeletePost" FunctionName="ConcourseModel.Store.spDeletePost" />
+          <FunctionImportMapping FunctionImportName="spGetComments" FunctionName="ConcourseModel.Store.spGetComments">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ConcourseModel.spGetComments_Result">
+                <ScalarProperty Name="CommentID" ColumnName="CommentID" />
+                <ScalarProperty Name="PostID" ColumnName="PostID" />
+                <ScalarProperty Name="DiscussionBoardID" ColumnName="DiscussionBoardID" />
+                <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="UserRole" ColumnName="UserRole" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="TimeCreated" ColumnName="TimeCreated" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="spGetCommentsByPostId" FunctionName="ConcourseModel.Store.spGetCommentsByPostId">
             <ResultMapping>
               <ComplexTypeMapping TypeName="ConcourseModel.spGetCommentsByPostId_Result">
@@ -658,6 +699,7 @@
                 <ScalarProperty Name="DiscussionBoardID" ColumnName="DiscussionBoardID" />
                 <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
                 <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="UserRole" ColumnName="UserRole" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="TimeCreated" ColumnName="TimeCreated" />
               </ComplexTypeMapping>
@@ -711,6 +753,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spIsAdmin" FunctionName="ConcourseModel.Store.spIsAdmin" />
           <FunctionImportMapping FunctionImportName="spJoinDiscussionBoard" FunctionName="ConcourseModel.Store.spJoinDiscussionBoard" />
           <FunctionImportMapping FunctionImportName="spRemoveUserFromDiscussionBoard" FunctionName="ConcourseModel.Store.spRemoveUserFromDiscussionBoard" />
           <FunctionImportMapping FunctionImportName="spUpdateCommentById" FunctionName="ConcourseModel.Store.spUpdateCommentById" />

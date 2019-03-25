@@ -182,6 +182,19 @@ namespace DiscussionDataAccess
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spDeletePost", discussionBoardIdParameter, userIdParameter, postIdParameter);
         }
     
+        public virtual ObjectResult<spGetComments_Result> spGetComments(Nullable<int> discussionBoardId, string userId)
+        {
+            var discussionBoardIdParameter = discussionBoardId.HasValue ?
+                new ObjectParameter("DiscussionBoardId", discussionBoardId) :
+                new ObjectParameter("DiscussionBoardId", typeof(int));
+    
+            var userIdParameter = userId != null ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetComments_Result>("spGetComments", discussionBoardIdParameter, userIdParameter);
+        }
+    
         public virtual ObjectResult<spGetCommentsByPostId_Result> spGetCommentsByPostId(Nullable<int> discussionBoardId, Nullable<int> postId, string userId)
         {
             var discussionBoardIdParameter = discussionBoardId.HasValue ?
@@ -232,6 +245,15 @@ namespace DiscussionDataAccess
                 new ObjectParameter("UserId", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetPosts_Result>("spGetPosts", discussionBoardIdParameter, userIdParameter);
+        }
+    
+        public virtual int spIsAdmin(string userId, ObjectParameter status)
+        {
+            var userIdParameter = userId != null ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spIsAdmin", userIdParameter, status);
         }
     
         public virtual int spJoinDiscussionBoard(Nullable<int> codeId, string code, string userId)

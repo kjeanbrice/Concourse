@@ -1,583 +1,570 @@
 <div class="page">
-    <div class="page-main">
-        <!--Navigation bar-->
-        <app-navbar></app-navbar>
-        <!--Nav Options Area-->
-        <div class="header collapse d-lg-flex p-0" id="headerMenuCollapse">
-            <div class="container">
-                <div class="row align-items-center">
+  <div class="page-main">
+    <!--Navigation bar-->
+    <app-navbar></app-navbar>
+    <!--Nav Options Area-->
+    <div class="header collapse d-lg-flex p-0" id="headerMenuCollapse">
+      <div class="container">
+        <div class="row align-items-center">
 
-                    <div class="col-lg">
-                        <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
-                            <li class="nav-item">
-                                <a href="#" class="nav-link"><i class="fe fe-home"></i> Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="javascript:void(0);" class="nav-link" data-toggle="modal"
-                                    data-target="#create-post-modal"><i class="fe fe-box"></i> Create Post</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link" data-toggle="modal" data-target="#tba-modal"><i
-                                        class="fe fe-check-square"></i>TBA</a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="col-lg-3 ml-auto">
-                        <form class="input-icon my-3 my-lg-0">
-                            <input type="search" class="form-control header-search" placeholder="Search &hellip;"
-                                tabindex="1">
-                            <div class="input-icon-addon">
-                                <i class="fe fe-search"></i>
-                            </div>
-                        </form>
-                    </div>
-
-
-                </div>
-            </div>
-        </div>
-
-        <div class="my-3 my-mid-5">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 col-sm-6">
-                        
-                        <!-- Post Selection Area-->
-                        <div class="row">
-                                <div class="col-12">
-                                        <div class="card posts-list">
-                                                <div class="card-status card-status-left bg-purple"></div>
-                                                <div class="card-header">
-                                                  <h3 class="card-title">Posts</h3>
-                                                </div>
-                                                <div class="card-body cardbody-group o-auto" >
-                                                  <ul class="list-unstyled list-separated">
-                                                    <li class="list-separated-item postrow activepost">
-                                                      <div class="row align-items-center">
-                                                        <div class="col-auto">
-                                                          
-                                                        </div>
-                                                        <div class="col">
-                                                          <div>
-                                                            <a href="javascript:void(0)" class="text-inherit">What is the meaning of life?</a>
-                                                          </div>
-                                                          <small class="d-block item-except text-sm text-muted h-1x">Lorem ipsum dolor sit amet...</small>
-                                                        </div>
-                                                        <div class="col-auto">
-                                                          <div class="item-action dropdown">
-                                                            <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
-                                                            <div class="dropdown-menu dropdown-menu-right">
-                                                              <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-tag"></i> Action </a>
-                                                              <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Another action </a>
-                                                              <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-message-square"></i> Something else here</a>
-                                                              <div class="dropdown-divider"></div>
-                                                              <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-link"></i> Separated link</a>
-                                                            </div>
-                                                          </div>
-                                                        </div>
-                                                      </div>
-                                                    </li>
-                                                    <li class="list-separated-item postrow">
-                                                      <div class="row align-items-center">
-                                                        <div class="col-auto">
-                                                         
-                                                        </div>
-                                                        <div class="col">
-                                                          <div>
-                                                            <a href="javascript:void(0)" class="text-inherit">Lorem ipsum dolor sit amet</a>
-                                                          </div>
-                                                          <small class="d-block item-except text-sm text-muted h-1x">Lorem ipsum dolor sit amet...</small>
-                                                        </div>
-                                                        <div class="col-auto">
-                                                          <div class="item-action dropdown">
-                                                            <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
-                                                            <div class="dropdown-menu dropdown-menu-right">
-                                                              <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-tag"></i> Action </a>
-                                                              <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Another action </a>
-                                                              <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-message-square"></i> Something else here</a>
-                                                              <div class="dropdown-divider"></div>
-                                                              <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-link"></i> Separated link</a>
-                                                            </div>
-                                                          </div>
-                                                        </div>
-                                                      </div>
-                                                    </li>
-                                                    <li class="list-separated-item postrow">
-                                                      <div class="row align-items-center">
-                                                        <div class="col-auto">
-                                                          
-                                                        </div>
-                                                        <div class="col">
-                                                          <div>
-                                                            <a href="javascript:void(0)" class="text-inherit">Curabitur odio augue, bibendum sodales tincidunt id</a>
-                                                          </div>
-                                                          <small class="d-block item-except text-sm text-muted h-1x">Fusce a tellus varius, dignissim...</small>
-                                                        </div>
-                                                        <div class="col-auto">
-                                                          <div class="item-action dropdown">
-                                                            <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
-                                                            <div class="dropdown-menu dropdown-menu-right">
-                                                              <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-tag"></i> Action </a>
-                                                              <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Another action </a>
-                                                              <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-message-square"></i> Something else here</a>
-                                                              <div class="dropdown-divider"></div>
-                                                              <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-link"></i> Separated link</a>
-                                                            </div>
-                                                          </div>
-                                                        </div>
-                                                      </div>
-                                                    </li>
-                                                    <li class="list-separated-item"></li>
-                                                  </ul>
-                                                </div>
-                                        </div>
-                                </div>
-                        </div>
-                        <!-- Post Selection Area-->
-
-                        <!-- Member Area-->
-                        <div class="row">
-                            <div class="col-12">
-                                    <div class="card members-list">
-                                            <div class="card-status card-status-left bg-purple"></div>
-                                            <div class="card-header">
-                                              <h3 class="card-title">Members</h3>
-                                            </div>
-                                            <div class="card-body o-auto">
-                                              <ul class="list-unstyled list-separated">
-                                                <li class="list-separated-item">
-                                                  <div class="row align-items-center">
-                                                    <div class="col-auto">
-                                                      <span class="avatar avatar-md d-block" style="background-image: url(https://tabler.github.io/tabler/demo/faces/female/1.jpg)"></span>
-                                                    </div>
-                                                    <div class="col">
-                                                      <div>
-                                                        <a href="javascript:void(0)" class="text-inherit">Amanda Hunt</a>
-                                                      </div>
-                                                      <small class="d-block item-except text-sm text-muted h-1x">amanda_hunt@example.com</small>
-                                                    </div>
-                                                    <div class="col-auto">
-                                                      <div class="item-action dropdown">
-                                                        <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
-                                                        <div class="dropdown-menu dropdown-menu-right">
-                                                          <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-tag"></i> Action </a>
-                                                          <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Another action </a>
-                                                          <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-message-square"></i> Something else here</a>
-                                                          <div class="dropdown-divider"></div>
-                                                          <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-link"></i> Separated link</a>
-                                                        </div>
-                                                      </div>
-                                                    </div>
-                                                  </div>
-                                                </li>
-                                                <li class="list-separated-item">
-                                                  <div class="row align-items-center">
-                                                    <div class="col-auto">
-                                                      <span class="avatar avatar-md d-block" style="background-image: url(https://tabler.github.io/tabler/demo/faces/female/1.jpg)"></span>
-                                                    </div>
-                                                    <div class="col">
-                                                      <div>
-                                                        <a href="javascript:void(0)" class="text-inherit">Laura Weaver</a>
-                                                      </div>
-                                                      <small class="d-block item-except text-sm text-muted h-1x">lauraweaver@example.com</small>
-                                                    </div>
-                                                    <div class="col-auto">
-                                                      <div class="item-action dropdown">
-                                                        <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
-                                                        <div class="dropdown-menu dropdown-menu-right">
-                                                          <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-tag"></i> Action </a>
-                                                          <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Another action </a>
-                                                          <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-message-square"></i> Something else here</a>
-                                                          <div class="dropdown-divider"></div>
-                                                          <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-link"></i> Separated link</a>
-                                                        </div>
-                                                      </div>
-                                                    </div>
-                                                  </div>
-                                                </li>
-                                                <li class="list-separated-item">
-                                                  <div class="row align-items-center">
-                                                    <div class="col-auto">
-                                                      <span class="avatar avatar-md d-block" style="background-image: url(https://tabler.github.io/tabler/demo/faces/female/1.jpg)"></span>
-                                                    </div>
-                                                    <div class="col">
-                                                      <div>
-                                                        <a href="javascript:void(0)" class="text-inherit">Margaret Berry</a>
-                                                      </div>
-                                                      <small class="d-block item-except text-sm text-muted h-1x">margaret88@example.com</small>
-                                                    </div>
-                                                    <div class="col-auto">
-                                                      <div class="item-action dropdown">
-                                                        <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
-                                                        <div class="dropdown-menu dropdown-menu-right">
-                                                          <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-tag"></i> Action </a>
-                                                          <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Another action </a>
-                                                          <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-message-square"></i> Something else here</a>
-                                                          <div class="dropdown-divider"></div>
-                                                          <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-link"></i> Separated link</a>
-                                                        </div>
-                                                      </div>
-                                                    </div>
-                                                  </div>
-                                                </li>
-                                                <li class="list-separated-item">
-                                                  <div class="row align-items-center">
-                                                    <div class="col-auto">
-                                                      <span class="avatar avatar-md d-block" style="background-image: url(demo/faces/female/2.jpg)"></span>
-                                                    </div>
-                                                    <div class="col">
-                                                      <div>
-                                                        <a href="javascript:void(0)" class="text-inherit">Nancy Herrera</a>
-                                                      </div>
-                                                      <small class="d-block item-except text-sm text-muted h-1x">nancy_83@example.com</small>
-                                                    </div>
-                                                    <div class="col-auto">
-                                                      <div class="item-action dropdown">
-                                                        <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
-                                                        <div class="dropdown-menu dropdown-menu-right">
-                                                          <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-tag"></i> Action </a>
-                                                          <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Another action </a>
-                                                          <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-message-square"></i> Something else here</a>
-                                                          <div class="dropdown-divider"></div>
-                                                          <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-link"></i> Separated link</a>
-                                                        </div>
-                                                      </div>
-                                                    </div>
-                                                  </div>
-                                                </li>
-                                                <li class="list-separated-item">
-                                                  <div class="row align-items-center">
-                                                    <div class="col-auto">
-                                                      <span class="avatar avatar-md d-block" style="background-image: url(demo/faces/male/34.jpg)"></span>
-                                                    </div>
-                                                    <div class="col">
-                                                      <div>
-                                                        <a href="javascript:void(0)" class="text-inherit">Edward Larson</a>
-                                                      </div>
-                                                      <small class="d-block item-except text-sm text-muted h-1x">edward90@example.com</small>
-                                                    </div>
-                                                    <div class="col-auto">
-                                                      <div class="item-action dropdown">
-                                                        <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
-                                                        <div class="dropdown-menu dropdown-menu-right">
-                                                          <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-tag"></i> Action </a>
-                                                          <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Another action </a>
-                                                          <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-message-square"></i> Something else here</a>
-                                                          <div class="dropdown-divider"></div>
-                                                          <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-link"></i> Separated link</a>
-                                                        </div>
-                                                      </div>
-                                                    </div>
-                                                  </div>
-                                                </li>
-                                                <li class="list-separated-item">
-                                                  <div class="row align-items-center">
-                                                    <div class="col-auto">
-                                                      <span class="avatar avatar-md d-block" style="background-image: url(demo/faces/female/11.jpg)"></span>
-                                                    </div>
-                                                    <div class="col">
-                                                      <div>
-                                                        <a href="javascript:void(0)" class="text-inherit">Joan Hanson</a>
-                                                      </div>
-                                                      <small class="d-block item-except text-sm text-muted h-1x">joan.hanson@example.com</small>
-                                                    </div>
-                                                    <div class="col-auto">
-                                                      <div class="item-action dropdown">
-                                                        <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
-                                                        <div class="dropdown-menu dropdown-menu-right">
-                                                          <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-tag"></i> Action </a>
-                                                          <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Another action </a>
-                                                          <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-message-square"></i> Something else here</a>
-                                                          <div class="dropdown-divider"></div>
-                                                          <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-link"></i> Separated link</a>
-                                                        </div>
-                                                      </div>
-                                                    </div>
-                                                  </div>
-                                                </li>
-                                              </ul>
-                                            </div>
-                                    </div>
-                            </div>
-                        </div>
-                        <!-- Member Area End -->
-
-                    </div>
-                    <div class="col-lg-8 col-sm-6">
-                        <!-- Post Section -->
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-status bg-blue"></div>
-                                    <div class="card-header">
-                                        <table class="table card-table">
-                                            <tr>
-                                                <td width="1" class="padding-overide"> <i
-                                                        class="fa fa-question-circle group-icon"></i></td>
-                                                <td>
-                                                    <h3 class="card-title card-group-title">What is the meaning of life?
-                                                    </h3>
-                                                </td>
-                                            </tr>
-                                        </table>
-
-                                    </div>
-                                    <ul class="list-group card-list-group">
-                                        <li class="list-group-item py-5">
-                                            <div class="media">
-                                                <div class="media-object avatar avatar-md mr-4"
-                                                style="background-image: url(https://tabler.github.io/tabler/demo/faces/female/1.jpg)"></div>
-                                                <div class="media-body">
-                                                    <div class="media-heading">
-                                                        <small class="float-right text-muted">4 min</small>
-                                                        <h5>Peter Richards</h5>
-                                                    </div>
-                                                    <div>
-                                                        Aenean lacinia bibendum nulla sed consectetur. Vestibulum id
-                                                        ligula
-                                                        porta felis euismod semper. Morbi leo risus, porta ac
-                                                        consectetur ac,
-                                                        vestibulum at eros. Cras
-                                                        justo odio, dapibus ac facilisis in, egestas eget quam.
-                                                        Vestibulum id
-                                                        ligula porta felis euismod semper. Cum sociis natoque penatibus
-                                                        et
-                                                        magnis dis parturient montes,
-                                                        nascetur ridiculus mus.
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </li>
-
-                                    </ul>
-                                    <div class="card-footer card-footer-group">
-                                        <div class="container-fluid">
-                                            <div class="row">
-                                                <div class="col-md-1 col-lg-1 col-xl-1 offset-11">
-                                                    <div class="item-action dropdown dropdown-right">
-                                                        <a href="javascript:void(0)" data-toggle="dropdown"
-                                                            class="icon"><i class="fe fe-more-horizontal"></i></a>
-
-
-                                                        <div class="dropdown-menu dropdown-menu-right">
-                                                            <span id="edit" data-toggle="modal" class="hide-item"
-                                                                data-target="#edit-group-modal"></span>
-                                                            <a name="editgroup" attr.data-discussionid=""
-                                                                href="javascript:void(0)" class="dropdown-item"><i
-                                                                    class="dropdown-icon fe fe-edit-2"></i>Edit </a>
-
-                                                            <div class="dropdown-divider"></div>
-
-                                                            <span id="delete" data-toggle="modal"
-                                                                data-target="#delete-group-modal"
-                                                                class="hide-item"></span>
-                                                            <a name="deletegroup" href="javascript:void(0)"
-                                                                attr.data-discussionid="" class="dropdown-item"><i
-                                                                    class="dropdown-icon fe fe-trash-2"></i> Delete</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Post Section End-->
-
-                        <!--Comment Section-->
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-status bg-green"></div>
-                                    <div class="card-header">
-                                        <table class="table card-table">
-                                            <tr>
-                                                <td width="1" class="padding-overide"> <i
-                                                        class="fa fa-commenting group-icon"></i></td>
-                                                <td>
-                                                    <h3 class="card-title card-group-title">Response</h3>
-                                                </td>
-                                            </tr>
-                                        </table>
-
-                                    </div>
-                                    <ul class="list-group card-list-group">
-                                        <li class="list-group-item py-5">
-                                            <div class="media">
-                                                <div class="media-object avatar avatar-md mr-4"
-                                                style="background-image: url(https://tabler.github.io/tabler/demo/faces/female/1.jpg)"></div>
-                                                <div class="media-body">
-                                                    <div class="media-heading">
-                                                        <small class="float-right text-muted">4 min</small>
-                                                        <h5>Andrew Bernard</h5>
-                                                    </div>
-                                                    <div>
-                                                        Aenean lacinia bibendum nulla sed consectetur. Vestibulum id
-                                                        ligula
-                                                        porta felis euismod semper. Morbi leo risus, porta ac
-                                                        consectetur ac,
-                                                        vestibulum at eros. Cras
-                                                        justo odio, dapibus ac facilisis in, egestas eget quam.
-                                                        Vestibulum id
-                                                        ligula porta felis euismod semper. Cum sociis natoque penatibus
-                                                        et
-                                                        magnis dis parturient montes,
-                                                        nascetur ridiculus mus.
-
-                                                        <br /><br />
-                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
-                                                        dictum faucibus ex, in scelerisque nisl hendrerit ullamcorper.
-                                                        Praesent quis finibus erat. Integer leo felis, elementum sed
-                                                        urna quis, malesuada accumsan ante. Curabitur viverra consequat
-                                                        dapibus. Etiam dignissim laoreet facilisis. Ut eleifend ante
-                                                        quis nunc commodo, in iaculis purus ornare. Quisque vitae velit
-                                                        quis enim tempor porta. Integer vel tortor interdum, vestibulum
-                                                        velit quis, lobortis purus. Proin finibus molestie ultricies.
-                                                        Praesent sit amet purus at purus tristique posuere. Sed quis
-                                                        hendrerit est. Nam ut dolor sapien. Donec lobortis ipsum
-                                                        pharetra tempor condimentum. Mauris facilisis lectus eget ante
-                                                        venenatis, vel efficitur eros malesuada. Aliquam sollicitudin
-                                                        urna nisl, vitae faucibus mi eleifend mollis.
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </li>
-
-                                    </ul>
-                                    <div class="card-footer card-footer-group">
-                                        <div class="container-fluid">
-                                            <div class="row">
-                                                <div class="col-md-1 col-lg-1 col-xl-1 offset-11">
-                                                    <div class="item-action dropdown dropdown-right">
-                                                        <a href="javascript:void(0)" data-toggle="dropdown"
-                                                            class="icon"><i class="fe fe-more-horizontal"></i></a>
-
-
-                                                        <div class="dropdown-menu dropdown-menu-right">
-                                                            <span id="edit" data-toggle="modal" class="hide-item"
-                                                                data-target="#edit-group-modal"></span>
-                                                            <a name="editgroup" attr.data-discussionid=""
-                                                                href="javascript:void(0)" class="dropdown-item"><i
-                                                                    class="dropdown-icon fe fe-edit-2"></i>Edit </a>
-
-                                                            <div class="dropdown-divider"></div>
-
-                                                            <span id="delete" data-toggle="modal"
-                                                                data-target="#delete-group-modal"
-                                                                class="hide-item"></span>
-                                                            <a name="deletegroup" href="javascript:void(0)"
-                                                                attr.data-discussionid="" class="dropdown-item"><i
-                                                                    class="dropdown-icon fe fe-trash-2"></i> Delete</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Comment Section End-->
-
-                        <!-- Post Comment Input Area-->
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Message">
-                                            <div class="input-group-append">
-                                                <button type="button" class="btn btn-secondary">
-                                                    <i class="fa fa-send"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Post Comment Input Area End-->
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Main Area end-->
-
-
-    <!-- Modal Area-->
-    <!-- Modal -->
-
-
-    <!--Create Post Modal-->
-    <div class="modal fade modal-wrap" id="create-post-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
-      aria-hidden="true">
-      <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="col-12 modal-title modal-title-settings" id="exampleModalLongTitle">Post Creation
-              <button id="createmodal-close" type="button" class="close" data-dismiss="modal"
-                aria-label="Close"></button>
-            </h5>
-
+          <div class="col-lg">
+            <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
+              <li class="nav-item">
+                <a href="#" class="nav-link"><i class="fe fe-home"></i> Home</a>
+              </li>
+              <li class="nav-item">
+                <a href="javascript:void(0);" class="nav-link" data-toggle="modal" data-target="#create-post-modal"><i
+                    class="fe fe-box"></i> Create Post</a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link" data-toggle="modal" data-target="#tba-modal"><i
+                    class="fe fe-check-square"></i>TBA</a>
+              </li>
+            </ul>
           </div>
-          <div class="modal-body">
-            <form action="javascript:void(0);" action="post">
-              <div class="container-fluid">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12">
-                      <div class="form-group">
-                        <label class="form-label">Subject
-                          <span class="form-required">*</span>
-                          <span id="creategroup-title-count"
-                            class="form-label-small">{{create_group_title_count}}</span>
-                        </label>
-                        <input id="createpost-title" attr.maxlength="{{MAX_TITLE_LIMIT}}" class="form-control"
-                          type="input"  placeholder="Enter Post Subject"
-                          (input)="onUpdateCreateGroup($event)" (keyup)="onUpdateCreateGroup($event)" />
-                        <div id="error-creategroup-title" class="invalid-feedback">{{error_createpost_subject}}</div>
-                      </div>
-                    </div>
-                  </div>
 
-                  <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12">
-                      <div class="form-group">
-                        <label class="form-label">Content
-                          <span id="creategroup-description-count"
-                            class="form-label-small">{{createpost_content__count}}</span>
-                        </label>
-                        <textarea attr.maxlength="{{MAX_CONTENT_LIMIT}}" id="createpost-content"
-                          (input)="onUpdateCreateGroup($event)" (keyup)="onUpdateCreateGroup($event)"
-                          class="form-control" name="group-description" style="resize: none;" rows="6"
-                          placeholder="Enter a short description for your post"></textarea>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+          <div class="col-lg-3 ml-auto">
+            <form class="input-icon my-3 my-lg-0">
+              <input type="search" class="form-control header-search" placeholder="Search &hellip;" tabindex="1">
+              <div class="input-icon-addon">
+                <i class="fe fe-search"></i>
               </div>
             </form>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <div class="{{css_loading_createpost}}">
-              <div class="loader"></div>
-              <div class="dimmer-content">
-                <button type="button" class="btn btn-primary" (click)="onSubmit($event)"
-                  id="btn-creategroup">Create Post</button>
-              </div>
-            </div>
-          </div>
+
 
         </div>
       </div>
     </div>
+
+    <div class="my-3 my-mid-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 col-sm-6">
+
+            <!-- Post Selection Area-->
+            <div class="row">
+              <div class="col-12">
+                <!-- Alert Area-->
+                <div class="alert alert-success alert-dismissible {{alert_success_settings}}">
+                  <button id="alert-success-creategroup" (click)="onAlertSuccessClose($event)" class="close"></button>
+                  <i class="fe fe-check mr-2" aria-hidden="true"></i> {{alert_success_message}}
+                </div>
+                <!-- Alert Area End-->
+
+                <div class="card posts-list">
+                  <div class="card-status card-status-left bg-purple"></div>
+                  <div class="card-header">
+                    <h3 class="card-title">Posts</h3>
+                  </div>
+                  <div class="card-body cardbody-group o-auto">
+                    <ul class="list-unstyled list-separated">
+                      <li *ngFor="let post of current_posts; let i = index" id="post-option{{post.PostId}}"
+                        (click)="onChangePost(post.PostId)" attr.data-postid="{{post.PostId}}"
+                        class="list-separated-item postrow {{post.Active}} ">
+                        <div class="row align-items-center">
+                          <div class="col-auto">
+
+                          </div>
+                          <div class="col">
+                            <div>
+                              <a href="javascript:void(0)" class="text-inherit">{{post.Title}}</a>
+                            </div>
+                            <small
+                              class="d-block item-except text-sm text-muted h-1x">{{posts_navigation_subsection[i]}}
+                            </small>
+                          </div>
+                          <div class="col-auto">
+                            <div *ngIf="post.UserRole === 0" class="item-action dropdown">
+                              <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i
+                                  class="fe fe-more-vertical"></i></a>
+                              <div class="dropdown-menu dropdown-menu-right">
+                                <a attr.data-postid="{{post.PostID}}" attr.data-discussionid="{{post.DiscussionID}}"
+                                  href="javascript:void(0)" class="dropdown-item"><i
+                                    class="dropdown-icon fe fe-tag"></i> Edit </a>
+                                <div class="dropdown-divider"></div>
+                                <a attr.data-postid="{{post.PostID}}" attr.data-discussionid="{{post.DiscussionID}}"
+                                  href="javascript:void(0)" class="dropdown-item"><i
+                                    class="dropdown-icon fe fe-link"></i> Delete</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="list-separated-item"></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Post Selection Area-->
+
+            <!-- Member Area-->
+            <div class="row">
+              <div class="col-12">
+                <div class="card members-list">
+                  <div class="card-status card-status-left bg-purple"></div>
+                  <div class="card-header">
+                    <h3 class="card-title">Members</h3>
+                  </div>
+                  <div class="card-body o-auto">
+                    <ul class="list-unstyled list-separated">
+                      <li class="list-separated-item">
+                        <div class="row align-items-center">
+                          <div class="col-auto">
+                            <span class="avatar avatar-md d-block"
+                              style="background-image: url(https://tabler.github.io/tabler/demo/faces/female/1.jpg)"></span>
+                          </div>
+                          <div class="col">
+                            <div>
+                              <a href="javascript:void(0)" class="text-inherit">Amanda Hunt</a>
+                            </div>
+                            <small class="d-block item-except text-sm text-muted h-1x">amanda_hunt@example.com</small>
+                          </div>
+                          <div class="col-auto">
+                            <div class="item-action dropdown">
+                              <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i
+                                  class="fe fe-more-vertical"></i></a>
+                              <div class="dropdown-menu dropdown-menu-right">
+                                <a href="javascript:void(0)" class="dropdown-item"><i
+                                    class="dropdown-icon fe fe-tag"></i> Action </a>
+                                <a href="javascript:void(0)" class="dropdown-item"><i
+                                    class="dropdown-icon fe fe-edit-2"></i> Another action </a>
+                                <a href="javascript:void(0)" class="dropdown-item"><i
+                                    class="dropdown-icon fe fe-message-square"></i> Something else here</a>
+                                <div class="dropdown-divider"></div>
+                                <a href="javascript:void(0)" class="dropdown-item"><i
+                                    class="dropdown-icon fe fe-link"></i> Separated link</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="list-separated-item">
+                        <div class="row align-items-center">
+                          <div class="col-auto">
+                            <span class="avatar avatar-md d-block"
+                              style="background-image: url(https://tabler.github.io/tabler/demo/faces/female/1.jpg)"></span>
+                          </div>
+                          <div class="col">
+                            <div>
+                              <a href="javascript:void(0)" class="text-inherit">Laura Weaver</a>
+                            </div>
+                            <small class="d-block item-except text-sm text-muted h-1x">lauraweaver@example.com</small>
+                          </div>
+                          <div class="col-auto">
+                            <div class="item-action dropdown">
+                              <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i
+                                  class="fe fe-more-vertical"></i></a>
+                              <div class="dropdown-menu dropdown-menu-right">
+                                <a href="javascript:void(0)" class="dropdown-item"><i
+                                    class="dropdown-icon fe fe-tag"></i> Action </a>
+                                <a href="javascript:void(0)" class="dropdown-item"><i
+                                    class="dropdown-icon fe fe-edit-2"></i> Another action </a>
+                                <a href="javascript:void(0)" class="dropdown-item"><i
+                                    class="dropdown-icon fe fe-message-square"></i> Something else here</a>
+                                <div class="dropdown-divider"></div>
+                                <a href="javascript:void(0)" class="dropdown-item"><i
+                                    class="dropdown-icon fe fe-link"></i> Separated link</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="list-separated-item">
+                        <div class="row align-items-center">
+                          <div class="col-auto">
+                            <span class="avatar avatar-md d-block"
+                              style="background-image: url(https://tabler.github.io/tabler/demo/faces/female/1.jpg)"></span>
+                          </div>
+                          <div class="col">
+                            <div>
+                              <a href="javascript:void(0)" class="text-inherit">Margaret Berry</a>
+                            </div>
+                            <small class="d-block item-except text-sm text-muted h-1x">margaret88@example.com</small>
+                          </div>
+                          <div class="col-auto">
+                            <div class="item-action dropdown">
+                              <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i
+                                  class="fe fe-more-vertical"></i></a>
+                              <div class="dropdown-menu dropdown-menu-right">
+                                <a href="javascript:void(0)" class="dropdown-item"><i
+                                    class="dropdown-icon fe fe-tag"></i> Action </a>
+                                <a href="javascript:void(0)" class="dropdown-item"><i
+                                    class="dropdown-icon fe fe-edit-2"></i> Another action </a>
+                                <a href="javascript:void(0)" class="dropdown-item"><i
+                                    class="dropdown-icon fe fe-message-square"></i> Something else here</a>
+                                <div class="dropdown-divider"></div>
+                                <a href="javascript:void(0)" class="dropdown-item"><i
+                                    class="dropdown-icon fe fe-link"></i> Separated link</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="list-separated-item">
+                        <div class="row align-items-center">
+                          <div class="col-auto">
+                            <span class="avatar avatar-md d-block"
+                              style="background-image: url(demo/faces/female/2.jpg)"></span>
+                          </div>
+                          <div class="col">
+                            <div>
+                              <a href="javascript:void(0)" class="text-inherit">Nancy Herrera</a>
+                            </div>
+                            <small class="d-block item-except text-sm text-muted h-1x">nancy_83@example.com</small>
+                          </div>
+                          <div class="col-auto">
+                            <div class="item-action dropdown">
+                              <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i
+                                  class="fe fe-more-vertical"></i></a>
+                              <div class="dropdown-menu dropdown-menu-right">
+                                <a href="javascript:void(0)" class="dropdown-item"><i
+                                    class="dropdown-icon fe fe-tag"></i> Action </a>
+                                <a href="javascript:void(0)" class="dropdown-item"><i
+                                    class="dropdown-icon fe fe-edit-2"></i> Another action </a>
+                                <a href="javascript:void(0)" class="dropdown-item"><i
+                                    class="dropdown-icon fe fe-message-square"></i> Something else here</a>
+                                <div class="dropdown-divider"></div>
+                                <a href="javascript:void(0)" class="dropdown-item"><i
+                                    class="dropdown-icon fe fe-link"></i> Separated link</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="list-separated-item">
+                        <div class="row align-items-center">
+                          <div class="col-auto">
+                            <span class="avatar avatar-md d-block"
+                              style="background-image: url(demo/faces/male/34.jpg)"></span>
+                          </div>
+                          <div class="col">
+                            <div>
+                              <a href="javascript:void(0)" class="text-inherit">Edward Larson</a>
+                            </div>
+                            <small class="d-block item-except text-sm text-muted h-1x">edward90@example.com</small>
+                          </div>
+                          <div class="col-auto">
+                            <div class="item-action dropdown">
+                              <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i
+                                  class="fe fe-more-vertical"></i></a>
+                              <div class="dropdown-menu dropdown-menu-right">
+                                <a href="javascript:void(0)" class="dropdown-item"><i
+                                    class="dropdown-icon fe fe-tag"></i> Action </a>
+                                <a href="javascript:void(0)" class="dropdown-item"><i
+                                    class="dropdown-icon fe fe-edit-2"></i> Another action </a>
+                                <a href="javascript:void(0)" class="dropdown-item"><i
+                                    class="dropdown-icon fe fe-message-square"></i> Something else here</a>
+                                <div class="dropdown-divider"></div>
+                                <a href="javascript:void(0)" class="dropdown-item"><i
+                                    class="dropdown-icon fe fe-link"></i> Separated link</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="list-separated-item">
+                        <div class="row align-items-center">
+                          <div class="col-auto">
+                            <span class="avatar avatar-md d-block"
+                              style="background-image: url(demo/faces/female/11.jpg)"></span>
+                          </div>
+                          <div class="col">
+                            <div>
+                              <a href="javascript:void(0)" class="text-inherit">Joan Hanson</a>
+                            </div>
+                            <small class="d-block item-except text-sm text-muted h-1x">joan.hanson@example.com</small>
+                          </div>
+                          <div class="col-auto">
+                            <div class="item-action dropdown">
+                              <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i
+                                  class="fe fe-more-vertical"></i></a>
+                              <div class="dropdown-menu dropdown-menu-right">
+                                <a href="javascript:void(0)" class="dropdown-item"><i
+                                    class="dropdown-icon fe fe-tag"></i> Action </a>
+                                <a href="javascript:void(0)" class="dropdown-item"><i
+                                    class="dropdown-icon fe fe-edit-2"></i> Another action </a>
+                                <a href="javascript:void(0)" class="dropdown-item"><i
+                                    class="dropdown-icon fe fe-message-square"></i> Something else here</a>
+                                <div class="dropdown-divider"></div>
+                                <a href="javascript:void(0)" class="dropdown-item"><i
+                                    class="dropdown-icon fe fe-link"></i> Separated link</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Member Area End -->
+
+          </div>
+          <div class="col-lg-8 col-sm-6">
+            <!-- Post Section -->
+            <div class="row">
+              <div class="col-12">
+                <div *ngFor="let post of current_posts">
+                  <div *ngIf="post.PostId === current_postid" class="card">
+                    <div class="card-status bg-blue"></div>
+                    <div class="card-header">
+                      <table class="table card-table">
+                        <tr>
+                          <td width="1" class="padding-overide"> <i class="fa fa-question-circle group-icon"></i></td>
+                          <td>
+                            <h3 class="card-title card-group-title">{{post.Title}}
+                            </h3>
+                          </td>
+                        </tr>
+                      </table>
+
+                    </div>
+                    <ul class="list-group card-list-group">
+                      <li class="list-group-item py-5">
+                        <div class="media">
+                          <div class="media-object avatar avatar-md mr-4"
+                            style="background-image: url(https://tabler.github.io/tabler/demo/faces/female/1.jpg)">
+                          </div>
+                          <div class="media-body">
+                            <div class="media-heading">
+                              <small class="float-right text-muted">{{post.DateCreated}} {{post.TimeCreated}}</small>
+                              <h5>{{post.FirstName}} {{post.LastName}}</h5>
+                            </div>
+                            <div>
+                              {{post.Content}}
+                            </div>
+
+                          </div>
+                        </div>
+                      </li>
+
+                    </ul>
+                    <div class="card-footer card-footer-group">
+                      <div class="container-fluid">
+                        <div class="row">
+                          <div class="col-md-1 col-lg-1 col-xl-1 offset-11">
+                            <div class="item-action dropdown dropdown-right">
+                              <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i
+                                  class="fe fe-more-horizontal"></i></a>
+
+
+                              <div class="dropdown-menu dropdown-menu-right">
+                                <span id="edit" data-toggle="modal" class="hide-item"
+                                  data-target="#edit-group-modal"></span>
+                                <a name="editgroup" attr.data-discussionid="" href="javascript:void(0)"
+                                  class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i>Edit </a>
+
+                                <div class="dropdown-divider"></div>
+
+                                <span id="delete" data-toggle="modal" data-target="#delete-group-modal"
+                                  class="hide-item"></span>
+                                <a name="deletegroup" href="javascript:void(0)" attr.data-discussionid=""
+                                  class="dropdown-item"><i class="dropdown-icon fe fe-trash-2"></i> Delete</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+            <!-- Post Section End-->
+
+            <!--Comment Section-->
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-status bg-green"></div>
+                  <div class="card-header">
+                    <table class="table card-table">
+                      <tr>
+                        <td width="1" class="padding-overide"> <i class="fa fa-commenting group-icon"></i></td>
+                        <td>
+                          <h3 class="card-title card-group-title">Response</h3>
+                        </td>
+                      </tr>
+                    </table>
+
+                  </div>
+                  <ul class="list-group card-list-group">
+                    <li class="list-group-item py-5">
+                      <div class="media">
+                        <div class="media-object avatar avatar-md mr-4"
+                          style="background-image: url(https://tabler.github.io/tabler/demo/faces/female/1.jpg)"></div>
+                        <div class="media-body">
+                          <div class="media-heading">
+                            <small class="float-right text-muted">4 min</small>
+                            <h5>Andrew Bernard</h5>
+                          </div>
+                          <div>
+                            Aenean lacinia bibendum nulla sed consectetur. Vestibulum id
+                            ligula
+                            porta felis euismod semper. Morbi leo risus, porta ac
+                            consectetur ac,
+                            vestibulum at eros. Cras
+                            justo odio, dapibus ac facilisis in, egestas eget quam.
+                            Vestibulum id
+                            ligula porta felis euismod semper. Cum sociis natoque penatibus
+                            et
+                            magnis dis parturient montes,
+                            nascetur ridiculus mus.
+
+                            <br /><br />
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
+                            dictum faucibus ex, in scelerisque nisl hendrerit ullamcorper.
+                            Praesent quis finibus erat. Integer leo felis, elementum sed
+                            urna quis, malesuada accumsan ante. Curabitur viverra consequat
+                            dapibus. Etiam dignissim laoreet facilisis. Ut eleifend ante
+                            quis nunc commodo, in iaculis purus ornare. Quisque vitae velit
+                            quis enim tempor porta. Integer vel tortor interdum, vestibulum
+                            velit quis, lobortis purus. Proin finibus molestie ultricies.
+                            Praesent sit amet purus at purus tristique posuere. Sed quis
+                            hendrerit est. Nam ut dolor sapien. Donec lobortis ipsum
+                            pharetra tempor condimentum. Mauris facilisis lectus eget ante
+                            venenatis, vel efficitur eros malesuada. Aliquam sollicitudin
+                            urna nisl, vitae faucibus mi eleifend mollis.
+                          </div>
+
+                        </div>
+                      </div>
+                    </li>
+
+                  </ul>
+                  <div class="card-footer card-footer-group">
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-md-1 col-lg-1 col-xl-1 offset-11">
+                          <div class="item-action dropdown dropdown-right">
+                            <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i
+                                class="fe fe-more-horizontal"></i></a>
+
+
+                            <div class="dropdown-menu dropdown-menu-right">
+                              <span id="edit" data-toggle="modal" class="hide-item"
+                                data-target="#edit-group-modal"></span>
+                              <a name="editgroup" attr.data-discussionid="" href="javascript:void(0)"
+                                class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i>Edit </a>
+
+                              <div class="dropdown-divider"></div>
+
+                              <span id="delete" data-toggle="modal" data-target="#delete-group-modal"
+                                class="hide-item"></span>
+                              <a name="deletegroup" href="javascript:void(0)" attr.data-discussionid=""
+                                class="dropdown-item"><i class="dropdown-icon fe fe-trash-2"></i> Delete</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Comment Section End-->
+
+            <!-- Post Comment Input Area-->
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <div class="input-group">
+                      <input type="text" class="form-control" placeholder="Message">
+                      <div class="input-group-append">
+                        <button type="button" class="btn btn-secondary">
+                          <i class="fa fa-send"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <!-- Post Comment Input Area End-->
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Main Area end-->
+
+
+  <!-- Modal Area-->
+  <!-- Modal -->
+
+
+  <!--Create Post Modal-->
+  <div class="modal fade modal-wrap" id="create-post-modal" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="col-12 modal-title modal-title-settings" id="exampleModalLongTitle">Post Creation
+            <button id="createmodal-close" type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+          </h5>
+
+        </div>
+        <div class="modal-body">
+          <form action="javascript:void(0);" action="post">
+            <div class="container-fluid">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="form-group">
+                      <label class="form-label">Subject
+                        <span class="form-required">*</span>
+                        <span id="creategroup-title-count" class="form-label-small">{{createpost_subject_count}}</span>
+                      </label>
+                      <input id="createpost-subject" attr.maxlength="{{MAX_SUBJECT_LIMIT}}" class="form-control"
+                        type="input" placeholder="Enter Post Subject" (input)="onUpdateCreatePost($event)"
+                        (keyup)="onUpdateCreatePost($event)" />
+                      <div id="error-createpost-subject" class="invalid-feedback">{{error_createpost_subject}}</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="form-group">
+                      <label class="form-label">Content
+                        <span class="form-required">*</span>
+                        <span id="creategroup-description-count"
+                          class="form-label-small">{{createpost_content_count}}</span>
+                      </label>
+                      <textarea attr.maxlength="{{MAX_CONTENT_LIMIT}}" id="createpost-content"
+                        (input)="onUpdateCreatePost($event)" (keyup)="onUpdateCreatePost($event)" class="form-control"
+                        name="post-content" style="resize: none;" rows="6"
+                        placeholder="Enter a short description for your post"></textarea>
+                      <div id="error-createpost-content" class="invalid-feedback">{{error_createpost_content}}</div>
+                      <div id="error-createpost-server" class="invalid-feedback">{{error_createpost_server}}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <div class="{{css_loading_createpost}}">
+            <div class="loader"></div>
+            <div class="dimmer-content">
+              <button type="button" class="btn btn-primary" (click)="onSubmit($event)" id="btn-createpost">Create
+                Post</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
 </div>

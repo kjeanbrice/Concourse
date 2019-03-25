@@ -19,7 +19,11 @@ exec spGetDiscussionBoardMembers @UserId='b47365c3-21b6-446f-91ce-f7006ca3776c',
 exec spBanUserFromDiscussionBoard @UserId='40f559e6-418a-43f5-a7ad-d5a6058058ac', @UserIdToBan='058019a2-dd6c-4ad9-b296-b38821a67d09', @DiscussionBoardId = 100, @BanValue = 0
 exec spConfirmUserById @UserId='40f559e6-418a-43f5-a7ad-d5a6058058ac', @UserIdToConfirm='058019a2-dd6c-4ad9-b296-b38821a67d09', @DiscussionBoardId = 100
 
-exec spCreatePost @DiscussionBoardId=100, @UserId='40f559e6-418a-43f5-a7ad-d5a6058058ac', @Title ='New Post From Boad Admin', @Content = 'Content'
+exec spCreatePost @DiscussionBoardId=100, @UserId='40f559e6-418a-43f5-a7ad-d5a6058058ac', @Title ='New Post From Boad Admin', @Content = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed scelerisque nulla id tellus egestas malesuada. Morbi sodales diam ut magna luctus, quis viverra elit dignissim. In vulputate facilisis purus in posuere. Pellentesque sem est, hendrerit quis velit in, malesuada aliquam velit. Nullam at dui pellentesque, ornare libero at, fringilla dui. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In a nisi faucibus, semper lacus vitae, malesuada eros. Vestibulum sit amet tempus nunc, et efficitur nisi. In luctus vehicula ipsum sed elementum. Donec tempor iaculis porttitor. Nam est felis, gravida et cursus a, rutrum sit amet lacus. Aenean posuere dui at nulla consectetur, non porttitor metus bibendum. Morbi non velit sit amet elit blandit consectetur quis quis lectus.
+
+Vivamus vel felis varius, sollicitudin arcu in, convallis ex. Aliquam sodales varius ultrices. Fusce eget elementum nulla. Nunc mattis vehicula ante quis iaculis. Sed non elit arcu. Vestibulum elementum luctus fermentum. Maecenas nulla nisl, varius a massa a, suscipit vehicula magna. Phasellus fermentum volutpat risus, et maximus justo semper a. Phasellus euismod quam vitae imperdiet convallis. Integer eu magna suscipit, iaculis quam sit amet, laoreet magna. Fusce lectus dolor, luctus nec sem et, rhoncus volutpat lorem. Sed sed scelerisque leo. Donec dapibus vitae ligula sed euismod. Phasellus imperdiet suscipit scelerisque. Sed malesuada auctor tortor quis facilisis.
+
+Integer at fringilla nulla, vel egestas velit. Aenean dignissim ut tortor ut molestie. Morbi interdum, diam commodo tempus varius, quam dolor laoreet nunc, at efficitur libero sem id felis. Duis ut pretium elit. Aenean eu rutrum nibh, ut aliquet elit. Donec et mi in nunc laoreet pulvinar sed non massa. Aliquam egestas est vitae nunc efficitur tincidunt. Phasellus sit amet congue mauris. Nullam vel lobortis justo. Praesent mattis turpis a neque ultrices, cursus ullamcorper nibh luctus. Morbi gravida dignissim sollicitudin. Mauris auctor in erat sed faucibus.'
 exec spCreatePost @DiscussionBoardId=100, @UserId='058019a2-dd6c-4ad9-b296-b38821a67d09', @Title ='New Post Banned', @Content = 'Content Banned'
 
 exec spGetPosts @DiscussionBoardId = 100, @UserId =  '40f559e6-418a-43f5-a7ad-d5a6058058ac'
@@ -72,6 +76,8 @@ Select Id, username from dbo.AspNetUsers
 Select Title From dbo.DiscussionBoard Where '40f559e6-418a-43f5-a7ad-d5a6058058ac' in (Select Id From dbo.AspNetUsers)
 
 Select * from dbo.DiscussionBoard
+
+Select * from dbo.Post
 				
 Insert INTO dbo.AdminData(UserId,AdminRole)
 Values('b47365c3-21b6-446f-91ce-f7006ca3776c',0)

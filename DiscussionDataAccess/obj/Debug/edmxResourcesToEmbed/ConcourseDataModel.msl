@@ -82,6 +82,20 @@
     <FunctionImportMapping FunctionImportName="spDeleteCommentById" FunctionName="ConcourseModel.Store.spDeleteCommentById" />
     <FunctionImportMapping FunctionImportName="spDeleteDiscussionBoard" FunctionName="ConcourseModel.Store.spDeleteDiscussionBoard" />
     <FunctionImportMapping FunctionImportName="spDeletePost" FunctionName="ConcourseModel.Store.spDeletePost" />
+    <FunctionImportMapping FunctionImportName="spGetComments" FunctionName="ConcourseModel.Store.spGetComments">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ConcourseModel.spGetComments_Result">
+          <ScalarProperty Name="CommentID" ColumnName="CommentID" />
+          <ScalarProperty Name="PostID" ColumnName="PostID" />
+          <ScalarProperty Name="DiscussionBoardID" ColumnName="DiscussionBoardID" />
+          <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="UserRole" ColumnName="UserRole" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="TimeCreated" ColumnName="TimeCreated" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="spGetCommentsByPostId" FunctionName="ConcourseModel.Store.spGetCommentsByPostId">
       <ResultMapping>
         <ComplexTypeMapping TypeName="ConcourseModel.spGetCommentsByPostId_Result">
@@ -90,6 +104,7 @@
           <ScalarProperty Name="DiscussionBoardID" ColumnName="DiscussionBoardID" />
           <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
           <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="UserRole" ColumnName="UserRole" />
           <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
           <ScalarProperty Name="TimeCreated" ColumnName="TimeCreated" />
         </ComplexTypeMapping>
@@ -143,6 +158,7 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spIsAdmin" FunctionName="ConcourseModel.Store.spIsAdmin" />
     <FunctionImportMapping FunctionImportName="spJoinDiscussionBoard" FunctionName="ConcourseModel.Store.spJoinDiscussionBoard" />
     <FunctionImportMapping FunctionImportName="spRemoveUserFromDiscussionBoard" FunctionName="ConcourseModel.Store.spRemoveUserFromDiscussionBoard" />
     <FunctionImportMapping FunctionImportName="spUpdateCommentById" FunctionName="ConcourseModel.Store.spUpdateCommentById" />

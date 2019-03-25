@@ -339,7 +339,7 @@ Create Proc spCreatePost
 	@DiscussionBoardId int,
 	@UserId nvarchar(128),
 	@Title nvarchar(150),
-	@Content nvarchar(500)
+	@Content nvarchar(4000)
 As
 Begin
 	Declare @ErrorMessage nvarchar(MAX)
@@ -612,13 +612,14 @@ Begin
 				End	
 			End
 
-			Select PostId, dbo.Post.DiscussionBoardID, dbo.DiscussionBoardMember.UserRole, OwnerId, Title, Content, AspNetUsers.FirstName, AspNetUsers.LastName, AspNetUsers.UserName ,Format(DateCreated, 'dddd MMMM dd, yyyy') AS DateCreated,  Format(DateCreated, 'hh:mm:ss tt') As TimeCreated
+			Select PostId, dbo.Post.DiscussionBoardID, dbo.DiscussionBoardMember.UserRole, OwnerId, Title, Content, AspNetUsers.FirstName, AspNetUsers.LastName, AspNetUsers.UserName ,Format(DateCreated, 'dddd MMMM dd, yyyy') AS DateCreated,  Format(DateCreated, 'hh:mm tt') As TimeCreated
 			From dbo.Post
 			Join dbo.AspNetUsers 
 			ON Post.OwnerId = AspNetUsers.Id
 			Join dbo.DiscussionBoardMember
 			ON dbo.DiscussionBoardMember.DiscussionBoardId = @DiscussionBoardId AND dbo.DiscussionBoardMember.UserId = @UserId
-			Where dbo.Post.DiscussionBoardId = @DiscussionBoardId 
+			Where dbo.Post.DiscussionBoardId = @DiscussionBoardId
+			ORDER BY dbo.Post.DateCreated DESC 
 
 		Commit Transaction
 	End Try
@@ -1074,9 +1075,83 @@ Begin
 				RETURN
 			End
 
-			Select CommentID, PostID, DiscussionBoardID, OwnerId, Content,  Format(DateCreated, 'dddd MMMM dd, yyyy') AS DateCreated,  Format(DateCreated, 'hh:mm:ss tt') As TimeCreated
+			Select CommentID, PostID, Comment.DiscussionBoardID, OwnerId, Content,dbo.DiscussionBoardMember.UserRole,Format(DateCreated, 'dddd MMMM dd, yyyy') AS DateCreated,  Format(DateCreated, 'hh:mm:ss tt') As TimeCreated
 			From dbo.Comment
-			Where DiscussionBoardId = @DiscussionBoardId And IsDeleted = 0
+			Join dbo.DiscussionBoardMember
+			On dbo.DiscussionBoardMember.DiscussionBoardId = @DiscussionBoardId
+			Where Comment.DiscussionBoardId = @DiscussionBoardId And Comment.IsDeleted = 0 And Comment.PostID = @PostId
+			Order By CommentID ASC
+
+		Commit Transaction
+	End Try
+	Begin Catch
+		Rollback Transaction
+		Select @ErrorMessage = ERROR_MESSAGE();
+		RAISERROR(@ErrorMessage,16,1)
+	End Catch
+End
+Go
+
+
+
+
+Drop Proc spGetComments
+Go
+Create Proc spGetComments
+	@DiscussionBoardId int,
+	@UserId nvarchar(128)
+
+As
+Begin
+	Declare @ErrorMessage nvarchar(MAX)
+	Begin Try
+		Begin Transaction
+			
+			If( @UserId = NULL OR @DiscussionBoardId = NULL )
+			Begin
+				RAISERROR('INVALD_REQUEST_NULL',16,1)
+				RETURN
+			End
+
+			--Throws an error back to the calling application if the requested user doesn't exist
+			Declare @IsValid int
+			exec spIsValidUser @id = @userId, @Status = @IsValid output
+			If @IsValid <> 1
+			Begin
+				RAISERROR('INVALID_REQUEST_USER',16,1)
+				RETURN
+			End
+
+		    --Throws an error back to the calling application if the discussion board doesn't exist
+			Set @IsValid = 0;
+			exec spIsValidDiscussionBoard @DiscussionBoardId=@DiscussionBoardId, @Status = @IsValid output
+			If @IsValid <> 1
+			Begin
+				RAISERROR('INVALID_REQUEST_ID',16,1)
+				RETURN
+			End
+
+			--Throws an error back to the calling application if the specified user is not a member of the requested discussion board
+			Declare @IsMember int
+			Set @IsMember = 0
+			exec spIsMemberOfDiscussionBoard @UserId = @UserId, @DiscussionBoardId = @DiscussionBoardId, @Status = @IsMember output
+			If @IsMember <> 1
+			Begin
+				Declare @HasPermission int
+				Set @HasPermission = 0
+				exec spHasPermissions @UserId = @UserId,@DiscussionBoardId = @DiscussionBoardId, @Status=@HasPermission output
+				If @HasPermission = 0
+				Begin
+					RAISERROR('INVALID_REQUEST_GROUP',16,1)
+					RETURN
+				End	
+			End
+
+			Select CommentID, PostID, Comment.DiscussionBoardID, OwnerId, Content,dbo.DiscussionBoardMember.UserRole,Format(DateCreated, 'dddd MMMM dd, yyyy') AS DateCreated,  Format(DateCreated, 'hh:mm:ss tt') As TimeCreated
+			From dbo.Comment
+			Join dbo.DiscussionBoardMember
+			On dbo.DiscussionBoardMember.DiscussionBoardId = @DiscussionBoardId
+			Where Comment.DiscussionBoardId = @DiscussionBoardId And Comment.IsDeleted = 0
 			Order By CommentID ASC
 
 		Commit Transaction

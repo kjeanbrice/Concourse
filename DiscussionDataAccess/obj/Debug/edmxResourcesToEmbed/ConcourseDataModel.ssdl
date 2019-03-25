@@ -17,7 +17,7 @@
     <Property Name="DiscussionBoardId" Type="int" Nullable="false" />
     <Property Name="PostID" Type="int" Nullable="false" />
     <Property Name="OwnerId" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="Content" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
     <Property Name="DateCreated" Type="datetime" />
     <Property Name="IsDeleted" Type="int" />
   </EntityType>
@@ -63,8 +63,8 @@
     <Property Name="PostID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="DiscussionBoardID" Type="int" Nullable="false" />
     <Property Name="OwnerId" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="Title" Type="nvarchar" MaxLength="150" Nullable="false" />
-    <Property Name="Content" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
     <Property Name="DateCreated" Type="datetime" />
     <Property Name="IsDeleted" Type="int" />
   </EntityType>
@@ -171,6 +171,10 @@
     <Parameter Name="UserId" Type="nvarchar" Mode="In" />
     <Parameter Name="PostId" Type="int" Mode="In" />
   </Function>
+  <Function Name="spGetComments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="DiscussionBoardId" Type="int" Mode="In" />
+    <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+  </Function>
   <Function Name="spGetCommentsByPostId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="DiscussionBoardId" Type="int" Mode="In" />
     <Parameter Name="PostId" Type="int" Mode="In" />
@@ -186,6 +190,10 @@
   <Function Name="spGetPosts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="DiscussionBoardId" Type="int" Mode="In" />
     <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="spIsAdmin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+    <Parameter Name="Status" Type="int" Mode="InOut" />
   </Function>
   <Function Name="spJoinDiscussionBoard" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="CodeId" Type="int" Mode="In" />

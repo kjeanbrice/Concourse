@@ -11,7 +11,7 @@ namespace DiscussionDataAccess
 {
     using System;
     
-    public partial class spGetCommentsByPostId_Result
+    public partial class spGetComments_Result
     {
         public int CommentID { get; set; }
         public int PostID { get; set; }

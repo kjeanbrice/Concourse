@@ -54,3 +54,18 @@
 .activepost{
     background-color: rgba(0, 0, 0, 0.04);
 }
+
+
+
+.modal-title-settings{
+    text-align: center;
+    
+}
+
+.hide-item{
+    display:none;
+}
+
+.modal-wrap{
+    word-wrap: break-word;
+}
