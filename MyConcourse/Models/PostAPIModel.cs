@@ -10,6 +10,7 @@ namespace MyConcourse.Models
         public string DiscussionBoardID { get; set; }
         public string PostID { get; set; }
         public string Content { get; set; }
+        public string ContentDelta { get; set; }
         public string Subject { get; set; }
 
     }

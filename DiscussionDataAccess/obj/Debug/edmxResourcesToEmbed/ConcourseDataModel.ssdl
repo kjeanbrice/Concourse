@@ -17,7 +17,8 @@
     <Property Name="DiscussionBoardId" Type="int" Nullable="false" />
     <Property Name="PostID" Type="int" Nullable="false" />
     <Property Name="OwnerId" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Content" Type="nvarchar" MaxLength="2000" Nullable="false" />
+    <Property Name="ContentDelta" Type="nvarchar" MaxLength="2000" Nullable="false" />
     <Property Name="DateCreated" Type="datetime" />
     <Property Name="IsDeleted" Type="int" />
   </EntityType>
@@ -64,7 +65,8 @@
     <Property Name="DiscussionBoardID" Type="int" Nullable="false" />
     <Property Name="OwnerId" Type="nvarchar" MaxLength="128" Nullable="false" />
     <Property Name="Title" Type="nvarchar" MaxLength="200" Nullable="false" />
-    <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Content" Type="nvarchar" MaxLength="2000" Nullable="false" />
+    <Property Name="ContentDelta" Type="nvarchar" MaxLength="2000" Nullable="false" />
     <Property Name="DateCreated" Type="datetime" />
     <Property Name="IsDeleted" Type="int" />
   </EntityType>
@@ -144,6 +146,7 @@
     <Parameter Name="DiscussionBoardId" Type="int" Mode="In" />
     <Parameter Name="PostId" Type="int" Mode="In" />
     <Parameter Name="Content" Type="nvarchar" Mode="In" />
+    <Parameter Name="ContentDelta" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="spCreateDiscussionBoard" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="UserId" Type="nvarchar" Mode="In" />
@@ -156,6 +159,7 @@
     <Parameter Name="UserId" Type="nvarchar" Mode="In" />
     <Parameter Name="Title" Type="nvarchar" Mode="In" />
     <Parameter Name="Content" Type="nvarchar" Mode="In" />
+    <Parameter Name="ContentDelta" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="spDeleteCommentById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="UserId" Type="nvarchar" Mode="In" />
@@ -210,6 +214,7 @@
     <Parameter Name="CommentId" Type="int" Mode="In" />
     <Parameter Name="DiscussionBoardId" Type="int" Mode="In" />
     <Parameter Name="NewContent" Type="nvarchar" Mode="In" />
+    <Parameter Name="NewContentDelta" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="spUpdateDiscussionBoard" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="UserId" Type="nvarchar" Mode="In" />
@@ -228,6 +233,7 @@
     <Parameter Name="PostId" Type="int" Mode="In" />
     <Parameter Name="NewTitle" Type="nvarchar" Mode="In" />
     <Parameter Name="NewContent" Type="nvarchar" Mode="In" />
+    <Parameter Name="NewContentDelta" Type="nvarchar" Mode="In" />
   </Function>
   <EntityContainer Name="ConcourseModelStoreContainer">
     <EntitySet Name="AdminData" EntityType="Self.AdminData" Schema="dbo" store:Type="Tables" />

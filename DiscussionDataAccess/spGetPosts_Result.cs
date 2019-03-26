@@ -24,5 +24,6 @@ namespace DiscussionDataAccess
         public string UserName { get; set; }
         public string DateCreated { get; set; }
         public string TimeCreated { get; set; }
+        public string ContentDelta { get; set; }
     }
 }

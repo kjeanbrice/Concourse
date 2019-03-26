@@ -490,7 +490,7 @@ namespace MyConcourse.Controllers
                 using (ConcourseEntities entities = new ConcourseEntities())
                 {
                     entities.Configuration.EnsureTransactionsForFunctionsAndCommands = false;
-                    results = entities.spCreatePost(discussion_board_id, user_id,post.Subject.Trim(),post.Content.Trim());
+                    results = entities.spCreatePost(discussion_board_id, user_id,post.Subject.Trim(),post.Content.Trim(),post.ContentDelta);
                     
                 }
 

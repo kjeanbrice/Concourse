@@ -12,6 +12,31 @@
     vertical-align: middle;
 }
 
+.post-nav-heading, .member-nav-heading{
+    font-weight: 600;
+}
+
+.ql-editor-settings-view{
+}
+
+.ql-editor-settings-edit{
+}
+
+
+
+.q1-container{
+    font-size: inherit !important;
+    font-family: inherit !important;
+}
+
+
+
+pre{
+     text-shadow: 0 0px white !important; 
+}
+
+
+
 .dropdown-right{
     float:right;
 }
@@ -22,7 +47,7 @@
 
 .members-list{
     min-height: 20rem;
-    max-height: 35rem;
+    max-height: 30rem;
     
 }
 

@@ -8,6 +8,8 @@ import { AppRoutingModule } from './routes/index';
 import { UserService, DashboardService, DiscussionBoardService } from './services/index';
 import { AuthGuard } from './routes/guards/index';
 import { AuthenticationModule, ErrorsModule } from './modules/index';
+import {QuillModule} from 'ngx-quill';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,10 @@ import { AuthenticationModule, ErrorsModule } from './modules/index';
     HttpClientModule,
     AppRoutingModule,
     AuthenticationModule,
-    ErrorsModule
+    ErrorsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    QuillModule
   ],
   providers: [
     UserService,

@@ -55,7 +55,7 @@ export class DiscussionBoardService {
     }
 
 
-    createPost(discussionboard_id: number, subject: string, content: string): Observable<Post[]> {
+    createPost(discussionboard_id: number, subject: string, content: string, content_delta: any): Observable<Post[]> {
 
         const httpOptions = {
             headers: new HttpHeaders({
@@ -73,6 +73,8 @@ export class DiscussionBoardService {
           params_opt = params_opt.set('discussionBoardid', '' + discussionboard_id);
           params_opt = params_opt.set('subject', subject);
           params_opt = params_opt.set('content', content);
+          params_opt = params_opt.set('contentdelta', JSON.stringify(content_delta));
+
         return this.http.post<Post[]>(DiscussionBoardService.BASE_URL + '/api/dashboard/createpost', params_opt, {headers: httpHeaders})
             .pipe(
                 retryWhen((errors) => {

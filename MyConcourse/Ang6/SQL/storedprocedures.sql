@@ -339,14 +339,17 @@ Create Proc spCreatePost
 	@DiscussionBoardId int,
 	@UserId nvarchar(128),
 	@Title nvarchar(150),
-	@Content nvarchar(4000)
+	@Content nvarchar(2500),
+	@ContentDelta nvarchar(2500)
 As
 Begin
 	Declare @ErrorMessage nvarchar(MAX)
 	Begin Try
 		Begin Transaction
 			
-			If( @UserId = NULL OR @DiscussionBoardId = NULL OR @Title = NULL OR @Content = NULL)
+			
+
+			If( @UserId = NULL  OR @DiscussionBoardId = NULL OR @Title = NULL OR @Content = NULL)
 			Begin
 				RAISERROR('INVALD_REQUEST_NULL',16,1)
 				RETURN
@@ -400,8 +403,9 @@ Begin
 				End
 			End
 
-			Insert dbo.Post(DiscussionBoardID,OwnerId,Title,Content)
-			Values (@DiscussionBoardId, @UserId, @Title, @Content)
+			Insert dbo.Post(DiscussionBoardID,OwnerId,Title,Content,ContentDelta)
+			Values (@DiscussionBoardId, @UserId, @Title, @Content, @ContentDelta)
+			
 
 		Commit Transaction
 	End Try
@@ -413,6 +417,7 @@ Begin
 End
 Go
 
+
 Drop Proc spUpdatePost
 Go
 Create Proc spUpdatePost
@@ -420,7 +425,8 @@ Create Proc spUpdatePost
 	@UserId nvarchar(128),
 	@PostId int,
 	@NewTitle nvarchar(150),
-	@NewContent nvarchar(500)
+	@NewContent nvarchar(2500),
+	@NewContentDelta nvarchar(2500)
 As
 Begin
 	Declare @ErrorMessage nvarchar(MAX)
@@ -488,7 +494,7 @@ Begin
 			End
 
 			Update dbo.Post
-			Set Title = @NewTitle, Content = @NewContent
+			Set Title = @NewTitle, Content = @NewContent, ContentDelta = @NewContentDelta
 			Where PostId = @PostId
 
 		Commit Transaction
@@ -612,7 +618,7 @@ Begin
 				End	
 			End
 
-			Select PostId, dbo.Post.DiscussionBoardID, dbo.DiscussionBoardMember.UserRole, OwnerId, Title, Content, AspNetUsers.FirstName, AspNetUsers.LastName, AspNetUsers.UserName ,Format(DateCreated, 'dddd MMMM dd, yyyy') AS DateCreated,  Format(DateCreated, 'hh:mm tt') As TimeCreated
+			Select PostId, dbo.Post.DiscussionBoardID, dbo.DiscussionBoardMember.UserRole, OwnerId, Title, Content, ContentDelta , AspNetUsers.FirstName, AspNetUsers.LastName, AspNetUsers.UserName ,Format(DateCreated, 'dddd MMMM dd, yyyy') AS DateCreated,  Format(DateCreated, 'hh:mm tt') As TimeCreated
 			From dbo.Post
 			Join dbo.AspNetUsers 
 			ON Post.OwnerId = AspNetUsers.Id
@@ -861,7 +867,8 @@ Create Proc spCreateComment
 	@UserId nvarchar(128),
 	@DiscussionBoardId int,
 	@PostId int,
-	@Content nvarchar(500)
+	@Content nvarchar(2500),
+	@ContentDelta nvarchar(2500)
 As
 Begin
 	Declare @ErrorMessage nvarchar(MAX)
@@ -926,8 +933,8 @@ Begin
 				RETURN
 			End
 
-			Insert Into dbo.Comment(DiscussionBoardId,OwnerID,PostID,Content)
-			Values(@DiscussionBoardId,@UserId,@PostId,@Content)
+			Insert Into dbo.Comment(DiscussionBoardId,OwnerID,PostID,Content, ContentDelta)
+			Values(@DiscussionBoardId,@UserId,@PostId,@Content, @ContentDelta)
 
 			/*Select dbo.DiscussionBoard.DiscussionBoardId
 			From dbo.DiscussionBoard
@@ -1075,7 +1082,7 @@ Begin
 				RETURN
 			End
 
-			Select CommentID, PostID, Comment.DiscussionBoardID, OwnerId, Content,dbo.DiscussionBoardMember.UserRole,Format(DateCreated, 'dddd MMMM dd, yyyy') AS DateCreated,  Format(DateCreated, 'hh:mm:ss tt') As TimeCreated
+			Select CommentID, PostID, Comment.DiscussionBoardID, OwnerId, Content, ContentDelta, dbo.DiscussionBoardMember.UserRole,Format(DateCreated, 'dddd MMMM dd, yyyy') AS DateCreated,  Format(DateCreated, 'hh:mm:ss tt') As TimeCreated
 			From dbo.Comment
 			Join dbo.DiscussionBoardMember
 			On dbo.DiscussionBoardMember.DiscussionBoardId = @DiscussionBoardId
@@ -1147,7 +1154,7 @@ Begin
 				End	
 			End
 
-			Select CommentID, PostID, Comment.DiscussionBoardID, OwnerId, Content,dbo.DiscussionBoardMember.UserRole,Format(DateCreated, 'dddd MMMM dd, yyyy') AS DateCreated,  Format(DateCreated, 'hh:mm:ss tt') As TimeCreated
+			Select CommentID, PostID, Comment.DiscussionBoardID, OwnerId, Content, ContentDelta, dbo.DiscussionBoardMember.UserRole,Format(DateCreated, 'dddd MMMM dd, yyyy') AS DateCreated,  Format(DateCreated, 'hh:mm:ss tt') As TimeCreated
 			From dbo.Comment
 			Join dbo.DiscussionBoardMember
 			On dbo.DiscussionBoardMember.DiscussionBoardId = @DiscussionBoardId
@@ -1173,7 +1180,8 @@ Create Proc spUpdateCommentById
 	@UserId nvarchar(128),
 	@CommentId int,
 	@DiscussionBoardId int,
-	@NewContent nvarchar(500)
+	@NewContent nvarchar(2500),
+	@NewContentDelta nvarchar(2500)
 As
 Begin
 	Declare @ErrorMessage nvarchar(MAX)
@@ -1249,7 +1257,7 @@ Begin
 			End
 
 			Update dbo.Comment
-			Set Content = @NewContent
+			Set Content = @NewContent, ContentDelta = @NewContentDelta
 			Where CommentId = @CommentId
 
 		Commit Transaction

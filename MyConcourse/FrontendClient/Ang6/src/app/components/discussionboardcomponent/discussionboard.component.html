@@ -55,7 +55,15 @@
                 <div class="card posts-list">
                   <div class="card-status card-status-left bg-purple"></div>
                   <div class="card-header">
-                    <h3 class="card-title">Posts</h3>
+                    <table class="table card-table">
+                      <tr>
+                        <td width="1" class="padding-overide"> <i class="fa fa-comments group-icon"></i></td>
+                        <td>
+                          <h3 class="card-title card-group-title">Posts
+                          </h3>
+                        </td>
+                      </tr>
+                    </table>
                   </div>
                   <div class="card-body cardbody-group o-auto">
                     <ul class="list-unstyled list-separated">
@@ -68,7 +76,7 @@
                           </div>
                           <div class="col">
                             <div>
-                              <a href="javascript:void(0)" class="text-inherit">{{post.Title}}</a>
+                              <a href="javascript:void(0)" class="text-inherit post-nav-heading">{{post.Title}}</a>
                             </div>
                             <small
                               class="d-block item-except text-sm text-muted h-1x">{{posts_navigation_subsection[i]}}
@@ -105,7 +113,15 @@
                 <div class="card members-list">
                   <div class="card-status card-status-left bg-purple"></div>
                   <div class="card-header">
-                    <h3 class="card-title">Members</h3>
+                    <table class="table card-table">
+                      <tr>
+                        <td width="1" class="padding-overide"> <i class="fa fa-users group-icon"></i></td>
+                        <td>
+                          <h3 class="card-title card-group-title">Members
+                          </h3>
+                        </td>
+                      </tr>
+                    </table>
                   </div>
                   <div class="card-body o-auto">
                     <ul class="list-unstyled list-separated">
@@ -117,7 +133,7 @@
                           </div>
                           <div class="col">
                             <div>
-                              <a href="javascript:void(0)" class="text-inherit">Amanda Hunt</a>
+                              <a href="javascript:void(0)" class="text-inherit member-nav-heading">Amanda Hunt</a>
                             </div>
                             <small class="d-block item-except text-sm text-muted h-1x">amanda_hunt@example.com</small>
                           </div>
@@ -333,10 +349,7 @@
                               <small class="float-right text-muted">{{post.DateCreated}} {{post.TimeCreated}}</small>
                               <h5>{{post.FirstName}} {{post.LastName}}</h5>
                             </div>
-                            <div>
-                              {{post.Content}}
-                            </div>
-
+                            <quill-editor class="ql-editor-settings" [style]="viewing_area_styles" [theme]="bubble" [readOnly]="true" (onEditorCreated)="populatePostEditor($event,'apipost',post.ContentDelta)" [modules]="viewing_area_config"></quill-editor>
                           </div>
                         </div>
                       </li>
@@ -469,25 +482,40 @@
             </div>
             <!-- Comment Section End-->
 
-            <!-- Post Comment Input Area-->
+            <!-- Comment Input Area-->
             <div class="row">
               <div class="col-12">
-                <div class="card">
-                  <div class="card-header">
-                    <div class="input-group">
-                      <input type="text" class="form-control" placeholder="Message">
-                      <div class="input-group-append">
-                        <button type="button" class="btn btn-secondary">
-                          <i class="fa fa-send"></i>
-                        </button>
+                <div id = "commentinput-area" class="card {{comment_input_settings}}">
+                  <div class="card-body">
+                      <div class="container-fluid">
+                          <div class="row">
+                              <div class="col-12">
+                               
+                                      <quill-editor [style]="{height: 'auto'}" (onContentChanged)="onUpdate($event,'createcomment-content')" (onEditorCreated)="populatePostEditor($event,'createpost','')" [modules]="edit_area_config"></quill-editor>
+                                      
+                                    
+                              </div>
+                            </div>
+                      </div>
+                    
+                  </div>
+                  <div class="card-footer card-footer-group">
+                    <div class="container-fluid">
+                      <div class="row">
+                        
+                        <div class="col-12">
+                            <button type="button" class="btn btn-purple float-right">
+                               Reply
+                          </button>
+                        </div>
                       </div>
                     </div>
+                      
                   </div>
-
                 </div>
               </div>
             </div>
-            <!-- Post Comment Input Area End-->
+            <!--  Comment Input Area End-->
 
 
           </div>
@@ -525,7 +553,7 @@
                         <span id="creategroup-title-count" class="form-label-small">{{createpost_subject_count}}</span>
                       </label>
                       <input id="createpost-subject" attr.maxlength="{{MAX_SUBJECT_LIMIT}}" class="form-control"
-                        type="input" placeholder="Enter Post Subject" (input)="onUpdateCreatePost($event)"
+                        type="input" placeholder="Enter Post Subject" (input)="onUpdateCreatePost($event,'createpost-subject')"
                         (keyup)="onUpdateCreatePost($event)" />
                       <div id="error-createpost-subject" class="invalid-feedback">{{error_createpost_subject}}</div>
                     </div>
@@ -540,15 +568,19 @@
                         <span id="creategroup-description-count"
                           class="form-label-small">{{createpost_content_count}}</span>
                       </label>
-                      <textarea attr.maxlength="{{MAX_CONTENT_LIMIT}}" id="createpost-content"
+                      <!--<textarea attr.maxlength="{{MAX_CONTENT_LIMIT}}" id="createpost-content"
                         (input)="onUpdateCreatePost($event)" (keyup)="onUpdateCreatePost($event)" class="form-control"
                         name="post-content" style="resize: none;" rows="6"
-                        placeholder="Enter a short description for your post"></textarea>
+                        placeholder="Enter a short description for your post"></textarea>-->
+
+                      <quill-editor [style]="{minHeight: '250px'}" (onContentChanged)="onUpdate($event,'createpost-content')" (onEditorCreated)="populatePostEditor($event,'createpost','')" [modules]="edit_area_config"></quill-editor>
                       <div id="error-createpost-content" class="invalid-feedback">{{error_createpost_content}}</div>
                       <div id="error-createpost-server" class="invalid-feedback">{{error_createpost_server}}</div>
                     </div>
+
+                    
                   </div>
-                </div>
+                </div> 
               </div>
             </div>
           </form>
@@ -567,4 +599,6 @@
       </div>
     </div>
   </div>
+  <!--Modal area end-->
+  
 </div>

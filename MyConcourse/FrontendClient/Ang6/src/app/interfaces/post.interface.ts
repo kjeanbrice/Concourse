@@ -5,6 +5,7 @@ export interface Post {
     OwnerId: number;
     Title: string;
     Content: string;
+    ContentDelta: string;
     FirstName: string;
     LastName: string;
     Username: string;
