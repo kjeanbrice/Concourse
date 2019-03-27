@@ -14,12 +14,12 @@
     <EntitySetMapping Name="Comments">
       <EntityTypeMapping TypeName="ConcourseModel.Comment">
         <MappingFragment StoreEntitySet="Comment">
-          <ScalarProperty Name="ContentDelta" ColumnName="ContentDelta" />
-          <ScalarProperty Name="CommentID" ColumnName="CommentID" />
+          <ScalarProperty Name="CommentId" ColumnName="CommentId" />
           <ScalarProperty Name="DiscussionBoardId" ColumnName="DiscussionBoardId" />
-          <ScalarProperty Name="PostID" ColumnName="PostID" />
+          <ScalarProperty Name="PostId" ColumnName="PostId" />
           <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
           <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="ContentDelta" ColumnName="ContentDelta" />
           <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
           <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
         </MappingFragment>
@@ -65,12 +65,12 @@
     <EntitySetMapping Name="Posts">
       <EntityTypeMapping TypeName="ConcourseModel.Post">
         <MappingFragment StoreEntitySet="Post">
-          <ScalarProperty Name="ContentDelta" ColumnName="ContentDelta" />
-          <ScalarProperty Name="PostID" ColumnName="PostID" />
-          <ScalarProperty Name="DiscussionBoardID" ColumnName="DiscussionBoardID" />
+          <ScalarProperty Name="PostId" ColumnName="PostId" />
+          <ScalarProperty Name="DiscussionBoardId" ColumnName="DiscussionBoardId" />
           <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
           <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="ContentDelta" ColumnName="ContentDelta" />
           <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
           <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
         </MappingFragment>
@@ -87,30 +87,34 @@
     <FunctionImportMapping FunctionImportName="spGetComments" FunctionName="ConcourseModel.Store.spGetComments">
       <ResultMapping>
         <ComplexTypeMapping TypeName="ConcourseModel.spGetComments_Result">
-          <ScalarProperty Name="CommentID" ColumnName="CommentID" />
-          <ScalarProperty Name="PostID" ColumnName="PostID" />
-          <ScalarProperty Name="DiscussionBoardID" ColumnName="DiscussionBoardID" />
+          <ScalarProperty Name="CommentId" ColumnName="CommentId" />
+          <ScalarProperty Name="PostId" ColumnName="PostId" />
+          <ScalarProperty Name="DiscussionBoardId" ColumnName="DiscussionBoardId" />
           <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
           <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="ContentDelta" ColumnName="ContentDelta" />
           <ScalarProperty Name="UserRole" ColumnName="UserRole" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
           <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
           <ScalarProperty Name="TimeCreated" ColumnName="TimeCreated" />
-          <ScalarProperty Name="ContentDelta" ColumnName="ContentDelta" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="spGetCommentsByPostId" FunctionName="ConcourseModel.Store.spGetCommentsByPostId">
       <ResultMapping>
         <ComplexTypeMapping TypeName="ConcourseModel.spGetCommentsByPostId_Result">
-          <ScalarProperty Name="CommentID" ColumnName="CommentID" />
-          <ScalarProperty Name="PostID" ColumnName="PostID" />
-          <ScalarProperty Name="DiscussionBoardID" ColumnName="DiscussionBoardID" />
+          <ScalarProperty Name="CommentId" ColumnName="CommentId" />
+          <ScalarProperty Name="PostId" ColumnName="PostId" />
+          <ScalarProperty Name="DiscussionBoardId" ColumnName="DiscussionBoardId" />
           <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
           <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="ContentDelta" ColumnName="ContentDelta" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
           <ScalarProperty Name="UserRole" ColumnName="UserRole" />
           <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
           <ScalarProperty Name="TimeCreated" ColumnName="TimeCreated" />
-          <ScalarProperty Name="ContentDelta" ColumnName="ContentDelta" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -149,24 +153,23 @@
       <ResultMapping>
         <ComplexTypeMapping TypeName="ConcourseModel.spGetPosts_Result">
           <ScalarProperty Name="PostId" ColumnName="PostId" />
-          <ScalarProperty Name="DiscussionBoardID" ColumnName="DiscussionBoardID" />
+          <ScalarProperty Name="DiscussionBoardId" ColumnName="DiscussionBoardId" />
           <ScalarProperty Name="UserRole" ColumnName="UserRole" />
           <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
           <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="ContentDelta" ColumnName="ContentDelta" />
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
           <ScalarProperty Name="LastName" ColumnName="LastName" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
           <ScalarProperty Name="TimeCreated" ColumnName="TimeCreated" />
-          <ScalarProperty Name="ContentDelta" ColumnName="ContentDelta" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="spIsAdmin" FunctionName="ConcourseModel.Store.spIsAdmin" />
     <FunctionImportMapping FunctionImportName="spJoinDiscussionBoard" FunctionName="ConcourseModel.Store.spJoinDiscussionBoard" />
     <FunctionImportMapping FunctionImportName="spRemoveUserFromDiscussionBoard" FunctionName="ConcourseModel.Store.spRemoveUserFromDiscussionBoard" />
-    <FunctionImportMapping FunctionImportName="spUpdateCommentById" FunctionName="ConcourseModel.Store.spUpdateDiscussionBoardCode" />
+    <FunctionImportMapping FunctionImportName="spUpdateCommentById" FunctionName="ConcourseModel.Store.spUpdateCommentById" />
     <FunctionImportMapping FunctionImportName="spUpdateDiscussionBoard" FunctionName="ConcourseModel.Store.spUpdateDiscussionBoard" />
     <FunctionImportMapping FunctionImportName="spUpdateDiscussionBoardCode" FunctionName="ConcourseModel.Store.spUpdateDiscussionBoardCode" />
     <FunctionImportMapping FunctionImportName="spUpdatePost" FunctionName="ConcourseModel.Store.spUpdatePost" />

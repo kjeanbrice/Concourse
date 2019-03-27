@@ -3,11 +3,11 @@ import { DiscussionBoardService } from '../../services/discussionboardservice/di
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { Post } from '../../interfaces/post.interface';
+import { Comment } from '../../interfaces/comment.interface';
 import { ERROR_NAME_NOT_VALID, ERROR_SERVER } from '../../constants/constants.export';
-import { post } from 'selenium-webdriver/http';
-import { FormGroup, FormControl } from '@angular/forms';
 
-import { QuillConfig } from 'ngx-quill';
+
+
 
 @Component({
     selector: 'app-discussionboard',
@@ -18,7 +18,6 @@ import { QuillConfig } from 'ngx-quill';
 export class DiscussionBoardComponent implements OnInit {
 
 
-    editorform: FormGroup;
     editorContent: string;
 
     MAX_SUBJECT_LIMIT = 200;
@@ -29,9 +28,13 @@ export class DiscussionBoardComponent implements OnInit {
     error_createpost_content = '';
     error_createpost_server = '';
 
+    error_createcomment_content = '';
+    error_createcomment_server = '';
+
     css_loading_createpost = 'dimmer';
     css_loading_editpost = 'dimmer';
     css_loading_deletepost = 'dimmer';
+    css_loading_createcomment = 'dimmer';
 
     createpost_subject_count: string = null;
     createpost_content_count: string = null;
@@ -40,10 +43,14 @@ export class DiscussionBoardComponent implements OnInit {
     valid_createpost_content = false;
     valid_createpost_data = false;
 
+    valid_createcomment_data = false;
+    valid_createcomment_content = false;
+
     initial_load = true;
 
     createpost_subject: string = null;
     createpost_content: string = null;
+    createcomment_content: string = null;
 
     alert_success_settings = 'hide-item';
     alert_success_message = '';
@@ -55,7 +62,7 @@ export class DiscussionBoardComponent implements OnInit {
     current_posts: Post[] = [];
     current_postid: number = null;
 
-    comments_main_section: Post[] = [];
+    current_comments: Comment[] = [];
 
     createpost_editor: any = null;
     createcomment_editor: any = null;
@@ -68,9 +75,9 @@ export class DiscussionBoardComponent implements OnInit {
         toolbar: [
             ['bold', 'italic', 'underline'],
             ['code-block'],
-            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-            [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-            [{ 'indent': '-1'}, { 'indent': '+1' }]
+            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+            [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
+            [{ 'indent': '-1' }, { 'indent': '+1' }]
         ]
 
     };
@@ -96,9 +103,10 @@ export class DiscussionBoardComponent implements OnInit {
         this.hideCommentInput();
         this.resetFormFields();
         this.loadPosts(0);
+        this.loadComments(0);
     }
 
-    populatePostEditor(event: any, option: string, delta: any) {
+    populateEditor(event: any, option: string, delta: any) {
 
         const editors = document.getElementsByClassName('ql-editor');
 
@@ -114,29 +122,28 @@ export class DiscussionBoardComponent implements OnInit {
         }
         switch (option) {
             case 'createpost':
-            this.createpost_editor = event;
-            break;
+                this.createpost_editor = event;
+                break;
             case 'createcomment':
-            this.createcomment_editor = event;
-            break;
+                this.createcomment_editor = event;
+                break;
             default:
-            event.setContents(JSON.parse(delta));
-            break;
+                event.setContents(JSON.parse(delta));
+                break;
         }
     }
 
 
     onChangePost(_postid: number) {
-       this.current_postid = _postid;
-       this.showCommentInput();
-       for (let i = 0; i < this.current_posts.length; i++) {
-           if (this.current_posts[i].PostId === _postid) {
-               document.getElementById('post-option' + this.current_posts[i].PostId).classList.add('activepost');
-           } else {
-            document.getElementById('post-option' + this.current_posts[i].PostId).classList.remove('activepost');
-           }
-           this.current_posts[i].Active = '';
-       }
+        this.current_postid = _postid;
+        for (let i = 0; i < this.current_posts.length; i++) {
+            if (this.current_posts[i].PostId === _postid) {
+                document.getElementById('post-option' + this.current_posts[i].PostId).classList.add('activepost');
+            } else {
+                document.getElementById('post-option' + this.current_posts[i].PostId).classList.remove('activepost');
+            }
+            this.current_posts[i].Active = '';
+        }
     }
 
     showCommentInput() {
@@ -149,20 +156,20 @@ export class DiscussionBoardComponent implements OnInit {
 
     changeAlertSuccessMessage(message: string): void {
         this.alert_success_message = message;
-      }
+    }
 
-      onAlertSuccessClose(event: any): void {
+    onAlertSuccessClose(event: any): void {
         this.alert_success_settings = 'hide-item';
-      }
+    }
 
-      onAlertSuccessOpen(): void {
+    onAlertSuccessOpen(): void {
         if (this.alert_success_settings === 'hide-item') {
-          this.alert_success_settings = '';
+            this.alert_success_settings = '';
         } else {
-          this.alert_success_settings = 'hide-item';
-          this.alert_success_settings = '';
+            this.alert_success_settings = 'hide-item';
+            this.alert_success_settings = '';
         }
-      }
+    }
 
     loadPosts(period: number): void {
         if (period > 0) {
@@ -219,6 +226,55 @@ export class DiscussionBoardComponent implements OnInit {
         return false;
     }
 
+
+
+
+
+    loadComments(period: number): void {
+        if (period > 0) {
+
+        } else {
+            this.discussionboard_service.retrieveComments(this.discussionboard_id).subscribe(
+                data => {
+                    const isSetup = this.setupComments(data);
+                    if (isSetup) {
+                        console.log('Comments have been updated (DiscussionBoard).');
+                    }
+                    console.log('Results: DiscussionBoard Comments' + JSON.stringify(data));
+                },
+                errors => {
+                    console.log('An error occured while attempting to load data. Error DiscussionBoard Comments: ' + errors);
+                }
+            );
+
+        }
+    }
+
+    setupComments(new_comments: Comment[]): boolean {
+        const new_comments_length = new_comments.length;
+        const curr_comments_length = this.current_comments.length;
+        if (new_comments_length !== curr_comments_length) {
+            this.current_comments = new_comments;
+            return true;
+        }
+
+        let isChanged = false;
+        for (let i = 0; i < new_comments.length; i++) {
+            const isEqual = this.isCommentEqual(new_comments[i], this.current_comments[i]);
+            if (!isEqual) {
+                isChanged = true;
+                break;
+            }
+        }
+
+        if (isChanged) {
+            this.current_comments = new_comments;
+            return true;
+        }
+
+        return false;
+    }
+
     setupPostNavigation(posts: Post[]) {
         if (posts === undefined || posts === null || posts.length === 0) {
             this.posts_navigation_subsection = [];
@@ -248,7 +304,7 @@ export class DiscussionBoardComponent implements OnInit {
         let isEqual = false;
         if (firstPost.Content === secondPost.Content
             && firstPost.DateCreated === secondPost.DateCreated
-            && firstPost.DiscussionBoardID === secondPost.DiscussionBoardID
+            && firstPost.DiscussionBoardId === secondPost.DiscussionBoardId
             && firstPost.FirstName === secondPost.FirstName
             && firstPost.LastName === secondPost.LastName
             && firstPost.OwnerId === secondPost.OwnerId
@@ -263,30 +319,58 @@ export class DiscussionBoardComponent implements OnInit {
         return isEqual;
     }
 
+
+    isCommentEqual(firstComment: Comment, secondComment: Comment): boolean {
+
+        if (firstComment === null || firstComment === undefined || secondComment === null || secondComment === undefined) {
+            return false;
+        }
+
+        let isEqual = false;
+        if (firstComment.Content === secondComment.Content
+            && firstComment.DateCreated === secondComment.DateCreated
+            && firstComment.DiscussionBoardId === secondComment.DiscussionBoardId
+            && firstComment.FirstName === secondComment.FirstName
+            && firstComment.LastName === secondComment.LastName
+            && firstComment.OwnerId === secondComment.OwnerId
+            && firstComment.PostID === secondComment.PostID
+            && firstComment.CommentId === secondComment.CommentId
+            && firstComment.TimeCreated === secondComment.TimeCreated
+            && firstComment.UserRole === secondComment.UserRole
+            && firstComment.Username === secondComment.Username) {
+            isEqual = true;
+        }
+
+        return isEqual;
+    }
+
     onSubmit(event: any): void {
         switch (event.target.id) {
             case 'btn-createpost':
                 this.css_loading_createpost = 'dimmer active';
                 if (this.valid_createpost_data === true) {
-                            this.discussionboard_service.createPost(this.discussionboard_id, this.createpost_subject,
-                                this.createpost_content, this.createpost_editor.getContents() ).subscribe(
-                        data => {
-                            document.getElementById('createmodal-close').click();
-                            this.changeAlertSuccessMessage('You have successfully created a new post!');
-                            this.onAlertSuccessOpen();
-                            this.resetFormFields();
-                            document.getElementById('error-createpost-server').style.display = 'none';
-                            this.loadPosts(0);
-                        },
-                        errors => {
-                            if (errors.error) {
-                                this.error_createpost_server = errors.error;
-                            } else {
-                                this.error_createpost_server = ERROR_SERVER;
-                            }
-                            document.getElementById('error-createpost-server').style.display = 'block';
-                            this.css_loading_createpost = 'dimmer';
-                        });
+                    this.discussionboard_service.createPost(this.discussionboard_id, this.createpost_subject,
+                        this.createpost_content, this.createpost_editor.getContents()).subscribe(
+                            data => {
+                                document.getElementById('createmodal-close').click();
+                                if (this.createpost_editor !== null) {
+                                    this.createpost_editor.deleteText(0, this.createpost_editor.getLength());
+                                }
+                                this.changeAlertSuccessMessage('You have successfully created a new post!');
+                                this.onAlertSuccessOpen();
+                                this.resetFormFields();
+                                document.getElementById('error-createpost-server').style.display = 'none';
+                                this.loadPosts(0);
+                            },
+                            errors => {
+                                if (errors.error) {
+                                    this.error_createpost_server = errors.error;
+                                } else {
+                                    this.error_createpost_server = ERROR_SERVER;
+                                }
+                                document.getElementById('error-createpost-server').style.display = 'block';
+                                this.css_loading_createpost = 'dimmer';
+                            });
                 } else {
                     this.css_loading_createpost = 'dimmer';
                     console.log('DiscussionBoard: CreatePost Error');
@@ -297,6 +381,32 @@ export class DiscussionBoardComponent implements OnInit {
             case 'btn-updatepost':
                 break;
             case 'btn-createcomment':
+                this.css_loading_createcomment = 'dimmer active';
+                if (this.valid_createcomment_data) {
+                    this.discussionboard_service.createComment(this.discussionboard_id, this.current_postid + '',
+                    this.createcomment_content, this.createcomment_editor.getContents()).subscribe(
+                        data => {
+                            if (this.createcomment_editor !== null) {
+                                this.createcomment_editor.deleteText(0, this.createcomment_editor.getLength());
+                            }
+                            this.changeAlertSuccessMessage('You have successfully created a new comment!');
+                            this.onAlertSuccessOpen();
+                            this.resetFormFields();
+                            document.getElementById('error-createcomment-server').style.display = 'none';
+                            this.loadComments(0);
+                        },
+                        errors => {
+                            if (errors.error) {
+                                this.error_createcomment_server = errors.error;
+                            } else {
+                                this.error_createcomment_server = ERROR_SERVER;
+                            }
+                            document.getElementById('error-createcomment-server').style.display = 'block';
+                            this.css_loading_createcomment = 'dimmer';
+                            }
+                    );
+                }
+
                 break;
             case 'btn-deletecomment':
                 break;
@@ -308,7 +418,8 @@ export class DiscussionBoardComponent implements OnInit {
         }
     }
 
-    onUpdate(event: any, name: string): void {
+    onUpdateCreatePost(event: any, name: string): void {
+        let comment: any = null;
         switch (name) {
             case 'createpost-subject':
                 const title = event.target.value;
@@ -342,7 +453,21 @@ export class DiscussionBoardComponent implements OnInit {
                 this.createpost_content_count = event.editor.getText().trim().length + '/' + this.MAX_CONTENT_LIMIT;
                 break;
             case 'createcomment-content':
-            break;
+                comment = event.editor.getText();
+                if (comment === null || content.trim().length === 0) {
+                    this.error_createpost_content = ERROR_NAME_NOT_VALID;
+                    document.getElementById('error-createpost-content').style.display = 'block';
+                    this.valid_createpost_content = false;
+                } else {
+                    this.createpost_content = content.trim();
+                    document.getElementById('error-createpost-content').style.display = 'none';
+                    this.valid_createpost_content = true;
+                }
+
+                if (event.editor.getLength() > this.MAX_CONTENT_LIMIT) {
+                    event.editor.deleteText(this.MAX_CONTENT_LIMIT + 1, event.editor.getLength());
+                }
+                break;
             default:
                 console.log('OnUpdate: Not Found');
                 break;
@@ -356,24 +481,62 @@ export class DiscussionBoardComponent implements OnInit {
             document.getElementById('btn-createpost').setAttribute('disabled', '');
         }
 
+
+
+    }
+
+    onUpdateCreateComment(event: any, name: string): void {
+        let comment: any = null;
+        switch (name) {
+            case 'createcomment-content':
+                comment = event.editor.getText();
+                if (comment === null || comment.trim().length === 0) {
+                    // this.error_createcomment_content = ERROR_NAME_NOT_VALID;
+                    // document.getElementById('error-createcomment-content').style.display = 'block';
+                    this.valid_createcomment_content = false;
+                } else {
+                    this.createcomment_content = comment.trim();
+                    this.valid_createcomment_content = true;
+                    document.getElementById('error-createcomment-content').style.display = 'none';
+                }
+
+                if (event.editor.getLength() > this.MAX_CONTENT_LIMIT) {
+                    event.editor.deleteText(this.MAX_CONTENT_LIMIT + 1, event.editor.getLength());
+                }
+                break;
+            default:
+                console.log('OnUpdateCreateComment: Not Found');
+                break;
+        }
+
+        if (this.valid_createcomment_content) {
+            this.valid_createcomment_data = true;
+            document.getElementById('btn-createcomment').removeAttribute('disabled');
+        } else {
+            this.valid_createcomment_data = false;
+            document.getElementById('btn-createcomment').setAttribute('disabled', '');
+
+
+        }
+
     }
 
     resetFormFields(): void {
 
         (<HTMLInputElement>document.getElementById('createpost-subject')).value = '';
 
-        if (this.createpost_editor !== null) {
-        this.createpost_editor.deleteText(0, this.createpost_editor.getLength());
-        }
-
         document.getElementById('error-createpost-subject').style.display = 'none';
         document.getElementById('error-createpost-content').style.display = 'none';
         document.getElementById('error-createpost-server').style.display = 'none';
+
+        document.getElementById('error-createcomment-server').style.display = 'none';
+        document.getElementById('error-createcomment-content').style.display = 'none';
 
         this.createpost_subject_count = 0 + '/' + this.MAX_SUBJECT_LIMIT;
         this.createpost_content_count = 0 + '/' + this.MAX_CONTENT_LIMIT;
 
         document.getElementById('btn-createpost').setAttribute('disabled', '');
+        document.getElementById('btn-createcomment').setAttribute('disabled', '');
         // document.getElementById('btn-deletepost').setAttribute('disabled', '');
 
         this.valid_createpost_subject = false;
@@ -381,10 +544,10 @@ export class DiscussionBoardComponent implements OnInit {
         this.valid_createpost_data = false;
 
         this.css_loading_createpost = 'dimmer';
+        this.css_loading_createcomment = 'dimmer';
         this.css_loading_editpost = 'dimmer';
         this.css_loading_deletepost = 'dimmer';
 
-        this.comment_input_settings = 'hide-item';
 
         // this.css_loading_createcomment = 'dimmer';
         // this.css_loading_editcomment = 'dimmer';

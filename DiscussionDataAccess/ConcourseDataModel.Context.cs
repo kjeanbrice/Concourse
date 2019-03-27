@@ -255,15 +255,6 @@ namespace DiscussionDataAccess
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetPosts_Result>("spGetPosts", discussionBoardIdParameter, userIdParameter);
         }
     
-        public virtual int spIsAdmin(string userId, ObjectParameter status)
-        {
-            var userIdParameter = userId != null ?
-                new ObjectParameter("UserId", userId) :
-                new ObjectParameter("UserId", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spIsAdmin", userIdParameter, status);
-        }
-    
         public virtual int spJoinDiscussionBoard(Nullable<int> codeId, string code, string userId)
         {
             var codeIdParameter = codeId.HasValue ?
@@ -298,21 +289,29 @@ namespace DiscussionDataAccess
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spRemoveUserFromDiscussionBoard", userIdParameter, userIdToRemoveParameter, discussionBoardIdParameter);
         }
     
-        public virtual int spUpdateCommentById(string userId, Nullable<int> discussionBoardId, string newCode)
+        public virtual int spUpdateCommentById(string userId, Nullable<int> commentId, Nullable<int> discussionBoardId, string newContent, string newContentDelta)
         {
             var userIdParameter = userId != null ?
                 new ObjectParameter("UserId", userId) :
                 new ObjectParameter("UserId", typeof(string));
     
+            var commentIdParameter = commentId.HasValue ?
+                new ObjectParameter("CommentId", commentId) :
+                new ObjectParameter("CommentId", typeof(int));
+    
             var discussionBoardIdParameter = discussionBoardId.HasValue ?
                 new ObjectParameter("DiscussionBoardId", discussionBoardId) :
                 new ObjectParameter("DiscussionBoardId", typeof(int));
     
-            var newCodeParameter = newCode != null ?
-                new ObjectParameter("NewCode", newCode) :
-                new ObjectParameter("NewCode", typeof(string));
+            var newContentParameter = newContent != null ?
+                new ObjectParameter("NewContent", newContent) :
+                new ObjectParameter("NewContent", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spUpdateCommentById", userIdParameter, discussionBoardIdParameter, newCodeParameter);
+            var newContentDeltaParameter = newContentDelta != null ?
+                new ObjectParameter("NewContentDelta", newContentDelta) :
+                new ObjectParameter("NewContentDelta", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spUpdateCommentById", userIdParameter, commentIdParameter, discussionBoardIdParameter, newContentParameter, newContentDeltaParameter);
         }
     
         public virtual int spUpdateDiscussionBoard(string userId, Nullable<int> discussionBoardId, string newTitle, string newDescription)

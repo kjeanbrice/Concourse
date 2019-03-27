@@ -1,9 +1,9 @@
-export interface Post {
-    PostId: number;
+export interface Comment {
+    PostID: number;
     DiscussionBoardId: number;
+    CommentId: number;
     UserRole: number;
     OwnerId: number;
-    Title: string;
     Content: string;
     ContentDelta: string;
     FirstName: string;
@@ -11,5 +11,4 @@ export interface Post {
     Username: string;
     DateCreated: string;
     TimeCreated: string;
-    Active: string;
 }

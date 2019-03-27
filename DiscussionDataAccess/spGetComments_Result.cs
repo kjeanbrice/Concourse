@@ -13,14 +13,16 @@ namespace DiscussionDataAccess
     
     public partial class spGetComments_Result
     {
-        public int CommentID { get; set; }
-        public int PostID { get; set; }
-        public int DiscussionBoardID { get; set; }
+        public int CommentId { get; set; }
+        public int PostId { get; set; }
+        public int DiscussionBoardId { get; set; }
         public string OwnerId { get; set; }
         public string Content { get; set; }
+        public string ContentDelta { get; set; }
         public Nullable<int> UserRole { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public string DateCreated { get; set; }
         public string TimeCreated { get; set; }
-        public string ContentDelta { get; set; }
     }
 }

@@ -11,14 +11,14 @@
   </EntityType>
   <EntityType Name="Comment">
     <Key>
-      <PropertyRef Name="CommentID" />
+      <PropertyRef Name="CommentId" />
     </Key>
-    <Property Name="CommentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CommentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="DiscussionBoardId" Type="int" Nullable="false" />
-    <Property Name="PostID" Type="int" Nullable="false" />
+    <Property Name="PostId" Type="int" Nullable="false" />
     <Property Name="OwnerId" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="Content" Type="nvarchar" MaxLength="2000" Nullable="false" />
-    <Property Name="ContentDelta" Type="nvarchar" MaxLength="2000" Nullable="false" />
+    <Property Name="Content" Type="nvarchar" MaxLength="2500" Nullable="false" />
+    <Property Name="ContentDelta" Type="nvarchar" MaxLength="2500" Nullable="false" />
     <Property Name="DateCreated" Type="datetime" />
     <Property Name="IsDeleted" Type="int" />
   </EntityType>
@@ -59,18 +59,18 @@
   </EntityType>
   <EntityType Name="Post">
     <Key>
-      <PropertyRef Name="PostID" />
+      <PropertyRef Name="PostId" />
     </Key>
-    <Property Name="PostID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="DiscussionBoardID" Type="int" Nullable="false" />
+    <Property Name="PostId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DiscussionBoardId" Type="int" Nullable="false" />
     <Property Name="OwnerId" Type="nvarchar" MaxLength="128" Nullable="false" />
     <Property Name="Title" Type="nvarchar" MaxLength="200" Nullable="false" />
-    <Property Name="Content" Type="nvarchar" MaxLength="2000" Nullable="false" />
-    <Property Name="ContentDelta" Type="nvarchar" MaxLength="2000" Nullable="false" />
+    <Property Name="Content" Type="nvarchar" MaxLength="2500" Nullable="false" />
+    <Property Name="ContentDelta" Type="nvarchar" MaxLength="2500" Nullable="false" />
     <Property Name="DateCreated" Type="datetime" />
     <Property Name="IsDeleted" Type="int" />
   </EntityType>
-  <Association Name="FK_Comment_DiscussionBoardID">
+  <Association Name="FK_Comment_DiscussionBoardId">
     <End Role="DiscussionBoard" Type="Self.DiscussionBoard" Multiplicity="1" />
     <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
     <ReferentialConstraint>
@@ -82,15 +82,15 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Comment_PostID">
+  <Association Name="FK_Comment_PostId">
     <End Role="Post" Type="Self.Post" Multiplicity="1" />
     <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Post">
-        <PropertyRef Name="PostID" />
+        <PropertyRef Name="PostId" />
       </Principal>
       <Dependent Role="Comment">
-        <PropertyRef Name="PostID" />
+        <PropertyRef Name="PostId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -118,7 +118,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Post_DiscussionBoardID">
+  <Association Name="FK_Post_DiscussionBoardId">
     <End Role="DiscussionBoard" Type="Self.DiscussionBoard" Multiplicity="1" />
     <End Role="Post" Type="Self.Post" Multiplicity="*" />
     <ReferentialConstraint>
@@ -126,7 +126,7 @@
         <PropertyRef Name="DiscussionBoardId" />
       </Principal>
       <Dependent Role="Post">
-        <PropertyRef Name="DiscussionBoardID" />
+        <PropertyRef Name="DiscussionBoardId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -195,10 +195,6 @@
     <Parameter Name="DiscussionBoardId" Type="int" Mode="In" />
     <Parameter Name="UserId" Type="nvarchar" Mode="In" />
   </Function>
-  <Function Name="spIsAdmin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="UserId" Type="nvarchar" Mode="In" />
-    <Parameter Name="Status" Type="int" Mode="InOut" />
-  </Function>
   <Function Name="spJoinDiscussionBoard" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="CodeId" Type="int" Mode="In" />
     <Parameter Name="Code" Type="varchar" Mode="In" />
@@ -242,11 +238,11 @@
     <EntitySet Name="DiscussionBoardCode" EntityType="Self.DiscussionBoardCode" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DiscussionBoardMember" EntityType="Self.DiscussionBoardMember" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK_Comment_DiscussionBoardID" Association="Self.FK_Comment_DiscussionBoardID">
+    <AssociationSet Name="FK_Comment_DiscussionBoardId" Association="Self.FK_Comment_DiscussionBoardId">
       <End Role="DiscussionBoard" EntitySet="DiscussionBoard" />
       <End Role="Comment" EntitySet="Comment" />
     </AssociationSet>
-    <AssociationSet Name="FK_Comment_PostID" Association="Self.FK_Comment_PostID">
+    <AssociationSet Name="FK_Comment_PostId" Association="Self.FK_Comment_PostId">
       <End Role="Post" EntitySet="Post" />
       <End Role="Comment" EntitySet="Comment" />
     </AssociationSet>
@@ -258,7 +254,7 @@
       <End Role="DiscussionBoard" EntitySet="DiscussionBoard" />
       <End Role="DiscussionBoardMember" EntitySet="DiscussionBoardMember" />
     </AssociationSet>
-    <AssociationSet Name="FK_Post_DiscussionBoardID" Association="Self.FK_Post_DiscussionBoardID">
+    <AssociationSet Name="FK_Post_DiscussionBoardId" Association="Self.FK_Post_DiscussionBoardId">
       <End Role="DiscussionBoard" EntitySet="DiscussionBoard" />
       <End Role="Post" EntitySet="Post" />
     </AssociationSet>

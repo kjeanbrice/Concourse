@@ -23,7 +23,7 @@ if OBJECT_ID('AdminData') is not NULL
 
 
 	Select * from AspNetUsers
-	Select * from DiscussionBoard
+	
 
 CREATE TABLE AdminData
 (
@@ -70,39 +70,39 @@ Create TABLE DiscussionBoardMember(
 	DateJoined datetime DEFAULT GetDate(),
 	IsDeleted int DEFAULT 0,
 	CONSTRAINT FK_DiscussionBoardMember_MemberId FOREIGN KEY(UserId) REFERENCES dbo.AspNetUsers(Id),
-	CONSTRAINT FK_DiscussionBoardMember_DiscussionBoardId FOREIGN KEY(DiscussionBoardId) REFERENCES DiscussionBoard(DiscussionBoardID),
+	CONSTRAINT FK_DiscussionBoardMember_DiscussionBoardId FOREIGN KEY(DiscussionBoardId) REFERENCES DiscussionBoard(DiscussionBoardId),
 	CONSTRAINT PK_DiscussionBoardMember_DiscussionBoardId_UserId PRIMARY KEY(DiscussionBoardId,UserId)
 );
 
 
 CREATE TABLE Post(
-	PostID int NOT NULL IDENTITY(50,1),
-	DiscussionBoardID int NOT NULL,
+	PostId int NOT NULL IDENTITY(50,1),
+	DiscussionBoardId int NOT NULL,
 	OwnerId nvarchar(128) NOT NULL,
 	Title nvarchar(200) NOT NULL,
 	Content nvarchar(2500) NOT NULL,
 	ContentDelta nvarchar(2500) NOT NULL,
 	DateCreated datetime DEFAULT GetDate(),
 	IsDeleted int DEFAULT 0,
-	CONSTRAINT FK_Post_DiscussionBoardID FOREIGN KEY(DiscussionBoardID) REFERENCES DiscussionBoard(DiscussionBoardID),
+	CONSTRAINT FK_Post_DiscussionBoardId FOREIGN KEY(DiscussionBoardId) REFERENCES DiscussionBoard(DiscussionBoardId),
 	CONSTRAINT FK_Post_OwnerId FOREIGN KEY(OwnerId) REFERENCES dbo.AspNetUsers(Id),
-	CONSTRAINT PK_Post_PostID PRIMARY KEY(PostID)
+	CONSTRAINT PK_Post_PostId PRIMARY KEY(PostId)
 );
 
 
 CREATE TABLE Comment(
-	CommentID int NOT NULL IDENTITY(100,1),
+	CommentId int NOT NULL IDENTITY(100,1),
 	DiscussionBoardId int NOT NULL,
-	PostID int NOT NULL,
+	PostId int NOT NULL,
 	OwnerId nvarchar(128) NOT NULL,
 	Content nvarchar(2500) NOT NULL,
 	ContentDelta nvarchar(2500) NOT NULL,
 	DateCreated datetime DEFAULT GetDate(),
 	IsDeleted int DEFAULT 0,
-	CONSTRAINT FK_Comment_DiscussionBoardID FOREIGN KEY(DiscussionBoardId) REFERENCES dbo.DiscussionBoard(DiscussionBoardId),
-	CONSTRAINT FK_Comment_PostID FOREIGN KEY(PostID) REFERENCES Post(PostID),
+	CONSTRAINT FK_Comment_DiscussionBoardId FOREIGN KEY(DiscussionBoardId) REFERENCES dbo.DiscussionBoard(DiscussionBoardId),
+	CONSTRAINT FK_Comment_PostId FOREIGN KEY(PostId) REFERENCES Post(PostId),
 	CONSTRAINT FK_Comment_OwnerEmail FOREIGN KEY(OwnerId) REFERENCES dbo.AspNetUsers(Id),
-	CONSTRAINT PK_Comment_CommentID PRIMARY KEY(CommentID)
+	CONSTRAINT PK_Comment_CommentId PRIMARY KEY(CommentId)
 );
 
 

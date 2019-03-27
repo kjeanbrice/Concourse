@@ -4,18 +4,18 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="3f50a5534a7742c7b31d74a5a4722569" Name="Diagram1">
+      <Diagram DiagramId="0d33de70be9243558d8bf96ecc013459" Name="Diagram1">
         <EntityTypeShape EntityType="ConcourseModel.AdminData" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ConcourseModel.Comment" Width="1.5" PointX="5.25" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ConcourseModel.DiscussionBoard" Width="1.5" PointX="0.75" PointY="6.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ConcourseModel.DiscussionBoardCode" Width="1.5" PointX="3" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ConcourseModel.DiscussionBoardMember" Width="1.5" PointX="3" PointY="9.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ConcourseModel.Post" Width="1.5" PointX="3" PointY="13.125" IsExpanded="true" />
-        <AssociationConnector Association="ConcourseModel.FK_Comment_DiscussionBoardID" ManuallyRouted="false" />
-        <AssociationConnector Association="ConcourseModel.FK_Comment_PostID" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ConcourseModel.Comment" Width="1.5" PointX="5.25" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConcourseModel.DiscussionBoard" Width="1.5" PointX="0.75" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConcourseModel.DiscussionBoardCode" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConcourseModel.DiscussionBoardMember" Width="1.5" PointX="3" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConcourseModel.Post" Width="1.5" PointX="3" PointY="13.5" IsExpanded="true" />
+        <AssociationConnector Association="ConcourseModel.FK_Comment_DiscussionBoardId" ManuallyRouted="false" />
+        <AssociationConnector Association="ConcourseModel.FK_Comment_PostId" ManuallyRouted="false" />
         <AssociationConnector Association="ConcourseModel.FK_DiscussionBoardCode_DiscussionBoardID" ManuallyRouted="false" />
         <AssociationConnector Association="ConcourseModel.FK_DiscussionBoardMember_DiscussionBoardId" ManuallyRouted="false" />
-        <AssociationConnector Association="ConcourseModel.FK_Post_DiscussionBoardID" ManuallyRouted="false" />
+        <AssociationConnector Association="ConcourseModel.FK_Post_DiscussionBoardId" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -45,12 +45,7 @@
             <!-- Post Selection Area-->
             <div class="row">
               <div class="col-12">
-                <!-- Alert Area-->
-                <div class="alert alert-success alert-dismissible {{alert_success_settings}}">
-                  <button id="alert-success-creategroup" (click)="onAlertSuccessClose($event)" class="close"></button>
-                  <i class="fe fe-check mr-2" aria-hidden="true"></i> {{alert_success_message}}
-                </div>
-                <!-- Alert Area End-->
+
 
                 <div class="card posts-list">
                   <div class="card-status card-status-left bg-purple"></div>
@@ -222,7 +217,7 @@
                         <div class="row align-items-center">
                           <div class="col-auto">
                             <span class="avatar avatar-md d-block"
-                              style="background-image: url(demo/faces/female/2.jpg)"></span>
+                              ></span>
                           </div>
                           <div class="col">
                             <div>
@@ -253,7 +248,7 @@
                         <div class="row align-items-center">
                           <div class="col-auto">
                             <span class="avatar avatar-md d-block"
-                              style="background-image: url(demo/faces/male/34.jpg)"></span>
+                             ></span>
                           </div>
                           <div class="col">
                             <div>
@@ -284,7 +279,7 @@
                         <div class="row align-items-center">
                           <div class="col-auto">
                             <span class="avatar avatar-md d-block"
-                              style="background-image: url(demo/faces/female/11.jpg)"></span>
+                             ></span>
                           </div>
                           <div class="col">
                             <div>
@@ -323,6 +318,12 @@
             <!-- Post Section -->
             <div class="row">
               <div class="col-12">
+                <!-- Alert Area-->
+                <div class="alert alert-success alert-dismissible {{alert_success_settings}}">
+                  <button id="alert-success-creategroup" (click)="onAlertSuccessClose($event)" class="close"></button>
+                  <i class="fe fe-check mr-2" aria-hidden="true"></i> {{alert_success_message}}
+                </div>
+                <!-- Alert Area End-->
                 <div *ngFor="let post of current_posts">
                   <div *ngIf="post.PostId === current_postid" class="card">
                     <div class="card-status bg-blue"></div>
@@ -349,7 +350,9 @@
                               <small class="float-right text-muted">{{post.DateCreated}} {{post.TimeCreated}}</small>
                               <h5>{{post.FirstName}} {{post.LastName}}</h5>
                             </div>
-                            <quill-editor class="ql-editor-settings" [style]="viewing_area_styles" [theme]="bubble" [readOnly]="true" (onEditorCreated)="populatePostEditor($event,'apipost',post.ContentDelta)" [modules]="viewing_area_config"></quill-editor>
+                            <quill-editor class="ql-editor-settings" [style]="viewing_area_styles" [theme]="bubble"
+                              [readOnly]="true" (onEditorCreated)="populateEditor($event,'apipost',post.ContentDelta)"
+                              [modules]="viewing_area_config"></quill-editor>
                           </div>
                         </div>
                       </li>
@@ -390,8 +393,9 @@
             </div>
             <!-- Post Section End-->
 
-            <!--Comment Section-->
-            <div class="row">
+            <!--Comment Section -->
+            <div *ngFor="let comment of current_comments">
+            <div *ngIf="comment.PostId === current_postid" class="row">
               <div class="col-12">
                 <div class="card">
                   <div class="card-status bg-green"></div>
@@ -413,38 +417,12 @@
                           style="background-image: url(https://tabler.github.io/tabler/demo/faces/female/1.jpg)"></div>
                         <div class="media-body">
                           <div class="media-heading">
-                            <small class="float-right text-muted">4 min</small>
-                            <h5>Andrew Bernard</h5>
+                            <small class="float-right text-muted">{{comment.DateCreated}}{{comment.TimeCreated}}</small>
+                            <h5>{{comment.FirstName}} {{comment.LastName}}</h5>
                           </div>
-                          <div>
-                            Aenean lacinia bibendum nulla sed consectetur. Vestibulum id
-                            ligula
-                            porta felis euismod semper. Morbi leo risus, porta ac
-                            consectetur ac,
-                            vestibulum at eros. Cras
-                            justo odio, dapibus ac facilisis in, egestas eget quam.
-                            Vestibulum id
-                            ligula porta felis euismod semper. Cum sociis natoque penatibus
-                            et
-                            magnis dis parturient montes,
-                            nascetur ridiculus mus.
-
-                            <br /><br />
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
-                            dictum faucibus ex, in scelerisque nisl hendrerit ullamcorper.
-                            Praesent quis finibus erat. Integer leo felis, elementum sed
-                            urna quis, malesuada accumsan ante. Curabitur viverra consequat
-                            dapibus. Etiam dignissim laoreet facilisis. Ut eleifend ante
-                            quis nunc commodo, in iaculis purus ornare. Quisque vitae velit
-                            quis enim tempor porta. Integer vel tortor interdum, vestibulum
-                            velit quis, lobortis purus. Proin finibus molestie ultricies.
-                            Praesent sit amet purus at purus tristique posuere. Sed quis
-                            hendrerit est. Nam ut dolor sapien. Donec lobortis ipsum
-                            pharetra tempor condimentum. Mauris facilisis lectus eget ante
-                            venenatis, vel efficitur eros malesuada. Aliquam sollicitudin
-                            urna nisl, vitae faucibus mi eleifend mollis.
-                          </div>
-
+                          <quill-editor class="ql-editor-settings" [style]="viewing_area_styles" [theme]="bubble"
+                          [readOnly]="true" (onEditorCreated)="populateEditor($event,'apipost',comment.ContentDelta)"
+                          [modules]="viewing_area_config"></quill-editor>
                         </div>
                       </div>
                     </li>
@@ -480,38 +458,55 @@
                 </div>
               </div>
             </div>
+          </div>
+
+        
             <!-- Comment Section End-->
 
             <!-- Comment Input Area-->
             <div class="row">
               <div class="col-12">
-                <div id = "commentinput-area" class="card {{comment_input_settings}}">
-                  <div class="card-body">
-                      <div class="container-fluid">
+                <div id="commentinput-area" class="card {{comment_input_settings}}">
+                    <div class="card-body">
+                        <div class="container-fluid">
                           <div class="row">
-                              <div class="col-12">
-                               
-                                      <quill-editor [style]="{height: 'auto'}" (onContentChanged)="onUpdate($event,'createcomment-content')" (onEditorCreated)="populatePostEditor($event,'createpost','')" [modules]="edit_area_config"></quill-editor>
-                                      
-                                    
-                              </div>
+                            <div class="col-12">
+
+                              <quill-editor [style]="{height: 'auto'}"
+                                (onContentChanged)="onUpdateCreateComment($event,'createcomment-content')"
+                                (onEditorCreated)="populateEditor($event,'createcomment','')"
+                                [modules]="edit_area_config"></quill-editor>
+                              <div id="error-createcomment-content" class="invalid-feedback">
+                                {{error_createcomment_content}}</div>
+                              <div id="error-createcomment-server" class="invalid-feedback">
+                                {{error_createcomment_server}}</div>
                             </div>
-                      </div>
-                    
-                  </div>
-                  <div class="card-footer card-footer-group">
-                    <div class="container-fluid">
-                      <div class="row">
-                        
-                        <div class="col-12">
-                            <button type="button" class="btn btn-purple float-right">
-                               Reply
-                          </button>
+
+                          </div>
                         </div>
                       </div>
-                    </div>
-                      
-                  </div>
+                      <div class="card-footer card-footer-group">
+                        <div class="container-fluid">
+                          <div class="row">
+                            <div class="col-12">
+                                <div class="{{css_loading_createcomment}}">
+                                    <div class="loader"></div>
+                                    <div class="dimmer-content">
+                                        <button id="btn-createcomment" (click)="onSubmit($event)" type="button"
+                                        class="btn btn-purple float-right">
+                                        Reply
+                                      </button>
+                
+                                    </div>
+                                  </div>                            
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                
+
+
                 </div>
               </div>
             </div>
@@ -544,47 +539,62 @@
         <div class="modal-body">
           <form action="javascript:void(0);" action="post">
             <div class="container-fluid">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-lg-12 col-md-12 col-sm-12">
-                    <div class="form-group">
-                      <label class="form-label">Subject
-                        <span class="form-required">*</span>
-                        <span id="creategroup-title-count" class="form-label-small">{{createpost_subject_count}}</span>
-                      </label>
-                      <input id="createpost-subject" attr.maxlength="{{MAX_SUBJECT_LIMIT}}" class="form-control"
-                        type="input" placeholder="Enter Post Subject" (input)="onUpdateCreatePost($event,'createpost-subject')"
-                        (keyup)="onUpdateCreatePost($event)" />
-                      <div id="error-createpost-subject" class="invalid-feedback">{{error_createpost_subject}}</div>
+
+              <div class="{{css_loading_createpost}}">
+                <div class="loader"></div>
+                <div class="dimmer-content">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-lg-12 col-md-12 col-sm-12">
+
+                        <div class="form-group">
+                          <label class="form-label">Subject
+                            <span class="form-required">*</span>
+                            <span id="creategroup-title-count"
+                              class="form-label-small">{{createpost_subject_count}}</span>
+                          </label>
+                          <input id="createpost-subject" attr.maxlength="{{MAX_SUBJECT_LIMIT}}" class="form-control"
+                            type="input" placeholder="Enter Post Subject"
+                            (input)="onUpdateCreatePost($event,'createpost-subject')"
+                            (keyup)="onUpdateCreatePost($event)" />
+                          <div id="error-createpost-subject" class="invalid-feedback">{{error_createpost_subject}}</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="form-group">
+                          <label class="form-label">Content
+                            <span class="form-required">*</span>
+                            <span id="creategroup-description-count"
+                              class="form-label-small">{{createpost_content_count}}</span>
+                          </label>
+                          <!--<textarea attr.maxlength="{{MAX_CONTENT_LIMIT}}" id="createpost-content"
+                                    (input)="onUpdateCreatePost($event)" (keyup)="onUpdateCreatePost($event)" class="form-control"
+                                    name="post-content" style="resize: none;" rows="6"
+                                    placeholder="Enter a short description for your post"></textarea>-->
+
+                          <quill-editor [style]="{minHeight: '250px'}"
+                            (onContentChanged)="onUpdateCreatePost($event,'createpost-content')"
+                            (onEditorCreated)="populateEditor($event,'createpost','')" [modules]="edit_area_config">
+                          </quill-editor>
+                          <div id="error-createpost-content" class="invalid-feedback">{{error_createpost_content}}</div>
+                          <div id="error-createpost-server" class="invalid-feedback">{{error_createpost_server}}</div>
+                        </div>
+
+
+                      </div>
                     </div>
                   </div>
                 </div>
-
-                <div class="row">
-                  <div class="col-lg-12 col-md-12 col-sm-12">
-                    <div class="form-group">
-                      <label class="form-label">Content
-                        <span class="form-required">*</span>
-                        <span id="creategroup-description-count"
-                          class="form-label-small">{{createpost_content_count}}</span>
-                      </label>
-                      <!--<textarea attr.maxlength="{{MAX_CONTENT_LIMIT}}" id="createpost-content"
-                        (input)="onUpdateCreatePost($event)" (keyup)="onUpdateCreatePost($event)" class="form-control"
-                        name="post-content" style="resize: none;" rows="6"
-                        placeholder="Enter a short description for your post"></textarea>-->
-
-                      <quill-editor [style]="{minHeight: '250px'}" (onContentChanged)="onUpdate($event,'createpost-content')" (onEditorCreated)="populatePostEditor($event,'createpost','')" [modules]="edit_area_config"></quill-editor>
-                      <div id="error-createpost-content" class="invalid-feedback">{{error_createpost_content}}</div>
-                      <div id="error-createpost-server" class="invalid-feedback">{{error_createpost_server}}</div>
-                    </div>
-
-                    
-                  </div>
-                </div> 
               </div>
+
+
             </div>
           </form>
         </div>
+
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           <div class="{{css_loading_createpost}}">
@@ -596,9 +606,11 @@
           </div>
         </div>
 
+
+
       </div>
     </div>
   </div>
   <!--Modal area end-->
-  
+
 </div>

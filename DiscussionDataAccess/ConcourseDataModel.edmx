@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ConcourseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="ConcourseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AdminData">
           <Key>
             <PropertyRef Name="UserId" />
@@ -16,14 +16,14 @@
         </EntityType>
         <EntityType Name="Comment">
           <Key>
-            <PropertyRef Name="CommentID" />
+            <PropertyRef Name="CommentId" />
           </Key>
-          <Property Name="CommentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CommentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DiscussionBoardId" Type="int" Nullable="false" />
-          <Property Name="PostID" Type="int" Nullable="false" />
+          <Property Name="PostId" Type="int" Nullable="false" />
           <Property Name="OwnerId" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="Content" Type="nvarchar" MaxLength="2000" Nullable="false" />
-          <Property Name="ContentDelta" Type="nvarchar" MaxLength="2000" Nullable="false" />
+          <Property Name="Content" Type="nvarchar" MaxLength="2500" Nullable="false" />
+          <Property Name="ContentDelta" Type="nvarchar" MaxLength="2500" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" />
           <Property Name="IsDeleted" Type="int" />
         </EntityType>
@@ -64,18 +64,18 @@
         </EntityType>
         <EntityType Name="Post">
           <Key>
-            <PropertyRef Name="PostID" />
+            <PropertyRef Name="PostId" />
           </Key>
-          <Property Name="PostID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DiscussionBoardID" Type="int" Nullable="false" />
+          <Property Name="PostId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DiscussionBoardId" Type="int" Nullable="false" />
           <Property Name="OwnerId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="200" Nullable="false" />
-          <Property Name="Content" Type="nvarchar" MaxLength="2000" Nullable="false" />
-          <Property Name="ContentDelta" Type="nvarchar" MaxLength="2000" Nullable="false" />
+          <Property Name="Content" Type="nvarchar" MaxLength="2500" Nullable="false" />
+          <Property Name="ContentDelta" Type="nvarchar" MaxLength="2500" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" />
           <Property Name="IsDeleted" Type="int" />
         </EntityType>
-        <Association Name="FK_Comment_DiscussionBoardID">
+        <Association Name="FK_Comment_DiscussionBoardId">
           <End Role="DiscussionBoard" Type="Self.DiscussionBoard" Multiplicity="1" />
           <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -87,15 +87,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Comment_PostID">
+        <Association Name="FK_Comment_PostId">
           <End Role="Post" Type="Self.Post" Multiplicity="1" />
           <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Post">
-              <PropertyRef Name="PostID" />
+              <PropertyRef Name="PostId" />
             </Principal>
             <Dependent Role="Comment">
-              <PropertyRef Name="PostID" />
+              <PropertyRef Name="PostId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -123,7 +123,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Post_DiscussionBoardID">
+        <Association Name="FK_Post_DiscussionBoardId">
           <End Role="DiscussionBoard" Type="Self.DiscussionBoard" Multiplicity="1" />
           <End Role="Post" Type="Self.Post" Multiplicity="*" />
           <ReferentialConstraint>
@@ -131,7 +131,7 @@
               <PropertyRef Name="DiscussionBoardId" />
             </Principal>
             <Dependent Role="Post">
-              <PropertyRef Name="DiscussionBoardID" />
+              <PropertyRef Name="DiscussionBoardId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -200,10 +200,6 @@
           <Parameter Name="DiscussionBoardId" Type="int" Mode="In" />
           <Parameter Name="UserId" Type="nvarchar" Mode="In" />
         </Function>
-        <Function Name="spIsAdmin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="UserId" Type="nvarchar" Mode="In" />
-          <Parameter Name="Status" Type="int" Mode="InOut" />
-        </Function>
         <Function Name="spJoinDiscussionBoard" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CodeId" Type="int" Mode="In" />
           <Parameter Name="Code" Type="varchar" Mode="In" />
@@ -247,11 +243,11 @@
           <EntitySet Name="DiscussionBoardCode" EntityType="Self.DiscussionBoardCode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DiscussionBoardMember" EntityType="Self.DiscussionBoardMember" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Comment_DiscussionBoardID" Association="Self.FK_Comment_DiscussionBoardID">
+          <AssociationSet Name="FK_Comment_DiscussionBoardId" Association="Self.FK_Comment_DiscussionBoardId">
             <End Role="DiscussionBoard" EntitySet="DiscussionBoard" />
             <End Role="Comment" EntitySet="Comment" />
           </AssociationSet>
-          <AssociationSet Name="FK_Comment_PostID" Association="Self.FK_Comment_PostID">
+          <AssociationSet Name="FK_Comment_PostId" Association="Self.FK_Comment_PostId">
             <End Role="Post" EntitySet="Post" />
             <End Role="Comment" EntitySet="Comment" />
           </AssociationSet>
@@ -263,12 +259,13 @@
             <End Role="DiscussionBoard" EntitySet="DiscussionBoard" />
             <End Role="DiscussionBoardMember" EntitySet="DiscussionBoardMember" />
           </AssociationSet>
-          <AssociationSet Name="FK_Post_DiscussionBoardID" Association="Self.FK_Post_DiscussionBoardID">
+          <AssociationSet Name="FK_Post_DiscussionBoardId" Association="Self.FK_Post_DiscussionBoardId">
             <End Role="DiscussionBoard" EntitySet="DiscussionBoard" />
             <End Role="Post" EntitySet="Post" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ConcourseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -283,18 +280,18 @@
         </EntityType>
         <EntityType Name="Comment">
           <Key>
-            <PropertyRef Name="CommentID" />
+            <PropertyRef Name="CommentId" />
           </Key>
-          <Property Name="CommentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CommentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DiscussionBoardId" Type="Int32" Nullable="false" />
-          <Property Name="PostID" Type="Int32" Nullable="false" />
+          <Property Name="PostId" Type="Int32" Nullable="false" />
           <Property Name="OwnerId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Content" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Content" Type="String" MaxLength="2500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContentDelta" Type="String" MaxLength="2500" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DateCreated" Type="DateTime" Precision="3" />
           <Property Name="IsDeleted" Type="Int32" />
-          <NavigationProperty Name="DiscussionBoard" Relationship="Self.FK_Comment_DiscussionBoardID" FromRole="Comment" ToRole="DiscussionBoard" />
-          <NavigationProperty Name="Post" Relationship="Self.FK_Comment_PostID" FromRole="Comment" ToRole="Post" />
-          <Property Name="ContentDelta" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DiscussionBoard" Relationship="Self.FK_Comment_DiscussionBoardId" FromRole="Comment" ToRole="DiscussionBoard" />
+          <NavigationProperty Name="Post" Relationship="Self.FK_Comment_PostId" FromRole="Comment" ToRole="Post" />
         </EntityType>
         <EntityType Name="DiscussionBoard">
           <Key>
@@ -306,10 +303,10 @@
           <Property Name="BoardDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="DateCreated" Type="DateTime" Precision="3" />
           <Property Name="IsDeleted" Type="Int32" />
-          <NavigationProperty Name="Comments" Relationship="Self.FK_Comment_DiscussionBoardID" FromRole="DiscussionBoard" ToRole="Comment" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK_Comment_DiscussionBoardId" FromRole="DiscussionBoard" ToRole="Comment" />
           <NavigationProperty Name="DiscussionBoardCodes" Relationship="Self.FK_DiscussionBoardCode_DiscussionBoardID" FromRole="DiscussionBoard" ToRole="DiscussionBoardCode" />
           <NavigationProperty Name="DiscussionBoardMembers" Relationship="Self.FK_DiscussionBoardMember_DiscussionBoardId" FromRole="DiscussionBoard" ToRole="DiscussionBoardMember" />
-          <NavigationProperty Name="Posts" Relationship="Self.FK_Post_DiscussionBoardID" FromRole="DiscussionBoard" ToRole="Post" />
+          <NavigationProperty Name="Posts" Relationship="Self.FK_Post_DiscussionBoardId" FromRole="DiscussionBoard" ToRole="Post" />
         </EntityType>
         <EntityType Name="DiscussionBoardCode">
           <Key>
@@ -339,20 +336,20 @@
         </EntityType>
         <EntityType Name="Post">
           <Key>
-            <PropertyRef Name="PostID" />
+            <PropertyRef Name="PostId" />
           </Key>
-          <Property Name="PostID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DiscussionBoardID" Type="Int32" Nullable="false" />
+          <Property Name="PostId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DiscussionBoardId" Type="Int32" Nullable="false" />
           <Property Name="OwnerId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Content" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Content" Type="String" MaxLength="2500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContentDelta" Type="String" MaxLength="2500" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DateCreated" Type="DateTime" Precision="3" />
           <Property Name="IsDeleted" Type="Int32" />
-          <NavigationProperty Name="Comments" Relationship="Self.FK_Comment_PostID" FromRole="Post" ToRole="Comment" />
-          <NavigationProperty Name="DiscussionBoard" Relationship="Self.FK_Post_DiscussionBoardID" FromRole="Post" ToRole="DiscussionBoard" />
-          <Property Name="ContentDelta" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK_Comment_PostId" FromRole="Post" ToRole="Comment" />
+          <NavigationProperty Name="DiscussionBoard" Relationship="Self.FK_Post_DiscussionBoardId" FromRole="Post" ToRole="DiscussionBoard" />
         </EntityType>
-        <Association Name="FK_Comment_DiscussionBoardID">
+        <Association Name="FK_Comment_DiscussionBoardId">
           <End Role="DiscussionBoard" Type="Self.DiscussionBoard" Multiplicity="1" />
           <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -364,15 +361,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Comment_PostID">
+        <Association Name="FK_Comment_PostId">
           <End Role="Post" Type="Self.Post" Multiplicity="1" />
           <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Post">
-              <PropertyRef Name="PostID" />
+              <PropertyRef Name="PostId" />
             </Principal>
             <Dependent Role="Comment">
-              <PropertyRef Name="PostID" />
+              <PropertyRef Name="PostId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -400,7 +397,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Post_DiscussionBoardID">
+        <Association Name="FK_Post_DiscussionBoardId">
           <End Role="DiscussionBoard" Type="Self.DiscussionBoard" Multiplicity="1" />
           <End Role="Post" Type="Self.Post" Multiplicity="*" />
           <ReferentialConstraint>
@@ -408,7 +405,7 @@
               <PropertyRef Name="DiscussionBoardId" />
             </Principal>
             <Dependent Role="Post">
-              <PropertyRef Name="DiscussionBoardID" />
+              <PropertyRef Name="DiscussionBoardId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -419,11 +416,11 @@
           <EntitySet Name="DiscussionBoardCodes" EntityType="Self.DiscussionBoardCode" />
           <EntitySet Name="DiscussionBoardMembers" EntityType="Self.DiscussionBoardMember" />
           <EntitySet Name="Posts" EntityType="Self.Post" />
-          <AssociationSet Name="FK_Comment_DiscussionBoardID" Association="Self.FK_Comment_DiscussionBoardID">
+          <AssociationSet Name="FK_Comment_DiscussionBoardId" Association="Self.FK_Comment_DiscussionBoardId">
             <End Role="DiscussionBoard" EntitySet="DiscussionBoards" />
             <End Role="Comment" EntitySet="Comments" />
           </AssociationSet>
-          <AssociationSet Name="FK_Comment_PostID" Association="Self.FK_Comment_PostID">
+          <AssociationSet Name="FK_Comment_PostId" Association="Self.FK_Comment_PostId">
             <End Role="Post" EntitySet="Posts" />
             <End Role="Comment" EntitySet="Comments" />
           </AssociationSet>
@@ -435,7 +432,7 @@
             <End Role="DiscussionBoard" EntitySet="DiscussionBoards" />
             <End Role="DiscussionBoardMember" EntitySet="DiscussionBoardMembers" />
           </AssociationSet>
-          <AssociationSet Name="FK_Post_DiscussionBoardID" Association="Self.FK_Post_DiscussionBoardID">
+          <AssociationSet Name="FK_Post_DiscussionBoardId" Association="Self.FK_Post_DiscussionBoardId">
             <End Role="DiscussionBoard" EntitySet="DiscussionBoards" />
             <End Role="Post" EntitySet="Posts" />
           </AssociationSet>
@@ -498,15 +495,11 @@
             <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spGetDiscussionBoardsByUserId" ReturnType="Collection(ConcourseModel.spGetDiscussionBoardsByUserId_Result)">
-          <Parameter Name="UserId" Mode="In" Type="String" />
+            <Parameter Name="UserId" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spGetPosts" ReturnType="Collection(ConcourseModel.spGetPosts_Result)">
             <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
             <Parameter Name="UserId" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="spIsAdmin">
-            <Parameter Name="UserId" Mode="In" Type="String" />
-            <Parameter Name="Status" Mode="InOut" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spJoinDiscussionBoard">
             <Parameter Name="CodeId" Mode="In" Type="Int32" />
@@ -520,8 +513,10 @@
           </FunctionImport>
           <FunctionImport Name="spUpdateCommentById">
             <Parameter Name="UserId" Mode="In" Type="String" />
+            <Parameter Name="CommentId" Mode="In" Type="Int32" />
             <Parameter Name="DiscussionBoardId" Mode="In" Type="Int32" />
-            <Parameter Name="NewCode" Mode="In" Type="String" />
+            <Parameter Name="NewContent" Mode="In" Type="String" />
+            <Parameter Name="NewContentDelta" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spUpdateDiscussionBoard">
             <Parameter Name="UserId" Mode="In" Type="String" />
@@ -544,26 +539,30 @@
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="spGetComments_Result">
-          <Property Type="Int32" Name="CommentID" Nullable="false" />
-          <Property Type="Int32" Name="PostID" Nullable="false" />
-          <Property Type="Int32" Name="DiscussionBoardID" Nullable="false" />
+          <Property Type="Int32" Name="CommentId" Nullable="false" />
+          <Property Type="Int32" Name="PostId" Nullable="false" />
+          <Property Type="Int32" Name="DiscussionBoardId" Nullable="false" />
           <Property Type="String" Name="OwnerId" Nullable="false" MaxLength="128" />
-          <Property Type="String" Name="Content" Nullable="false" MaxLength="2000" />
+          <Property Type="String" Name="Content" Nullable="false" MaxLength="2500" />
+          <Property Type="String" Name="ContentDelta" Nullable="false" MaxLength="2500" />
           <Property Type="Int32" Name="UserRole" Nullable="true" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="DateCreated" Nullable="true" MaxLength="4000" />
           <Property Type="String" Name="TimeCreated" Nullable="true" MaxLength="4000" />
-          <Property Type="String" Name="ContentDelta" Nullable="false" MaxLength="2000" />
         </ComplexType>
         <ComplexType Name="spGetCommentsByPostId_Result">
-          <Property Type="Int32" Name="CommentID" Nullable="false" />
-          <Property Type="Int32" Name="PostID" Nullable="false" />
-          <Property Type="Int32" Name="DiscussionBoardID" Nullable="false" />
+          <Property Type="Int32" Name="CommentId" Nullable="false" />
+          <Property Type="Int32" Name="PostId" Nullable="false" />
+          <Property Type="Int32" Name="DiscussionBoardId" Nullable="false" />
           <Property Type="String" Name="OwnerId" Nullable="false" MaxLength="128" />
-          <Property Type="String" Name="Content" Nullable="false" MaxLength="2000" />
+          <Property Type="String" Name="Content" Nullable="false" MaxLength="2500" />
+          <Property Type="String" Name="ContentDelta" Nullable="false" MaxLength="2500" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="50" />
           <Property Type="Int32" Name="UserRole" Nullable="true" />
           <Property Type="String" Name="DateCreated" Nullable="true" MaxLength="4000" />
           <Property Type="String" Name="TimeCreated" Nullable="true" MaxLength="4000" />
-          <Property Type="String" Name="ContentDelta" Nullable="false" MaxLength="2000" />
         </ComplexType>
         <ComplexType Name="spGetDiscussionBoardMembers_Result">
           <Property Type="String" Name="UserId" Nullable="false" MaxLength="128" />
@@ -590,17 +589,17 @@
         </ComplexType>
         <ComplexType Name="spGetPosts_Result">
           <Property Type="Int32" Name="PostId" Nullable="false" />
-          <Property Type="Int32" Name="DiscussionBoardID" Nullable="false" />
+          <Property Type="Int32" Name="DiscussionBoardId" Nullable="false" />
           <Property Type="Int32" Name="UserRole" Nullable="true" />
           <Property Type="String" Name="OwnerId" Nullable="false" MaxLength="128" />
           <Property Type="String" Name="Title" Nullable="false" MaxLength="200" />
-          <Property Type="String" Name="Content" Nullable="false" MaxLength="2000" />
+          <Property Type="String" Name="Content" Nullable="false" MaxLength="2500" />
+          <Property Type="String" Name="ContentDelta" Nullable="false" MaxLength="2500" />
           <Property Type="String" Name="FirstName" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="LastName" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="UserName" Nullable="false" MaxLength="256" />
           <Property Type="String" Name="DateCreated" Nullable="true" MaxLength="4000" />
           <Property Type="String" Name="TimeCreated" Nullable="true" MaxLength="4000" />
-          <Property Type="String" Name="ContentDelta" Nullable="false" MaxLength="2000" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -621,12 +620,12 @@
           <EntitySetMapping Name="Comments">
             <EntityTypeMapping TypeName="ConcourseModel.Comment">
               <MappingFragment StoreEntitySet="Comment">
-                <ScalarProperty Name="ContentDelta" ColumnName="ContentDelta" />
-                <ScalarProperty Name="CommentID" ColumnName="CommentID" />
+                <ScalarProperty Name="CommentId" ColumnName="CommentId" />
                 <ScalarProperty Name="DiscussionBoardId" ColumnName="DiscussionBoardId" />
-                <ScalarProperty Name="PostID" ColumnName="PostID" />
+                <ScalarProperty Name="PostId" ColumnName="PostId" />
                 <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
                 <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="ContentDelta" ColumnName="ContentDelta" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
               </MappingFragment>
@@ -672,12 +671,12 @@
           <EntitySetMapping Name="Posts">
             <EntityTypeMapping TypeName="ConcourseModel.Post">
               <MappingFragment StoreEntitySet="Post">
-                <ScalarProperty Name="ContentDelta" ColumnName="ContentDelta" />
-                <ScalarProperty Name="PostID" ColumnName="PostID" />
-                <ScalarProperty Name="DiscussionBoardID" ColumnName="DiscussionBoardID" />
+                <ScalarProperty Name="PostId" ColumnName="PostId" />
+                <ScalarProperty Name="DiscussionBoardId" ColumnName="DiscussionBoardId" />
                 <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="ContentDelta" ColumnName="ContentDelta" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
               </MappingFragment>
@@ -694,30 +693,34 @@
           <FunctionImportMapping FunctionImportName="spGetComments" FunctionName="ConcourseModel.Store.spGetComments">
             <ResultMapping>
               <ComplexTypeMapping TypeName="ConcourseModel.spGetComments_Result">
-                <ScalarProperty Name="CommentID" ColumnName="CommentID" />
-                <ScalarProperty Name="PostID" ColumnName="PostID" />
-                <ScalarProperty Name="DiscussionBoardID" ColumnName="DiscussionBoardID" />
+                <ScalarProperty Name="CommentId" ColumnName="CommentId" />
+                <ScalarProperty Name="PostId" ColumnName="PostId" />
+                <ScalarProperty Name="DiscussionBoardId" ColumnName="DiscussionBoardId" />
                 <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
                 <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="ContentDelta" ColumnName="ContentDelta" />
                 <ScalarProperty Name="UserRole" ColumnName="UserRole" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="TimeCreated" ColumnName="TimeCreated" />
-                <ScalarProperty Name="ContentDelta" ColumnName="ContentDelta" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="spGetCommentsByPostId" FunctionName="ConcourseModel.Store.spGetCommentsByPostId">
             <ResultMapping>
               <ComplexTypeMapping TypeName="ConcourseModel.spGetCommentsByPostId_Result">
-                <ScalarProperty Name="CommentID" ColumnName="CommentID" />
-                <ScalarProperty Name="PostID" ColumnName="PostID" />
-                <ScalarProperty Name="DiscussionBoardID" ColumnName="DiscussionBoardID" />
+                <ScalarProperty Name="CommentId" ColumnName="CommentId" />
+                <ScalarProperty Name="PostId" ColumnName="PostId" />
+                <ScalarProperty Name="DiscussionBoardId" ColumnName="DiscussionBoardId" />
                 <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
                 <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="ContentDelta" ColumnName="ContentDelta" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="UserRole" ColumnName="UserRole" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="TimeCreated" ColumnName="TimeCreated" />
-                <ScalarProperty Name="ContentDelta" ColumnName="ContentDelta" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -756,24 +759,23 @@
             <ResultMapping>
               <ComplexTypeMapping TypeName="ConcourseModel.spGetPosts_Result">
                 <ScalarProperty Name="PostId" ColumnName="PostId" />
-                <ScalarProperty Name="DiscussionBoardID" ColumnName="DiscussionBoardID" />
+                <ScalarProperty Name="DiscussionBoardId" ColumnName="DiscussionBoardId" />
                 <ScalarProperty Name="UserRole" ColumnName="UserRole" />
                 <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="ContentDelta" ColumnName="ContentDelta" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="TimeCreated" ColumnName="TimeCreated" />
-                <ScalarProperty Name="ContentDelta" ColumnName="ContentDelta" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="spIsAdmin" FunctionName="ConcourseModel.Store.spIsAdmin" />
           <FunctionImportMapping FunctionImportName="spJoinDiscussionBoard" FunctionName="ConcourseModel.Store.spJoinDiscussionBoard" />
           <FunctionImportMapping FunctionImportName="spRemoveUserFromDiscussionBoard" FunctionName="ConcourseModel.Store.spRemoveUserFromDiscussionBoard" />
-          <FunctionImportMapping FunctionImportName="spUpdateCommentById" FunctionName="ConcourseModel.Store.spUpdateDiscussionBoardCode" />
+          <FunctionImportMapping FunctionImportName="spUpdateCommentById" FunctionName="ConcourseModel.Store.spUpdateCommentById" />
           <FunctionImportMapping FunctionImportName="spUpdateDiscussionBoard" FunctionName="ConcourseModel.Store.spUpdateDiscussionBoard" />
           <FunctionImportMapping FunctionImportName="spUpdateDiscussionBoardCode" FunctionName="ConcourseModel.Store.spUpdateDiscussionBoardCode" />
           <FunctionImportMapping FunctionImportName="spUpdatePost" FunctionName="ConcourseModel.Store.spUpdatePost" />

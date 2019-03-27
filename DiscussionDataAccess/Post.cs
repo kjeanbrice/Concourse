@@ -20,14 +20,14 @@ namespace DiscussionDataAccess
             this.Comments = new HashSet<Comment>();
         }
     
-        public int PostID { get; set; }
-        public int DiscussionBoardID { get; set; }
+        public int PostId { get; set; }
+        public int DiscussionBoardId { get; set; }
         public string OwnerId { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
+        public string ContentDelta { get; set; }
         public Nullable<System.DateTime> DateCreated { get; set; }
         public Nullable<int> IsDeleted { get; set; }
-        public string ContentDelta { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }

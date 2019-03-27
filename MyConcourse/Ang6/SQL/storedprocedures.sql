@@ -18,8 +18,8 @@ BEGIN
 				RETURN
 			End
 
-			Declare @IsValid int
-			exec spIsValidUser @Id = @UserId, @Status = @IsValid output
+			Declare @IsValId int
+			exec spIsValIdUser @Id = @UserId, @Status = @IsValid output
 			If @IsValid <> 1
 			Begin
 				RAISERROR('INVALID_REQUEST_USER',16,1)
@@ -80,7 +80,7 @@ Begin
 
 			-- Throw an error to the calling application if a discussion board with the same title has already been created by the user
 			If Exists(
-				Select DiscussionBoardID 
+				Select DiscussionBoardId 
 				From dbo.DiscussionBoard 
 				Where Lower(Title) = Lower(@Title) And AdminId = @UserId And IsDeleted = 0)
 			Begin
@@ -403,7 +403,7 @@ Begin
 				End
 			End
 
-			Insert dbo.Post(DiscussionBoardID,OwnerId,Title,Content,ContentDelta)
+			Insert dbo.Post(DiscussionBoardId,OwnerId,Title,Content,ContentDelta)
 			Values (@DiscussionBoardId, @UserId, @Title, @Content, @ContentDelta)
 			
 
@@ -555,7 +555,7 @@ Begin
 
 			Update dbo.Post
 			Set IsDeleted = 1
-			Where dbo.Post.PostId = @PostId AND dbo.Post.DiscussionBoardId = @DiscussionBoardID
+			Where dbo.Post.PostId = @PostId AND dbo.Post.DiscussionBoardId = @DiscussionBoardId
 
 		Commit Transaction
 	End Try
@@ -618,7 +618,7 @@ Begin
 				End	
 			End
 
-			Select PostId, dbo.Post.DiscussionBoardID, dbo.DiscussionBoardMember.UserRole, OwnerId, Title, Content, ContentDelta , AspNetUsers.FirstName, AspNetUsers.LastName, AspNetUsers.UserName ,Format(DateCreated, 'dddd MMMM dd, yyyy') AS DateCreated,  Format(DateCreated, 'hh:mm tt') As TimeCreated
+			Select PostId, dbo.Post.DiscussionBoardId, dbo.DiscussionBoardMember.UserRole, OwnerId, Title, Content, ContentDelta , AspNetUsers.FirstName, AspNetUsers.LastName, AspNetUsers.UserName ,Format(DateCreated, 'dddd MMMM dd, yyyy') AS DateCreated,  Format(DateCreated, 'hh:mm tt') As TimeCreated
 			From dbo.Post
 			Join dbo.AspNetUsers 
 			ON Post.OwnerId = AspNetUsers.Id
@@ -933,7 +933,7 @@ Begin
 				RETURN
 			End
 
-			Insert Into dbo.Comment(DiscussionBoardId,OwnerID,PostID,Content, ContentDelta)
+			Insert Into dbo.Comment(DiscussionBoardId,OwnerId,PostId,Content, ContentDelta)
 			Values(@DiscussionBoardId,@UserId,@PostId,@Content, @ContentDelta)
 
 			/*Select dbo.DiscussionBoard.DiscussionBoardId
@@ -1008,7 +1008,7 @@ Begin
 
 			Update dbo.Comment
 			Set IsDeleted = 1
-			Where CommentID = @CommentId And DiscussionBoardId = @DiscussionBoardId
+			Where CommentId = @CommentId And DiscussionBoardId = @DiscussionBoardId
 		
 		Commit Transaction
 	End Try
@@ -1082,12 +1082,14 @@ Begin
 				RETURN
 			End
 
-			Select CommentID, PostID, Comment.DiscussionBoardID, OwnerId, Content, ContentDelta, dbo.DiscussionBoardMember.UserRole,Format(DateCreated, 'dddd MMMM dd, yyyy') AS DateCreated,  Format(DateCreated, 'hh:mm:ss tt') As TimeCreated
+			Select CommentId, PostId, Comment.DiscussionBoardId, OwnerId, Content, ContentDelta, dbo.AspNetUsers.FirstName, dbo.AspNetUsers.LastName, dbo.DiscussionBoardMember.UserRole,Format(DateCreated, 'dddd MMMM dd, yyyy') AS DateCreated,  Format(DateCreated, 'hh:mm:ss tt') As TimeCreated
 			From dbo.Comment
 			Join dbo.DiscussionBoardMember
 			On dbo.DiscussionBoardMember.DiscussionBoardId = @DiscussionBoardId
-			Where Comment.DiscussionBoardId = @DiscussionBoardId And Comment.IsDeleted = 0 And Comment.PostID = @PostId
-			Order By CommentID ASC
+			Join dbo.AspNetUsers
+			On dbo.Comment.OwnerId = dbo.AspNetUsers.Id
+			Where Comment.DiscussionBoardId = @DiscussionBoardId And Comment.IsDeleted = 0 And Comment.PostId = @PostId
+			Order By CommentId ASC
 
 		Commit Transaction
 	End Try
@@ -1154,12 +1156,14 @@ Begin
 				End	
 			End
 
-			Select CommentID, PostID, Comment.DiscussionBoardID, OwnerId, Content, ContentDelta, dbo.DiscussionBoardMember.UserRole,Format(DateCreated, 'dddd MMMM dd, yyyy') AS DateCreated,  Format(DateCreated, 'hh:mm:ss tt') As TimeCreated
+			Select CommentId, PostId, Comment.DiscussionBoardId, OwnerId, Content, ContentDelta, dbo.DiscussionBoardMember.UserRole, dbo.AspNetUsers.FirstName, dbo.AspNetUsers.LastName, Format(DateCreated, 'dddd MMMM dd, yyyy') AS DateCreated,  Format(DateCreated, 'hh:mm:ss tt') As TimeCreated
 			From dbo.Comment
 			Join dbo.DiscussionBoardMember
 			On dbo.DiscussionBoardMember.DiscussionBoardId = @DiscussionBoardId
+			Join dbo.AspNetUsers
+			On dbo.Comment.OwnerId = dbo.AspNetUsers.Id
 			Where Comment.DiscussionBoardId = @DiscussionBoardId And Comment.IsDeleted = 0
-			Order By CommentID ASC
+			Order By CommentId ASC
 
 		Commit Transaction
 	End Try
@@ -1628,6 +1632,8 @@ Go
 
 
 exec [dbo].[spGetDiscussionBoardsByUserId] @UserId=N'Hello'
+
+Select * from Comment
 
 
 /* ---- end of helper methods ---- */

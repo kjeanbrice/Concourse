@@ -156,7 +156,7 @@ namespace MyConcourse.Controllers
             }
 
 
-            if(group.GroupCode == null || group.GroupCode.Length == 0 || group.GroupID == null || group.GroupID.Length == 0)
+            if(group.GroupCode == null || group.GroupCode.Length == 0 || group.GroupId == null || group.GroupId.Length == 0)
             {
                 HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.BadRequest);
                 message.Content = new StringContent("The Group Code and/or Group ID are incorrect.");
@@ -164,7 +164,7 @@ namespace MyConcourse.Controllers
             }
 
             int result_groupid;
-            bool valid = int.TryParse(group.GroupID, out result_groupid);
+            bool valid = int.TryParse(group.GroupId, out result_groupid);
             if (!valid)
             {
                 HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.BadRequest);
@@ -238,7 +238,7 @@ namespace MyConcourse.Controllers
             }
 
             int discussion_board_id;
-            bool is_valid = int.TryParse(group.DiscussionBoardID, out discussion_board_id);
+            bool is_valid = int.TryParse(group.DiscussionBoardId, out discussion_board_id);
             if (!is_valid)
             {
                 HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.BadRequest);
@@ -324,7 +324,7 @@ namespace MyConcourse.Controllers
 
 
             int discussion_board_id;
-            bool is_valid = int.TryParse(group.DiscussionBoardID, out discussion_board_id);
+            bool is_valid = int.TryParse(group.DiscussionBoardId, out discussion_board_id);
             if (!is_valid)
             {
                 HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.BadRequest);
@@ -393,7 +393,7 @@ namespace MyConcourse.Controllers
             }
 
             int discussion_board_id;
-            bool is_valid = int.TryParse(group.DiscussionBoardID, out discussion_board_id);
+            bool is_valid = int.TryParse(group.DiscussionBoardId, out discussion_board_id);
             if (!is_valid)
             {
                 HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.BadRequest);
@@ -479,7 +479,7 @@ namespace MyConcourse.Controllers
             if (!is_valid)
             {
                 HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.BadRequest);
-                message.Content = new StringContent("Hmm, it seems we can't do that transacation for you. Please try again later.");
+                message.Content = new StringContent("Hmm, it seems we can't do that transaction for you. Please try again later.");
                 throw new HttpResponseException(message);
             }
 
@@ -534,10 +534,9 @@ namespace MyConcourse.Controllers
 
         }
 
-
         [HttpPost]
-        [Route("comments")]
-        public List<spGetComments_Result> GetComments([FromBody]DiscussionBoardAPIModel group)
+        [Route("createcomment")]
+        public IHttpActionResult CreateComment([FromBody]CommentAPIModel comment)
         {
             string user_id = User.Identity.GetUserId();
             if (user_id == null || user_id.Length == 0)
@@ -547,8 +546,116 @@ namespace MyConcourse.Controllers
                 throw new HttpResponseException(message);
             }
 
+
+            if (comment.Content == null || comment.Content.Trim().Length == 0)
+            {
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.NotFound);
+                message.Content = new StringContent("The content of your comment cannot be empty.");
+                throw new HttpResponseException(message);
+            }
+
+            if (comment.PostId == null || comment.PostId.Trim().Length == 0)
+            {
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.NotFound);
+                message.Content = new StringContent("Hmm, haven't a hard time connecting this comment to this post. Please try again later.");
+                throw new HttpResponseException(message);
+            }
+
+            if(comment.DiscussionBoardId == null)
+            {
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.NotFound);
+                message.Content = new StringContent("Hmm, we're having trouble putting this reply somewhere. Please try again later.");
+                throw new HttpResponseException(message);
+            }
+
             int discussion_board_id;
-            bool is_valid = int.TryParse(group.DiscussionBoardID, out discussion_board_id);
+            bool is_discussionid_valid = int.TryParse(comment.DiscussionBoardId, out discussion_board_id);
+
+            int post_id;
+            bool is_postid_valid = int.TryParse(comment.PostId, out post_id);
+
+            if (!is_discussionid_valid || !is_postid_valid)
+            {
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.BadRequest);
+                message.Content = new StringContent("Hmm, it seems we can't do that transaction for you. Please try again later.");
+                throw new HttpResponseException(message);
+            }
+
+            int results = -1;
+
+            try
+            {
+                using (ConcourseEntities entities = new ConcourseEntities())
+                {
+                    entities.Configuration.EnsureTransactionsForFunctionsAndCommands = false;
+                    results = entities.spCreateComment(user_id, discussion_board_id ,post_id, comment.Content.Trim(), comment.ContentDelta);
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Exception inner_ex = ex.InnerException;
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.BadRequest);
+                if (inner_ex == null)
+                {
+                    message.Content = new StringContent("Server error, please try again later.");
+                    throw new HttpResponseException(message);
+                }
+
+                switch (inner_ex.Message.ToUpper())
+                {
+                    case "INVALID_REQUEST_NULL":
+                    case "INVALID_REQUEST_INVALID":
+                    case "INVALID_REQUEST_USER":
+                        message.Content = new StringContent("Unauthorized User");
+                        break;
+                    case "INVALID_REQUEST_ID":
+                    case "INVALID_REQUEST_PERMISSONS":
+                    case "INVALID_REQUEST_NOT_CONFIRMED":
+                        message.Content = new StringContent("You are not unauthorized to perform this request. Please try agian later.");
+                        break;
+                    case "INVALID_REQUEST_GROUP":
+                        message.Content = new StringContent("You are not a member of this group. Please join this group and try again.");
+                        break;
+                    case "INVALID_REQUEST_POST":
+                        message.Content = new StringContent("Hmm, the post associated with this request cannot be found, or is in the process of being deleted. Please try again later");
+                        break;
+                    default:
+                        message.Content = new StringContent("An error occured while processing your request. Please try again later");
+                        break;
+                }
+
+                throw new HttpResponseException(message);
+            }
+
+            return Ok();
+
+        }
+
+
+        [HttpGet]
+        [Route("comments")]
+        public List<spGetComments_Result> GetComments([FromUri]DiscussionBoardAPIModel group)
+        {
+            string user_id = User.Identity.GetUserId();
+            if (user_id == null || user_id.Length == 0)
+            {
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.NotFound);
+                message.Content = new StringContent("Not logged in");
+                throw new HttpResponseException(message);
+            }
+
+
+            if (group.DiscussionBoardId == null)
+            {
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.NotFound);
+                message.Content = new StringContent("Hmm, we're having trouble locating these comments. Please try again later.");
+                throw new HttpResponseException(message);
+            }
+
+            int discussion_board_id;
+            bool is_valid = int.TryParse(group.DiscussionBoardId, out discussion_board_id);
             if (!is_valid)
             {
                 HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.BadRequest);

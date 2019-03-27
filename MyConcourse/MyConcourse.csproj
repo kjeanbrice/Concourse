@@ -256,6 +256,7 @@
     </Compile>
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\CommentAPIModel.cs" />
     <Compile Include="Models\DiscussionBoardAPIModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\PostAPIModel.cs" />
