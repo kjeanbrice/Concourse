@@ -475,7 +475,7 @@ namespace MyConcourse.Controllers
 
 
             int discussion_board_id;
-            bool is_valid = int.TryParse(post.DiscussionBoardID, out discussion_board_id);
+            bool is_valid = int.TryParse(post.DiscussionBoardId, out discussion_board_id);
             if (!is_valid)
             {
                 HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.BadRequest);
@@ -706,6 +706,349 @@ namespace MyConcourse.Controllers
 
             return results;
 
+        }
+
+        [HttpPost]
+        [Route("deletepost")]
+        public IHttpActionResult DeletePost([FromBody]PostAPIModel post)
+        {
+            string user_id = User.Identity.GetUserId();
+            if (user_id == null || user_id.Length == 0)
+            {
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.NotFound);
+                message.Content = new StringContent("Not logged in");
+                throw new HttpResponseException(message);
+            }
+
+            if(post.DiscussionBoardId == null || post.PostId == null)
+            {
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.NotFound);
+                message.Content = new StringContent("Hmm, it seems we can't do that transacation for you. Please try again later.");
+                throw new HttpResponseException(message);
+            }
+
+            int discussion_board_id;
+            int post_id;
+            bool is_discussionboardid_valid = int.TryParse(post.DiscussionBoardId, out discussion_board_id);
+            bool is_postid_valid = int.TryParse(post.PostId, out post_id);
+
+            if (!is_postid_valid || !is_discussionboardid_valid)
+            {
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.BadRequest);
+                message.Content = new StringContent("Hmm, it seems we can't do that transacation for you. Please try again later.");
+                throw new HttpResponseException(message);
+            }
+
+
+
+
+            int result = 0;
+
+            try
+            {
+                using (ConcourseEntities entities = new ConcourseEntities())
+                {
+                    entities.Configuration.EnsureTransactionsForFunctionsAndCommands = false;
+                    result = entities.spDeletePost(discussion_board_id,user_id,post_id);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Exception inner_ex = ex.InnerException;
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.BadRequest);
+                if (inner_ex == null)
+                {
+                    message.Content = new StringContent("Server error, please try again later.");
+                    throw new HttpResponseException(message);
+                }
+
+                switch (inner_ex.Message.ToUpper())
+                {
+                    case "INVALID_REQUEST_NULL":
+                    case "INVALID_REQUEST_INVALID":
+                        message.Content = new StringContent("Unauthorized User");
+                        break;
+                    case "INVALID_REQUEST_ID":
+                    case "INVALID_REQUEST_PERMISSONS":
+                        message.Content = new StringContent("You are not unauthorized to perform this request. Please try agian later.");
+                        break;
+                    default:
+                        message.Content = new StringContent("An error occured while processing your request. Please try again later");
+                        break;
+                }
+
+                throw new HttpResponseException(message);
+            }
+
+            return Ok();
+        }
+
+
+        [HttpPost]
+        [Route("updatepost")]
+        public IHttpActionResult UpdatePost([FromBody]PostAPIModel post)
+        {
+            string user_id = User.Identity.GetUserId();
+            if (user_id == null || user_id.Length == 0)
+            {
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.NotFound);
+                message.Content = new StringContent("Not logged in");
+                throw new HttpResponseException(message);
+            }
+
+            if(post.Content == null || post.Content.Trim().Length == 0 || post.ContentDelta == null)
+            {
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.NotFound);
+                message.Content = new StringContent("The content of this post cannot empty.");
+            }
+
+            if (post.Subject == null || post.Subject.Trim().Length == 0)
+            {
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.NotFound);
+                message.Content = new StringContent("The subject of this post cannot empty.");
+            }
+
+       
+            if (post.DiscussionBoardId == null || post.PostId == null)
+            {
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.NotFound);
+                message.Content = new StringContent("Hmm, it seems we can't do that transacation for you. Please try again later.");
+                throw new HttpResponseException(message);
+            }
+
+            int discussion_board_id;
+            int post_id;
+            bool is_discussionboardid_valid = int.TryParse(post.DiscussionBoardId, out discussion_board_id);
+            bool is_postid_valid = int.TryParse(post.PostId, out post_id);
+
+            if (!is_postid_valid || !is_discussionboardid_valid)
+            {
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.BadRequest);
+                message.Content = new StringContent("Hmm, it seems we can't do that transacation for you. Please try again later.");
+                throw new HttpResponseException(message);
+            }
+
+
+
+
+            int result = 0;
+
+            try
+            {
+                using (ConcourseEntities entities = new ConcourseEntities())
+                {
+                    entities.Configuration.EnsureTransactionsForFunctionsAndCommands = false;
+                    result = entities.spUpdatePost(discussion_board_id, user_id, post_id,post.Subject.Trim(),post.Content,post.ContentDelta);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Exception inner_ex = ex.InnerException;
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.BadRequest);
+                if (inner_ex == null)
+                {
+                    message.Content = new StringContent("Server error, please try again later.");
+                    throw new HttpResponseException(message);
+                }
+
+                switch (inner_ex.Message.ToUpper())
+                {
+                    case "INVALID_REQUEST_NULL":
+                    case "INVALID_REQUEST_INVALID":
+                        message.Content = new StringContent("Unauthorized User");
+                        break;
+                    case "INVALID_REQUEST_ID":
+                    case "INVALID_REQUEST_PERMISSONS":
+                        message.Content = new StringContent("You are not unauthorized to perform this request. Please try agian later.");
+                        break;
+                    case "INVALID_REQUEST_GROUP":
+                        message.Content = new StringContent("You are not a member of this group. You are not authorized to make this request.");
+                        break;
+                    case "INVALID_REQUEST_NOT_CONFIRMED":
+                        message.Content = new StringContent("The adminstrator of this group has yet to confirm your idenity. Please try again later ");
+                        break;
+                    default:
+                        message.Content = new StringContent("An error occured while processing your request. Please try again later");
+                        break;
+                }
+
+                throw new HttpResponseException(message);
+            }
+
+            return Ok();
+        }
+
+
+        [HttpPost]
+        [Route("updatecomment")]
+        public IHttpActionResult UpdateComment([FromBody]CommentAPIModel comment)
+        {
+            string user_id = User.Identity.GetUserId();
+            if (user_id == null || user_id.Length == 0)
+            {
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.NotFound);
+                message.Content = new StringContent("Not logged in");
+                throw new HttpResponseException(message);
+            }
+
+            if (comment.Content == null || comment.Content.Trim().Length == 0 || comment.ContentDelta == null)
+            {
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.NotFound);
+                message.Content = new StringContent("The content of this comment cannot empty.");
+            }
+
+
+
+            if (comment.DiscussionBoardId == null || comment.CommentId == null)
+            {
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.NotFound);
+                message.Content = new StringContent("Hmm, it seems we can't do that transacation for you. Please try again later.");
+                throw new HttpResponseException(message);
+            }
+
+            int discussion_board_id;
+            int comment_id;
+            bool is_discussionboardid_valid = int.TryParse(comment.DiscussionBoardId, out discussion_board_id);
+            bool is_commentid_valid = int.TryParse(comment.CommentId, out comment_id);
+
+            if (!is_commentid_valid || !is_discussionboardid_valid)
+            {
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.BadRequest);
+                message.Content = new StringContent("Hmm, it seems we can't do that transacation for you. Please try again later.");
+                throw new HttpResponseException(message);
+            }
+
+
+
+
+            int result = 0;
+
+            try
+            {
+                using (ConcourseEntities entities = new ConcourseEntities())
+                {
+                    entities.Configuration.EnsureTransactionsForFunctionsAndCommands = false;
+                    result = entities.spUpdateCommentById(user_id, comment_id, discussion_board_id, comment.Content, comment.ContentDelta);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Exception inner_ex = ex.InnerException;
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.BadRequest);
+                if (inner_ex == null)
+                {
+                    message.Content = new StringContent("Server error, please try again later.");
+                    throw new HttpResponseException(message);
+                }
+
+                switch (inner_ex.Message.ToUpper())
+                {
+                    case "INVALID_REQUEST_NULL":
+                    case "INVALID_REQUEST_INVALID":
+                        message.Content = new StringContent("Unauthorized User");
+                        break;
+                    case "INVALID_REQUEST_ID":
+                    case "INVALID_REQUEST_PERMISSONS":
+                        message.Content = new StringContent("You are not unauthorized to perform this request. Please try agian later.");
+                        break;
+                    case "INVALID_REQUEST_GROUP":
+                        message.Content = new StringContent("You are not a member of this group. You are not authorized to make this request.");
+                        break;
+                    case "INVALID_REQUEST_NOT_CONFIRMED":
+                        message.Content = new StringContent("The adminstrator of this group has yet to confirm your idenity. Please try again later ");
+                        break;
+                    default:
+                        message.Content = new StringContent("An error occured while processing your request. Please try again later");
+                        break;
+                }
+
+                throw new HttpResponseException(message);
+            }
+
+            return Ok();
+        }
+
+
+        [HttpPost]
+        [Route("deletecomment")]
+        public IHttpActionResult DeleteComment([FromBody]CommentAPIModel comment)
+        {
+            string user_id = User.Identity.GetUserId();
+            if (user_id == null || user_id.Length == 0)
+            {
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.NotFound);
+                message.Content = new StringContent("Not logged in");
+                throw new HttpResponseException(message);
+            }
+
+            if (comment.DiscussionBoardId == null || comment.CommentId == null)
+            {
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.NotFound);
+                message.Content = new StringContent("Hmm, it seems we can't do that transacation for you. Please try again later.");
+                throw new HttpResponseException(message);
+            }
+
+            int discussion_board_id;
+            int comment_id;
+            bool is_discussionboardid_valid = int.TryParse(comment.DiscussionBoardId, out discussion_board_id);
+            bool is_commentid_valid = int.TryParse(comment.CommentId, out comment_id);
+
+            if (!is_commentid_valid || !is_discussionboardid_valid)
+            {
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.BadRequest);
+                message.Content = new StringContent("Hmm, it seems we can't do that transacation for you. Please try again later.");
+                throw new HttpResponseException(message);
+            }
+
+
+
+
+            int result = 0;
+
+            try
+            {
+                using (ConcourseEntities entities = new ConcourseEntities())
+                {
+                    entities.Configuration.EnsureTransactionsForFunctionsAndCommands = false;
+                    result = entities.spDeleteCommentById(user_id,discussion_board_id , comment_id);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Exception inner_ex = ex.InnerException;
+                HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.BadRequest);
+                if (inner_ex == null)
+                {
+                    message.Content = new StringContent("Server error, please try again later.");
+                    throw new HttpResponseException(message);
+                }
+
+                switch (inner_ex.Message.ToUpper())
+                {
+                    case "INVALID_REQUEST_NULL":
+                    case "INVALID_REQUEST_INVALID":
+                        message.Content = new StringContent("Unauthorized User");
+                        break;
+                    case "INVALID_REQUEST_ID":
+                    case "INVALID_REQUEST_PERMISSONS":
+                        message.Content = new StringContent("You are not unauthorized to perform this request. Please try agian later.");
+                        break;
+                    case "INVALID_REQUEST_COMMENT":
+                        message.Content = new StringContent("We're having trouble locating this comment. It may have already been deleted. Please try agian later");
+                        break;
+                    default:
+                        message.Content = new StringContent("An error occured while processing your request. Please try again later");
+                        break;
+                }
+
+                throw new HttpResponseException(message);
+            }
+
+            return Ok();
         }
 
     }

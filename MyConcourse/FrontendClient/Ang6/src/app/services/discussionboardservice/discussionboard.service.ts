@@ -141,6 +141,186 @@ export class DiscussionBoardService {
             );
     }
 
+    updatePost(discussionboard_id: number, post_id: string,
+        new_subject: string, new_content: string, new_content_delta: any): Observable<any> {
+
+        const httpOptions = {
+            headers: new HttpHeaders({
+              'Content-Type': 'application/x-www-form-urlencoded',
+              'Authorization': 'Bearer ' + window.sessionStorage.getItem('access_token')
+            })
+          };
+
+          let httpHeaders = new HttpHeaders();
+          httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + window.sessionStorage.getItem('access_token'));
+          httpHeaders = httpHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
+
+
+          let params_opt = new HttpParams();
+          params_opt = params_opt.set('discussionBoardid', '' + discussionboard_id);
+          params_opt = params_opt.set('postid', post_id);
+          params_opt = params_opt.set('subject', new_subject);
+          params_opt = params_opt.set('content', new_content);
+          params_opt = params_opt.set('contentdelta', JSON.stringify(new_content_delta));
+
+        return this.http.post(DiscussionBoardService.BASE_URL + '/api/dashboard/updatepost', params_opt, {headers: httpHeaders})
+            .pipe(
+                retryWhen((errors) => {
+                    return errors.pipe(
+                        delay(3000),
+                        concatMap((error, index) => {
+                            if (index === 1) {
+                                return throwError(error);
+                            }
+                            return of(null);
+                        })
+
+                    );
+                }
+                ),
+                map((response) => {
+                    console.log('Status:' + JSON.stringify(response));
+                    return response;
+                }),
+
+                catchError((err: any) => { console.log(err.status); return this.errorHandler(err); })
+            );
+    }
+
+
+    updateComment(discussionboard_id: number, comment_id: string, content: string, content_delta: any): Observable<any> {
+
+        const httpOptions = {
+            headers: new HttpHeaders({
+              'Content-Type': 'application/x-www-form-urlencoded',
+              'Authorization': 'Bearer ' + window.sessionStorage.getItem('access_token')
+            })
+          };
+
+          let httpHeaders = new HttpHeaders();
+          httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + window.sessionStorage.getItem('access_token'));
+          httpHeaders = httpHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
+
+
+          let params_opt = new HttpParams();
+          params_opt = params_opt.set('discussionBoardid', '' + discussionboard_id);
+          params_opt = params_opt.set('commentid', comment_id);
+          params_opt = params_opt.set('content', content);
+          params_opt = params_opt.set('contentdelta', JSON.stringify(content_delta));
+
+        return this.http.post(DiscussionBoardService.BASE_URL + '/api/dashboard/updatecomment', params_opt, {headers: httpHeaders})
+            .pipe(
+                retryWhen((errors) => {
+                    return errors.pipe(
+                        delay(3000),
+                        concatMap((error, index) => {
+                            if (index === 1) {
+                                return throwError(error);
+                            }
+                            return of(null);
+                        })
+
+                    );
+                }
+                ),
+                map((response) => {
+                    console.log('Status:' + JSON.stringify(response));
+                    return response;
+                }),
+
+                catchError((err: any) => { console.log(err.status); return this.errorHandler(err); })
+            );
+    }
+
+
+    deletePost(discussionboard_id: number, post_id: string): Observable<any> {
+
+        const httpOptions = {
+            headers: new HttpHeaders({
+              'Content-Type': 'application/x-www-form-urlencoded',
+              'Authorization': 'Bearer ' + window.sessionStorage.getItem('access_token')
+            })
+          };
+
+          let httpHeaders = new HttpHeaders();
+          httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + window.sessionStorage.getItem('access_token'));
+          httpHeaders = httpHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
+
+
+          let params_opt = new HttpParams();
+          params_opt = params_opt.set('discussionBoardid', '' + discussionboard_id);
+          params_opt = params_opt.set('postid', post_id);
+
+        return this.http.post(DiscussionBoardService.BASE_URL + '/api/dashboard/deletepost', params_opt, {headers: httpHeaders})
+            .pipe(
+                retryWhen((errors) => {
+                    return errors.pipe(
+                        delay(3000),
+                        concatMap((error, index) => {
+                            if (index === 1) {
+                                return throwError(error);
+                            }
+                            return of(null);
+                        })
+
+                    );
+                }
+                ),
+                map((response) => {
+                    console.log('Status:' + JSON.stringify(response));
+                    return response;
+                }),
+
+                catchError((err: any) => { console.log(err.status); return this.errorHandler(err); })
+            );
+    }
+
+
+    deleteComment(discussionboard_id: number, comment_id: string): Observable<any> {
+
+        const httpOptions = {
+            headers: new HttpHeaders({
+              'Content-Type': 'application/x-www-form-urlencoded',
+              'Authorization': 'Bearer ' + window.sessionStorage.getItem('access_token')
+            })
+          };
+
+          let httpHeaders = new HttpHeaders();
+          httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + window.sessionStorage.getItem('access_token'));
+          httpHeaders = httpHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
+
+
+          let params_opt = new HttpParams();
+          params_opt = params_opt.set('discussionBoardid', '' + discussionboard_id);
+          params_opt = params_opt.set('commentid', comment_id);
+
+        return this.http.post(DiscussionBoardService.BASE_URL + '/api/dashboard/deletecomment', params_opt, {headers: httpHeaders})
+            .pipe(
+                retryWhen((errors) => {
+                    return errors.pipe(
+                        delay(3000),
+                        concatMap((error, index) => {
+                            if (index === 1) {
+                                return throwError(error);
+                            }
+                            return of(null);
+                        })
+
+                    );
+                }
+                ),
+                map((response) => {
+                    console.log('Status:' + JSON.stringify(response));
+                    return response;
+                }),
+
+                catchError((err: any) => { console.log(err.status); return this.errorHandler(err); })
+            );
+    }
+
+
+
+
 
     createComment(discussionboard_id: number, post_id: string , content: string, content_delta: any): Observable<any> {
 

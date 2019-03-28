@@ -7,8 +7,8 @@ namespace MyConcourse.Models
 {
     public class PostAPIModel
     {
-        public string DiscussionBoardID { get; set; }
-        public string PostID { get; set; }
+        public string DiscussionBoardId { get; set; }
+        public string PostId { get; set; }
         public string Content { get; set; }
         public string ContentDelta { get; set; }
         public string Subject { get; set; }

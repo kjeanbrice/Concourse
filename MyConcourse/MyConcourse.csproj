@@ -267,6 +267,28 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="Content\Angular\assets\images\background_about.png" />
+    <Content Include="Content\Angular\assets\images\background_about2.png" />
+    <Content Include="Content\Angular\assets\images\background_calltoaction.png" />
+    <Content Include="Content\Angular\assets\images\background_chat.png" />
+    <Content Include="Content\Angular\assets\images\background_header.png" />
+    <Content Include="Content\Angular\assets\images\background_learn.png" />
+    <Content Include="Content\Angular\assets\images\background_team.png" />
+    <Content Include="Content\Angular\assets\images\favicon.ico" />
+    <Content Include="Content\Angular\assets\images\mobile_background_about.png" />
+    <Content Include="Content\Angular\assets\images\mobile_background_header.png" />
+    <Content Include="Content\Angular\assets\images\mobile_background_team.png" />
+    <Content Include="Content\Angular\assets\images\nav_icon.png" />
+    <Content Include="Content\Angular\assets\js\dashboard.js" />
+    <Content Include="Content\Angular\assets\js\modifiedcore.js" />
+    <Content Include="Content\Angular\favicon.ico" />
+    <Content Include="Content\Angular\index.html" />
+    <Content Include="Content\Angular\main.js" />
+    <Content Include="Content\Angular\polyfills.js" />
+    <Content Include="Content\Angular\runtime.js" />
+    <Content Include="Content\Angular\scripts.js" />
+    <Content Include="Content\Angular\styles.js" />
+    <Content Include="Content\Angular\vendor.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -701,6 +723,12 @@
     <Content Include="Content\Tabler\plugins\prismjs\plugin.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\Angular\main.js.map" />
+    <Content Include="Content\Angular\polyfills.js.map" />
+    <Content Include="Content\Angular\runtime.js.map" />
+    <Content Include="Content\Angular\scripts.js.map" />
+    <Content Include="Content\Angular\styles.js.map" />
+    <Content Include="Content\Angular\vendor.js.map" />
     <None Include="FrontendClient\Ang6\src\app\Components\LoginComponent\login.component.html" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />

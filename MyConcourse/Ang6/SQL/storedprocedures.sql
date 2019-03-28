@@ -485,7 +485,7 @@ Begin
 				End
 
 				Declare @CanUpdate nvarchar(128)
-				Set @CanUpdate = (Select OwnerId From dbo.Post Where dbo.Post.PostID = @PostId And OwnerId = @UserId)
+				Set @CanUpdate = (Select OwnerId From dbo.Post Where dbo.Post.PostID = @PostId And OwnerId = @UserId And dbo.Post.IsDeleted = 0)
 				If @CanUpdate IS NULL
 				Begin
 					RAISERROR('INVALID_REQUEST_PERMISSONS',16,1)
@@ -557,6 +557,10 @@ Begin
 			Set IsDeleted = 1
 			Where dbo.Post.PostId = @PostId AND dbo.Post.DiscussionBoardId = @DiscussionBoardId
 
+			Update dbo.Comment
+			Set IsDeleted = 1
+			Where dbo.Comment.PostId = @PostId
+
 		Commit Transaction
 	End Try
 	Begin Catch
@@ -624,7 +628,7 @@ Begin
 			ON Post.OwnerId = AspNetUsers.Id
 			Join dbo.DiscussionBoardMember
 			ON dbo.DiscussionBoardMember.DiscussionBoardId = @DiscussionBoardId AND dbo.DiscussionBoardMember.UserId = @UserId
-			Where dbo.Post.DiscussionBoardId = @DiscussionBoardId
+			Where dbo.Post.DiscussionBoardId = @DiscussionBoardId AND dbo.Post.IsDeleted = 0
 			ORDER BY dbo.Post.DateCreated DESC 
 
 		Commit Transaction
@@ -927,7 +931,7 @@ Begin
 			End
 
 
-			If Not Exists(Select PostId From dbo.Post Where PostId = @PostId)
+			If Not Exists(Select PostId From dbo.Post Where PostId = @PostId And dbo.Post.IsDeleted = 0)
 			Begin
 				RAISERROR('INVALID_REQUEST_POST',16,1)
 				RETURN
@@ -1244,7 +1248,7 @@ Begin
 				End
 
 				Declare @CanUpdate nvarchar(128)
-				Set @CanUpdate = (Select OwnerId From dbo.Comment Where dbo.Comment.CommentID = @CommentId And OwnerId = @UserId)
+				Set @CanUpdate = (Select OwnerId From dbo.Comment Where dbo.Comment.CommentID = @CommentId And OwnerId = @UserId AND dbo.Comment.IsDeleted = 0)
 				If @CanUpdate IS NULL
 				Begin
 					RAISERROR('INVALID_REQUEST_PERMISSIONS',16,1)
@@ -1253,7 +1257,7 @@ Begin
 			End
 
 			Declare @IsCommentValid int
-			Set @IsCommentValid = (Select CommentId From dbo.Comment Where CommentId = @CommentId)
+			Set @IsCommentValid = (Select CommentId From dbo.Comment Where CommentId = @CommentId AND dbo.Comment.IsDeleted = 0)
 			If @IsCommentValid IS NULL
 			Begin
 				RAISERROR('INVALID_REQUEST_PERMISSIONS',16,1)
@@ -1473,7 +1477,7 @@ Begin
 	Begin Try
 	
 		Set @Status = 0
-		If Not Exists(Select DiscussionBoardId From dbo.DiscussionBoard Where DiscussionBoardId = @DiscussionBoardId)
+		If Not Exists(Select DiscussionBoardId From dbo.DiscussionBoard Where DiscussionBoardId = @DiscussionBoardId And DiscussionBoard.IsDeleted = 0)
 		Begin
 			RAISERROR('INVALID_REQUEST_ID',16,1)
 			RETURN
@@ -1631,9 +1635,7 @@ End
 Go
 
 
-exec [dbo].[spGetDiscussionBoardsByUserId] @UserId=N'Hello'
 
-Select * from Comment
 
 
 /* ---- end of helper methods ---- */

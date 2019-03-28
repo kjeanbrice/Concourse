@@ -37,6 +37,9 @@ export class DiscussionBoardComponent implements OnInit {
     error_createcomment_content = '';
     error_createcomment_server = '';
 
+    error_deletepost_server = '';
+    error_deletecomment_server = '';
+
     css_loading_createpost = 'dimmer';
     css_loading_editpost = 'dimmer';
     css_loading_deletepost = 'dimmer';
@@ -432,6 +435,11 @@ export class DiscussionBoardComponent implements OnInit {
     }
 
     onSubmit(event: any): void {
+
+        let post_id: string = null;
+        let post_subject: string = null;
+        let comment_id: string = null;
+
         switch (event.target.id) {
             case 'btn-createpost':
                 this.css_loading_createpost = 'dimmer active';
@@ -464,8 +472,66 @@ export class DiscussionBoardComponent implements OnInit {
                 }
                 break;
             case 'btn-deletepost':
+            this.css_loading_deletepost = 'dimmer active';
+            post_id = document.getElementById('delete-postid').getAttribute('data-postid');
+            if (post_id === null) {
+                this.css_loading_deletepost = 'dimmer';
+                console.log('DeletePost Submit Error');
+                return;
+            }
+
+            this.discussionboard_service.deletePost(this.discussionboard_id, post_id).subscribe(
+                data => {
+                    document.getElementById('deletepostmodal-close').click();
+                    this.changeAlertSuccessMessage('You have successfully deleted a post!');
+                    this.onAlertSuccessOpen();
+                    this.resetFormFields();
+                    document.getElementById('error-deletepost-server').style.display = 'none';
+                    this.loadPosts(0);
+                    this.loadComments(0);
+                    this.hideCommentInput();
+                },
+                errors => {
+                    if (errors.error) {
+                        this.error_deletepost_server = errors.error;
+                    } else {
+                        this.error_deletepost_server = ERROR_SERVER;
+                    }
+                    document.getElementById('error-deletepost-server').style.display = 'block';
+                    this.css_loading_deletepost = 'dimmer';
+                }
+            );
                 break;
             case 'btn-updatepost':
+            this.css_loading_editpost = 'dimmer active';
+            post_subject = (<HTMLInputElement>document.getElementById('editpost_subject')).value;
+            post_id = document.getElementById('editpost-id').getAttribute('data-postid');
+            if (post_id === null || this.editpost_editor === null || post_subject === null) {
+                this.css_loading_editpost = 'dimmer';
+                console.log('Update Post Submit Error');
+                return;
+            }
+
+            this.discussionboard_service.updatePost(this.discussionboard_id, post_id, post_subject, this.editpost_editor.getText(),
+            this.editpost_editor.getContents()).subscribe(
+                data => {
+                    document.getElementById('editpostmodal-close').click();
+                    this.changeAlertSuccessMessage('You have successfully edited this post!');
+                    this.onAlertSuccessOpen();
+                    document.getElementById('error-editpost-server').style.display = 'none';
+                    this.resetFormFields();
+                    this.loadPosts(0);
+                },
+                errors => {
+                    if (errors.error) {
+                        this.error_editpost_server = errors.error;
+                    } else {
+                        this.error_editpost_server = ERROR_SERVER;
+                    }
+                    document.getElementById('error-editpost-server').style.display = 'block';
+                    this.css_loading_editpost = 'dimmer';
+                }
+            );
                 break;
             case 'btn-createcomment':
                 this.css_loading_createcomment = 'dimmer active';
@@ -496,8 +562,62 @@ export class DiscussionBoardComponent implements OnInit {
 
                 break;
             case 'btn-deletecomment':
+            this.css_loading_deletecomment = 'dimmer active';
+            comment_id = document.getElementById('delete-commentid').getAttribute('data-commentid');
+            if (comment_id === null) {
+                this.css_loading_deletecomment = 'dimmer';
+                console.log('DeleteComment Submit Error');
+                return;
+            }
+
+            this.discussionboard_service.deleteComment(this.discussionboard_id, comment_id).subscribe(
+                data => {
+                    document.getElementById('deletecommentmodal-close').click();
+                    this.changeAlertSuccessMessage('You have successfully deleted a comment!');
+                    this.onAlertSuccessOpen();
+                    this.resetFormFields();
+                    document.getElementById('error-deletecomment-server').style.display = 'none';
+                    this.loadComments(0);
+                },
+                errors => {
+                    if (errors.error) {
+                        this.error_deletecomment_server = errors.error;
+                    } else {
+                        this.error_deletecomment_server = ERROR_SERVER;
+                    }
+                    document.getElementById('error-deletecomment-server').style.display = 'block';
+                    this.css_loading_deletecomment = 'dimmer';
+                }
+            );
                 break;
             case 'btn-updatecomment':
+            this.css_loading_editcomment = 'dimmer active';
+            comment_id = document.getElementById('editcomment-id').getAttribute('data-commentid');
+            if (comment_id === null || this.editcomment_editor === null) {
+                this.css_loading_editcomment = 'dimmer';
+                console.log('Update Comment Submit Error');
+                break;
+            }
+            this.discussionboard_service.updateComment(this.discussionboard_id, comment_id, this.editcomment_editor.getText(),
+            this.editcomment_editor.getContents()).subscribe(
+                data => {
+                    document.getElementById('editcommentmodal-close').click();
+                    this.changeAlertSuccessMessage('You have successfully edited a comment!');
+                    this.onAlertSuccessOpen();
+                    this.resetFormFields();
+                    document.getElementById('error-editcomment-server').style.display = 'none';
+                    this.loadComments(0);
+                },
+                errors => {
+                    if (errors.error) {
+                        this.error_editcomment_server = errors.error;
+                    } else {
+                        this.error_editcomment_server = ERROR_SERVER;
+                    }
+                    document.getElementById('error-editcomment-server').style.display = 'block';
+                    this.css_loading_editcomment = 'dimmer';
+                }
+            );
                 break;
             default:
                 console.log('OnSubmit Error');
