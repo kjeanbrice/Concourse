@@ -28,16 +28,26 @@ export class DiscussionBoardComponent implements OnInit {
     error_createpost_content = '';
     error_createpost_server = '';
 
+    error_editpost_content = '';
+    error_editpost_server = '';
+
+    error_editcomment_content = '';
+    error_editcomment_server = '';
+
     error_createcomment_content = '';
     error_createcomment_server = '';
 
     css_loading_createpost = 'dimmer';
     css_loading_editpost = 'dimmer';
     css_loading_deletepost = 'dimmer';
+    css_loading_deletecomment = 'dimmer';
     css_loading_createcomment = 'dimmer';
+    css_loading_editcomment = 'dimmer';
 
     createpost_subject_count: string = null;
     createpost_content_count: string = null;
+    editpost_content_count: string = null;
+    editcomment_content_count: string = null;
 
     valid_createpost_subject = false;
     valid_createpost_content = false;
@@ -66,6 +76,8 @@ export class DiscussionBoardComponent implements OnInit {
 
     createpost_editor: any = null;
     createcomment_editor: any = null;
+    editpost_editor: any = null;
+    editcomment_editor: any = null;
 
     viewing_area_config = {
         toolbar: false
@@ -127,6 +139,12 @@ export class DiscussionBoardComponent implements OnInit {
             case 'createcomment':
                 this.createcomment_editor = event;
                 break;
+            case 'editpost':
+            this.editpost_editor = event;
+            break;
+            case 'editcomment':
+            this.editcomment_editor = event;
+            break;
             default:
                 event.setContents(JSON.parse(delta));
                 break;
@@ -225,6 +243,75 @@ export class DiscussionBoardComponent implements OnInit {
 
         return false;
     }
+
+
+    onClickPostOptions(event: any, postid: number, type: string): void {
+
+        if (postid === null) {
+            return;
+        }
+
+        let item: Post = null;
+        for (let i = 0; i < this.current_posts.length; i++) {
+            if (this.current_posts[i].PostId === postid) {
+                item = this.current_posts[i];
+                break;
+            }
+        }
+
+        if (item === null) {
+            return;
+        }
+
+        switch (type) {
+          case 'edit':
+          this.editpost_editor.setContents(JSON.parse(item.ContentDelta));
+          (<HTMLInputElement>document.getElementById('editpost_subject')).value = item.Title;
+          document.getElementById('editpost-id').setAttribute('data-postid', item.PostId + '');
+          document.getElementById('editpost' + item.PostId).click();
+          break;
+          case 'delete':
+            document.getElementById('delete-postid').setAttribute('data-postid', item.PostId + '');
+            document.getElementById('deletepost' + item.PostId).click();
+            break;
+        }
+      }
+
+
+      onClickCommentOptions(event: any, commentid: number, type: string): void {
+
+        if (commentid === null) {
+            return;
+        }
+
+        let item: Comment = null;
+        for (let i = 0; i < this.current_comments.length; i++) {
+            if (this.current_comments[i].CommentId === commentid) {
+                item = this.current_comments[i];
+                break;
+            }
+        }
+
+        if (item === null) {
+            return;
+        }
+
+        switch (type) {
+          case 'edit':
+          this.editcomment_editor.setContents(JSON.parse(item.ContentDelta));
+          document.getElementById('editcomment-id').setAttribute('data-commentid', item.CommentId + '');
+          document.getElementById('editcomment-id').setAttribute('data-postid', item.PostId + '');
+          document.getElementById('editcomment' + item.CommentId).click();
+          break;
+          case 'delete':
+            document.getElementById('delete-commentid').setAttribute('data-postid', item.PostId + '');
+            document.getElementById('delete-commentid').setAttribute('data-commentid', item.CommentId + '');
+            document.getElementById('deletecomment' + item.CommentId).click();
+            break;
+        default:
+        break;
+        }
+      }
 
 
 
@@ -333,7 +420,7 @@ export class DiscussionBoardComponent implements OnInit {
             && firstComment.FirstName === secondComment.FirstName
             && firstComment.LastName === secondComment.LastName
             && firstComment.OwnerId === secondComment.OwnerId
-            && firstComment.PostID === secondComment.PostID
+            && firstComment.PostId === secondComment.PostId
             && firstComment.CommentId === secondComment.CommentId
             && firstComment.TimeCreated === secondComment.TimeCreated
             && firstComment.UserRole === secondComment.UserRole
@@ -419,7 +506,6 @@ export class DiscussionBoardComponent implements OnInit {
     }
 
     onUpdateCreatePost(event: any, name: string): void {
-        let comment: any = null;
         switch (name) {
             case 'createpost-subject':
                 const title = event.target.value;
@@ -452,22 +538,6 @@ export class DiscussionBoardComponent implements OnInit {
                 }
                 this.createpost_content_count = event.editor.getText().trim().length + '/' + this.MAX_CONTENT_LIMIT;
                 break;
-            case 'createcomment-content':
-                comment = event.editor.getText();
-                if (comment === null || content.trim().length === 0) {
-                    this.error_createpost_content = ERROR_NAME_NOT_VALID;
-                    document.getElementById('error-createpost-content').style.display = 'block';
-                    this.valid_createpost_content = false;
-                } else {
-                    this.createpost_content = content.trim();
-                    document.getElementById('error-createpost-content').style.display = 'none';
-                    this.valid_createpost_content = true;
-                }
-
-                if (event.editor.getLength() > this.MAX_CONTENT_LIMIT) {
-                    event.editor.deleteText(this.MAX_CONTENT_LIMIT + 1, event.editor.getLength());
-                }
-                break;
             default:
                 console.log('OnUpdate: Not Found');
                 break;
@@ -482,6 +552,57 @@ export class DiscussionBoardComponent implements OnInit {
         }
 
 
+
+    }
+
+    onUpdateEditPost(event: any, name: string) {
+
+        switch (name) {
+            case 'editpost-content':
+            const content = event.editor.getText();
+            if (content === null || content.trim().length === 0) {
+                this.error_editpost_content = ERROR_NAME_NOT_VALID;
+                document.getElementById('error-editpost-content').style.display = 'block';
+            } else {
+                document.getElementById('error-editpost-content').style.display = 'none';
+            }
+
+            if (event.editor.getLength() > this.MAX_CONTENT_LIMIT) {
+                event.editor.deleteText(this.MAX_CONTENT_LIMIT, event.editor.getLength());
+            }
+            this.editpost_content_count = event.editor.getText().trim().length + '/' + this.MAX_CONTENT_LIMIT;
+            break;
+            default:
+            console.log('onUpdateEditPost: error' );
+            break;
+
+        }
+
+    }
+
+
+    onUpdateEditComment(event: any, name: string) {
+
+        switch (name) {
+            case 'editcomment-content':
+            const content = event.editor.getText();
+            if (content === null || content.trim().length === 0) {
+                this.error_editcomment_content = ERROR_NAME_NOT_VALID;
+                document.getElementById('error-editcomment-content').style.display = 'block';
+            } else {
+                document.getElementById('error-editcomment-content').style.display = 'none';
+            }
+
+            if (event.editor.getLength() > this.MAX_CONTENT_LIMIT) {
+                event.editor.deleteText(this.MAX_CONTENT_LIMIT, event.editor.getLength());
+            }
+            this.editcomment_content_count = event.editor.getText().trim().length + '/' + this.MAX_CONTENT_LIMIT;
+            break;
+            default:
+            console.log('onUpdateEditComment: error' );
+            break;
+
+        }
 
     }
 

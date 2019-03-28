@@ -671,6 +671,7 @@ namespace MyConcourse.Controllers
                 {
                     entities.Configuration.EnsureTransactionsForFunctionsAndCommands = false;
                     var temp = entities.spGetComments(discussion_board_id, user_id);
+                    
                     results = temp.ToList<spGetComments_Result>();
                 }
 
