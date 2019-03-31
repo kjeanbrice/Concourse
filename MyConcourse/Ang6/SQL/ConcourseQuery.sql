@@ -22,6 +22,7 @@ if OBJECT_ID('AdminData') is not NULL
 	drop table UserData*/
 
 
+	Select * from Post
 	Select * from AspNetUsers
 	
 

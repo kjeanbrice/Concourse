@@ -57,7 +57,10 @@ exec spGetCommentsByPostId @UserId = '058019a2-dd6c-4ad9-b296-b38821a67d09', @Di
 exec spGetCommentsByPostId @UserId = '40f559e6-418a-43f5-a7ad-d5a6058058ac', @DiscussionBoardId=100, @PostId = 62
 exec spGetCommentsByPostId @UserId = '86691472-2277-4aaa-b9c5-2afc7ff330c5', @DiscussionBoardId=100, @PostId = 51
 
-exec spGetComments @UserId = '40f559e6-418a-43f5-a7ad-d5a6058058ac', @DiscussionBoardId=100
+exec spGetComments @UserId = 'df2fdc37-2baf-4a0d-aa32-c621fbe81787', @DiscussionBoardId=102
+
+Select * from AspNetUsers
+Select *  from DiscussionBoard
 
 
 

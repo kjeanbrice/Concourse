@@ -34,7 +34,7 @@ BEGIN
 			Join dbo.DiscussionBoardCode
 			On dbo.DiscussionBoardCode.DiscussionBoardId = dbo.DiscussionBoard.DiscussionBoardId
 			Join dbo.AspNetUsers
-			On dbo.AspNetUsers.Id = dbo.DiscussionBoardMember.UserId
+			On dbo.AspNetUsers.Id = DiscussionBoard.AdminId
 			Where  dbo.DiscussionBoard.IsDeleted = 0 And dbo.DiscussionBoardMember.UserId = @UserId
 			Order By dbo.DiscussionBoard.DateCreated ASC
 		Commit Transaction
@@ -693,8 +693,8 @@ Begin
 			End
 
 
-			Insert dbo.DiscussionBoardMember(DiscussionBoardId,UserId)
-			Values (@DiscussionBoardId,@UserId);
+			Insert dbo.DiscussionBoardMember(DiscussionBoardId,UserId,IsConfirmed)
+			Values (@DiscussionBoardId,@UserId,1);
 
 		Commit Transaction
 	End Try
@@ -1163,10 +1163,10 @@ Begin
 			Select CommentId, PostId, Comment.DiscussionBoardId, OwnerId, Content, ContentDelta, dbo.DiscussionBoardMember.UserRole, dbo.AspNetUsers.FirstName, dbo.AspNetUsers.LastName, Format(DateCreated, 'dddd MMMM dd, yyyy') AS DateCreated,  Format(DateCreated, 'hh:mm:ss tt') As TimeCreated
 			From dbo.Comment
 			Join dbo.DiscussionBoardMember
-			On dbo.DiscussionBoardMember.DiscussionBoardId = @DiscussionBoardId
+			On dbo.DiscussionBoardMember.DiscussionBoardId = @DiscussionBoardId And dbo.DiscussionBoardMember.UserId = @UserId
 			Join dbo.AspNetUsers
 			On dbo.Comment.OwnerId = dbo.AspNetUsers.Id
-			Where Comment.DiscussionBoardId = @DiscussionBoardId And Comment.IsDeleted = 0
+			Where Comment.DiscussionBoardId = @DiscussionBoardId And  Comment.IsDeleted = 0
 			Order By CommentId ASC
 
 		Commit Transaction
@@ -1395,11 +1395,11 @@ Begin
 
 			Declare @HasPermission int
 			Set @HasPermission = 0;
-			exec spHasPermissions @UserId = @UserId, @DiscussionBoardId = @DiscussionBoardId, @Status = @HasPermission output
+			exec spHasGroupMemberPermissions @UserId = @UserId, @DiscussionBoardId = @DiscussionBoardId, @Status = @HasPermission output
 
-			If @HasPermission = 1
+			If @HasPermission > 0
 			Begin
-				Select UserId, IsConfirmed, IsBanned, Email, dbo.DiscussionBoardMember.UserName, dbo.DiscussionBoardMember.UserRole, Format(DateJoined, 'dddd MMMM dd, yyyy') AS DateJoined,  Format(DateJoined, 'hh:mm:ss tt') As TimeJoined
+				Select dbo.AspNetUsers.FirstName, dbo.AspNetUsers.LastName, UserId, IsConfirmed, IsBanned, Email, dbo.DiscussionBoardMember.UserName, dbo.DiscussionBoardMember.UserRole, Format(DateJoined, 'dddd MMMM dd, yyyy') AS DateJoined,  Format(DateJoined, 'hh:mm:ss tt') As TimeJoined, @HasPermission AS Auth
 				From dbo.DiscussionBoardMember
 				Inner Join dbo.AspNetUsers
 				On dbo.DiscussionBoardMember.UserId = dbo.AspNetUsers.Id
@@ -1416,11 +1416,11 @@ Begin
 					RETURN	
 				End 
 
-				Select  Email, dbo.DiscussionBoardMember.UserName, dbo.DiscussionBoardMember.UserRole
+				Select  dbo.AspNetUsers.FirstName, dbo.AspNetUsers.LastName, UserId, IsConfirmed, IsBanned, Email, dbo.DiscussionBoardMember.UserName, dbo.DiscussionBoardMember.UserRole, Format(DateJoined, 'dddd MMMM dd, yyyy') AS DateJoined,  Format(DateJoined, 'hh:mm:ss tt') As TimeJoined, @HasPermission AS Auth
 				From dbo.DiscussionBoardMember
 				Inner Join dbo.AspNetUsers
 				On dbo.DiscussionBoardMember.UserId = dbo.AspNetUsers.Id
-				Where dbo.DiscussionBoardMember.DiscussionBoardId = @DiscussionBoardId And dbo.DiscussionBoardMember.UserId <> @UserId
+				Where dbo.DiscussionBoardMember.DiscussionBoardId = @DiscussionBoardId
 			End
 		Commit Transaction
 	End Try
@@ -1513,9 +1513,57 @@ Begin
 			Where dbo.DiscussionBoardMember.UserRole = 0 AND dbo.DiscussionBoardMember.UserId = @UserId AND dbo.DiscussionBoardMember.DiscussionBoardId = @DiscussionBoardId)))
 
 		If @UserValidation IS NULL
-		Begin		
-			RAISERROR('INVALID_REQUEST_PERMISSONS',16,1)
+		Begin
+		    RAISERROR('INVALID_REQUEST_PERMISSONS',16,1)
 			RETURN
+		End 
+		Set @Status = 1
+
+	End Try
+	Begin Catch
+		Set @Status = 0
+	End Catch
+End
+Go
+
+
+
+Drop Proc spHasGroupMemberPermissions
+Go
+Create Proc spHasGroupMemberPermissions
+	@UserId nvarchar(128),
+	@DiscussionBoardId int,
+	@Status int OUTPUT
+
+As
+Begin
+	Begin Try
+		Set @Status = 0
+		Declare @UserValidation nvarchar(128);
+		Set @UserValidation = (
+			Select Id
+			From dbo.AspNetUsers
+			Where dbo.AspNetUsers.Id = @UserId 
+			AND (@UserId IN ( Select dbo.AdminData.UserId From AdminData)
+			OR @UserId IN (Select UserId From dbo.DiscussionBoardMember
+			Where dbo.DiscussionBoardMember.UserRole = 0 AND dbo.DiscussionBoardMember.UserId = @UserId AND dbo.DiscussionBoardMember.DiscussionBoardId = @DiscussionBoardId)))
+
+		If @UserValidation IS NULL
+		Begin
+		Set @UserValidation = (
+			Select Id
+			From dbo.AspNetUsers
+			Where dbo.AspNetUsers.Id = @UserId 
+			AND @UserId IN (Select UserId From dbo.DiscussionBoardMember
+			Where dbo.DiscussionBoardMember.UserRole = 1 AND dbo.DiscussionBoardMember.UserId = @UserId AND dbo.DiscussionBoardMember.DiscussionBoardId = @DiscussionBoardId))
+			
+			Set @Status = 2
+			RETURN
+		End 
+		Else
+		Begin
+		RAISERROR('INVALID_REQUEST_PERMISSONS',16,1)
+		RETURN
 		End
 
 		Set @Status = 1
